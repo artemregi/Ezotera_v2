@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="О компании Ezotera — наша миссия, команда астрологов и история создания платформы.">
+    <title>О нас — Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER / NAVIGATION
+         ============================================ -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo" aria-label="Ezotera — Главная">
+                <img src="assets/icons/logo.svg" alt="Ezotera" class="header__logo-icon" width="36" height="36">
+                <span class="header__logo-text">Ezo<span>tera</span></span>
+            </a>
+
+            <nav class="header__nav" aria-label="Основная навигация">
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">
+                        Знаки зодиака
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Овен</a>
+                        <a href="#" class="header__dropdown-link">Телец</a>
+                        <a href="#" class="header__dropdown-link">Близнецы</a>
+                        <a href="#" class="header__dropdown-link">Рак</a>
+                        <a href="#" class="header__dropdown-link">Лев</a>
+                        <a href="#" class="header__dropdown-link">Дева</a>
+                        <a href="#" class="header__dropdown-link">Весы</a>
+                        <a href="#" class="header__dropdown-link">Скорпион</a>
+                        <a href="#" class="header__dropdown-link">Стрелец</a>
+                        <a href="#" class="header__dropdown-link">Козерог</a>
+                        <a href="#" class="header__dropdown-link">Водолей</a>
+                        <a href="#" class="header__dropdown-link">Рыбы</a>
+                    </div>
+                </div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">Гороскопы</a>
+                </div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">Хиромантия</a>
+                </div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">
+                        Натальная карта
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Знаменитости</a>
+                        <a href="#" class="header__dropdown-link">По дате рождения</a>
+                        <a href="#" class="header__dropdown-link">Астрокартография</a>
+                    </div>
+                </div>
+                <div class="header__nav-item">
+                    <a href="about.html" class="header__nav-link header__nav-link--active">О нас</a>
+                </div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">
+                        Ещё
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Совместимость</a>
+                        <a href="#" class="header__dropdown-link">Лунный календарь</a>
+                        <a href="#" class="header__dropdown-link">Таро</a>
+                        <a href="#" class="header__dropdown-link">Числа ангелов</a>
+                        <a href="#" class="header__dropdown-link">Блог</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header__actions">
+                <a href="#" class="header__sign-in">Войти</a>
+                <a href="onboarding/step-1.html" class="button button--primary header__cta">Получить прогноз</a>
+            </div>
+
+            <button class="header__burger" id="burgerMenu" aria-label="Открыть меню" aria-expanded="false">
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+            </button>
+        </div>
+
+        <nav class="header__mobile-nav" id="mobileNav" aria-label="Мобильная навигация">
+            <div class="header__mobile-nav-item">
+                <a href="#" class="header__mobile-nav-link" data-dropdown="zodiac-mobile">Знаки зодиака
+                    <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                </a>
+                <div class="header__mobile-dropdown" id="zodiac-mobile">
+                    <a href="#" class="header__mobile-dropdown-link">Овен</a>
+                    <a href="#" class="header__mobile-dropdown-link">Телец</a>
+                    <a href="#" class="header__mobile-dropdown-link">Близнецы</a>
+                    <a href="#" class="header__mobile-dropdown-link">Рак</a>
+                    <a href="#" class="header__mobile-dropdown-link">Лев</a>
+                    <a href="#" class="header__mobile-dropdown-link">Дева</a>
+                    <a href="#" class="header__mobile-dropdown-link">Весы</a>
+                    <a href="#" class="header__mobile-dropdown-link">Скорпион</a>
+                    <a href="#" class="header__mobile-dropdown-link">Стрелец</a>
+                    <a href="#" class="header__mobile-dropdown-link">Козерог</a>
+                    <a href="#" class="header__mobile-dropdown-link">Водолей</a>
+                    <a href="#" class="header__mobile-dropdown-link">Рыбы</a>
+                </div>
+            </div>
+            <div class="header__mobile-nav-item">
+                <a href="#" class="header__mobile-nav-link">Гороскопы</a>
+            </div>
+            <div class="header__mobile-nav-item">
+                <a href="#" class="header__mobile-nav-link">Хиромантия</a>
+            </div>
+            <div class="header__mobile-nav-item">
+                <a href="about.html" class="header__mobile-nav-link">О нас</a>
+            </div>
+            <div class="header__mobile-actions">
+                <a href="#" class="button button--outline-white button--full-width">Войти</a>
+                <a href="onboarding/step-1.html" class="button button--primary button--full-width">Получить прогноз</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main>
+
+        <!-- ===== ABOUT HERO ===== -->
+        <section class="about-hero section--dark section">
+            <div class="container">
+                <div class="about-hero__content text-center">
+                    <h1 class="about-hero__title">О компании Ezotera</h1>
+                    <p class="about-hero__subtitle">
+                        Мы делаем астрологию, хиромантию, таро и другие духовные инструменты простыми, полезными и доступными для повседневной жизни.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== OUR STORY ===== -->
+        <section class="about-story section">
+            <div class="container">
+                <div class="about-story__inner">
+                    <div class="about-story__text fade-in">
+                        <h2 class="about-story__title">Наша история</h2>
+                        <p>
+                            Ezotera появилась в 2020 году как проект небольшой команды разработчиков, увлечённых астрологией. Мы заметили, что существующие астрологические приложения часто кажутся слишком расплывчатыми, случайными или механическими.
+                        </p>
+                        <p>
+                            Мы решили создать платформу, за которой стоят настоящие профессиональные астрологи. Нашей целью было объединить точные астрологические данные с глубоким человеческим пониманием.
+                        </p>
+                        <p>
+                            Ezotera была создана для того, чтобы помочь людям чувствовать себя более созвучными с собой и своим астрологическим ритмом жизни.
+                        </p>
+                    </div>
+                    <div class="about-story__image fade-in">
+                        <img src="assets/images/about-story.svg" alt="История Ezotera" width="480" height="360">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== STATS ===== -->
+        <section class="about-stats section--light section">
+            <div class="container">
+                <div class="about-stats__grid">
+                    <div class="about-stats__item fade-in">
+                        <span class="about-stats__number" data-count="20">20+</span>
+                        <span class="about-stats__label">Профессиональных астрологов</span>
+                    </div>
+                    <div class="about-stats__item fade-in">
+                        <span class="about-stats__number" data-count="2020">2020</span>
+                        <span class="about-stats__label">Год основания</span>
+                    </div>
+                    <div class="about-stats__item fade-in">
+                        <span class="about-stats__number" data-count="500000">500K+</span>
+                        <span class="about-stats__label">Пользователей по всему миру</span>
+                    </div>
+                    <div class="about-stats__item fade-in">
+                        <span class="about-stats__number" data-count="7">7</span>
+                        <span class="about-stats__label">Языков платформы</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== TEAM ===== -->
+        <section class="about-team section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Люди, стоящие за Ezotera</h2>
+                    <p class="section__subtitle">
+                        Наша команда следит за тем, чтобы каждый прогноз был понятным, надёжным и основанным на регулярно обновляемых астрологических данных.
+                    </p>
+                </div>
+
+                <div class="about-team__grid">
+                    <!-- Team Member 1 -->
+                    <div class="about-team__member fade-in">
+                        <div class="about-team__avatar">
+                            <img src="assets/images/team-1.svg" alt="Зания" width="160" height="160">
+                        </div>
+                        <h3 class="about-team__name">Зания</h3>
+                        <span class="about-team__role">Астролог и хиромант</span>
+                        <p class="about-team__bio">
+                            Более 10 лет опыта в астрологии и чтении по ладони. Специализируется на глубоком анализе личности.
+                        </p>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="about-team__member fade-in">
+                        <div class="about-team__avatar">
+                            <img src="assets/images/team-2.svg" alt="Астрид" width="160" height="160">
+                        </div>
+                        <h3 class="about-team__name">Астрид</h3>
+                        <span class="about-team__role">Специалист по натальным картам</span>
+                        <p class="about-team__bio">
+                            Эксперт по разбору натальных карт и персональным рекомендациям для жизненного пути.
+                        </p>
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="about-team__member fade-in">
+                        <div class="about-team__avatar">
+                            <img src="assets/images/team-3.svg" alt="Камал" width="160" height="160">
+                        </div>
+                        <h3 class="about-team__name">Камал</h3>
+                        <span class="about-team__role">Карьерная астрология</span>
+                        <p class="about-team__bio">
+                            Фокусируется на жизненном пути, нумерологии и карьерной астрологии для профессионального роста.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== PLATFORM FEATURES ===== -->
+        <section class="about-features section--dark section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Возможности платформы</h2>
+                </div>
+
+                <div class="about-features__grid">
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/birthchart.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Персональные натальные карты</h4>
+                        <p>Детальные отчёты на основе точного времени и места вашего рождения.</p>
+                    </div>
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/globe.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Астрокартография</h4>
+                        <p>Карты и рекомендации для выбора лучших мест для жизни и путешествий.</p>
+                    </div>
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/horoscope.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Гороскопы на каждый день</h4>
+                        <p>Ежедневные, еженедельные, ежемесячные и годовые прогнозы.</p>
+                    </div>
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/palm.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Хиромантия и Таро</h4>
+                        <p>Чтение по ладони и карты Таро для глубокого самопознания.</p>
+                    </div>
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/chat.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Живые консультации</h4>
+                        <p>Чат с профессиональными астрологами в реальном времени.</p>
+                    </div>
+                    <div class="about-features__item fade-in">
+                        <img src="assets/icons/compatibility.svg" alt="" width="48" height="48" aria-hidden="true">
+                        <h4>Анализ совместимости</h4>
+                        <p>Подробные отчёты о совместимости партнёров и друзей.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA BANNER ===== -->
+        <section class="cta-banner section--dark section">
+            <div class="container text-center">
+                <h2 class="cta-banner__title">Присоединяйтесь к Ezotera</h2>
+                <p class="cta-banner__subtitle">
+                    Начните свой путь к самопознанию вместе с нашей командой профессиональных астрологов.
+                </p>
+                <div class="cta-banner__actions">
+                    <a href="onboarding/step-1.html" class="button button--primary button--large">Получить мой прогноз</a>
+                    <a href="contact.html" class="button button--outline-white button--large">Связаться с нами</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">
+                        <img src="assets/icons/logo.svg" alt="Ezotera" class="footer__logo-icon" width="32" height="32">
+                        <span class="footer__logo-text">Ezotera</span>
+                    </a>
+                    <p class="footer__description">Персональные астрологические консультации для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">14 Panagioti Tsangari, 1-й этаж,<br>Офис 1E, 4047, Лимассол, Кипр</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="#" class="footer__link">Центр помощи</a>
+                        <a href="#" class="footer__link">FAQ</a>
+                        <a href="#" class="footer__link">Мой аккаунт</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Контент</h4>
+                    <nav class="footer__links">
+                        <a href="#" class="footer__link">Блог</a>
+                        <a href="#" class="footer__link">Отзывы</a>
+                        <a href="#" class="footer__link">Дисклеймер</a>
+                        <a href="#" class="footer__link">Запрет продажи данных</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="#" class="footer__link">Политика конфиденциальности</a>
+                        <a href="#" class="footer__link">Условия использования</a>
+                        <a href="#" class="footer__link">Условия оплаты</a>
+                        <a href="#" class="footer__link">Политика возврата</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 Ezotera. Все права защищены.</p>
+                <div class="footer__legal">
+                    <a href="#" class="footer__legal-link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__legal-link">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

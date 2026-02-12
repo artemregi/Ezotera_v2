@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Начните свой астрологический путь с Ezotera — шаг 1: расскажите о себе.">
+    <title>Шаг 1 — Регистрация | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-body">
+
+    <!-- ===== ONBOARDING LAYOUT ===== -->
+    <div class="onboarding">
+
+        <!-- Sidebar / Progress -->
+        <aside class="onboarding__sidebar">
+            <a href="../index.html" class="onboarding__logo">
+                <img src="../assets/icons/logo.svg" alt="Ezotera" width="32" height="32">
+                <span>Ezotera</span>
+            </a>
+
+            <nav class="onboarding__progress" aria-label="Шаги регистрации">
+                <div class="onboarding__step onboarding__step--active">
+                    <div class="onboarding__step-indicator">1</div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 1</span>
+                        <span class="onboarding__step-name">О вас</span>
+                    </div>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">2</div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 2</span>
+                        <span class="onboarding__step-name">Астро-тест</span>
+                    </div>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">3</div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 3</span>
+                        <span class="onboarding__step-name">Ваш профиль</span>
+                    </div>
+                </div>
+            </nav>
+
+            <p class="onboarding__sidebar-note">
+                Ваши данные используются исключительно для персонализации астрологических прогнозов.
+            </p>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="onboarding__main">
+            <div class="onboarding__content">
+                <h1 class="onboarding__title">Расскажите о себе</h1>
+                <p class="onboarding__description">
+                    Чтобы составить точный астрологический профиль, нам нужны ваши базовые данные.
+                </p>
+
+                <form id="onboardingStep1" class="onboarding__form" novalidate>
+
+                    <!-- Name -->
+                    <div class="onboarding__field">
+                        <label for="userName" class="onboarding__label">
+                            Ваше имя <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="userName"
+                            name="user_name"
+                            class="onboarding__input"
+                            placeholder="Введите ваше имя"
+                            required
+                            autocomplete="given-name"
+                        >
+                        <span class="onboarding__error" id="userNameError"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="onboarding__field">
+                        <label for="userEmail" class="onboarding__label">
+                            Электронная почта <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="email"
+                            id="userEmail"
+                            name="user_email"
+                            class="onboarding__input"
+                            placeholder="example@mail.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <span class="onboarding__error" id="userEmailError"></span>
+                    </div>
+
+                    <!-- Birth Date -->
+                    <div class="onboarding__field">
+                        <label for="userBirthDate" class="onboarding__label">
+                            Дата рождения <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="date"
+                            id="userBirthDate"
+                            name="user_birth_date"
+                            class="onboarding__input"
+                            required
+                        >
+                        <span class="onboarding__error" id="userBirthDateError"></span>
+                    </div>
+
+                    <!-- Birth Time -->
+                    <div class="onboarding__field">
+                        <label for="userBirthTime" class="onboarding__label">
+                            Время рождения <span class="onboarding__optional">(если знаете)</span>
+                        </label>
+                        <input
+                            type="time"
+                            id="userBirthTime"
+                            name="user_birth_time"
+                            class="onboarding__input"
+                        >
+                    </div>
+
+                    <!-- Birth Place -->
+                    <div class="onboarding__field">
+                        <label for="userBirthPlace" class="onboarding__label">
+                            Место рождения <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="userBirthPlace"
+                            name="user_birth_place"
+                            class="onboarding__input"
+                            placeholder="Город, Страна"
+                            required
+                        >
+                        <span class="onboarding__error" id="userBirthPlaceError"></span>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="onboarding__field">
+                        <label class="onboarding__label">Пол</label>
+                        <div class="onboarding__radio-group">
+                            <label class="onboarding__radio">
+                                <input type="radio" name="user_gender" value="female">
+                                <span class="onboarding__radio-custom"></span>
+                                Женский
+                            </label>
+                            <label class="onboarding__radio">
+                                <input type="radio" name="user_gender" value="male">
+                                <span class="onboarding__radio-custom"></span>
+                                Мужской
+                            </label>
+                            <label class="onboarding__radio">
+                                <input type="radio" name="user_gender" value="other">
+                                <span class="onboarding__radio-custom"></span>
+                                Другой
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="onboarding__actions">
+                        <a href="../index.html" class="button button--secondary">Назад</a>
+                        <button type="submit" class="button button--primary">
+                            Далее
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>

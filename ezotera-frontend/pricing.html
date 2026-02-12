@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Тарифы Ezotera — выберите подходящий план для персональных астрологических прогнозов и консультаций.">
+    <title>Тарифы — Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/pricing.css">
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo" aria-label="Ezotera — Главная">
+                <img src="assets/icons/logo.svg" alt="Ezotera" class="header__logo-icon" width="36" height="36">
+                <span class="header__logo-text">Ezo<span>tera</span></span>
+            </a>
+
+            <nav class="header__nav" aria-label="Основная навигация">
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">Знаки зодиака
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Овен</a>
+                        <a href="#" class="header__dropdown-link">Телец</a>
+                        <a href="#" class="header__dropdown-link">Близнецы</a>
+                        <a href="#" class="header__dropdown-link">Рак</a>
+                        <a href="#" class="header__dropdown-link">Лев</a>
+                        <a href="#" class="header__dropdown-link">Дева</a>
+                        <a href="#" class="header__dropdown-link">Весы</a>
+                        <a href="#" class="header__dropdown-link">Скорпион</a>
+                        <a href="#" class="header__dropdown-link">Стрелец</a>
+                        <a href="#" class="header__dropdown-link">Козерог</a>
+                        <a href="#" class="header__dropdown-link">Водолей</a>
+                        <a href="#" class="header__dropdown-link">Рыбы</a>
+                    </div>
+                </div>
+                <div class="header__nav-item"><a href="#" class="header__nav-link">Гороскопы</a></div>
+                <div class="header__nav-item"><a href="#" class="header__nav-link">Хиромантия</a></div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">Натальная карта
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Знаменитости</a>
+                        <a href="#" class="header__dropdown-link">По дате рождения</a>
+                        <a href="#" class="header__dropdown-link">Астрокартография</a>
+                    </div>
+                </div>
+                <div class="header__nav-item"><a href="about.html" class="header__nav-link">О нас</a></div>
+                <div class="header__nav-item">
+                    <a href="#" class="header__nav-link">Ещё
+                        <svg class="header__nav-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+                    </a>
+                    <div class="header__dropdown">
+                        <a href="#" class="header__dropdown-link">Совместимость</a>
+                        <a href="#" class="header__dropdown-link">Лунный календарь</a>
+                        <a href="#" class="header__dropdown-link">Таро</a>
+                        <a href="#" class="header__dropdown-link">Числа ангелов</a>
+                        <a href="#" class="header__dropdown-link">Блог</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header__actions">
+                <a href="#" class="header__sign-in">Войти</a>
+                <a href="onboarding/step-1.html" class="button button--primary header__cta">Получить прогноз</a>
+            </div>
+
+            <button class="header__burger" id="burgerMenu" aria-label="Открыть меню" aria-expanded="false">
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+            </button>
+        </div>
+
+        <nav class="header__mobile-nav" id="mobileNav" aria-label="Мобильная навигация">
+            <div class="header__mobile-nav-item"><a href="index.html" class="header__mobile-nav-link">Главная</a></div>
+            <div class="header__mobile-nav-item"><a href="about.html" class="header__mobile-nav-link">О нас</a></div>
+            <div class="header__mobile-nav-item"><a href="pricing.html" class="header__mobile-nav-link">Тарифы</a></div>
+            <div class="header__mobile-nav-item"><a href="contact.html" class="header__mobile-nav-link">Контакты</a></div>
+            <div class="header__mobile-actions">
+                <a href="#" class="button button--outline-white button--full-width">Войти</a>
+                <a href="onboarding/step-1.html" class="button button--primary button--full-width">Получить прогноз</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main>
+
+        <!-- ===== PRICING HERO ===== -->
+        <section class="pricing-hero section--dark section">
+            <div class="container text-center">
+                <h1 class="pricing-hero__title">Выберите свой тариф</h1>
+                <p class="pricing-hero__subtitle">
+                    Получите полный доступ к персональным астрологическим прогнозам, консультациям и инструментам самопознания.
+                </p>
+
+                <!-- Billing Toggle -->
+                <div class="pricing-toggle" id="pricingToggle">
+                    <span class="pricing-toggle__label pricing-toggle__label--active" data-period="monthly">Ежемесячно</span>
+                    <button class="pricing-toggle__switch" aria-label="Переключить период оплаты" role="switch" aria-checked="false">
+                        <span class="pricing-toggle__knob"></span>
+                    </button>
+                    <span class="pricing-toggle__label" data-period="yearly">
+                        Ежегодно
+                        <span class="pricing-toggle__badge">-30%</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== PRICING CARDS ===== -->
+        <section class="pricing-cards section">
+            <div class="container">
+                <div class="pricing-cards__grid">
+
+                    <!-- Basic Plan -->
+                    <div class="pricing-card fade-in" data-plan="basic">
+                        <div class="pricing-card__header">
+                            <h3 class="pricing-card__name">Базовый</h3>
+                            <p class="pricing-card__description">Идеально для знакомства с астрологией</p>
+                        </div>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__amount" data-monthly="490" data-yearly="343">490</span>
+                            <span class="pricing-card__currency">&#8381;</span>
+                            <span class="pricing-card__period">/ мес.</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Ежедневные гороскопы
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Базовая натальная карта
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Совместимость знаков
+                            </li>
+                            <li class="pricing-card__feature pricing-card__feature--disabled">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-light-gray)"/><path d="M6 6l6 6M12 6l-6 6" stroke="var(--color-gray)" stroke-width="1.5"/></svg>
+                                Чат с астрологами
+                            </li>
+                            <li class="pricing-card__feature pricing-card__feature--disabled">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-light-gray)"/><path d="M6 6l6 6M12 6l-6 6" stroke="var(--color-gray)" stroke-width="1.5"/></svg>
+                                Хиромантия и Таро
+                            </li>
+                        </ul>
+                        <a href="onboarding/step-1.html" class="button button--secondary button--full-width pricing-card__cta">
+                            Начать бесплатно
+                        </a>
+                    </div>
+
+                    <!-- Premium Plan (Featured) -->
+                    <div class="pricing-card pricing-card--featured fade-in" data-plan="premium">
+                        <div class="pricing-card__badge">Популярный выбор</div>
+                        <div class="pricing-card__header">
+                            <h3 class="pricing-card__name">Премиум</h3>
+                            <p class="pricing-card__description">Полный доступ ко всем функциям</p>
+                        </div>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__amount" data-monthly="1290" data-yearly="903">1290</span>
+                            <span class="pricing-card__currency">&#8381;</span>
+                            <span class="pricing-card__period">/ мес.</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Все ежедневные прогнозы
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Полная натальная карта
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Хиромантия и Таро
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Лунный и датинг-календарь
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Чат с астрологами
+                            </li>
+                        </ul>
+                        <a href="onboarding/step-1.html" class="button button--primary button--full-width pricing-card__cta">
+                            Выбрать Премиум
+                        </a>
+                    </div>
+
+                    <!-- VIP Plan -->
+                    <div class="pricing-card fade-in" data-plan="vip">
+                        <div class="pricing-card__header">
+                            <h3 class="pricing-card__name">VIP</h3>
+                            <p class="pricing-card__description">Персональный подход и приоритет</p>
+                        </div>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__amount" data-monthly="2990" data-yearly="2093">2990</span>
+                            <span class="pricing-card__currency">&#8381;</span>
+                            <span class="pricing-card__period">/ мес.</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Всё из тарифа Премиум
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Приоритетный чат с астрологами
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Персональные видео-консультации
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Эксклюзивные материалы
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--color-accent)" opacity="0.15"/><path d="M5 9l3 3 5-5" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+                                Астрокартография
+                            </li>
+                        </ul>
+                        <a href="onboarding/step-1.html" class="button button--secondary button--full-width pricing-card__cta">
+                            Выбрать VIP
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== PAYMENT METHODS ===== -->
+        <section class="payment-methods section--light section">
+            <div class="container text-center">
+                <h2 class="section__title">Способы оплаты</h2>
+                <p class="section__subtitle">Мы принимаем все популярные способы оплаты для вашего удобства.</p>
+                <div class="payment-methods__icons">
+                    <div class="payment-methods__icon" aria-label="Visa">
+                        <img src="assets/icons/visa.svg" alt="Visa" width="60" height="40">
+                    </div>
+                    <div class="payment-methods__icon" aria-label="Mastercard">
+                        <img src="assets/icons/mastercard.svg" alt="Mastercard" width="60" height="40">
+                    </div>
+                    <div class="payment-methods__icon" aria-label="PayPal">
+                        <img src="assets/icons/paypal.svg" alt="PayPal" width="60" height="40">
+                    </div>
+                    <div class="payment-methods__icon" aria-label="Apple Pay">
+                        <img src="assets/icons/applepay.svg" alt="Apple Pay" width="60" height="40">
+                    </div>
+                    <div class="payment-methods__icon" aria-label="Google Pay">
+                        <img src="assets/icons/googlepay.svg" alt="Google Pay" width="60" height="40">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== GUARANTEE ===== -->
+        <section class="guarantee section">
+            <div class="container">
+                <div class="guarantee__inner text-center">
+                    <img src="assets/icons/shield.svg" alt="" width="64" height="64" aria-hidden="true">
+                    <h2 class="guarantee__title">Гарантия возврата средств</h2>
+                    <p class="guarantee__text">
+                        Мы уверены в качестве наших услуг. Если вы не удовлетворены — мы вернём вам деньги в соответствии с нашей политикой возврата. Ваши платежи защищены шифрованием и токенизацией.
+                    </p>
+                    <a href="contact.html" class="button button--secondary">Узнать подробнее</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA BANNER ===== -->
+        <section class="cta-banner section--dark section">
+            <div class="container text-center">
+                <h2 class="cta-banner__title">Начните свой путь к звёздам</h2>
+                <p class="cta-banner__subtitle">Присоединяйтесь к тысячам пользователей, которые уже доверяют Ezotera.</p>
+                <div class="cta-banner__actions">
+                    <a href="onboarding/step-1.html" class="button button--primary button--large">Получить мой прогноз</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">
+                        <img src="assets/icons/logo.svg" alt="Ezotera" class="footer__logo-icon" width="32" height="32">
+                        <span class="footer__logo-text">Ezotera</span>
+                    </a>
+                    <p class="footer__description">Персональные астрологические консультации для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">14 Panagioti Tsangari, 1-й этаж,<br>Офис 1E, 4047, Лимассол, Кипр</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="#" class="footer__link">Центр помощи</a>
+                        <a href="#" class="footer__link">FAQ</a>
+                        <a href="#" class="footer__link">Мой аккаунт</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Контент</h4>
+                    <nav class="footer__links">
+                        <a href="#" class="footer__link">Блог</a>
+                        <a href="#" class="footer__link">Отзывы</a>
+                        <a href="#" class="footer__link">Дисклеймер</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="#" class="footer__link">Политика конфиденциальности</a>
+                        <a href="#" class="footer__link">Условия использования</a>
+                        <a href="#" class="footer__link">Условия оплаты</a>
+                        <a href="#" class="footer__link">Политика возврата</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 Ezotera. Все права защищены.</p>
+                <div class="footer__legal">
+                    <a href="#" class="footer__legal-link">Политика конфиденциальности</a>
+                    <a href="#" class="footer__legal-link">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

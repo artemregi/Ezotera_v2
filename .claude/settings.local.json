@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:astroline.com)",
+      "WebFetch(domain:astroline.today)"
+    ]
+  }
+}

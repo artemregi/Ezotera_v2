@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Шаг 2 — пройдите астро-тест для персонального прогноза.">
+    <title>Шаг 2 — Астро-тест | Ezotera</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-body">
+
+    <div class="onboarding">
+
+        <!-- Sidebar -->
+        <aside class="onboarding__sidebar">
+            <a href="../index.html" class="onboarding__logo">
+                <img src="../assets/icons/logo.svg" alt="Ezotera" width="32" height="32">
+                <span>Ezotera</span>
+            </a>
+
+            <nav class="onboarding__progress" aria-label="Шаги регистрации">
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">
+                        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8l3 3 5-5" stroke="white" stroke-width="2" fill="none"/></svg>
+                    </div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 1</span>
+                        <span class="onboarding__step-name">О вас</span>
+                    </div>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--active">
+                    <div class="onboarding__step-indicator">2</div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 2</span>
+                        <span class="onboarding__step-name">Астро-тест</span>
+                    </div>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">3</div>
+                    <div class="onboarding__step-info">
+                        <span class="onboarding__step-label">Шаг 3</span>
+                        <span class="onboarding__step-name">Ваш профиль</span>
+                    </div>
+                </div>
+            </nav>
+
+            <p class="onboarding__sidebar-note">
+                Ваши ответы помогут нам создать максимально точные и полезные прогнозы.
+            </p>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="onboarding__main">
+            <div class="onboarding__content">
+                <h1 class="onboarding__title">Астрологический тест</h1>
+                <p class="onboarding__description">
+                    Ответьте на несколько вопросов, чтобы мы могли лучше понять ваши потребности и цели.
+                </p>
+
+                <form id="onboardingStep2" class="onboarding__form" novalidate>
+
+                    <!-- Question 1: Relationship Status -->
+                    <div class="onboarding__field">
+                        <label class="onboarding__label">
+                            Ваш текущий статус отношений <span class="onboarding__required">*</span>
+                        </label>
+                        <div class="onboarding__option-grid">
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="single" required>
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💫</span>
+                                    <span class="onboarding__option-text">Свободен(на)</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="relationship">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💕</span>
+                                    <span class="onboarding__option-text">В отношениях</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="married">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💍</span>
+                                    <span class="onboarding__option-text">В браке</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="complicated">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">🌙</span>
+                                    <span class="onboarding__option-text">Всё сложно</span>
+                                </span>
+                            </label>
+                        </div>
+                        <span class="onboarding__error" id="relationshipStatusError"></span>
+                    </div>
+
+                    <!-- Question 2: Life Goals -->
+                    <div class="onboarding__field">
+                        <label class="onboarding__label">
+                            Что вас интересует больше всего? <span class="onboarding__required">*</span>
+                        </label>
+                        <div class="onboarding__option-grid onboarding__option-grid--3">
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="love">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">❤️</span>
+                                    <span class="onboarding__option-text">Любовь</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="career">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">🚀</span>
+                                    <span class="onboarding__option-text">Карьера</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="health">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">🌿</span>
+                                    <span class="onboarding__option-text">Здоровье</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="finances">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💰</span>
+                                    <span class="onboarding__option-text">Финансы</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="spiritual">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">🧘</span>
+                                    <span class="onboarding__option-text">Духовный рост</span>
+                                </span>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="checkbox" name="life_goals" value="family">
+                                <span class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">👨‍👩‍👧</span>
+                                    <span class="onboarding__option-text">Семья</span>
+                                </span>
+                            </label>
+                        </div>
+                        <span class="onboarding__error" id="lifeGoalsError"></span>
+                    </div>
+
+                    <!-- Question 3: Experience with Astrology -->
+                    <div class="onboarding__field">
+                        <label for="astrologyExperience" class="onboarding__label">
+                            Ваш опыт в астрологии
+                        </label>
+                        <select id="astrologyExperience" name="astrology_experience" class="onboarding__input onboarding__select">
+                            <option value="" disabled selected>Выберите вариант</option>
+                            <option value="beginner">Новичок — только начинаю</option>
+                            <option value="intermediate">Средний — знаю основы</option>
+                            <option value="advanced">Продвинутый — глубоко изучаю</option>
+                        </select>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="onboarding__actions">
+                        <a href="step-1.html" class="button button--secondary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M10 3l-5 5 5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            Назад
+                        </a>
+                        <button type="submit" class="button button--primary">
+                            Далее
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>
