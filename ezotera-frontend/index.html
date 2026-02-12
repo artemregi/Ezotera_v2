@@ -28,7 +28,7 @@
 
             <!-- Logo -->
             <a href="index.html" class="header__logo" aria-label="Ezotera — Главная">
-                <img src="assets/icons/logo.svg" alt="Ezotera" class="header__logo-icon" width="36" height="36">
+                <img src="assets/icons/logo.jpg" alt="Ezotera" class="header__logo-icon" width="36" height="36">
                 <span class="header__logo-text">Ezo<span>tera</span></span>
             </a>
 
@@ -884,4 +884,23 @@
     <script src="js/sliders.js"></script>
     <script src="js/forms.js"></script>
 </body>
+
+<script type="text/javascript">
+    (function (l) {
+      if (l.search[1] === "/") {
+        var decoded = l.search
+          .slice(1)
+          .split("&")
+          .map(function (s) {
+            return s.replace(/~and~/g, "&");
+          })
+          .join("?");
+        window.history.replaceState(
+          null,
+          null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    })(window.location);
+  </script>
 </html>
