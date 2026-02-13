@@ -1,0 +1,105 @@
+/* ============================================
+   ZODIAC PLACEHOLDER STYLES — Ezotera Frontend
+   Temporary placeholder for zodiac sign pages
+   ============================================ */
+
+
+/* ===== ZODIAC PLACEHOLDER CONTAINER ===== */
+.zodiac-placeholder {
+    min-height: calc(100vh - var(--header-height));
+    padding-top: calc(var(--header-height) + var(--spacing-3xl));
+    padding-bottom: var(--spacing-3xl);
+    background: var(--gradient-hero);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zodiac-placeholder__content {
+    max-width: 600px;
+    width: 100%;
+    padding: 0 var(--container-padding);
+    text-align: center;
+}
+
+.zodiac-placeholder__icon {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-xl);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.zodiac-placeholder__title {
+    font-size: var(--font-size-3xl);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+}
+
+.zodiac-placeholder__subtitle {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-sm);
+}
+
+.zodiac-placeholder__description {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.zodiac-placeholder__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.zodiac-placeholder__info {
+    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-xl);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.zodiac-placeholder__info-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+}
+
+.zodiac-placeholder__info-text {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: var(--line-height-relaxed);
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .zodiac-placeholder {
+        padding-top: calc(var(--header-height) + var(--spacing-2xl));
+        padding-bottom: var(--spacing-2xl);
+    }
+
+    .zodiac-placeholder__icon {
+        font-size: 4rem;
+    }
+
+    .zodiac-placeholder__title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .zodiac-placeholder__subtitle {
+        font-size: var(--font-size-md);
+    }
+
+    .zodiac-placeholder__actions {
+        flex-direction: column;
+    }
+
+    .zodiac-placeholder__actions .button {
+        width: 100%;
+    }
+}

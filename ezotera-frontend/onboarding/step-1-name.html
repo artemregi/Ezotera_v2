@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Начните свой астрологический путь с Ezotera — шаг 1: ваше имя.">
+    <title>Шаг 1 — Ваше имя | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-body">
+
+    <!-- ===== ONBOARDING LAYOUT ===== -->
+    <div class="onboarding">
+
+        <!-- Sidebar / Progress -->
+        <aside class="onboarding__sidebar">
+            <a href="../index.html" class="onboarding__logo">
+                <img src="../assets/icons/logo.jpg" alt="Ezotera" width="32" height="32">
+                <span>Ezotera</span>
+            </a>
+
+            <div class="onboarding__progress-bar">
+                <div class="onboarding__progress-fill" style="width: 11%"></div>
+            </div>
+            <p class="onboarding__progress-text">Шаг 1 из 9</p>
+
+            <nav class="onboarding__steps-list" aria-label="Шаги регистрации">
+                <div class="onboarding__step onboarding__step--active">
+                    <div class="onboarding__step-indicator">1</div>
+                    <span class="onboarding__step-name">Ваше имя</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">2</div>
+                    <span class="onboarding__step-name">Пол</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">3</div>
+                    <span class="onboarding__step-name">Дата рождения</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">4</div>
+                    <span class="onboarding__step-name">Время рождения</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">5</div>
+                    <span class="onboarding__step-name">Место рождения</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">6</div>
+                    <span class="onboarding__step-name">Статус</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">7</div>
+                    <span class="onboarding__step-name">Интересы</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">8</div>
+                    <span class="onboarding__step-name">Email</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">9</div>
+                    <span class="onboarding__step-name">Результат</span>
+                </div>
+            </nav>
+
+            <p class="onboarding__sidebar-note">
+                Ваши данные используются исключительно для персонализации астрологических прогнозов.
+            </p>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="onboarding__main">
+            <div class="onboarding__content">
+
+                <!-- Mobile Progress -->
+                <div class="onboarding__mobile-progress">
+                    <div class="onboarding__mobile-progress-bar">
+                        <div class="onboarding__mobile-progress-fill" style="width: 11%"></div>
+                    </div>
+                    <p class="onboarding__mobile-progress-text">Шаг 1 из 9</p>
+                </div>
+
+                <h1 class="onboarding__title">Как вас зовут?</h1>
+                <p class="onboarding__description">
+                    Имя — важная часть вашей астрологической карты. Оно помогает нам персонализировать ваш опыт.
+                </p>
+
+                <form id="onboardingStep" class="onboarding__form" novalidate>
+                    <!-- Name -->
+                    <div class="onboarding__field">
+                        <label for="userName" class="onboarding__label">
+                            Ваше имя <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="userName"
+                            name="user_name"
+                            class="onboarding__input"
+                            placeholder="Введите ваше имя"
+                            required
+                            autocomplete="given-name"
+                            autofocus
+                        >
+                        <span class="onboarding__error" id="userNameError"></span>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="onboarding__actions">
+                        <a href="../index.html" class="button button--secondary">На главную</a>
+                        <button type="submit" class="button button--primary">
+                            Далее
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>

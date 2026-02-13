@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Шаг 8: укажите email для получения персональных прогнозов.">
+    <title>Шаг 8 — Email | Ezotera</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-body">
+
+    <div class="onboarding">
+
+        <aside class="onboarding__sidebar">
+            <a href="../index.html" class="onboarding__logo">
+                <img src="../assets/icons/logo.jpg" alt="Ezotera" width="32" height="32">
+                <span>Ezotera</span>
+            </a>
+
+            <div class="onboarding__progress-bar">
+                <div class="onboarding__progress-fill" style="width: 89%"></div>
+            </div>
+            <p class="onboarding__progress-text">Шаг 8 из 9</p>
+
+            <nav class="onboarding__steps-list" aria-label="Шаги регистрации">
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Ваше имя</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Пол</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Дата рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Время рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Место рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Статус</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Интересы</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--active">
+                    <div class="onboarding__step-indicator">8</div>
+                    <span class="onboarding__step-name">Email</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">9</div>
+                    <span class="onboarding__step-name">Результат</span>
+                </div>
+            </nav>
+
+            <p class="onboarding__sidebar-note">
+                Ваши данные используются исключительно для персонализации астрологических прогнозов.
+            </p>
+        </aside>
+
+        <main class="onboarding__main">
+            <div class="onboarding__content">
+
+                <div class="onboarding__mobile-progress">
+                    <div class="onboarding__mobile-progress-bar">
+                        <div class="onboarding__mobile-progress-fill" style="width: 89%"></div>
+                    </div>
+                    <p class="onboarding__mobile-progress-text">Шаг 8 из 9</p>
+                </div>
+
+                <h1 class="onboarding__title">Куда отправить ваш прогноз?</h1>
+                <p class="onboarding__description">
+                    Укажите email, чтобы получить персональный астрологический прогноз и еженедельные обновления.
+                </p>
+
+                <form id="onboardingStep" class="onboarding__form" novalidate>
+                    <div class="onboarding__field">
+                        <label for="userEmail" class="onboarding__label">
+                            Электронная почта <span class="onboarding__required">*</span>
+                        </label>
+                        <input
+                            type="email"
+                            id="userEmail"
+                            name="user_email"
+                            class="onboarding__input"
+                            placeholder="example@mail.com"
+                            required
+                            autocomplete="email"
+                            autofocus
+                        >
+                        <span class="onboarding__error" id="userEmailError"></span>
+                        <p class="onboarding__hint">Мы не рассылаем спам. Отписаться можно в любой момент.</p>
+                    </div>
+
+                    <div class="onboarding__actions">
+                        <a href="step-7-focus-area.html" class="button button--secondary">Назад</a>
+                        <button type="submit" class="button button--primary">
+                            Далее
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Войдите в свой аккаунт Ezotera для доступа к персональным гороскопам и астрологическим прогнозам.">
+    <title>Вход в аккаунт | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-body">
+
+    <!-- ===== AUTH CONTAINER ===== -->
+    <div class="auth">
+
+        <!-- Back to homepage -->
+        <a href="../index.html" class="auth__back">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            На главную
+        </a>
+
+        <!-- Logo -->
+        <a href="../index.html" class="auth__logo-link">
+            <img src="../assets/icons/logo.jpg" alt="Ezotera" class="auth__logo-icon">
+            <span class="auth__logo-text">Ezotera</span>
+        </a>
+
+        <!-- Card -->
+        <div class="auth__card">
+
+            <!-- Header -->
+            <div class="auth__header">
+                <h1 class="auth__title">Вход в аккаунт</h1>
+                <p class="auth__subtitle">
+                    Войдите, чтобы получить доступ к вашим персональным астрологическим прогнозам
+                </p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth__form" novalidate>
+
+                <!-- Email -->
+                <div class="auth__field">
+                    <label for="loginEmail" class="auth__label">
+                        Email <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        name="email"
+                        class="auth__input"
+                        placeholder="your@email.com"
+                        required
+                        autocomplete="email"
+                        autofocus
+                    >
+                    <span class="auth__error" id="loginEmailError"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="auth__field">
+                    <label for="loginPassword" class="auth__label">
+                        Пароль <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        name="password"
+                        class="auth__input"
+                        placeholder="Введите пароль"
+                        required
+                        autocomplete="current-password"
+                    >
+                    <span class="auth__error" id="loginPasswordError"></span>
+                </div>
+
+                <!-- Remember Me + Forgot Password -->
+                <div class="auth__options">
+                    <label class="auth__checkbox">
+                        <input type="checkbox" id="rememberMe" name="remember_me">
+                        <span class="auth__checkbox-custom"></span>
+                        <span class="auth__checkbox-text">Запомнить меня</span>
+                    </label>
+                    <a href="#" class="auth__forgot-link">Забыли пароль?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="button button--primary auth__submit">
+                    Войти
+                </button>
+
+            </form>
+
+            <!-- Divider -->
+            <div class="auth__divider">
+                <div class="auth__divider-line"></div>
+                <span class="auth__divider-text">или</span>
+                <div class="auth__divider-line"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="auth__footer">
+                <p class="auth__footer-text">
+                    Ещё нет аккаунта?
+                    <a href="register.html" class="auth__footer-link">Зарегистрироваться</a>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

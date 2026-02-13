@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Шаг 6: ваш статус отношений для персонализации прогнозов.">
+    <title>Шаг 6 — Статус отношений | Ezotera</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-body">
+
+    <div class="onboarding">
+
+        <aside class="onboarding__sidebar">
+            <a href="../index.html" class="onboarding__logo">
+                <img src="../assets/icons/logo.jpg" alt="Ezotera" width="32" height="32">
+                <span>Ezotera</span>
+            </a>
+
+            <div class="onboarding__progress-bar">
+                <div class="onboarding__progress-fill" style="width: 67%"></div>
+            </div>
+            <p class="onboarding__progress-text">Шаг 6 из 9</p>
+
+            <nav class="onboarding__steps-list" aria-label="Шаги регистрации">
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Ваше имя</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Пол</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Дата рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Время рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--completed">
+                    <div class="onboarding__step-indicator">✓</div>
+                    <span class="onboarding__step-name">Место рождения</span>
+                </div>
+                <div class="onboarding__step-connector onboarding__step-connector--active"></div>
+                <div class="onboarding__step onboarding__step--active">
+                    <div class="onboarding__step-indicator">6</div>
+                    <span class="onboarding__step-name">Статус</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">7</div>
+                    <span class="onboarding__step-name">Интересы</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">8</div>
+                    <span class="onboarding__step-name">Email</span>
+                </div>
+                <div class="onboarding__step-connector"></div>
+                <div class="onboarding__step">
+                    <div class="onboarding__step-indicator">9</div>
+                    <span class="onboarding__step-name">Результат</span>
+                </div>
+            </nav>
+
+            <p class="onboarding__sidebar-note">
+                Ваши данные используются исключительно для персонализации астрологических прогнозов.
+            </p>
+        </aside>
+
+        <main class="onboarding__main">
+            <div class="onboarding__content">
+
+                <div class="onboarding__mobile-progress">
+                    <div class="onboarding__mobile-progress-bar">
+                        <div class="onboarding__mobile-progress-fill" style="width: 67%"></div>
+                    </div>
+                    <p class="onboarding__mobile-progress-text">Шаг 6 из 9</p>
+                </div>
+
+                <h1 class="onboarding__title">Какой у вас статус отношений?</h1>
+                <p class="onboarding__description">
+                    Эта информация поможет нам подобрать наиболее релевантные прогнозы в сфере любви и отношений.
+                </p>
+
+                <form id="onboardingStep" class="onboarding__form" novalidate>
+                    <div class="onboarding__field">
+                        <div class="onboarding__option-grid">
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="single">
+                                <div class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💫</span>
+                                    <span class="onboarding__option-text">Не в отношениях</span>
+                                </div>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="relationship">
+                                <div class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💑</span>
+                                    <span class="onboarding__option-text">В отношениях</span>
+                                </div>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="married">
+                                <div class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">💍</span>
+                                    <span class="onboarding__option-text">В браке</span>
+                                </div>
+                            </label>
+                            <label class="onboarding__option-card">
+                                <input type="radio" name="relationship_status" value="complicated">
+                                <div class="onboarding__option-content">
+                                    <span class="onboarding__option-emoji">🤔</span>
+                                    <span class="onboarding__option-text">Всё сложно</span>
+                                </div>
+                            </label>
+                        </div>
+                        <span class="onboarding__error" id="relationshipStatusError"></span>
+                    </div>
+
+                    <div class="onboarding__actions">
+                        <a href="step-5-birth-place.html" class="button button--secondary">Назад</a>
+                        <button type="submit" class="button button--primary">
+                            Далее
+                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>

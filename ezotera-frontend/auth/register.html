@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Создайте аккаунт Ezotera для доступа к персональным гороскопам и астрологическим прогнозам.">
+    <title>Регистрация | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-body">
+
+    <!-- ===== AUTH CONTAINER ===== -->
+    <div class="auth">
+
+        <!-- Back to homepage -->
+        <a href="../index.html" class="auth__back">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            На главную
+        </a>
+
+        <!-- Logo -->
+        <a href="../index.html" class="auth__logo-link">
+            <img src="../assets/icons/logo.jpg" alt="Ezotera" class="auth__logo-icon">
+            <span class="auth__logo-text">Ezotera</span>
+        </a>
+
+        <!-- Card -->
+        <div class="auth__card">
+
+            <!-- Header -->
+            <div class="auth__header">
+                <h1 class="auth__title">Создать аккаунт</h1>
+                <p class="auth__subtitle">
+                    Зарегистрируйтесь, чтобы получить доступ к персональным астрологическим прогнозам
+                </p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registerForm" class="auth__form" novalidate>
+
+                <!-- Name -->
+                <div class="auth__field">
+                    <label for="registerName" class="auth__label">
+                        Ваше имя <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="registerName"
+                        name="name"
+                        class="auth__input"
+                        placeholder="Введите ваше имя"
+                        required
+                        autocomplete="given-name"
+                        autofocus
+                    >
+                    <span class="auth__error" id="registerNameError"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="auth__field">
+                    <label for="registerEmail" class="auth__label">
+                        Email <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        name="email"
+                        class="auth__input"
+                        placeholder="your@email.com"
+                        required
+                        autocomplete="email"
+                    >
+                    <span class="auth__error" id="registerEmailError"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="auth__field">
+                    <label for="registerPassword" class="auth__label">
+                        Пароль <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        name="password"
+                        class="auth__input"
+                        placeholder="Минимум 8 символов"
+                        required
+                        autocomplete="new-password"
+                    >
+                    <span class="auth__error" id="registerPasswordError"></span>
+                    <span class="auth__hint">Пароль должен содержать минимум 8 символов</span>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="auth__field">
+                    <label for="registerConfirmPassword" class="auth__label">
+                        Подтвердите пароль <span class="auth__required">*</span>
+                    </label>
+                    <input
+                        type="password"
+                        id="registerConfirmPassword"
+                        name="confirm_password"
+                        class="auth__input"
+                        placeholder="Повторите пароль"
+                        required
+                        autocomplete="new-password"
+                    >
+                    <span class="auth__error" id="registerConfirmPasswordError"></span>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="auth__field">
+                    <label class="auth__checkbox">
+                        <input type="checkbox" id="acceptTerms" name="accept_terms" required>
+                        <span class="auth__checkbox-custom"></span>
+                        <span class="auth__checkbox-text">
+                            Я согласен с
+                            <a href="../about.html">условиями использования</a>
+                            и
+                            <a href="../about.html">политикой конфиденциальности</a>
+                        </span>
+                    </label>
+                    <span class="auth__error" id="acceptTermsError"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="button button--primary auth__submit">
+                    Создать аккаунт
+                </button>
+
+            </form>
+
+            <!-- Divider -->
+            <div class="auth__divider">
+                <div class="auth__divider-line"></div>
+                <span class="auth__divider-text">или</span>
+                <div class="auth__divider-line"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="auth__footer">
+                <p class="auth__footer-text">
+                    Уже есть аккаунт?
+                    <a href="login.html" class="auth__footer-link">Войти</a>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

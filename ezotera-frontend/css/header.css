@@ -96,34 +96,49 @@
     fill: currentColor;
 }
 
-.header__nav-item:hover .header__nav-arrow {
-    transform: rotate(180deg);
-}
+/* Arrow rotation handled via .header__nav-item--open in dropdown section */
 
 
 /* ----- Dropdown Menu ----- */
 .header__dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(0);
     min-width: 220px;
     background-color: var(--color-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-sm) 0;
+    padding-top: calc(var(--spacing-sm) + 6px);
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(-8px);
-    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     pointer-events: none;
+    z-index: var(--z-dropdown);
 }
 
-.header__nav-item:hover .header__dropdown {
+/* Invisible bridge to prevent gap-hover loss */
+.header__dropdown::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+}
+
+/* JS-controlled open state replaces pure :hover */
+.header__nav-item--open > .header__dropdown {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
     pointer-events: all;
+}
+
+/* Arrow rotation when open */
+.header__nav-item--open > .header__nav-link .header__nav-arrow {
+    transform: rotate(180deg);
 }
 
 .header__dropdown-link {

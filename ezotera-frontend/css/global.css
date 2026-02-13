@@ -91,6 +91,7 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
     --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.2);
     --shadow-glow: 0 0 20px rgba(108, 92, 231, 0.3);
 
     /* Transitions */
@@ -284,6 +285,15 @@ p {
     box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
 }
 
+.button--primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.25);
+}
+
+.button--primary:active {
+    transform: translateY(0);
+}
+
 .button--primary::after {
     content: '';
     position: absolute;
@@ -317,6 +327,15 @@ p {
     transform: translateY(-2px);
 }
 
+.button--secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.25);
+}
+
+.button--secondary:active {
+    transform: translateY(0);
+}
+
 .button--outline-white {
     background-color: transparent;
     color: var(--color-white);
@@ -326,6 +345,15 @@ p {
 .button--outline-white:hover {
     border-color: var(--color-white);
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button--outline-white:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+}
+
+.button--outline-white:active {
+    transform: translateY(0);
 }
 
 .button--large {
