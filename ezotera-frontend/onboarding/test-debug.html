@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>JavaScript Loading Test</h1>
+    <p>Open console (F12) - you should see messages below</p>
+
+    <form id="onboardingStep">
+        <input type="text" id="userName" placeholder="Enter name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        console.log('=== TEST START ===');
+        console.log('Script is loading...');
+
+        var form = document.getElementById('onboardingStep');
+        console.log('Form found:', form !== null);
+
+        var nameField = document.getElementById('userName');
+        console.log('Name field found:', nameField !== null);
+
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                console.log('Form submitted! Name:', nameField.value);
+                alert('Form would navigate now. Name: ' + nameField.value);
+            });
+            console.log('Submit handler attached');
+        }
+
+        console.log('=== TEST END ===');
+    </script>
+</body>
+</html>

@@ -7,6 +7,8 @@
 (function () {
     'use strict';
 
+    console.log('===== ONBOARDING.JS LOADED =====');
+
     /* ----- Constants ----- */
     var STORAGE_KEY = 'ezotera_onboarding';
 
@@ -131,15 +133,20 @@
         /* Handle form submission */
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+            console.log('Step 1: Form submitted!');
 
             var name = nameField.value.trim();
+            console.log('Step 1: Name value is: "' + name + '"');
+
             if (!name) {
+                console.log('Step 1: Name is empty, showing error');
                 showFieldError(nameField, 'userNameError', 'Пожалуйста, введите ваше имя.');
                 return;
             }
 
+            console.log('Step 1: Saving data to localStorage');
             saveOnboardingData({ user_name: name });
-            console.log('Step 1: Saved data, navigating to step 2');
+            console.log('Step 1: Data saved, about to navigate');
             navigateToStep(1);
         });
     }
@@ -588,27 +595,39 @@
         /* Detect current step from URL */
         var currentPath = window.location.pathname;
         console.log('Onboarding: Current path is ' + currentPath);
+        console.log('Onboarding: Checking if path contains step-1-name:', currentPath.indexOf('step-1-name'));
 
-        if (currentPath.indexOf('step-1-name.html') !== -1) {
+        if (currentPath.indexOf('step-1-name') !== -1) {
             console.log('Onboarding: Detected Step 1');
+            console.log('Onboarding: About to call initializeStep1()');
             initializeStep1();
-        } else if (currentPath.indexOf('step-2-gender.html') !== -1) {
+            console.log('Onboarding: initializeStep1() completed');
+        } else if (currentPath.indexOf('step-2-gender') !== -1) {
+            console.log('Onboarding: Detected Step 2');
             initializeStep2();
-        } else if (currentPath.indexOf('step-3-birth-date.html') !== -1) {
+        } else if (currentPath.indexOf('step-3-birth-date') !== -1) {
+            console.log('Onboarding: Detected Step 3');
             initializeStep3();
-        } else if (currentPath.indexOf('step-4-birth-time.html') !== -1) {
+        } else if (currentPath.indexOf('step-4-birth-time') !== -1) {
+            console.log('Onboarding: Detected Step 4');
             initializeStep4();
-        } else if (currentPath.indexOf('step-5-birth-place.html') !== -1) {
+        } else if (currentPath.indexOf('step-5-birth-place') !== -1) {
+            console.log('Onboarding: Detected Step 5');
             initializeStep5();
-        } else if (currentPath.indexOf('step-6-relationship-status.html') !== -1) {
+        } else if (currentPath.indexOf('step-6-relationship-status') !== -1) {
+            console.log('Onboarding: Detected Step 6');
             initializeStep6();
-        } else if (currentPath.indexOf('step-7-focus-area.html') !== -1) {
+        } else if (currentPath.indexOf('step-7-focus-area') !== -1) {
             console.log('Onboarding: Detected Step 7');
             initializeStep7();
-        } else if (currentPath.indexOf('step-8-email.html') !== -1) {
+        } else if (currentPath.indexOf('step-8-email') !== -1) {
+            console.log('Onboarding: Detected Step 8');
             initializeStep8();
-        } else if (currentPath.indexOf('step-9-results-preview.html') !== -1) {
+        } else if (currentPath.indexOf('step-9-results-preview') !== -1) {
+            console.log('Onboarding: Detected Step 9');
             initializeStep9();
+        } else {
+            console.error('Onboarding: Could not detect step from path: ' + currentPath);
         }
     }
 

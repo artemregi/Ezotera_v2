@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:astroline.com)",
       "WebFetch(domain:astroline.today)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(node -c:*)"
     ]
   }
 }
