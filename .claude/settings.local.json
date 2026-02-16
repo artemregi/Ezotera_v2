@@ -4,7 +4,14 @@
       "WebFetch(domain:astroline.com)",
       "WebFetch(domain:astroline.today)",
       "Bash(ls:*)",
-      "Bash(node -c:*)"
+      "Bash(node -c:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(vercel dev:*)",
+      "Bash(vercel login:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(node server.js:*)"
     ]
   }
 }

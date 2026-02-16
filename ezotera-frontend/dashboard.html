@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Ezoterra</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard__container">
+            <header class="dashboard__header">
+                <h1 class="dashboard__title">Личный кабинет</h1>
+                <div class="dashboard__actions">
+                    <a href="index.html" class="dashboard__home">На главную</a>
+                    <button class="dashboard__logout" id="logoutBtn">Выйти</button>
+                </div>
+            </header>
+
+            <div class="dashboard__content">
+                <!-- Loading state -->
+                <div class="dashboard__loading" id="loading">
+                    <p>Загрузка данных...</p>
+                </div>
+
+                <!-- Error state -->
+                <div class="dashboard__error" id="error" style="display: none;">
+                    <p id="errorMessage">Произошла ошибка при загрузке данных</p>
+                    <button class="dashboard__retry" id="retryBtn">Попробовать снова</button>
+                </div>
+
+                <!-- User data table -->
+                <div class="dashboard__data" id="userData" style="display: none;">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Поле</th>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Полное имя</td>
+                                <td id="userName">—</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td id="userEmail">—</td>
+                            </tr>
+                            <tr>
+                                <td>Дата рождения</td>
+                                <td id="userBirthDate">—</td>
+                            </tr>
+                            <tr>
+                                <td>Знак зодиака</td>
+                                <td id="userZodiacSign">—</td>
+                            </tr>
+                            <tr>
+                                <td>Дата регистрации</td>
+                                <td id="userCreatedAt">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Additional info (if available) -->
+                    <div class="dashboard__additional" id="additionalInfo" style="display: none;">
+                        <h2 class="dashboard__subtitle">Дополнительная информация</h2>
+                        <table class="user-table">
+                            <tbody>
+                                <tr id="genderRow" style="display: none;">
+                                    <td>Пол</td>
+                                    <td id="userGender">—</td>
+                                </tr>
+                                <tr id="birthTimeRow" style="display: none;">
+                                    <td>Время рождения</td>
+                                    <td id="userBirthTime">—</td>
+                                </tr>
+                                <tr id="birthPlaceRow" style="display: none;">
+                                    <td>Место рождения</td>
+                                    <td id="userBirthPlace">—</td>
+                                </tr>
+                                <tr id="relationshipRow" style="display: none;">
+                                    <td>Статус отношений</td>
+                                    <td id="userRelationship">—</td>
+                                </tr>
+                                <tr id="focusAreaRow" style="display: none;">
+                                    <td>Область интересов</td>
+                                    <td id="userFocusArea">—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

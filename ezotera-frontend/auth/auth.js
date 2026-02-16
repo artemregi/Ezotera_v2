@@ -108,37 +108,39 @@
 
     /* Submit login data to API */
     function submitLogin(data) {
-        /*
-         * BACKEND INTEGRATION POINT
-         * Replace this placeholder with actual API call:
-         *
-         * fetch('/api/auth/login', {
-         *     method: 'POST',
-         *     headers: { 'Content-Type': 'application/json' },
-         *     body: JSON.stringify(data)
-         * })
-         * .then(function(response) {
-         *     if (!response.ok) {
-         *         throw new Error('Login failed');
-         *     }
-         *     return response.json();
-         * })
-         * .then(function(result) {
-         *     // Store token/session
-         *     localStorage.setItem('auth_token', result.token);
-         *     window.location.href = result.redirectUrl || '../index.html';
-         * })
-         * .catch(function(error) {
-         *     console.error('Login error:', error);
-         *     var emailField = document.getElementById('loginEmail');
-         *     showFieldError(emailField, 'loginEmailError', 'Неверный email или пароль.');
-         * });
-         */
+        // Show loading state
+        var submitBtn = document.querySelector('.auth__submit');
+        var originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Вход...';
 
-        /* Temporary: log data and show alert */
-        console.log('Login data ready for API:', data);
-        alert('Вход выполнен! (Демо режим - требуется подключение к бэкенду)');
-        window.location.href = '../index.html';
+        fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', // Send/receive cookies
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                return response.json().then(function(err) {
+                    throw new Error(err.message || 'Login failed');
+                });
+            }
+            return response.json();
+        })
+        .then(function(result) {
+            // Success - redirect to next page
+            window.location.href = result.redirectUrl || '../index.html';
+        })
+        .catch(function(error) {
+            console.error('Login error:', error);
+            var emailField = document.getElementById('loginEmail');
+            showFieldError(emailField, 'loginEmailError', error.message || 'Неверный email или пароль.');
+
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
     }
 
 
@@ -255,36 +257,57 @@
 
     /* Submit registration data to API */
     function submitRegistration(data) {
-        /*
-         * BACKEND INTEGRATION POINT
-         * Replace this placeholder with actual API call:
-         *
-         * fetch('/api/auth/register', {
-         *     method: 'POST',
-         *     headers: { 'Content-Type': 'application/json' },
-         *     body: JSON.stringify(data)
-         * })
-         * .then(function(response) {
-         *     if (!response.ok) {
-         *         throw new Error('Registration failed');
-         *     }
-         *     return response.json();
-         * })
-         * .then(function(result) {
-         *     // Optionally auto-login or redirect to login
-         *     window.location.href = 'login.html?registered=true';
-         * })
-         * .catch(function(error) {
-         *     console.error('Registration error:', error);
-         *     var emailField = document.getElementById('registerEmail');
-         *     showFieldError(emailField, 'registerEmailError', 'Этот email уже зарегистрирован.');
-         * });
-         */
+        // Show loading state
+        var submitBtn = document.querySelector('.auth__submit');
+        var originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Регистрация...';
 
-        /* Temporary: log data and show alert */
-        console.log('Registration data ready for API:', data);
-        alert('Регистрация успешна! (Демо режим - требуется подключение к бэкенду)');
-        window.location.href = 'login.html';
+        fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', // Send/receive cookies
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                return response.json().then(function(err) {
+                    throw err;
+                });
+            }
+            return response.json();
+        })
+        .then(function(result) {
+            // Success - redirect to onboarding
+            window.location.href = '../onboarding/step-1-name.html';
+        })
+        .catch(function(error) {
+            console.error('Registration error:', error);
+
+            // Display field-specific errors
+            if (error.errors) {
+                if (error.errors.email) {
+                    var emailField = document.getElementById('registerEmail');
+                    showFieldError(emailField, 'registerEmailError', error.errors.email);
+                }
+                if (error.errors.password) {
+                    var passwordField = document.getElementById('registerPassword');
+                    showFieldError(passwordField, 'registerPasswordError', error.errors.password);
+                }
+                if (error.errors.name) {
+                    var nameField = document.getElementById('registerName');
+                    showFieldError(nameField, 'registerNameError', error.errors.name);
+                }
+            } else {
+                // Generic error on email field
+                var emailField = document.getElementById('registerEmail');
+                showFieldError(emailField, 'registerEmailError', error.message || 'Произошла ошибка. Попробуйте снова.');
+            }
+
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
     }
 
 

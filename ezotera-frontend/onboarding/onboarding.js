@@ -516,13 +516,12 @@
         /* Populate summary */
         populateSummary(savedData);
 
-        /* Handle form submission */
+        /* Handle form submission - navigate to step 10 (password) */
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            /* Submit complete data */
-            var completeData = getOnboardingData();
-            submitOnboardingData(completeData);
+            /* Navigate to password creation step */
+            window.location.href = 'step-10-password.html';
         });
     }
 
@@ -558,33 +557,135 @@
         }
     }
 
-    /* Submit complete onboarding data to API */
-    function submitOnboardingData(data) {
-        /*
-         * BACKEND INTEGRATION POINT
-         * Replace this placeholder with actual API call:
-         *
-         * fetch('/api/onboarding/complete', {
-         *     method: 'POST',
-         *     headers: { 'Content-Type': 'application/json' },
-         *     body: JSON.stringify(data)
-         * })
-         * .then(function(response) { return response.json(); })
-         * .then(function(result) {
-         *     clearOnboardingData();
-         *     window.location.href = result.redirectUrl || '../index.html';
-         * })
-         * .catch(function(error) {
-         *     console.error('Onboarding submission error:', error);
-         *     alert('Произошла ошибка при отправке данных. Пожалуйста, попробуйте снова.');
-         * });
-         */
+    /* =============================================
+       STEP 10: PASSWORD CREATION
+       ============================================= */
+    function initializeStep10() {
+        var form = document.getElementById('onboardingStep');
+        if (!form) {
+            return;
+        }
 
-        /* Temporary: log data and redirect */
-        console.log('Onboarding data ready for API:', data);
-        alert('Регистрация завершена! Спасибо за уделенное время.');
-        clearOnboardingData();
-        window.location.href = '../index.html';
+        /* Check if all previous steps are completed */
+        var savedData = getOnboardingData();
+        if (!savedData.user_name || !savedData.user_birth_date || !savedData.user_email) {
+            window.location.href = 'step-1-name.html';
+            return;
+        }
+
+        /* Handle previous button */
+        var prevBtn = document.getElementById('prevBtn');
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                window.location.href = 'step-9-results-preview.html';
+            });
+        }
+
+        /* Handle form submission */
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            clearErrors();
+
+            var passwordField = document.getElementById('userPassword');
+            var confirmField = document.getElementById('userPasswordConfirm');
+            var termsCheckbox = document.getElementById('acceptTerms');
+
+            var password = passwordField.value.trim();
+            var passwordConfirm = confirmField.value.trim();
+            var termsAccepted = termsCheckbox.checked;
+
+            var isValid = true;
+
+            /* Validate password */
+            if (!password) {
+                showFieldError(passwordField, 'userPasswordError', 'Пожалуйста, введите пароль.');
+                isValid = false;
+            } else if (password.length < 8) {
+                showFieldError(passwordField, 'userPasswordError', 'Пароль должен содержать минимум 8 символов.');
+                isValid = false;
+            }
+
+            /* Validate password confirmation */
+            if (!passwordConfirm) {
+                showFieldError(confirmField, 'userPasswordConfirmError', 'Пожалуйста, подтвердите пароль.');
+                isValid = false;
+            } else if (password !== passwordConfirm) {
+                showFieldError(confirmField, 'userPasswordConfirmError', 'Пароли не совпадают.');
+                isValid = false;
+            }
+
+            /* Validate terms */
+            if (!termsAccepted) {
+                var termsError = document.getElementById('acceptTermsError');
+                if (termsError) {
+                    termsError.textContent = 'Необходимо принять условия использования.';
+                }
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            /* Save password to data */
+            saveOnboardingData({ user_password: password });
+
+            /* Submit complete data with registration */
+            var completeData = getOnboardingData();
+            submitOnboardingDataWithRegistration(completeData);
+        });
+    }
+
+    /* Submit complete onboarding data with automatic registration */
+    function submitOnboardingDataWithRegistration(data) {
+        fetch('/api/auth/register-from-onboarding', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                return response.json().then(function(err) {
+                    throw err;
+                });
+            }
+            return response.json();
+        })
+        .then(function(result) {
+            clearOnboardingData();
+            alert('Регистрация завершена! Добро пожаловать в Ezoterra!');
+            window.location.href = result.redirectUrl || '../dashboard.html';
+        })
+        .catch(function(error) {
+            console.error('Registration error:', error);
+            alert(error.message || 'Произошла ошибка при создании аккаунта. Попробуйте снова.');
+        });
+    }
+
+    /* Submit complete onboarding data to API (for already registered users) */
+    function submitOnboardingData(data) {
+        fetch('/api/onboarding/complete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', // Send auth cookie
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Onboarding submission failed');
+            }
+            return response.json();
+        })
+        .then(function(result) {
+            clearOnboardingData();
+            alert('Регистрация завершена! Спасибо за уделенное время.');
+            window.location.href = result.redirectUrl || '../index.html';
+        })
+        .catch(function(error) {
+            console.error('Onboarding error:', error);
+            alert('Произошла ошибка при отправке данных. Попробуйте снова.');
+        });
     }
 
 
@@ -626,6 +727,9 @@
         } else if (currentPath.indexOf('step-9-results-preview') !== -1) {
             console.log('Onboarding: Detected Step 9');
             initializeStep9();
+        } else if (currentPath.indexOf('step-10-password') !== -1) {
+            console.log('Onboarding: Detected Step 10');
+            initializeStep10();
         } else {
             console.error('Onboarding: Could not detect step from path: ' + currentPath);
         }
