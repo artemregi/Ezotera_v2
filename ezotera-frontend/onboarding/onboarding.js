@@ -77,6 +77,18 @@
         }
     }
 
+    /* Clear all errors on the page */
+    function clearErrors() {
+        var errorElements = document.querySelectorAll('.onboarding__error, .auth__error');
+        errorElements.forEach(function(el) {
+            el.textContent = '';
+        });
+        var invalidFields = document.querySelectorAll('.onboarding__input--invalid');
+        invalidFields.forEach(function(field) {
+            field.classList.remove('onboarding__input--invalid');
+        });
+    }
+
     /* Validate email format */
     function validateEmailFormat(email) {
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -638,6 +650,10 @@
 
     /* Submit complete onboarding data with automatic registration */
     function submitOnboardingDataWithRegistration(data) {
+        console.log('🚀 Submitting registration data:', data);
+        console.log('   URL: /api/auth/register-from-onboarding');
+        console.log('   Method: POST');
+
         fetch('/api/auth/register-from-onboarding', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -645,20 +661,38 @@
             body: JSON.stringify(data)
         })
         .then(function(response) {
+            console.log('📨 Got response:', response.status, response.statusText);
+            console.log('   Content-Type:', response.headers.get('content-type'));
+
+            // Check if response is JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                console.error('❌ Response is not JSON!');
+                throw new Error('Сервер вернул некорректный ответ. Проверьте консоль для деталей.');
+            }
+
             if (!response.ok) {
+                console.log('⚠️ Response not OK, status:', response.status);
                 return response.json().then(function(err) {
-                    throw err;
+                    console.error('❌ Error from server:', err);
+                    throw new Error(err.message || 'Registration failed');
+                }).catch(function(parseError) {
+                    console.error('❌ Failed to parse error response:', parseError);
+                    throw new Error('Ошибка сервера: не удалось получить ответ');
                 });
             }
             return response.json();
         })
         .then(function(result) {
+            console.log('✅ Registration successful!', result);
             clearOnboardingData();
             alert('Регистрация завершена! Добро пожаловать в Ezoterra!');
             window.location.href = result.redirectUrl || '../dashboard.html';
         })
         .catch(function(error) {
-            console.error('Registration error:', error);
+            console.error('❌ Registration error:', error);
+            console.error('   Error message:', error.message);
+            console.error('   Error stack:', error.stack);
             alert(error.message || 'Произошла ошибка при создании аккаунта. Попробуйте снова.');
         });
     }

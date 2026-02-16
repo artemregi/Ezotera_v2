@@ -7,7 +7,7 @@ const { handleDatabaseError } = require('../../lib/errors');
 // Database connection pool (reused across invocations for serverless)
 const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 5000,
@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
 
         // Insert user into database
         const result = await pool.query(
-            `INSERT INTO users (name, email, password_hash)
+            `INSERT INTO public.users (name, email, password_hash)
              VALUES ($1, $2, $3)
              RETURNING id, email, name, created_at`,
             [nameValidation.sanitized, emailValidation.normalized, passwordHash]

@@ -45,8 +45,12 @@ const server = http.createServer(async (req, res) => {
         const apiPath = pathname.substring(5); // Remove '/api/' prefix
         const handlerPath = path.join(__dirname, 'api', apiPath + '.js');
 
+        console.log(`📥 API Request: ${req.method} ${pathname}`);
+        console.log(`   Handler path: ${handlerPath}`);
+
         try {
             if (fs.existsSync(handlerPath)) {
+                console.log(`   ✅ Handler found`);
                 // Clear require cache for hot reloading
                 delete require.cache[require.resolve(handlerPath)];
 
@@ -73,11 +77,21 @@ const server = http.createServer(async (req, res) => {
                     await handler(req, res);
                 }
                 return;
+            } else {
+                // API endpoint not found
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'API endpoint not found' }));
+                return;
             }
         } catch (error) {
             console.error('API Error:', error);
+            console.error('Stack:', error.stack);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: false, message: 'Internal server error' }));
+            res.end(JSON.stringify({
+                success: false,
+                message: 'Internal server error',
+                error: process.env.NODE_ENV === 'development' ? error.message : undefined
+            }));
             return;
         }
     }

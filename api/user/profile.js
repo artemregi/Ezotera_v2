@@ -4,7 +4,7 @@ const { calculateZodiacSign } = require('../../lib/zodiac');
 
 const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 5000,
@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
         const result = await pool.query(
             `SELECT id, name, email, birth_date, gender, birth_time, birth_place,
                     relationship_status, focus_area, created_at, last_login_at
-             FROM users
+             FROM public.users
              WHERE id = $1`,
             [decoded.userId]
         );

@@ -6,7 +6,7 @@ const { checkRateLimit } = require('../../lib/rateLimit');
 
 const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 5000,
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
 
         // Find user in database
         const result = await pool.query(
-            'SELECT id, email, name, password_hash FROM users WHERE email = $1',
+            'SELECT id, email, name, password_hash FROM public.users WHERE email = $1',
             [emailValidation.normalized]
         );
 
@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
 
         // Update last login timestamp
         await pool.query(
-            'UPDATE users SET last_login_at = CURRENT_TIMESTAMP WHERE id = $1',
+            'UPDATE public.users SET last_login_at = CURRENT_TIMESTAMP WHERE id = $1',
             [user.id]
         );
 

@@ -3,7 +3,7 @@ const { verifyToken } = require('../../lib/auth');
 
 const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 5000,
@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
 
         // Update user record with onboarding data
         await pool.query(
-            `UPDATE users
+            `UPDATE public.users
              SET gender = $1,
                  birth_date = $2,
                  birth_time = $3,
