@@ -13,17 +13,25 @@ const pool = new Pool({
 });
 
 module.exports = async (req, res) => {
+    console.log('🔐 Login handler called');
+    console.log('   Method:', req.method);
+    console.log('   Environment check:');
+    console.log('   - POSTGRES_URL exists:', !!process.env.POSTGRES_URL);
+    console.log('   - JWT_SECRET exists:', !!process.env.JWT_SECRET);
+
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
     }
 
     if (req.method !== 'POST') {
+        console.log('❌ Method not allowed:', req.method);
         return res.status(405).json({ success: false, message: 'Метод не разрешен' });
     }
 
     try {
         const { email, password, remember } = req.body;
+        console.log('   Email:', email);
 
         // Rate limiting (5 attempts per 15 minutes per IP)
         const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
@@ -44,10 +52,12 @@ module.exports = async (req, res) => {
         }
 
         // Find user in database
+        console.log('📊 Querying database for user...');
         const result = await pool.query(
             'SELECT id, email, name, password_hash FROM public.users WHERE email = $1',
             [emailValidation.normalized]
         );
+        console.log('✅ Query successful, rows found:', result.rows.length);
 
         if (result.rows.length === 0) {
             return res.status(401).json({
@@ -94,10 +104,24 @@ module.exports = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('❌ Login error:', error);
+        console.error('   Error code:', error.code);
+        console.error('   Error message:', error.message);
+        console.error('   Error stack:', error.stack);
+
+        // Check for database connection errors
+        if (error.code === 'ENOTFOUND' || error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+            console.error('   ⚠️ DATABASE CONNECTION ERROR!');
+            return res.status(503).json({
+                success: false,
+                message: 'Не удалось подключиться к базе данных. Проверьте POSTGRES_URL.'
+            });
+        }
+
         res.status(500).json({
             success: false,
-            message: 'Произошла ошибка сервера. Попробуйте позже.'
+            message: 'Произошла ошибка сервера. Попробуйте позже.',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 };
