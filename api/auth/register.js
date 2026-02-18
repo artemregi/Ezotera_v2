@@ -1,17 +1,8 @@
-const { Pool } = require('pg');
+const { pool } = require('../../lib/db');
 const { hashPassword } = require('../../lib/password');
 const { generateToken, setCookie } = require('../../lib/auth');
 const { validateEmail, validatePassword, validateName } = require('../../lib/validation');
 const { handleDatabaseError } = require('../../lib/errors');
-
-// Database connection pool (reused across invocations for serverless)
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 5000,
-});
 
 module.exports = async (req, res) => {
     // Handle CORS preflight

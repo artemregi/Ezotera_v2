@@ -1,16 +1,8 @@
-const { Pool } = require('pg');
+const { pool } = require('../../lib/db');
 const { comparePassword } = require('../../lib/password');
 const { generateToken, setCookie } = require('../../lib/auth');
 const { validateEmail } = require('../../lib/validation');
 const { checkRateLimit } = require('../../lib/rateLimit');
-
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 5000,
-});
 
 module.exports = async (req, res) => {
     console.log('🔐 Login handler called');

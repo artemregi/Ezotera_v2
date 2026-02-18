@@ -1,4 +1,4 @@
-const { verifyToken } = require('../../lib/auth');
+const { verifyToken, extractTokenFromCookies } = require('../../lib/auth');
 
 module.exports = async (req, res) => {
     if (req.method !== 'GET') {
@@ -6,11 +6,9 @@ module.exports = async (req, res) => {
     }
 
     try {
-        // Get token from cookie
-        const cookies = req.headers.cookie || '';
-        const tokenMatch = cookies.match(/auth_token=([^;]+)/);
+        const token = extractTokenFromCookies(req);
 
-        if (!tokenMatch) {
+        if (!token) {
             return res.status(401).json({
                 success: false,
                 authenticated: false,
@@ -18,7 +16,6 @@ module.exports = async (req, res) => {
             });
         }
 
-        const token = tokenMatch[1];
         const decoded = verifyToken(token);
 
         if (!decoded) {

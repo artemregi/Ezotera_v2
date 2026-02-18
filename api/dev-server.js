@@ -10,16 +10,10 @@ const path = require('path');
 // Import API handlers
 const loginHandler = require('./auth/login');
 const registerHandler = require('./auth/register');
-const { Pool } = require('pg');
+const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
 const FRONTEND_DIR = path.join(__dirname, '../ezotera-frontend');
-
-// Database connection for health checks
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-    ssl: { rejectUnauthorized: false },
-});
 
 // Helper function to add Express-like methods to http response
 function wrapResponse(res) {

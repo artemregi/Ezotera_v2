@@ -1,14 +1,6 @@
-const { Pool } = require('pg');
-const { verifyToken } = require('../../lib/auth');
+const { pool } = require('../../lib/db');
+const { verifyToken, extractTokenFromCookies } = require('../../lib/auth');
 const { calculateZodiacSign } = require('../../lib/zodiac');
-
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-    ssl: { rejectUnauthorized: false }, // Supabase requires SSL
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 5000,
-});
 
 module.exports = async (req, res) => {
     if (req.method !== 'GET') {
@@ -16,18 +8,16 @@ module.exports = async (req, res) => {
     }
 
     try {
-        // Verify authentication
-        const cookies = req.headers.cookie || '';
-        const tokenMatch = cookies.match(/auth_token=([^;]+)/);
+        const token = extractTokenFromCookies(req);
 
-        if (!tokenMatch) {
+        if (!token) {
             return res.status(401).json({
                 success: false,
                 message: 'Необходима авторизация'
             });
         }
 
-        const decoded = verifyToken(tokenMatch[1]);
+        const decoded = verifyToken(token);
         if (!decoded) {
             return res.status(401).json({
                 success: false,
