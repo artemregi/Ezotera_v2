@@ -47,7 +47,8 @@
       "Bash(python3:*)",
       "Bash(for file in gemini.html cancer.html leo.html virgo.html libra.html scorpio.html sagittarius.html capricorn.html aquarius.html pisces.html)",
       "Bash(do echo \"Processing $file\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(git tag:*)"
     ]
   }
 }
