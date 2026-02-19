@@ -1,0 +1,603 @@
+/**
+ * Palmistry Page Styles
+ * High-conversion landing page for AI palm reading
+ */
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.section {
+    padding: 80px 0;
+}
+
+.section--dark {
+    background: linear-gradient(135deg, #0f1f2e 0%, #152b35 100%);
+    color: #fff;
+}
+
+.section--alt {
+    background: #f8f9fa;
+}
+
+.section--large {
+    padding: 120px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    color: #152b35;
+}
+
+.section--dark .section__title {
+    color: #fff;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.palmistry-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    min-height: 100vh;
+}
+
+.palmistry-hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.palmistry-hero__content {
+    z-index: 2;
+}
+
+.palmistry-hero__title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.palmistry-hero__subtitle {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+}
+
+.palmistry-hero__cta-block {
+    margin-top: 40px;
+}
+
+.palmistry-hero__cta {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.palmistry-hero__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 198, 41, 0.3);
+}
+
+.palmistry-hero__microcopy {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+}
+
+.palmistry-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+}
+
+.palmistry-hero__glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 198, 41, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+}
+
+.palmistry-hero__icon {
+    width: 280px;
+    height: 280px;
+    filter: drop-shadow(0 0 20px rgba(255, 198, 41, 0.2));
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* ============================================
+   TRUST BLOCK
+   ============================================ */
+.palmistry-trust {
+    background: #fff;
+}
+
+.palmistry-trust__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.palmistry-trust__stat {
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.palmistry-trust__rating {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.palmistry-trust__rating-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #152b35;
+    margin: 0;
+}
+
+.palmistry-trust__number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffc629;
+    margin-bottom: 8px;
+}
+
+.palmistry-trust__description {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+.palmistry-testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.palmistry-testimonial {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid #ffc629;
+}
+
+.palmistry-testimonial__text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.palmistry-testimonial__author {
+    font-weight: 600;
+    color: #152b35;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   PROBLEMS SECTION
+   ============================================ */
+.palmistry-problems__title {
+    margin-bottom: 50px;
+}
+
+.palmistry-problems__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.palmistry-problem-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.palmistry-problem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: #ffc629;
+}
+
+.palmistry-problem-card__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #152b35;
+    margin-bottom: 16px;
+}
+
+.palmistry-problem-card__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ============================================
+   BENEFITS SECTION
+   ============================================ */
+.palmistry-benefits {
+    background: #fff;
+}
+
+.palmistry-benefits__subtitle {
+    font-size: 1.1rem;
+    text-align: center;
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.palmistry-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.palmistry-benefit-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.palmistry-benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-color: #ffc629;
+}
+
+.palmistry-benefit-card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.palmistry-benefit-card__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #152b35;
+    margin-bottom: 12px;
+}
+
+.palmistry-benefit-card__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ============================================
+   HOW IT WORKS SECTION
+   ============================================ */
+.palmistry-how-it-works__title {
+    margin-bottom: 60px;
+}
+
+.palmistry-steps {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.palmistry-step {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.palmistry-step__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: #ffc629;
+    color: #152b35;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.palmistry-step__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.palmistry-step__description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 16px;
+}
+
+.palmistry-step__microcopy {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+.palmistry-step__divider {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(180deg, #ffc629 0%, transparent 100%);
+}
+
+@media (max-width: 768px) {
+    .palmistry-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .palmistry-step__divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #ffc629 0%, transparent 100%);
+    }
+}
+
+/* ============================================
+   PERSONALIZED SECTION
+   ============================================ */
+.palmistry-personalized {
+    background: #fff;
+}
+
+.palmistry-personalized__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+}
+
+.palmistry-personalized__block {
+    padding: 20px 0;
+}
+
+.palmistry-personalized__subtitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #152b35;
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+}
+
+.palmistry-personalized__text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* ============================================
+   FAQ SECTION
+   ============================================ */
+.palmistry-faq__title {
+    margin-bottom: 50px;
+}
+
+.palmistry-faq__list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.palmistry-faq-item {
+    margin-bottom: 16px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.palmistry-faq-item[open] .palmistry-faq-item__icon {
+    transform: rotate(45deg);
+}
+
+.palmistry-faq-item__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    cursor: pointer;
+    background: #f8f9fa;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+.palmistry-faq-item__summary:hover {
+    background: #f0f1f3;
+}
+
+.palmistry-faq-item__question {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #152b35;
+    text-align: left;
+    flex: 1;
+}
+
+.palmistry-faq-item__icon {
+    font-size: 1.5rem;
+    color: #ffc629;
+    transition: transform 0.3s ease;
+    margin-left: 16px;
+}
+
+.palmistry-faq-item__answer {
+    padding: 20px;
+    background: #fff;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* ============================================
+   FINAL CTA SECTION
+   ============================================ */
+.palmistry-final-cta__content {
+    text-align: center;
+}
+
+.palmistry-final-cta__title {
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.palmistry-final-cta__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.palmistry-final-cta__button {
+    margin-bottom: 24px;
+    padding: 18px 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.palmistry-final-cta__microcopy {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.button {
+    display: inline-block;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.button--primary {
+    background: #ffc629;
+    color: #152b35;
+}
+
+.button--primary:hover {
+    background: #ffb300;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 198, 41, 0.3);
+}
+
+.button--large {
+    padding: 16px 48px;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .section {
+        padding: 50px 0;
+    }
+
+    .section--large {
+        padding: 80px 0;
+    }
+
+    .section__title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .palmistry-hero .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .palmistry-hero__title {
+        font-size: 2.2rem;
+    }
+
+    .palmistry-hero__visual {
+        height: 300px;
+    }
+
+    .palmistry-hero__icon {
+        width: 200px;
+        height: 200px;
+    }
+
+    .palmistry-final-cta__title {
+        font-size: 2rem;
+    }
+
+    .palmistry-trust__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .palmistry-cards-grid,
+    .palmistry-problems__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .palmistry-hero__title {
+        font-size: 1.8rem;
+    }
+
+    .palmistry-hero__subtitle {
+        font-size: 1rem;
+    }
+
+    .section__title {
+        font-size: 1.6rem;
+    }
+
+    .palmistry-benefit-card__icon {
+        font-size: 2rem;
+    }
+}

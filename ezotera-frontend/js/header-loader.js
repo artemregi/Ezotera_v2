@@ -35,7 +35,8 @@
                 zodiacBase: './',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '../onboarding/step-1-name.html'
+                onboardingHref: '../onboarding/step-1-name.html',
+                palmistryHref: '../palmistry.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -46,7 +47,8 @@
                 zodiacBase: '../zodiac/',
                 aboutHref: '../about.html',
                 loginHref: '#',
-                onboardingHref: '../onboarding/step-1-name.html'
+                onboardingHref: '../onboarding/step-1-name.html',
+                palmistryHref: '../palmistry.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -57,7 +59,8 @@
                 zodiacBase: '../zodiac/',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '#'
+                onboardingHref: '#',
+                palmistryHref: '../palmistry.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -68,7 +71,8 @@
                 zodiacBase: 'zodiac/',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html'
+                onboardingHref: 'onboarding/step-1-name.html',
+                palmistryHref: 'palmistry.html'
             };
         } else {
             return {
@@ -79,7 +83,8 @@
                 zodiacBase: 'zodiac/',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html'
+                onboardingHref: 'onboarding/step-1-name.html',
+                palmistryHref: 'palmistry.html'
             };
         }
     };
@@ -165,7 +170,8 @@
                 .replace(/ZODIAC_BASE/g, paths.zodiacBase)
                 .replace(/ABOUT_HREF/g, paths.aboutHref)
                 .replace(/LOGIN_HREF/g, paths.loginHref)
-                .replace(/ONBOARDING_HREF/g, paths.onboardingHref);
+                .replace(/ONBOARDING_HREF/g, paths.onboardingHref)
+                .replace(/PALMISTRY_HREF/g, paths.palmistryHref);
 
             // Insert header at the beginning of body or before first main element
             const headerContainer = document.createElement('div');
