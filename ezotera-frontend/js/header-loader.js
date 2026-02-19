@@ -6,6 +6,18 @@
 (function() {
     'use strict';
 
+    // Add a style to prevent flash of unstyled header area
+    const style = document.createElement('style');
+    style.textContent = `
+        body > header.header {
+            display: block !important;
+        }
+        body > div:first-child:not(.dashboard):not(.auth) {
+            position: relative;
+        }
+    `;
+    document.head.appendChild(style);
+
     const CACHE_KEY = 'ezotera_header_cache';
     const CACHE_EXPIRY = 3600000; // 1 hour in ms
 
@@ -165,18 +177,16 @@
                 return;
             }
 
-            // Check if there's already a header element and replace it
-            const existingHeader = document.querySelector('header.header');
-            if (existingHeader) {
-                existingHeader.replaceWith(header);
+            // Remove any existing headers (including partial/broken ones)
+            const existingHeaders = document.querySelectorAll('header.header, header[id="header"]');
+            existingHeaders.forEach(h => h.remove());
+
+            // Insert new header before main element or at beginning of body
+            const main = document.querySelector('main');
+            if (main) {
+                main.parentNode.insertBefore(header, main);
             } else {
-                // Insert before first main element or at beginning of body
-                const main = document.querySelector('main');
-                if (main) {
-                    main.parentNode.insertBefore(header, main);
-                } else {
-                    document.body.insertBefore(header, document.body.firstChild);
-                }
+                document.body.insertBefore(header, document.body.firstChild);
             }
 
             // Reinitialize navigation scripts after header is loaded
@@ -189,10 +199,18 @@
         }
     };
 
-    // Wait for DOM to be interactive before loading
+    // Load header as soon as possible
+    // If DOM is still loading, wait for it; otherwise load immediately
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadHeader);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load header synchronously after DOM is ready
+            loadHeader();
+        });
+    } else if (document.readyState === 'interactive') {
+        // DOM is interactive but images/styles might still be loading
+        loadHeader();
     } else {
+        // Everything is loaded, load immediately
         loadHeader();
     }
 })();
