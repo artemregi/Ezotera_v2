@@ -20,7 +20,9 @@
     <div class="dashboard">
         <div class="dashboard__container">
             <header class="dashboard__header">
-                <h1 class="dashboard__title">Личный кабинет</h1>
+                <div class="dashboard__header-left">
+                    <span class="dashboard__header-badge">✨ Персональный профиль</span>
+                </div>
                 <div class="dashboard__actions">
                     <a href="index.html" class="dashboard__home">На главную</a>
                     <button class="dashboard__logout" id="logoutBtn">Выйти</button>
@@ -30,7 +32,8 @@
             <div class="dashboard__content">
                 <!-- Loading state -->
                 <div class="dashboard__loading" id="loading">
-                    <p>Загрузка данных...</p>
+                    <div class="dashboard__loading-orb"></div>
+                    <p>Считываем твою энергию...</p>
                 </div>
 
                 <!-- Error state -->
@@ -39,67 +42,114 @@
                     <button class="dashboard__retry" id="retryBtn">Попробовать снова</button>
                 </div>
 
-                <!-- User data table -->
+                <!-- User data — mystical card layout -->
                 <div class="dashboard__data" id="userData" style="display: none;">
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>Поле</th>
-                                <th>Значение</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Полное имя</td>
-                                <td id="userName">—</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td id="userEmail">—</td>
-                            </tr>
-                            <tr>
-                                <td>Дата рождения</td>
-                                <td id="userBirthDate">—</td>
-                            </tr>
-                            <tr>
-                                <td>Знак зодиака</td>
-                                <td id="userZodiacSign">—</td>
-                            </tr>
-                            <tr>
-                                <td>Дата регистрации</td>
-                                <td id="userCreatedAt">—</td>
-                            </tr>
-                        </tbody>
-                    </table>
 
-                    <!-- Additional info (if available) -->
-                    <div class="dashboard__additional" id="additionalInfo" style="display: none;">
-                        <h2 class="dashboard__subtitle">Дополнительная информация</h2>
-                        <table class="user-table">
-                            <tbody>
-                                <tr id="genderRow" style="display: none;">
-                                    <td>Пол</td>
-                                    <td id="userGender">—</td>
-                                </tr>
-                                <tr id="birthTimeRow" style="display: none;">
-                                    <td>Время рождения</td>
-                                    <td id="userBirthTime">—</td>
-                                </tr>
-                                <tr id="birthPlaceRow" style="display: none;">
-                                    <td>Место рождения</td>
-                                    <td id="userBirthPlace">—</td>
-                                </tr>
-                                <tr id="relationshipRow" style="display: none;">
-                                    <td>Статус отношений</td>
-                                    <td id="userRelationship">—</td>
-                                </tr>
-                                <tr id="focusAreaRow" style="display: none;">
-                                    <td>Область интересов</td>
-                                    <td id="userFocusArea">—</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Hero Block -->
+                    <div class="profile-hero">
+                        <div class="profile-hero__orb"></div>
+                        <div class="profile-hero__stars"></div>
+                        <div class="profile-hero__content">
+                            <h1 class="profile-hero__name" id="profileName">Твой профиль</h1>
+                            <p class="profile-hero__phase" id="heroPhase">Ты входишь в период переосмысления</p>
+                            <p class="profile-hero__insight" id="heroInsight1"></p>
+                            <p class="profile-hero__key" id="heroInsight2"></p>
+                        </div>
                     </div>
+
+                    <!-- Insight Cards Grid -->
+                    <div class="profile-cards">
+
+                        <!-- Card 1: Personality Archetype -->
+                        <div class="profile-card profile-card--archetype">
+                            <div class="profile-card__icon">🔮</div>
+                            <h2 class="profile-card__title">Личностный архетип</h2>
+                            <div class="profile-card__badge" id="archetypeBadge">Стратег-Интуит</div>
+                            <ul class="profile-card__insights">
+                                <li id="archetypeInsight1"></li>
+                                <li id="archetypeInsight2"></li>
+                                <li id="archetypeInsight3"></li>
+                            </ul>
+                            <p class="profile-card__meta profile-card__meta--strength">
+                                <span class="profile-card__meta-label">⚡ Скрытая сила:</span>
+                                <span id="archetypeStrength"></span>
+                            </p>
+                            <p class="profile-card__meta profile-card__meta--paradox">
+                                <span class="profile-card__meta-label">🔄 Внутренняя дилемма:</span>
+                                <span id="archetypeParadox"></span>
+                            </p>
+                        </div>
+
+                        <!-- Card 2: Current Life Phase -->
+                        <div class="profile-card profile-card--phase">
+                            <div class="profile-card__icon">🌙</div>
+                            <h2 class="profile-card__title">Текущая фаза жизни</h2>
+                            <p class="profile-card__text" id="phaseText"></p>
+                            <div class="profile-card__forecast">
+                                <span class="profile-card__forecast-label">Прогноз</span>
+                                <p id="phaseForecast"></p>
+                            </div>
+                            <p class="profile-card__meta profile-card__meta--warning">
+                                <span class="profile-card__meta-label">⚠ Важно:</span>
+                                <span id="phaseWarning"></span>
+                            </p>
+                        </div>
+
+                        <!-- Card 3: Relationships -->
+                        <div class="profile-card profile-card--relationships">
+                            <div class="profile-card__icon">❤️</div>
+                            <h2 class="profile-card__title">Отношения</h2>
+                            <ul class="profile-card__insights">
+                                <li id="relInsight1"></li>
+                                <li id="relInsight2"></li>
+                                <li id="relInsight3"></li>
+                            </ul>
+                            <p class="profile-card__meta profile-card__meta--pattern">
+                                <span class="profile-card__meta-label">🔁 Твой паттерн:</span>
+                                <span id="relPattern"></span>
+                            </p>
+                        </div>
+
+                        <!-- Card 4: Career & Money -->
+                        <div class="profile-card profile-card--money">
+                            <div class="profile-card__icon">💰</div>
+                            <h2 class="profile-card__title">Карьера и деньги</h2>
+                            <ul class="profile-card__insights">
+                                <li id="moneyFlow"></li>
+                                <li id="moneyBlocker"></li>
+                            </ul>
+                            <p class="profile-card__meta profile-card__meta--opportunity">
+                                <span class="profile-card__meta-label">🚀 Возможность:</span>
+                                <span id="moneyOpportunity"></span>
+                            </p>
+                        </div>
+
+                        <!-- Card 5: Inner Conflict — full width -->
+                        <div class="profile-card profile-card--conflict profile-card--wide">
+                            <div class="profile-card__icon">🧠</div>
+                            <h2 class="profile-card__title">Внутренний конфликт</h2>
+                            <p class="profile-card__paradox-text" id="conflictParadox"></p>
+                            <p class="profile-card__conflict-note" id="conflictNote"></p>
+                        </div>
+
+                    </div>
+
+                    <!-- Info Strip -->
+                    <div class="profile-info">
+                        <div class="profile-info__chip" id="chipZodiac"></div>
+                        <div class="profile-info__chip" id="chipBirth"></div>
+                        <div class="profile-info__chip" id="chipEmail"></div>
+                    </div>
+
+                    <!-- CTA Block -->
+                    <div class="profile-cta">
+                        <div class="profile-cta__stars"></div>
+                        <p class="profile-cta__label">Готов узнать больше?</p>
+                        <h2 class="profile-cta__title">Раскрой полный персональный прогноз</h2>
+                        <p class="profile-cta__subtitle">Точный анализ на 30 дней: работа, отношения, энергия</p>
+                        <a href="#" class="profile-cta__btn">Получить точный прогноз</a>
+                    </div>
+
                 </div>
             </div>
         </div>
