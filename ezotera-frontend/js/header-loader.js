@@ -15,6 +15,48 @@
         body > div:first-child:not(.dashboard):not(.auth) {
             position: relative;
         }
+        /* Styles for authenticated user header */
+        .header__user-greeting {
+            color: white;
+            font-weight: 500;
+            margin-right: 15px;
+        }
+        .header__user-name {
+            color: white;
+            font-weight: 500;
+        }
+        .header__dashboard-link {
+            color: white !important;
+            text-decoration: none;
+            margin-right: 15px;
+            transition: opacity 0.2s;
+        }
+        .header__dashboard-link:hover {
+            opacity: 0.8;
+        }
+        .header__logout-btn {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .header__logout-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        /* Mobile authenticated user header */
+        .header__mobile-user-greeting {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .header__mobile-user-name {
+            color: white;
+            font-weight: 500;
+        }
     `;
     document.head.appendChild(style);
 
@@ -317,20 +359,25 @@
 
     // Load header as soon as possible
     // If DOM is still loading, wait for it; otherwise load immediately
+    const initializeHeader = () => {
+        loadHeader();
+        // Wait for header to be fully injected, then check auth
+        // Use longer timeout to ensure header is fully in DOM
+        setTimeout(() => {
+            // Check if header actions exist before trying to update
+            if (document.querySelector('.header__actions')) {
+                updateHeaderForAuthenticatedUser();
+            } else {
+                // Retry if header not found
+                setTimeout(updateHeaderForAuthenticatedUser, 100);
+            }
+        }, 150);
+    };
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load header synchronously after DOM is ready
-            loadHeader();
-            // Wait a moment for header to be injected, then check auth
-            setTimeout(updateHeaderForAuthenticatedUser, 100);
-        });
-    } else if (document.readyState === 'interactive') {
-        // DOM is interactive but images/styles might still be loading
-        loadHeader();
-        setTimeout(updateHeaderForAuthenticatedUser, 100);
+        document.addEventListener('DOMContentLoaded', initializeHeader);
     } else {
-        // Everything is loaded, load immediately
-        loadHeader();
-        setTimeout(updateHeaderForAuthenticatedUser, 100);
+        // DOM is already loaded, init immediately
+        initializeHeader();
     }
 })();
