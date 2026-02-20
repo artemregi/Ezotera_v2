@@ -1,0 +1,2089 @@
+[
+  {
+    "id": "aries",
+    "name": "Овен",
+    "engName": "Aries",
+    "dates": "21 марта — 19 апреля",
+    "datesEng": "March 21 - April 19",
+    "icon": "♈",
+    "element": "Огонь",
+    "elementEng": "Fire",
+    "polarity": "Positive",
+    "modality": "Cardinal",
+    "rulingPlanet": "Марс",
+    "rulingPlanetEng": "Mars",
+    "rulingHouse": "First",
+    "color": "Красный",
+    "colorEng": "Red",
+    "luckyNumber": 9,
+    "luckyDay": "Вторник",
+    "luckyDayEng": "Tuesday",
+    "positiveTraits": [
+      "смелость",
+      "энергия",
+      "уверенность",
+      "инициативность",
+      "оптимизм",
+      "страстность",
+      "решительность",
+      "независимость"
+    ],
+    "positiveTraitsEng": [
+      "courage",
+      "energy",
+      "confidence",
+      "initiative",
+      "optimism",
+      "passion",
+      "determination",
+      "independence"
+    ],
+    "negativeTraits": [
+      "импульсивность",
+      "нетерпение",
+      "агрессивность",
+      "безрассудность",
+      "эгоизм",
+      "спешка",
+      "раздражительность"
+    ],
+    "negativeTraitsEng": [
+      "impulsiveness",
+      "impatience",
+      "aggression",
+      "recklessness",
+      "selfishness",
+      "haste",
+      "irritability"
+    ],
+    "likes": [
+      "приключения",
+      "соревнование",
+      "независимость",
+      "новые проекты",
+      "действие",
+      "лидерство"
+    ],
+    "likesEng": [
+      "adventure",
+      "competition",
+      "independence",
+      "new projects",
+      "action",
+      "leadership"
+    ],
+    "dislikes": [
+      "скука",
+      "инертность",
+      "критика",
+      "подчинение",
+      "медлительность",
+      "пассивность"
+    ],
+    "dislikesEng": [
+      "boredom",
+      "inertia",
+      "criticism",
+      "submission",
+      "slowness",
+      "passivity"
+    ],
+    "topLoveMatches": [
+      "Лев",
+      "Стрелец"
+    ],
+    "topLoveMatchesEng": [
+      "Leo",
+      "Sagittarius"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Лев",
+        "Стрелец"
+      ],
+      "excellentEng": [
+        "Leo",
+        "Sagittarius"
+      ],
+      "good": [
+        "Близнецы",
+        "Водолей",
+        "Овен"
+      ],
+      "goodEng": [
+        "Gemini",
+        "Aquarius",
+        "Aries"
+      ],
+      "challenging": [
+        "Рак",
+        "Весы",
+        "Козерог"
+      ],
+      "challengingEng": [
+        "Cancer",
+        "Libra",
+        "Capricorn"
+      ]
+    },
+    "birthDates": [
+      "2024-03-21",
+      "2024-03-22",
+      "2024-03-23",
+      "2024-03-24",
+      "2024-03-25",
+      "2024-03-26",
+      "2024-03-27",
+      "2024-03-28",
+      "2024-03-29",
+      "2024-03-30",
+      "2024-03-31",
+      "2024-04-01",
+      "2024-04-02",
+      "2024-04-03",
+      "2024-04-04",
+      "2024-04-05",
+      "2024-04-06",
+      "2024-04-07",
+      "2024-04-08",
+      "2024-04-09",
+      "2024-04-10",
+      "2024-04-11",
+      "2024-04-12",
+      "2024-04-13",
+      "2024-04-14",
+      "2024-04-15",
+      "2024-04-16",
+      "2024-04-17",
+      "2024-04-18",
+      "2024-04-19"
+    ],
+    "textSections": {
+      "element": "Овен — огненный знак, символизирующий энергию, действие и инициативу. Огонь придаёт представителям этого знака страстность, желание создавать и менять мир вокруг себя. Это импульсивная и активная стихия, направленная на достижение целей любой ценой.",
+      "elementEng": "Aries is a fire sign, symbolizing energy, action, and initiative. Fire gives representatives of this sign passion, a desire to create and change the world around them. This is an impulsive and active element aimed at achieving goals at any cost.",
+      "strengths": "Овны известны своей смелостью и решительностью. Они не боятся трудностей и с готовностью берут на себя лидерство. Энергия Овна заразительна — он вдохновляет окружающих своим оптимизмом и уверенностью. Это первопроходцы, которые любят начинать новые дела и открывать неизведанные пути.",
+      "strengthsEng": "Aries are known for their courage and determination. They don't fear difficulties and readily take on leadership. Aries energy is contagious—they inspire those around them with their optimism and confidence. These are pioneers who love starting new things and exploring uncharted paths.",
+      "compatibility": "Овен идеально совместим с другими огненными знаками — Львом и Стрельцом. Воздушные знаки (Близнецы, Весы, Водолей) также хорошо дополняют энергию Овна. С земными и водными знаками возможны сложности из-за разных жизненных подходов и скоростей.",
+      "compatibilityEng": "Aries is ideally compatible with other fire signs—Leo and Sagittarius. Air signs (Gemini, Libra, Aquarius) also complement Aries energy well. With earth and water signs, difficulties are possible due to different life approaches and paces.",
+      "philosophy": "Жизненная философия Овна основана на действии. Они верят, что жизнь — это приключение, которое нужно прожить полностью. Овны живут настоящим моментом и не любят откладывать дела на потом. Их девиз: 'Я пришёл, я увидел, я победил'.",
+      "philosophyEng": "Aries' life philosophy is based on action. They believe that life is an adventure to be lived fully. Aries live in the present moment and don't like to procrastinate. Their motto is: 'I came, I saw, I conquered.'"
+    }
+  },
+  {
+    "id": "taurus",
+    "name": "Телец",
+    "engName": "Taurus",
+    "dates": "20 апреля — 20 мая",
+    "datesEng": "April 20 - May 20",
+    "icon": "♉",
+    "element": "Земля",
+    "elementEng": "Earth",
+    "polarity": "Negative",
+    "modality": "Fixed",
+    "rulingPlanet": "Венера",
+    "rulingPlanetEng": "Venus",
+    "rulingHouse": "Second",
+    "color": "Зелёный",
+    "colorEng": "Green",
+    "luckyNumber": 6,
+    "luckyDay": "Пятница",
+    "luckyDayEng": "Friday",
+    "positiveTraits": [
+      "надёжность",
+      "стабильность",
+      "практичность",
+      "уверенность",
+      "чувственность",
+      "верность",
+      "трудолюбие",
+      "миролюбие"
+    ],
+    "positiveTraitsEng": [
+      "reliability",
+      "stability",
+      "practicality",
+      "determination",
+      "sensuality",
+      "loyalty",
+      "diligence",
+      "peacefulness"
+    ],
+    "negativeTraits": [
+      "упрямство",
+      "инертность",
+      "ревность",
+      "упорство",
+      "материализм",
+      "лень",
+      "консервативность"
+    ],
+    "negativeTraitsEng": [
+      "stubbornness",
+      "inertia",
+      "jealousy",
+      "obstinacy",
+      "materialism",
+      "laziness",
+      "conservatism"
+    ],
+    "likes": [
+      "комфорт",
+      "природа",
+      "прекрасное искусство",
+      "хорошая еда",
+      "стабильность",
+      "качественные вещи",
+      "музыка"
+    ],
+    "likesEng": [
+      "comfort",
+      "nature",
+      "fine art",
+      "good food",
+      "stability",
+      "quality things",
+      "music"
+    ],
+    "dislikes": [
+      "спешка",
+      "непредвиденные перемены",
+      "несправедливость",
+      "потери",
+      "критика",
+      "дешевизна"
+    ],
+    "dislikesEng": [
+      "haste",
+      "sudden changes",
+      "injustice",
+      "losses",
+      "criticism",
+      "cheapness"
+    ],
+    "topLoveMatches": [
+      "Козерог",
+      "Дева"
+    ],
+    "topLoveMatchesEng": [
+      "Capricorn",
+      "Virgo"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Козерог",
+        "Дева"
+      ],
+      "excellentEng": [
+        "Capricorn",
+        "Virgo"
+      ],
+      "good": [
+        "Телец",
+        "Скорпион",
+        "Рыбы"
+      ],
+      "goodEng": [
+        "Taurus",
+        "Scorpio",
+        "Pisces"
+      ],
+      "challenging": [
+        "Лев",
+        "Водолей",
+        "Скорпион"
+      ],
+      "challengingEng": [
+        "Leo",
+        "Aquarius",
+        "Scorpio"
+      ]
+    },
+    "birthDates": [
+      "2024-04-20",
+      "2024-04-21",
+      "2024-04-22",
+      "2024-04-23",
+      "2024-04-24",
+      "2024-04-25",
+      "2024-04-26",
+      "2024-04-27",
+      "2024-04-28",
+      "2024-04-29",
+      "2024-04-30",
+      "2024-05-01",
+      "2024-05-02",
+      "2024-05-03",
+      "2024-05-04",
+      "2024-05-05",
+      "2024-05-06",
+      "2024-05-07",
+      "2024-05-08",
+      "2024-05-09",
+      "2024-05-10",
+      "2024-05-11",
+      "2024-05-12",
+      "2024-05-13",
+      "2024-05-14",
+      "2024-05-15",
+      "2024-05-16",
+      "2024-05-17",
+      "2024-05-18",
+      "2024-05-19",
+      "2024-05-20"
+    ],
+    "textSections": {
+      "element": "Телец — земной знак, символизирующий стабильность, материальность и практичность. Земля придаёт представителям этого знака надёжность, глубокие корни и способность строить прочный фундамент. Это знак, ценящий реальность и материальные достижения.",
+      "elementEng": "Taurus is an earth sign symbolizing stability, materiality, and practicality. Earth gives representatives of this sign reliability, deep roots, and the ability to build a solid foundation. This is a sign that values reality and material achievements.",
+      "strengths": "Тельцы известны своей надёжностью и стабильностью. Они верные друзья и партнёры, на которых можно положиться. Их практичность помогает им успешно справляться с земными делами. Тельцы обладают хорошим вкусом и ценят прекрасное. Они медленно движутся вперёд, но достигают поставленных целей.",
+      "strengthsEng": "Taurus are known for their reliability and stability. They are loyal friends and partners you can count on. Their practicality helps them successfully handle earthly matters. Taurus have good taste and appreciate the beautiful. They move forward slowly but achieve their goals.",
+      "compatibility": "Телец хорошо совместим с другими земными знаками — Девой и Козерогом. Водные знаки (Рак, Скорпион, Рыбы) также гармонично дополняют земную энергию Тельца. С огненными знаками возможны конфликты из-за разных темпов жизни.",
+      "compatibilityEng": "Taurus is well compatible with other earth signs—Virgo and Capricorn. Water signs (Cancer, Scorpio, Pisces) also harmoniously complement Taurus's earth energy. Fire signs may conflict due to different life paces.",
+      "philosophy": "Философия Тельца сосредоточена на создании стабильности и комфорта. Они верят в силу упорного труда и постоянства. Тельцы живут по принципу 'медленно, но верно'. Для них важны семья, дом и материальная безопасность.",
+      "philosophyEng": "Taurus philosophy is focused on creating stability and comfort. They believe in the power of hard work and perseverance. Taurus lives by the principle of 'slowly but surely.' For them, family, home, and financial security are important."
+    }
+  },
+  {
+    "id": "gemini",
+    "name": "Близнецы",
+    "engName": "Gemini",
+    "dates": "21 мая — 20 июня",
+    "datesEng": "May 21 - June 20",
+    "icon": "♊",
+    "element": "Воздух",
+    "elementEng": "Air",
+    "polarity": "Positive",
+    "modality": "Mutable",
+    "rulingPlanet": "Меркурий",
+    "rulingPlanetEng": "Mercury",
+    "rulingHouse": "Third",
+    "color": "Жёлтый",
+    "colorEng": "Yellow",
+    "luckyNumber": 5,
+    "luckyDay": "Среда",
+    "luckyDayEng": "Wednesday",
+    "positiveTraits": [
+      "коммуникативность",
+      "любопытство",
+      "ловкость",
+      "интеллект",
+      "остроумие",
+      "адаптивность",
+      "общительность",
+      "гибкость"
+    ],
+    "positiveTraitsEng": [
+      "communication",
+      "curiosity",
+      "dexterity",
+      "intelligence",
+      "wit",
+      "adaptability",
+      "sociability",
+      "flexibility"
+    ],
+    "negativeTraits": [
+      "двуличность",
+      "невнимательность",
+      "беспокойство",
+      "непостоянство",
+      "поверхностность",
+      "болтливость",
+      "нервозность"
+    ],
+    "negativeTraitsEng": [
+      "two-facedness",
+      "inattentiveness",
+      "anxiety",
+      "inconstancy",
+      "superficiality",
+      "talkativeness",
+      "nervousness"
+    ],
+    "likes": [
+      "общение",
+      "новая информация",
+      "путешествия",
+      "интеллектуальные игры",
+      "разнообразие",
+      "обучение",
+      "социальная жизнь"
+    ],
+    "likesEng": [
+      "communication",
+      "new information",
+      "travel",
+      "intellectual games",
+      "variety",
+      "learning",
+      "social life"
+    ],
+    "dislikes": [
+      "одиночество",
+      "скука",
+      "рутина",
+      "однообразие",
+      "молчание",
+      "ограничения",
+      "медлительность"
+    ],
+    "dislikesEng": [
+      "loneliness",
+      "boredom",
+      "routine",
+      "monotony",
+      "silence",
+      "limitations",
+      "slowness"
+    ],
+    "topLoveMatches": [
+      "Весы",
+      "Водолей"
+    ],
+    "topLoveMatchesEng": [
+      "Libra",
+      "Aquarius"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Весы",
+        "Водолей"
+      ],
+      "excellentEng": [
+        "Libra",
+        "Aquarius"
+      ],
+      "good": [
+        "Близнецы",
+        "Овен",
+        "Лев"
+      ],
+      "goodEng": [
+        "Gemini",
+        "Aries",
+        "Leo"
+      ],
+      "challenging": [
+        "Рыбы",
+        "Дева",
+        "Рак"
+      ],
+      "challengingEng": [
+        "Pisces",
+        "Virgo",
+        "Cancer"
+      ]
+    },
+    "birthDates": [
+      "2024-05-21",
+      "2024-05-22",
+      "2024-05-23",
+      "2024-05-24",
+      "2024-05-25",
+      "2024-05-26",
+      "2024-05-27",
+      "2024-05-28",
+      "2024-05-29",
+      "2024-05-30",
+      "2024-05-31",
+      "2024-06-01",
+      "2024-06-02",
+      "2024-06-03",
+      "2024-06-04",
+      "2024-06-05",
+      "2024-06-06",
+      "2024-06-07",
+      "2024-06-08",
+      "2024-06-09",
+      "2024-06-10",
+      "2024-06-11",
+      "2024-06-12",
+      "2024-06-13",
+      "2024-06-14",
+      "2024-06-15",
+      "2024-06-16",
+      "2024-06-17",
+      "2024-06-18",
+      "2024-06-19",
+      "2024-06-20"
+    ],
+    "textSections": {
+      "element": "Близнецы — воздушный знак, символизирующий интеллект, общение и разнообразие. Воздух придаёт представителям этого знака лёгкость, коммуникативность и постоянную потребность в обмене информацией. Это знак движения, перемен и интеллектуальных поисков.",
+      "elementEng": "Gemini is an air sign symbolizing intellect, communication, and diversity. Air gives representatives of this sign lightness, communicativeness, and a constant need for information exchange. This is a sign of movement, change, and intellectual pursuits.",
+      "strengths": "Близнецы — мастера общения. Они легко находят общий язык с людьми и обладают природной сообразительностью. Их интеллект помогает им быстро усваивать информацию и адаптироваться к новым ситуациям. Близнецы всегда полны новых идей и готовы изучать мир.",
+      "strengthsEng": "Gemini are masters of communication. They easily find common ground with people and possess natural wit. Their intellect helps them quickly absorb information and adapt to new situations. Gemini are always full of new ideas and ready to explore the world.",
+      "compatibility": "Близнецы идеально совместимы с другими воздушными знаками — Весами и Водолеем. Огненные знаки (Овен, Лев, Стрелец) также хорошо дополняют энергию Близнецов. С земными знаками возможны сложности из-за разного темпа жизни.",
+      "compatibilityEng": "Gemini are ideally compatible with other air signs—Libra and Aquarius. Fire signs (Aries, Leo, Sagittarius) also complement Gemini energy well. Difficulties with earth signs are possible due to different life paces.",
+      "philosophy": "Философия Близнецов основана на любопытстве и стремлении к знаниям. Они верят, что жизнь — это бесконечный процесс обучения и общения. Близнецы живут возможностями и возможностями. Их девиз: 'Знание — сила'.",
+      "philosophyEng": "Gemini philosophy is based on curiosity and a quest for knowledge. They believe that life is an endless process of learning and communication. Gemini live by possibilities and opportunities. Their motto is: 'Knowledge is power.'"
+    }
+  },
+  {
+    "id": "cancer",
+    "name": "Рак",
+    "engName": "Cancer",
+    "dates": "21 июня — 22 июля",
+    "datesEng": "June 21 - July 22",
+    "icon": "♋",
+    "element": "Вода",
+    "elementEng": "Water",
+    "polarity": "Negative",
+    "modality": "Cardinal",
+    "rulingPlanet": "Луна",
+    "rulingPlanetEng": "Moon",
+    "rulingHouse": "Fourth",
+    "color": "Серебристый",
+    "colorEng": "Silver",
+    "luckyNumber": 2,
+    "luckyDay": "Понедельник",
+    "luckyDayEng": "Monday",
+    "positiveTraits": [
+      "чувствительность",
+      "интуиция",
+      "забота",
+      "преданность",
+      "воображение",
+      "эмоциональность",
+      "сострадание",
+      "защитность"
+    ],
+    "positiveTraitsEng": [
+      "sensitivity",
+      "intuition",
+      "care",
+      "devotion",
+      "imagination",
+      "emotionality",
+      "compassion",
+      "protectiveness"
+    ],
+    "negativeTraits": [
+      "ранимость",
+      "капризность",
+      "мнительность",
+      "замкнутость",
+      "уныние",
+      "раздражительность",
+      "чрезмерная эмоциональность"
+    ],
+    "negativeTraitsEng": [
+      "sensitivity",
+      "moodiness",
+      "suspicion",
+      "withdrawal",
+      "melancholy",
+      "irritability",
+      "excessive emotionality"
+    ],
+    "likes": [
+      "семья",
+      "дом",
+      "верные друзья",
+      "память о прошлом",
+      "забота",
+      "интимность",
+      "понимание"
+    ],
+    "likesEng": [
+      "family",
+      "home",
+      "loyal friends",
+      "memories of the past",
+      "care",
+      "intimacy",
+      "understanding"
+    ],
+    "dislikes": [
+      "критика",
+      "отвержение",
+      "одиночество",
+      "неопределённость",
+      "поверхностность",
+      "грубость",
+      "холодность"
+    ],
+    "dislikesEng": [
+      "criticism",
+      "rejection",
+      "loneliness",
+      "uncertainty",
+      "superficiality",
+      "rudeness",
+      "coldness"
+    ],
+    "topLoveMatches": [
+      "Скорпион",
+      "Рыбы"
+    ],
+    "topLoveMatchesEng": [
+      "Scorpio",
+      "Pisces"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Скорпион",
+        "Рыбы"
+      ],
+      "excellentEng": [
+        "Scorpio",
+        "Pisces"
+      ],
+      "good": [
+        "Рак",
+        "Телец",
+        "Дева"
+      ],
+      "goodEng": [
+        "Cancer",
+        "Taurus",
+        "Virgo"
+      ],
+      "challenging": [
+        "Весы",
+        "Овен",
+        "Козерог"
+      ],
+      "challengingEng": [
+        "Libra",
+        "Aries",
+        "Capricorn"
+      ]
+    },
+    "birthDates": [
+      "2024-06-21",
+      "2024-06-22",
+      "2024-06-23",
+      "2024-06-24",
+      "2024-06-25",
+      "2024-06-26",
+      "2024-06-27",
+      "2024-06-28",
+      "2024-06-29",
+      "2024-06-30",
+      "2024-07-01",
+      "2024-07-02",
+      "2024-07-03",
+      "2024-07-04",
+      "2024-07-05",
+      "2024-07-06",
+      "2024-07-07",
+      "2024-07-08",
+      "2024-07-09",
+      "2024-07-10",
+      "2024-07-11",
+      "2024-07-12",
+      "2024-07-13",
+      "2024-07-14",
+      "2024-07-15",
+      "2024-07-16",
+      "2024-07-17",
+      "2024-07-18",
+      "2024-07-19",
+      "2024-07-20",
+      "2024-07-21",
+      "2024-07-22"
+    ],
+    "textSections": {
+      "element": "Рак — водный знак, символизирующий эмоции, интуицию и глубинные чувства. Вода придаёт представителям этого знака чувствительность, восприимчивость и способность понимать скрытые мотивы. Это знак домашнего очага и эмоциональной безопасности.",
+      "elementEng": "Cancer is a water sign symbolizing emotions, intuition, and deep feelings. Water gives representatives of this sign sensitivity, receptiveness, and the ability to understand hidden motives. This is a sign of home and emotional security.",
+      "strengths": "Раки известны своей глубокой интуицией и чувствительностью к эмоциям других. Они заботливые, преданные и верные друзья. Раки обладают сильным воображением и креативностью. Они создают уютный дом и глубокие эмоциональные связи с близкими.",
+      "strengthsEng": "Cancerians are known for their deep intuition and sensitivity to others' emotions. They are caring, devoted, and loyal friends. Cancers possess strong imagination and creativity. They create a cozy home and deep emotional bonds with loved ones.",
+      "compatibility": "Рак хорошо совместим с другими водными знаками — Скорпионом и Рыбами. Земные знаки (Телец, Дева, Козерог) также хорошо дополняют водную энергию Рака. С воздушными и огненными знаками возможны напряжения.",
+      "compatibilityEng": "Cancer is well compatible with other water signs—Scorpio and Pisces. Earth signs (Taurus, Virgo, Capricorn) also complement Cancer's water energy well. Tensions with air and fire signs are possible.",
+      "philosophy": "Философия Рака сосредоточена на семье, доме и эмоциональной близости. Они верят в силу интуиции и эмоциональной глубины. Раки живут прошлым, настоящим и будущим одновременно. Их девиз: 'Семья — это всё'.",
+      "philosophyEng": "Cancer philosophy is focused on family, home, and emotional intimacy. They believe in the power of intuition and emotional depth. Cancers live in the past, present, and future simultaneously. Their motto is: 'Family is everything.'"
+    }
+  },
+  {
+    "id": "leo",
+    "name": "Лев",
+    "engName": "Leo",
+    "dates": "23 июля — 22 августа",
+    "datesEng": "July 23 - August 22",
+    "icon": "♌",
+    "element": "Огонь",
+    "elementEng": "Fire",
+    "polarity": "Positive",
+    "modality": "Fixed",
+    "rulingPlanet": "Солнце",
+    "rulingPlanetEng": "Sun",
+    "rulingHouse": "Fifth",
+    "color": "Золотой",
+    "colorEng": "Gold",
+    "luckyNumber": 1,
+    "luckyDay": "Воскресенье",
+    "luckyDayEng": "Sunday",
+    "positiveTraits": [
+      "щедрость",
+      "харизма",
+      "творчество",
+      "уверенность в себе",
+      "великодушие",
+      "дружелюбие",
+      "лидерство",
+      "оптимизм"
+    ],
+    "positiveTraitsEng": [
+      "generosity",
+      "charisma",
+      "creativity",
+      "self-confidence",
+      "magnanimity",
+      "friendliness",
+      "leadership",
+      "optimism"
+    ],
+    "negativeTraits": [
+      "высокомерие",
+      "самолюбие",
+      "тщеславие",
+      "упрямство",
+      "необходимость внимания",
+      "ревность",
+      "расточительность"
+    ],
+    "negativeTraitsEng": [
+      "arrogance",
+      "pride",
+      "vanity",
+      "stubbornness",
+      "need for attention",
+      "jealousy",
+      "extravagance"
+    ],
+    "likes": [
+      "внимание",
+      "признание",
+      "творчество",
+      "роскошь",
+      "развлечения",
+      "авантюры",
+      "дружба"
+    ],
+    "likesEng": [
+      "attention",
+      "recognition",
+      "creativity",
+      "luxury",
+      "entertainment",
+      "adventure",
+      "friendship"
+    ],
+    "dislikes": [
+      "игнорирование",
+      "критика",
+      "скромность",
+      "унижение",
+      "скука",
+      "несправедливость"
+    ],
+    "dislikesEng": [
+      "being ignored",
+      "criticism",
+      "modesty",
+      "humiliation",
+      "boredom",
+      "injustice"
+    ],
+    "topLoveMatches": [
+      "Овен",
+      "Стрелец"
+    ],
+    "topLoveMatchesEng": [
+      "Aries",
+      "Sagittarius"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Овен",
+        "Стрелец"
+      ],
+      "excellentEng": [
+        "Aries",
+        "Sagittarius"
+      ],
+      "good": [
+        "Лев",
+        "Близнецы",
+        "Весы"
+      ],
+      "goodEng": [
+        "Leo",
+        "Gemini",
+        "Libra"
+      ],
+      "challenging": [
+        "Телец",
+        "Скорпион",
+        "Водолей"
+      ],
+      "challengingEng": [
+        "Taurus",
+        "Scorpio",
+        "Aquarius"
+      ]
+    },
+    "birthDates": [
+      "2024-07-23",
+      "2024-07-24",
+      "2024-07-25",
+      "2024-07-26",
+      "2024-07-27",
+      "2024-07-28",
+      "2024-07-29",
+      "2024-07-30",
+      "2024-07-31",
+      "2024-08-01",
+      "2024-08-02",
+      "2024-08-03",
+      "2024-08-04",
+      "2024-08-05",
+      "2024-08-06",
+      "2024-08-07",
+      "2024-08-08",
+      "2024-08-09",
+      "2024-08-10",
+      "2024-08-11",
+      "2024-08-12",
+      "2024-08-13",
+      "2024-08-14",
+      "2024-08-15",
+      "2024-08-16",
+      "2024-08-17",
+      "2024-08-18",
+      "2024-08-19",
+      "2024-08-20",
+      "2024-08-21",
+      "2024-08-22"
+    ],
+    "textSections": {
+      "element": "Лев — огненный знак, символизирующий творчество, величие и лидерство. Огонь придаёт представителям этого знака яркость, энтузиазм и желание быть в центре внимания. Это знак, связанный с Солнцем и его жизнедающей энергией.",
+      "elementEng": "Leo is a fire sign symbolizing creativity, greatness, and leadership. Fire gives representatives of this sign brightness, enthusiasm, and a desire to be in the spotlight. This is a sign associated with the Sun and its life-giving energy.",
+      "strengths": "Львы — прирождённые лидеры с естественной харизмой. Они щедрые, творческие и полны позитива. Львы всегда готовы помочь друзьям и защитить слабых. Их уверенность вдохновляет окружающих. Они достигают высоких целей и не боятся быть в центре внимания.",
+      "strengthsEng": "Leos are born leaders with natural charisma. They are generous, creative, and full of positivity. Leos are always ready to help friends and protect the weak. Their confidence inspires those around them. They achieve high goals and are not afraid to be in the spotlight.",
+      "compatibility": "Лев идеально совместим с другими огненными знаками — Овном и Стрельцом. Воздушные знаки (Близнецы, Весы, Водолей) также хорошо дополняют энергию Льва. С земными и водными знаками возможны сложности.",
+      "compatibilityEng": "Leo is ideally compatible with other fire signs—Aries and Sagittarius. Air signs (Gemini, Libra, Aquarius) also complement Leo energy well. Difficulties with earth and water signs are possible.",
+      "philosophy": "Философия Льва основана на идее величия и самовыражения. Они верят в силу воли и творчества. Львы живут ярко и полно, не боясь показать свою истинную природу. Их девиз: 'Я царь, и я правлю своей жизнью'.",
+      "philosophyEng": "Leo's philosophy is based on the idea of greatness and self-expression. They believe in the power of will and creativity. Leos live brightly and fully, unafraid to show their true nature. Their motto is: 'I am king, and I rule my life.'"
+    }
+  },
+  {
+    "id": "virgo",
+    "name": "Дева",
+    "engName": "Virgo",
+    "dates": "23 августа — 22 сентября",
+    "datesEng": "August 23 - September 22",
+    "icon": "♍",
+    "element": "Земля",
+    "elementEng": "Earth",
+    "polarity": "Negative",
+    "modality": "Mutable",
+    "rulingPlanet": "Меркурий",
+    "rulingPlanetEng": "Mercury",
+    "rulingHouse": "Sixth",
+    "color": "Зелёный",
+    "colorEng": "Green",
+    "luckyNumber": 5,
+    "luckyDay": "Среда",
+    "luckyDayEng": "Wednesday",
+    "positiveTraits": [
+      "аналитичность",
+      "внимательность",
+      "практичность",
+      "организованность",
+      "честность",
+      "скромность",
+      "логичность",
+      "надёжность"
+    ],
+    "positiveTraitsEng": [
+      "analyticity",
+      "attentiveness",
+      "practicality",
+      "organization",
+      "honesty",
+      "modesty",
+      "logic",
+      "reliability"
+    ],
+    "negativeTraits": [
+      "критичность",
+      "перфекционизм",
+      "нервозность",
+      "беспокойство",
+      "чрезмерная осторожность",
+      "занудство",
+      "недоверие"
+    ],
+    "negativeTraitsEng": [
+      "criticality",
+      "perfectionism",
+      "nervousness",
+      "anxiety",
+      "excessive caution",
+      "pedantry",
+      "distrust"
+    ],
+    "likes": [
+      "порядок",
+      "анализ",
+      "полезность",
+      "служение",
+      "знания",
+      "точность",
+      "честность"
+    ],
+    "likesEng": [
+      "order",
+      "analysis",
+      "usefulness",
+      "service",
+      "knowledge",
+      "accuracy",
+      "honesty"
+    ],
+    "dislikes": [
+      "беспорядок",
+      "неточность",
+      "лень",
+      "поверхностность",
+      "невнимательность",
+      "хаос",
+      "грубость"
+    ],
+    "dislikesEng": [
+      "disorder",
+      "inaccuracy",
+      "laziness",
+      "superficiality",
+      "carelessness",
+      "chaos",
+      "rudeness"
+    ],
+    "topLoveMatches": [
+      "Телец",
+      "Козерог"
+    ],
+    "topLoveMatchesEng": [
+      "Taurus",
+      "Capricorn"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Телец",
+        "Козерог"
+      ],
+      "excellentEng": [
+        "Taurus",
+        "Capricorn"
+      ],
+      "good": [
+        "Дева",
+        "Рак",
+        "Скорпион"
+      ],
+      "goodEng": [
+        "Virgo",
+        "Cancer",
+        "Scorpio"
+      ],
+      "challenging": [
+        "Стрелец",
+        "Близнецы",
+        "Рыбы"
+      ],
+      "challengingEng": [
+        "Sagittarius",
+        "Gemini",
+        "Pisces"
+      ]
+    },
+    "birthDates": [
+      "2024-08-23",
+      "2024-08-24",
+      "2024-08-25",
+      "2024-08-26",
+      "2024-08-27",
+      "2024-08-28",
+      "2024-08-29",
+      "2024-08-30",
+      "2024-08-31",
+      "2024-09-01",
+      "2024-09-02",
+      "2024-09-03",
+      "2024-09-04",
+      "2024-09-05",
+      "2024-09-06",
+      "2024-09-07",
+      "2024-09-08",
+      "2024-09-09",
+      "2024-09-10",
+      "2024-09-11",
+      "2024-09-12",
+      "2024-09-13",
+      "2024-09-14",
+      "2024-09-15",
+      "2024-09-16",
+      "2024-09-17",
+      "2024-09-18",
+      "2024-09-19",
+      "2024-09-20",
+      "2024-09-21",
+      "2024-09-22"
+    ],
+    "textSections": {
+      "element": "Дева — земной знак, символизирующий анализ, служение и совершенство. Земля придаёт представителям этого знака практичность, внимательность и стремление к порядку. Это знак, связанный с интеллектуальным анализом и полезностью.",
+      "elementEng": "Virgo is an earth sign symbolizing analysis, service, and perfection. Earth gives representatives of this sign practicality, attentiveness, and a desire for order. This is a sign associated with intellectual analysis and usefulness.",
+      "strengths": "Девы известны своим аналитическим умом и внимательностью к деталям. Они организованные, надёжные и честные. Девы обладают логическим мышлением и стремлением к совершенству. Они служат обществу, используя свои знания и навыки. Это помощники и советчики.",
+      "strengthsEng": "Virgos are known for their analytical minds and attention to detail. They are organized, reliable, and honest. Virgos possess logical thinking and a desire for perfection. They serve society using their knowledge and skills. They are helpers and advisors.",
+      "compatibility": "Дева хорошо совместима с другими земными знаками — Тельцом и Козерогом. Водные знаки (Рак, Скорпион, Рыбы) также хорошо дополняют земную энергию Девы. С огненными и воздушными знаками возможны конфликты.",
+      "compatibilityEng": "Virgo is well compatible with other earth signs—Taurus and Capricorn. Water signs (Cancer, Scorpio, Pisces) also complement Virgo's earth energy well. Conflicts with fire and air signs are possible.",
+      "philosophy": "Философия Девы сосредоточена на служении, совершенстве и знаниях. Они верят, что улучшение самих себя — это путь к улучшению мира. Девы живут по принципу анализа и планомерности. Их девиз: 'Каждая деталь имеет значение'.",
+      "philosophyEng": "Virgo philosophy is focused on service, perfection, and knowledge. They believe that self-improvement is a path to improving the world. Virgos live by the principle of analysis and planning. Their motto is: 'Every detail matters.'"
+    }
+  },
+  {
+    "id": "libra",
+    "name": "Весы",
+    "engName": "Libra",
+    "dates": "23 сентября — 22 октября",
+    "datesEng": "September 23 - October 22",
+    "icon": "♎",
+    "element": "Воздух",
+    "elementEng": "Air",
+    "polarity": "Negative",
+    "modality": "Cardinal",
+    "rulingPlanet": "Венера",
+    "rulingPlanetEng": "Venus",
+    "rulingHouse": "Seventh",
+    "color": "Голубой",
+    "colorEng": "Blue",
+    "luckyNumber": 6,
+    "luckyDay": "Пятница",
+    "luckyDayEng": "Friday",
+    "positiveTraits": [
+      "дипломатичность",
+      "справедливость",
+      "грациозность",
+      "общительность",
+      "интеллект",
+      "чувство меры",
+      "эстетизм",
+      "уравновешенность"
+    ],
+    "positiveTraitsEng": [
+      "diplomacy",
+      "justice",
+      "grace",
+      "sociability",
+      "intellect",
+      "sense of measure",
+      "aestheticism",
+      "balance"
+    ],
+    "negativeTraits": [
+      "нерешительность",
+      "колебание",
+      "зависимость",
+      "поверхностность",
+      "лень",
+      "неспособность принимать решения",
+      "легкомыслие"
+    ],
+    "negativeTraitsEng": [
+      "indecision",
+      "vacillation",
+      "dependence",
+      "superficiality",
+      "laziness",
+      "inability to make decisions",
+      "frivolity"
+    ],
+    "likes": [
+      "гармония",
+      "красота",
+      "общество",
+      "беседы",
+      "равновесие",
+      "искусство",
+      "справедливость"
+    ],
+    "likesEng": [
+      "harmony",
+      "beauty",
+      "company",
+      "conversations",
+      "balance",
+      "art",
+      "justice"
+    ],
+    "dislikes": [
+      "конфликт",
+      "груб ость",
+      "одиночество",
+      "несправедливость",
+      "хаос",
+      "грубая честность",
+      "давление"
+    ],
+    "dislikesEng": [
+      "conflict",
+      "rudeness",
+      "loneliness",
+      "injustice",
+      "chaos",
+      "bluntness",
+      "pressure"
+    ],
+    "topLoveMatches": [
+      "Близнецы",
+      "Водолей"
+    ],
+    "topLoveMatchesEng": [
+      "Gemini",
+      "Aquarius"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Близнецы",
+        "Водолей"
+      ],
+      "excellentEng": [
+        "Gemini",
+        "Aquarius"
+      ],
+      "good": [
+        "Весы",
+        "Лев",
+        "Стрелец"
+      ],
+      "goodEng": [
+        "Libra",
+        "Leo",
+        "Sagittarius"
+      ],
+      "challenging": [
+        "Рак",
+        "Козерог",
+        "Овен"
+      ],
+      "challengingEng": [
+        "Cancer",
+        "Capricorn",
+        "Aries"
+      ]
+    },
+    "birthDates": [
+      "2024-09-23",
+      "2024-09-24",
+      "2024-09-25",
+      "2024-09-26",
+      "2024-09-27",
+      "2024-09-28",
+      "2024-09-29",
+      "2024-09-30",
+      "2024-10-01",
+      "2024-10-02",
+      "2024-10-03",
+      "2024-10-04",
+      "2024-10-05",
+      "2024-10-06",
+      "2024-10-07",
+      "2024-10-08",
+      "2024-10-09",
+      "2024-10-10",
+      "2024-10-11",
+      "2024-10-12",
+      "2024-10-13",
+      "2024-10-14",
+      "2024-10-15",
+      "2024-10-16",
+      "2024-10-17",
+      "2024-10-18",
+      "2024-10-19",
+      "2024-10-20",
+      "2024-10-21",
+      "2024-10-22"
+    ],
+    "textSections": {
+      "element": "Весы — воздушный знак, символизирующий баланс, справедливость и гармонию. Воздух придаёт представителям этого знака лёгкость, дипломатичность и способность видеть обе стороны вопроса. Это знак равновесия и взаимоотношений.",
+      "elementEng": "Libra is an air sign symbolizing balance, justice, and harmony. Air gives representatives of this sign lightness, diplomacy, and the ability to see both sides of a question. This is a sign of balance and relationships.",
+      "strengths": "Весы — дипломаты и миротворцы. Они справедливы, грациозны и обладают тонким вкусом. Весы хорошо улавливают и анализируют информацию, видя перспективу. Они умеют находить компромиссы и создавать гармонию в отношениях. Весы любят красивые вещи и эстетику.",
+      "strengthsEng": "Libras are diplomats and peacemakers. They are fair, graceful, and have refined taste. Libras pick up and analyze information well, seeing perspective. They know how to find compromises and create harmony in relationships. Libras love beautiful things and aesthetics.",
+      "compatibility": "Весы идеально совместимы с другими воздушными знаками — Близнецами и Водолеем. Огненные знаки (Овен, Лев, Стрелец) также хорошо дополняют энергию Весов. С водными и земными знаками возможны напряжения.",
+      "compatibilityEng": "Libra is ideally compatible with other air signs—Gemini and Aquarius. Fire signs (Aries, Leo, Sagittarius) also complement Libra energy well. Tensions with water and earth signs are possible.",
+      "philosophy": "Философия Весов сосредоточена на поиске баланса и справедливости. Они верят в силу гармонии и компромисса. Весы живут для отношений и взаимопонимания. Их девиз: 'В равновесии — красота'.",
+      "philosophyEng": "Libra philosophy is focused on finding balance and justice. They believe in the power of harmony and compromise. Libras live for relationships and mutual understanding. Their motto is: 'In balance—beauty.'"
+    }
+  },
+  {
+    "id": "scorpio",
+    "name": "Скорпион",
+    "engName": "Scorpio",
+    "dates": "23 октября — 21 ноября",
+    "datesEng": "October 23 - November 21",
+    "icon": "♏",
+    "element": "Вода",
+    "elementEng": "Water",
+    "polarity": "Negative",
+    "modality": "Fixed",
+    "rulingPlanet": "Плутон",
+    "rulingPlanetEng": "Pluto",
+    "rulingHouse": "Eighth",
+    "color": "Тёмно-красный",
+    "colorEng": "Dark Red",
+    "luckyNumber": 8,
+    "luckyDay": "Вторник",
+    "luckyDayEng": "Tuesday",
+    "positiveTraits": [
+      "страстность",
+      "интенсивность",
+      "интуиция",
+      "стойкость",
+      "глубина",
+      "магнетизм",
+      "решительность",
+      "верность"
+    ],
+    "positiveTraitsEng": [
+      "passion",
+      "intensity",
+      "intuition",
+      "resilience",
+      "depth",
+      "magnetism",
+      "determination",
+      "loyalty"
+    ],
+    "negativeTraits": [
+      "ревность",
+      "подозрительность",
+      "мстительность",
+      "скрытность",
+      "деструктивность",
+      "обсессивность",
+      "властность"
+    ],
+    "negativeTraitsEng": [
+      "jealousy",
+      "suspicion",
+      "vindictiveness",
+      "secretiveness",
+      "destructiveness",
+      "obsessiveness",
+      "domination"
+    ],
+    "likes": [
+      "страсть",
+      "интенсивность",
+      "секреты",
+      "глубокие отношения",
+      "власть",
+      "трансформация",
+      "исследование"
+    ],
+    "likesEng": [
+      "passion",
+      "intensity",
+      "secrets",
+      "deep relationships",
+      "power",
+      "transformation",
+      "exploration"
+    ],
+    "dislikes": [
+      "поверхностность",
+      "предательство",
+      "неверность",
+      "контроль",
+      "вторжение в пространство",
+      "лицемерие",
+      "видимость"
+    ],
+    "dislikesEng": [
+      "superficiality",
+      "betrayal",
+      "infidelity",
+      "control",
+      "invasion of space",
+      "hypocrisy",
+      "pretense"
+    ],
+    "topLoveMatches": [
+      "Рак",
+      "Рыбы"
+    ],
+    "topLoveMatchesEng": [
+      "Cancer",
+      "Pisces"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Рак",
+        "Рыбы"
+      ],
+      "excellentEng": [
+        "Cancer",
+        "Pisces"
+      ],
+      "good": [
+        "Скорпион",
+        "Козерог",
+        "Дева"
+      ],
+      "goodEng": [
+        "Scorpio",
+        "Capricorn",
+        "Virgo"
+      ],
+      "challenging": [
+        "Лев",
+        "Водолей",
+        "Телец"
+      ],
+      "challengingEng": [
+        "Leo",
+        "Aquarius",
+        "Taurus"
+      ]
+    },
+    "birthDates": [
+      "2024-10-23",
+      "2024-10-24",
+      "2024-10-25",
+      "2024-10-26",
+      "2024-10-27",
+      "2024-10-28",
+      "2024-10-29",
+      "2024-10-30",
+      "2024-10-31",
+      "2024-11-01",
+      "2024-11-02",
+      "2024-11-03",
+      "2024-11-04",
+      "2024-11-05",
+      "2024-11-06",
+      "2024-11-07",
+      "2024-11-08",
+      "2024-11-09",
+      "2024-11-10",
+      "2024-11-11",
+      "2024-11-12",
+      "2024-11-13",
+      "2024-11-14",
+      "2024-11-15",
+      "2024-11-16",
+      "2024-11-17",
+      "2024-11-18",
+      "2024-11-19",
+      "2024-11-20",
+      "2024-11-21"
+    ],
+    "textSections": {
+      "element": "Скорпион — водный знак, символизирующий глубину, трансформацию и скрытую силу. Вода придаёт представителям этого знака интенсивность эмоций и способность проникать в суть вещей. Это знак, связанный с магией, смертью и возрождением.",
+      "elementEng": "Scorpio is a water sign symbolizing depth, transformation, and hidden power. Water gives representatives of this sign emotional intensity and the ability to penetrate the essence of things. This is a sign associated with magic, death, and rebirth.",
+      "strengths": "Скорпионы известны своей страстностью и интенсивностью. Они обладают сильной интуицией и способностью видеть скрытые мотивы. Скорпионы верные, решительные и стойкие. Они не боятся трудностей и готовы противостоять любым вызовам. Скорпионы трансформируют себя и окружающий мир.",
+      "strengthsEng": "Scorpios are known for their passion and intensity. They have strong intuition and the ability to see hidden motives. Scorpios are loyal, determined, and resilient. They are not afraid of difficulties and are ready to face any challenges. Scorpios transform themselves and the world around them.",
+      "compatibility": "Скорпион хорошо совместим с другими водными знаками — Раком и Рыбами. Земные знаки (Телец, Дева, Козерог) также могут хорошо дополнять энергию Скорпиона. С огненными и воздушными знаками возможны интенсивные конфликты.",
+      "compatibilityEng": "Scorpio is well compatible with other water signs—Cancer and Pisces. Earth signs (Taurus, Virgo, Capricorn) can also complement Scorpio energy well. Intense conflicts with fire and air signs are possible.",
+      "philosophy": "Философия Скорпиона сосредоточена на трансформации и глубине. Они верят в силу переживаний и скрытого знания. Скорпионы не довольствуются поверхностью — они идут глубже. Их девиз: 'Я умираю и рождаюсь снова'.",
+      "philosophyEng": "Scorpio philosophy is focused on transformation and depth. They believe in the power of experience and hidden knowledge. Scorpios are not satisfied with the surface—they dig deeper. Their motto is: 'I die and am born again.'"
+    }
+  },
+  {
+    "id": "sagittarius",
+    "name": "Стрелец",
+    "engName": "Sagittarius",
+    "dates": "22 ноября — 21 декабря",
+    "datesEng": "November 22 - December 21",
+    "icon": "♐",
+    "element": "Огонь",
+    "elementEng": "Fire",
+    "polarity": "Positive",
+    "modality": "Mutable",
+    "rulingPlanet": "Юпитер",
+    "rulingPlanetEng": "Jupiter",
+    "rulingHouse": "Ninth",
+    "color": "Фиолетовый",
+    "colorEng": "Purple",
+    "luckyNumber": 3,
+    "luckyDay": "Четверг",
+    "luckyDayEng": "Thursday",
+    "positiveTraits": [
+      "оптимизм",
+      "философичность",
+      "любовь к путешествиям",
+      "честность",
+      "щедрость",
+      "энтузиазм",
+      "авантюризм",
+      "справедливость"
+    ],
+    "positiveTraitsEng": [
+      "optimism",
+      "philosophy",
+      "love of travel",
+      "honesty",
+      "generosity",
+      "enthusiasm",
+      "adventurousness",
+      "justice"
+    ],
+    "negativeTraits": [
+      "безрассудство",
+      "нетерпимость",
+      "бесстрашие",
+      "прямолинейность",
+      "переоптимизм",
+      "растяжимость",
+      "невнимание к деталям"
+    ],
+    "negativeTraitsEng": [
+      "recklessness",
+      "intolerance",
+      "fearlessness",
+      "straightforwardness",
+      "over-optimism",
+      "overextension",
+      "inattention to detail"
+    ],
+    "likes": [
+      "путешествия",
+      "приключения",
+      "свобода",
+      "образование",
+      "философия",
+      "спорт",
+      "новые горизонты"
+    ],
+    "likesEng": [
+      "travel",
+      "adventure",
+      "freedom",
+      "education",
+      "philosophy",
+      "sports",
+      "new horizons"
+    ],
+    "dislikes": [
+      "ограничения",
+      "рутина",
+      "скука",
+      "критика",
+      "стагнация",
+      "консервативность",
+      "ложь"
+    ],
+    "dislikesEng": [
+      "limitations",
+      "routine",
+      "boredom",
+      "criticism",
+      "stagnation",
+      "conservatism",
+      "lies"
+    ],
+    "topLoveMatches": [
+      "Овен",
+      "Лев"
+    ],
+    "topLoveMatchesEng": [
+      "Aries",
+      "Leo"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Овен",
+        "Лев"
+      ],
+      "excellentEng": [
+        "Aries",
+        "Leo"
+      ],
+      "good": [
+        "Стрелец",
+        "Близнецы",
+        "Водолей"
+      ],
+      "goodEng": [
+        "Sagittarius",
+        "Gemini",
+        "Aquarius"
+      ],
+      "challenging": [
+        "Дева",
+        "Рыбы",
+        "Козерог"
+      ],
+      "challengingEng": [
+        "Virgo",
+        "Pisces",
+        "Capricorn"
+      ]
+    },
+    "birthDates": [
+      "2024-11-22",
+      "2024-11-23",
+      "2024-11-24",
+      "2024-11-25",
+      "2024-11-26",
+      "2024-11-27",
+      "2024-11-28",
+      "2024-11-29",
+      "2024-11-30",
+      "2024-12-01",
+      "2024-12-02",
+      "2024-12-03",
+      "2024-12-04",
+      "2024-12-05",
+      "2024-12-06",
+      "2024-12-07",
+      "2024-12-08",
+      "2024-12-09",
+      "2024-12-10",
+      "2024-12-11",
+      "2024-12-12",
+      "2024-12-13",
+      "2024-12-14",
+      "2024-12-15",
+      "2024-12-16",
+      "2024-12-17",
+      "2024-12-18",
+      "2024-12-19",
+      "2024-12-20",
+      "2024-12-21"
+    ],
+    "textSections": {
+      "element": "Стрелец — огненный знак, символизирующий поиск истины, философию и расширение горизонтов. Огонь придаёт представителям этого знака энтузиазм, оптимизм и желание исследовать неизведанное. Это знак великих путешественников и мыслителей.",
+      "elementEng": "Sagittarius is a fire sign symbolizing the search for truth, philosophy, and the expansion of horizons. Fire gives representatives of this sign enthusiasm, optimism, and a desire to explore the unknown. This is a sign of great travelers and thinkers.",
+      "strengths": "Стрельцы известны своим оптимизмом и любовью к путешествиям. Они философичны, честны и щедры. Стрельцы верят в лучшее будущее и вдохновляют других своим энтузиазмом. Они ищут истину и не боятся менять свои убеждения. Стрельцы расширяют границы и открывают новые возможности.",
+      "strengthsEng": "Sagittarians are known for their optimism and love of travel. They are philosophical, honest, and generous. Sagittarians believe in a better future and inspire others with their enthusiasm. They seek truth and are not afraid to change their beliefs. Sagittarians expand boundaries and open new possibilities.",
+      "compatibility": "Стрелец идеально совместим с другими огненными знаками — Овном и Львом. Воздушные знаки (Близнецы, Весы, Водолей) также хорошо дополняют энергию Стрельца. С землёй и водой возможны недопонимания.",
+      "compatibilityEng": "Sagittarius is ideally compatible with other fire signs—Aries and Leo. Air signs (Gemini, Libra, Aquarius) also complement Sagittarius energy well. Misunderstandings with earth and water are possible.",
+      "philosophy": "Философия Стрельца сосредоточена на поиске истины и расширении горизонтов. Они верят, что путешествие — это жизнь, а не пункт назначения. Стрельцы живут мечтами и желанием узнать неизведанное. Их девиз: 'Я ищу, я странствую, я расширяюсь'.",
+      "philosophyEng": "Sagittarius philosophy is focused on seeking truth and expanding horizons. They believe that travel is life, not a destination. Sagittarians live by dreams and a desire to learn the unknown. Their motto is: 'I seek, I wander, I expand.'"
+    }
+  },
+  {
+    "id": "capricorn",
+    "name": "Козерог",
+    "engName": "Capricorn",
+    "dates": "22 декабря — 19 января",
+    "datesEng": "December 22 - January 19",
+    "icon": "♑",
+    "element": "Земля",
+    "elementEng": "Earth",
+    "polarity": "Negative",
+    "modality": "Cardinal",
+    "rulingPlanet": "Сатурн",
+    "rulingPlanetEng": "Saturn",
+    "rulingHouse": "Tenth",
+    "color": "Чёрный",
+    "colorEng": "Black",
+    "luckyNumber": 8,
+    "luckyDay": "Суббота",
+    "luckyDayEng": "Saturday",
+    "positiveTraits": [
+      "ответственность",
+      "амбициозность",
+      "дисциплина",
+      "практичность",
+      "надёжность",
+      "мудрость",
+      "стремление к успеху",
+      "честность"
+    ],
+    "positiveTraitsEng": [
+      "responsibility",
+      "ambition",
+      "discipline",
+      "practicality",
+      "reliability",
+      "wisdom",
+      "drive for success",
+      "honesty"
+    ],
+    "negativeTraits": [
+      "пессимизм",
+      "скупость",
+      "строгость",
+      "холодность",
+      "суровость",
+      "мрачность",
+      "негибкость"
+    ],
+    "negativeTraitsEng": [
+      "pessimism",
+      "stinginess",
+      "strictness",
+      "coldness",
+      "harshness",
+      "gloominess",
+      "inflexibility"
+    ],
+    "likes": [
+      "карьера",
+      "успех",
+      "достижения",
+      "традиции",
+      "структура",
+      "порядок",
+      "уважение",
+      "статус"
+    ],
+    "likesEng": [
+      "career",
+      "success",
+      "achievement",
+      "tradition",
+      "structure",
+      "order",
+      "respect",
+      "status"
+    ],
+    "dislikes": [
+      "недостаток планов",
+      "лень",
+      "поверхностность",
+      "перемены",
+      "чувствительность",
+      "легкомыслие",
+      "риск"
+    ],
+    "dislikesEng": [
+      "lack of plans",
+      "laziness",
+      "superficiality",
+      "changes",
+      "emotionality",
+      "frivolity",
+      "risk"
+    ],
+    "topLoveMatches": [
+      "Телец",
+      "Дева"
+    ],
+    "topLoveMatchesEng": [
+      "Taurus",
+      "Virgo"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Телец",
+        "Дева"
+      ],
+      "excellentEng": [
+        "Taurus",
+        "Virgo"
+      ],
+      "good": [
+        "Козерог",
+        "Скорпион",
+        "Рыбы"
+      ],
+      "goodEng": [
+        "Capricorn",
+        "Scorpio",
+        "Pisces"
+      ],
+      "challenging": [
+        "Рак",
+        "Весы",
+        "Овен"
+      ],
+      "challengingEng": [
+        "Cancer",
+        "Libra",
+        "Aries"
+      ]
+    },
+    "birthDates": [
+      "2024-12-22",
+      "2024-12-23",
+      "2024-12-24",
+      "2024-12-25",
+      "2024-12-26",
+      "2024-12-27",
+      "2024-12-28",
+      "2024-12-29",
+      "2024-12-30",
+      "2024-12-31",
+      "2025-01-01",
+      "2025-01-02",
+      "2025-01-03",
+      "2025-01-04",
+      "2025-01-05",
+      "2025-01-06",
+      "2025-01-07",
+      "2025-01-08",
+      "2025-01-09",
+      "2025-01-10",
+      "2025-01-11",
+      "2025-01-12",
+      "2025-01-13",
+      "2025-01-14",
+      "2025-01-15",
+      "2025-01-16",
+      "2025-01-17",
+      "2025-01-18",
+      "2025-01-19"
+    ],
+    "textSections": {
+      "element": "Козерог — земной знак, символизирующий амбицию, ответственность и достижение целей. Земля придаёт представителям этого знака практичность, дисциплину и способность строить прочный фундамент для успеха. Это знак, связанный с временем, карьерой и статусом.",
+      "elementEng": "Capricorn is an earth sign symbolizing ambition, responsibility, and goal achievement. Earth gives representatives of this sign practicality, discipline, and the ability to build a solid foundation for success. This is a sign associated with time, career, and status.",
+      "strengths": "Козероги известны своей ответственностью и амбициозностью. Они дисциплинированы, честны и надёжны. Козероги медленно, но верно идут к своим целям. Они мудры, практичны и имеют долгосрочное видение. Козероги создают империи и становятся лидерами. Они уважают традиции и иерархию.",
+      "strengthsEng": "Capricorns are known for their responsibility and ambition. They are disciplined, honest, and reliable. Capricorns slowly but surely move towards their goals. They are wise, practical, and have long-term vision. Capricorns build empires and become leaders. They respect tradition and hierarchy.",
+      "compatibility": "Козерог хорошо совместим с другими земными знаками — Тельцом и Девой. Водные знаки (Рак, Скорпион, Рыбы) также могут хорошо дополнять энергию Козерога. С огненными и воздушными знаками возможны конфликты мировоззрения.",
+      "compatibilityEng": "Capricorn is well compatible with other earth signs—Taurus and Virgo. Water signs (Cancer, Scorpio, Pisces) can also complement Capricorn energy well. Worldview conflicts with fire and air signs are possible.",
+      "philosophy": "Философия Козерога сосредоточена на успехе, ответственности и времени. Они верят, что упорный труд приводит к успеху. Козероги живут долгосрочными планами и стратегией. Их девиз: 'Я поднимаюсь, шаг за шагом'.",
+      "philosophyEng": "Capricorn philosophy is focused on success, responsibility, and time. They believe that hard work leads to success. Capricorns live by long-term plans and strategy. Their motto is: 'I climb, step by step.'"
+    }
+  },
+  {
+    "id": "aquarius",
+    "name": "Водолей",
+    "engName": "Aquarius",
+    "dates": "20 января — 18 февраля",
+    "datesEng": "January 20 - February 18",
+    "icon": "♒",
+    "element": "Воздух",
+    "elementEng": "Air",
+    "polarity": "Positive",
+    "modality": "Fixed",
+    "rulingPlanet": "Уран",
+    "rulingPlanetEng": "Uranus",
+    "rulingHouse": "Eleventh",
+    "color": "Голубой",
+    "colorEng": "Cyan",
+    "luckyNumber": 4,
+    "luckyDay": "Среда",
+    "luckyDayEng": "Wednesday",
+    "positiveTraits": [
+      "оригинальность",
+      "независимость",
+      "гуманизм",
+      "интеллект",
+      "прогрессивность",
+      "инновационность",
+      "объективность",
+      "мудрость"
+    ],
+    "positiveTraitsEng": [
+      "originality",
+      "independence",
+      "humanitarianism",
+      "intellect",
+      "progressiveness",
+      "innovation",
+      "objectivity",
+      "wisdom"
+    ],
+    "negativeTraits": [
+      "отчуждённость",
+      "холодность",
+      "непредсказуемость",
+      "бунтарство",
+      "эксцентричность",
+      "отдаления от эмоций",
+      "упорство"
+    ],
+    "negativeTraitsEng": [
+      "detachment",
+      "coldness",
+      "unpredictability",
+      "rebelliousness",
+      "eccentricity",
+      "emotional distance",
+      "stubbornness"
+    ],
+    "likes": [
+      "инновации",
+      "новые идеи",
+      "независимость",
+      "дружба",
+      "гуманитарная деятельность",
+      "беседы",
+      "футуристичность"
+    ],
+    "likesEng": [
+      "innovation",
+      "new ideas",
+      "independence",
+      "friendship",
+      "humanitarian causes",
+      "conversation",
+      "futurism"
+    ],
+    "dislikes": [
+      "ограничения",
+      "конформизм",
+      "консервативность",
+      "эмоциональные требования",
+      "привычка",
+      "традиционность",
+      "контроль"
+    ],
+    "dislikesEng": [
+      "limitations",
+      "conformity",
+      "conservatism",
+      "emotional demands",
+      "habit",
+      "tradition",
+      "control"
+    ],
+    "topLoveMatches": [
+      "Близнецы",
+      "Весы"
+    ],
+    "topLoveMatchesEng": [
+      "Gemini",
+      "Libra"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Близнецы",
+        "Весы"
+      ],
+      "excellentEng": [
+        "Gemini",
+        "Libra"
+      ],
+      "good": [
+        "Водолей",
+        "Овен",
+        "Стрелец"
+      ],
+      "goodEng": [
+        "Aquarius",
+        "Aries",
+        "Sagittarius"
+      ],
+      "challenging": [
+        "Телец",
+        "Лев",
+        "Скорпион"
+      ],
+      "challengingEng": [
+        "Taurus",
+        "Leo",
+        "Scorpio"
+      ]
+    },
+    "birthDates": [
+      "2025-01-20",
+      "2025-01-21",
+      "2025-01-22",
+      "2025-01-23",
+      "2025-01-24",
+      "2025-01-25",
+      "2025-01-26",
+      "2025-01-27",
+      "2025-01-28",
+      "2025-01-29",
+      "2025-01-30",
+      "2025-01-31",
+      "2025-02-01",
+      "2025-02-02",
+      "2025-02-03",
+      "2025-02-04",
+      "2025-02-05",
+      "2025-02-06",
+      "2025-02-07",
+      "2025-02-08",
+      "2025-02-09",
+      "2025-02-10",
+      "2025-02-11",
+      "2025-02-12",
+      "2025-02-13",
+      "2025-02-14",
+      "2025-02-15",
+      "2025-02-16",
+      "2025-02-17",
+      "2025-02-18"
+    ],
+    "textSections": {
+      "element": "Водолей — воздушный знак, символизирующий инновацию, гуманизм и будущее. Воздух придаёт представителям этого знака интеллект, оригинальность и стремление к переменам. Это знак революционеров, изобретателей и прогрессивных мыслителей.",
+      "elementEng": "Aquarius is an air sign symbolizing innovation, humanitarianism, and the future. Air gives representatives of this sign intellect, originality, and a drive for change. This is a sign of revolutionaries, inventors, and progressive thinkers.",
+      "strengths": "Водолеи известны своей оригинальностью и независимостью. Они интеллектуальны, гуманистичны и прогрессивны. Водолеи не боятся быть другими и часто опережают своё время. Они верят в силу инноваций и новых идей. Водолеи создают будущее и вдохновляют других быть собой.",
+      "strengthsEng": "Aquarians are known for their originality and independence. They are intellectual, humanitarian, and progressive. Aquarians are not afraid to be different and often ahead of their time. They believe in the power of innovation and new ideas. Aquarians create the future and inspire others to be themselves.",
+      "compatibility": "Водолей идеально совместим с другими воздушными знаками — Близнецами и Весами. Огненные знаки (Овен, Лев, Стрелец) также хорошо дополняют энергию Водолея. С земными и водными знаками возможны непонимания.",
+      "compatibilityEng": "Aquarius is ideally compatible with other air signs—Gemini and Libra. Fire signs (Aries, Leo, Sagittarius) also complement Aquarius energy well. Misunderstandings with earth and water signs are possible.",
+      "philosophy": "Философия Водолея сосредоточена на инновации, гуманизме и будущем. Они верят, что улучшение общества — это главная цель. Водолеи живут идеями и прогрессом. Их девиз: 'Я думаю, я инновирую, я изменяю'.",
+      "philosophyEng": "Aquarius philosophy is focused on innovation, humanitarianism, and the future. They believe that improving society is the main goal. Aquarians live by ideas and progress. Their motto is: 'I think, I innovate, I change.'"
+    }
+  },
+  {
+    "id": "pisces",
+    "name": "Рыбы",
+    "engName": "Pisces",
+    "dates": "19 февраля — 20 марта",
+    "datesEng": "February 19 - March 20",
+    "icon": "♓",
+    "element": "Вода",
+    "elementEng": "Water",
+    "polarity": "Negative",
+    "modality": "Mutable",
+    "rulingPlanet": "Нептун",
+    "rulingPlanetEng": "Neptune",
+    "rulingHouse": "Twelfth",
+    "color": "Морской зелёный",
+    "colorEng": "Sea Green",
+    "luckyNumber": 7,
+    "luckyDay": "Четверг",
+    "luckyDayEng": "Thursday",
+    "positiveTraits": [
+      "сочувствие",
+      "творчество",
+      "интуиция",
+      "мечтательность",
+      "духовность",
+      "адаптивность",
+      "чувствительность",
+      "воображение"
+    ],
+    "positiveTraitsEng": [
+      "empathy",
+      "creativity",
+      "intuition",
+      "dreaminess",
+      "spirituality",
+      "adaptability",
+      "sensitivity",
+      "imagination"
+    ],
+    "negativeTraits": [
+      "уход в фантазии",
+      "наивность",
+      "нерешительность",
+      "чрезмерная эмоциональность",
+      "зависимость",
+      "мнительность",
+      "мечтательность вместо действия"
+    ],
+    "negativeTraitsEng": [
+      "escapism",
+      "naivety",
+      "indecision",
+      "excessive emotionality",
+      "dependence",
+      "suspicion",
+      "daydreaming instead of action"
+    ],
+    "likes": [
+      "искусство",
+      "музыка",
+      "духовность",
+      "медитация",
+      "романтика",
+      "природа",
+      "сочувствие"
+    ],
+    "likesEng": [
+      "art",
+      "music",
+      "spirituality",
+      "meditation",
+      "romance",
+      "nature",
+      "compassion"
+    ],
+    "dislikes": [
+      "жёсткость",
+      "критика",
+      "практичность",
+      "одиночество",
+      "критическое суждение",
+      "материализм",
+      "насилие"
+    ],
+    "dislikesEng": [
+      "harshness",
+      "criticism",
+      "practicality",
+      "loneliness",
+      "critical judgment",
+      "materialism",
+      "violence"
+    ],
+    "topLoveMatches": [
+      "Рак",
+      "Скорпион"
+    ],
+    "topLoveMatchesEng": [
+      "Cancer",
+      "Scorpio"
+    ],
+    "compatibleSigns": {
+      "excellent": [
+        "Рак",
+        "Скорпион"
+      ],
+      "excellentEng": [
+        "Cancer",
+        "Scorpio"
+      ],
+      "good": [
+        "Рыбы",
+        "Телец",
+        "Козерог"
+      ],
+      "goodEng": [
+        "Pisces",
+        "Taurus",
+        "Capricorn"
+      ],
+      "challenging": [
+        "Близнецы",
+        "Дева",
+        "Стрелец"
+      ],
+      "challengingEng": [
+        "Gemini",
+        "Virgo",
+        "Sagittarius"
+      ]
+    },
+    "birthDates": [
+      "2025-02-19",
+      "2025-02-20",
+      "2025-02-21",
+      "2025-02-22",
+      "2025-02-23",
+      "2025-02-24",
+      "2025-02-25",
+      "2025-02-26",
+      "2025-02-27",
+      "2025-02-28",
+      "2025-03-01",
+      "2025-03-02",
+      "2025-03-03",
+      "2025-03-04",
+      "2025-03-05",
+      "2025-03-06",
+      "2025-03-07",
+      "2025-03-08",
+      "2025-03-09",
+      "2025-03-10",
+      "2025-03-11",
+      "2025-03-12",
+      "2025-03-13",
+      "2025-03-14",
+      "2025-03-15",
+      "2025-03-16",
+      "2025-03-17",
+      "2025-03-18",
+      "2025-03-19",
+      "2025-03-20"
+    ],
+    "textSections": {
+      "element": "Рыбы — водный знак, символизирующий духовность, творчество и растворение границ. Вода придаёт представителям этого знака эмоциональную глубину, интуицию и способность ощущать тонкие энергии. Это последний знак зодиака, олицетворяющий завершение и духовное пробуждение.",
+      "elementEng": "Pisces is a water sign symbolizing spirituality, creativity, and the dissolution of boundaries. Water gives representatives of this sign emotional depth, intuition, and the ability to sense subtle energies. This is the last zodiac sign, embodying completion and spiritual awakening.",
+      "strengths": "Рыбы известны своим сочувствием и творческими способностями. Они духовны, интуитивны и мечтатели. Рыбы обладают способностью понимать скрытые стороны жизни и переживать глубокие эмоции. Они заботливы, адаптивны и способны вдохновлять других своим искусством и мудростью.",
+      "strengthsEng": "Pisces are known for their empathy and creative abilities. They are spiritual, intuitive, and dreamers. Pisces have the ability to understand hidden aspects of life and experience deep emotions. They are caring, adaptable, and capable of inspiring others with their art and wisdom.",
+      "compatibility": "Рыбы хорошо совместимы с другими водными знаками — Раком и Скорпионом. Земные знаки (Телец, Дева, Козерог) также могут хорошо дополнять энергию Рыб. С огненными и воздушными знаками возможны трудности в понимании.",
+      "compatibilityEng": "Pisces are well compatible with other water signs—Cancer and Scorpio. Earth signs (Taurus, Virgo, Capricorn) can also complement Pisces energy well. Difficulties in understanding with fire and air signs are possible.",
+      "philosophy": "Философия Рыб сосредоточена на духовности, творчестве и трансцендентности. Они верят, что жизнь — это духовный путь и искусство. Рыбы живут мечтами, интуицией и эмоциями. Их девиз: 'Я чувствую, я мечтаю, я дух'.",
+      "philosophyEng": "Pisces philosophy is focused on spirituality, creativity, and transcendence. They believe that life is a spiritual path and an art. Pisces live by dreams, intuition, and emotions. Their motto is: 'I feel, I dream, I am spirit.'"
+    }
+  }
+]
