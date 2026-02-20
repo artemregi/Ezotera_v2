@@ -27,7 +27,7 @@
             if (!response.ok) {
                 if (response.status === 401) {
                     // Not authenticated - redirect to login
-                    window.location.href = '/ezotera-frontend/auth/login.html';
+                    window.location.href = '/auth/login.html';
                     return;
                 }
                 throw new Error('Ошибка загрузки профиля');
@@ -153,12 +153,12 @@
         })
         .then(function(result) {
             // Redirect to login page
-            window.location.href = '/ezotera-frontend/auth/login.html';
+            window.location.href = '/auth/login.html';
         })
         .catch(function(error) {
             console.error('Logout error:', error);
             // Redirect anyway
-            window.location.href = '/ezotera-frontend/auth/login.html';
+            window.location.href = '/auth/login.html';
         });
     }
 

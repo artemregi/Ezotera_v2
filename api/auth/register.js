@@ -68,7 +68,7 @@ module.exports = async (req, res) => {
         // Set httpOnly cookie
         setCookie(res, token);
 
-        // Success response
+        // Success response with redirect to index page (preview will be shown there)
         res.status(201).json({
             success: true,
             message: 'Регистрация успешна',
@@ -76,7 +76,8 @@ module.exports = async (req, res) => {
                 id: user.id,
                 email: user.email,
                 name: user.name
-            }
+            },
+            redirectUrl: '../index.html?newUser=true'
         });
 
     } catch (error) {

@@ -35,8 +35,7 @@
                 zodiacBase: './',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '../onboarding/step-1-name.html',
-                palmistryHref: '../palmistry.html'
+                onboardingHref: '../onboarding/step-1-name.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -47,8 +46,7 @@
                 zodiacBase: '../zodiac/',
                 aboutHref: '../about.html',
                 loginHref: '#',
-                onboardingHref: '../onboarding/step-1-name.html',
-                palmistryHref: '../palmistry.html'
+                onboardingHref: '../onboarding/step-1-name.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -59,8 +57,7 @@
                 zodiacBase: '../zodiac/',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '#',
-                palmistryHref: '../palmistry.html'
+                onboardingHref: '#'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -71,8 +68,7 @@
                 zodiacBase: 'zodiac/',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html',
-                palmistryHref: 'palmistry.html'
+                onboardingHref: 'onboarding/step-1-name.html'
             };
         } else {
             return {
@@ -83,8 +79,7 @@
                 zodiacBase: 'zodiac/',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html',
-                palmistryHref: 'palmistry.html'
+                onboardingHref: 'onboarding/step-1-name.html'
             };
         }
     };
@@ -170,8 +165,7 @@
                 .replace(/ZODIAC_BASE/g, paths.zodiacBase)
                 .replace(/ABOUT_HREF/g, paths.aboutHref)
                 .replace(/LOGIN_HREF/g, paths.loginHref)
-                .replace(/ONBOARDING_HREF/g, paths.onboardingHref)
-                .replace(/PALMISTRY_HREF/g, paths.palmistryHref);
+                .replace(/ONBOARDING_HREF/g, paths.onboardingHref);
 
             // Insert header at the beginning of body or before first main element
             const headerContainer = document.createElement('div');
@@ -205,18 +199,138 @@
         }
     };
 
+    /**
+     * Check authentication status and update header if user is logged in
+     * This runs after header is injected and replaces login/register buttons
+     * with dashboard/logout buttons if user has valid session
+     */
+    const updateHeaderForAuthenticatedUser = () => {
+        // Check if user is authenticated via /api/auth/verify
+        fetch('/api/auth/verify', {
+            method: 'GET',
+            credentials: 'include' // Send auth cookie
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.authenticated && data.user) {
+                // User is logged in - update header actions
+                updateHeaderActions(data.user);
+            }
+        })
+        .catch(error => {
+            // Silently fail - user is not authenticated
+            console.debug('Auth check: user not authenticated');
+        });
+    };
+
+    /**
+     * Replace header action buttons with authenticated user options
+     */
+    const updateHeaderActions = (user) => {
+        // Get paths based on current page
+        const paths = detectPageLocation();
+        const dashboardHref = paths.depth === 2 ? '../dashboard.html' : 'dashboard.html';
+
+        // Create new authenticated header HTML
+        const userName = user.name || user.email;
+        const authenticatedHTML = `
+            <div class="header__user-greeting">
+                <span class="header__user-name">👤 ${escapeHtml(userName)}</span>
+            </div>
+            <a href="${dashboardHref}" class="header__dashboard-link" title="Личный кабинет">
+                Личный кабинет
+            </a>
+            <button class="header__logout-btn" title="Выйти из аккаунта">
+                Выйти
+            </button>
+        `;
+
+        // Update desktop header actions
+        const headerActions = document.querySelector('.header__actions');
+        if (headerActions) {
+            headerActions.innerHTML = authenticatedHTML;
+            // Attach logout handler to desktop logout button
+            const logoutBtn = headerActions.querySelector('.header__logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        }
+
+        // Update mobile header actions
+        const mobileActions = document.querySelector('.header__mobile-actions');
+        if (mobileActions) {
+            const mobileAuthHTML = `
+                <div class="header__mobile-user-greeting">
+                    <span class="header__mobile-user-name">👤 ${escapeHtml(userName)}</span>
+                </div>
+                <a href="${dashboardHref}" class="button button--outline-white button--full-width">
+                    Личный кабинет
+                </a>
+                <button class="button button--primary button--full-width" title="Выйти из аккаунта">
+                    Выйти
+                </button>
+            `;
+            mobileActions.innerHTML = mobileAuthHTML;
+            // Attach logout handler to mobile logout button
+            const mobileLogoutBtn = mobileActions.querySelector('button.button--primary');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', handleLogout);
+            }
+        }
+    };
+
+    /**
+     * Handle logout button click
+     */
+    const handleLogout = (e) => {
+        e.preventDefault();
+        console.log('🔓 User clicked logout');
+
+        // Call logout endpoint
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('✅ Logout successful');
+                // Redirect to home page
+                window.location.href = '/';
+            }
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+            // Still redirect even if logout fails
+            window.location.href = '/';
+        });
+    };
+
+    /**
+     * Escape HTML special characters to prevent XSS
+     */
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+
     // Load header as soon as possible
     // If DOM is still loading, wait for it; otherwise load immediately
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             // Load header synchronously after DOM is ready
             loadHeader();
+            // Wait a moment for header to be injected, then check auth
+            setTimeout(updateHeaderForAuthenticatedUser, 100);
         });
     } else if (document.readyState === 'interactive') {
         // DOM is interactive but images/styles might still be loading
         loadHeader();
+        setTimeout(updateHeaderForAuthenticatedUser, 100);
     } else {
         // Everything is loaded, load immediately
         loadHeader();
+        setTimeout(updateHeaderForAuthenticatedUser, 100);
     }
 })();
