@@ -7,12 +7,15 @@
 .zodiac-page {
     background: var(--gradient-hero);
     color: var(--color-text);
+    position: relative;
 }
 
 .zodiac-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--container-padding);
+    position: relative;
+    z-index: 1;
 }
 
 /* ===== HERO HEADER SECTION ===== */

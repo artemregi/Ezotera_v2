@@ -289,6 +289,9 @@
         initializeSmoothScroll();
     }
 
+    /* Expose function to global scope for header-loader.js */
+    window.initializeNavigation = initializeNavigation;
+
     /* Run when DOM is ready */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeNavigation);

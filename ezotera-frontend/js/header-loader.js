@@ -238,9 +238,14 @@
             }
 
             // Reinitialize navigation scripts after header is loaded
-            if (typeof initializeNavigation === 'function') {
-                initializeNavigation();
-            }
+            // Use setTimeout to ensure navigation.js is fully loaded
+            setTimeout(() => {
+                if (typeof window.initializeNavigation === 'function') {
+                    window.initializeNavigation();
+                } else {
+                    console.warn('Navigation initialization not available yet');
+                }
+            }, 50);
 
             // Check auth status now that header is fully in DOM
             updateHeaderForAuthenticatedUser();
