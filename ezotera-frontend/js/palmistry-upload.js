@@ -18,7 +18,7 @@
     // Constants
     // -----------------------------------------------------------------------
     const API_BASE      = '/api/palmistry';
-    const SCAN_TOTAL_MS = 5000;
+    const SCAN_TOTAL_MS = 8000;
     const SCAN_STEPS    = [
         { pct: 10, text: 'Обнаружение руки...' },
         { pct: 28, text: 'Анализ линии жизни...' },
