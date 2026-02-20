@@ -593,9 +593,14 @@
     .onboarding__actions {
         flex-direction: column-reverse;
         gap: var(--spacing-md);
+        display: flex !important;
+        visibility: visible !important;
     }
 
-    .onboarding__actions .button {
+    .onboarding__actions .button,
+    .onboarding__button {
         width: 100%;
+        display: block !important;
+        visibility: visible !important;
     }
 }
