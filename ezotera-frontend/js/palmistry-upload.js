@@ -113,47 +113,142 @@
 
     function drawScanLines(canvas, progress) {
         const ctx  = canvas.getContext('2d', { willReadFrequently: false });
-        const size = canvas.width;
-        const cx   = size / 2;
-        const cy   = size / 2;
+        const s    = canvas.width;
 
-        // Golden scan rays (appear as progress increases)
-        const lineConfigs = [
-            // life line arc
-            { startAngle: 0.7, endAngle: 2.2, radius: size * 0.35, threshold: 0.3 },
-            // heart line
-            { startAngle: 0.1, endAngle: 1.4, radius: size * 0.28, threshold: 0.5 },
-            // head line
-            { startAngle: 0.5, endAngle: 1.8, radius: size * 0.22, threshold: 0.65 },
-            // fate line (vertical)
-            { startAngle: 1.5, endAngle: 2.8, radius: size * 0.38, threshold: 0.80 },
+        // Coordinate helper: percent of canvas size → px
+        const p = (x, y) => [x * s, y * s];
+
+        /**
+         * Palm anatomy (ладонь стоит вертикально, пальцы вверху):
+         *  - Верх canvas (~0.15s) = основание пальцев
+         *  - Низ canvas  (~0.88s) = линия запястья
+         *  - Центр по X  (~0.50s)
+         *
+         * Линии рисуются кривыми Безье — форма соответствует
+         * типичному расположению линий на правой ладони.
+         */
+        const palmLines = [
+            {
+                // Линия жизни: начинается между большим и указательным,
+                // огибает холм Венеры, уходит к запястью слева
+                label: 'life',
+                threshold: 0.28,
+                width: 2.0,
+                draw(ctx, alpha) {
+                    ctx.beginPath();
+                    const [x0, y0] = p(0.42, 0.22); // старт у основания указательного
+                    const [cx1, cy1] = p(0.30, 0.42); // контроль 1 — изгиб
+                    const [cx2, cy2] = p(0.26, 0.62); // контроль 2
+                    const [x1, y1]  = p(0.33, 0.82); // конец у запястья
+                    ctx.moveTo(x0, y0);
+                    ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x1, y1);
+                    ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.85})`;
+                    ctx.lineWidth   = this.width;
+                    ctx.stroke();
+                },
+            },
+            {
+                // Линия сердца: идёт горизонтально в верхней трети ладони
+                label: 'heart',
+                threshold: 0.46,
+                width: 1.8,
+                draw(ctx, alpha) {
+                    ctx.beginPath();
+                    const [x0, y0] = p(0.20, 0.36); // старт с левого края
+                    const [cx1, cy1] = p(0.38, 0.28);
+                    const [cx2, cy2] = p(0.58, 0.30);
+                    const [x1, y1]  = p(0.76, 0.22); // конец под мизинцем
+                    ctx.moveTo(x0, y0);
+                    ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x1, y1);
+                    ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.8})`;
+                    ctx.lineWidth   = this.width;
+                    ctx.stroke();
+                },
+            },
+            {
+                // Линия головы: горизонтальная, чуть ниже линии сердца
+                label: 'head',
+                threshold: 0.60,
+                width: 1.6,
+                draw(ctx, alpha) {
+                    ctx.beginPath();
+                    const [x0, y0] = p(0.24, 0.46);
+                    const [cx1, cy1] = p(0.40, 0.44);
+                    const [cx2, cy2] = p(0.58, 0.50);
+                    const [x1, y1]  = p(0.72, 0.56); // слегка уходит вниз
+                    ctx.moveTo(x0, y0);
+                    ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x1, y1);
+                    ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.75})`;
+                    ctx.lineWidth   = this.width;
+                    ctx.stroke();
+                },
+            },
+            {
+                // Линия судьбы: вертикальная, от середины запястья вверх к среднему пальцу
+                label: 'fate',
+                threshold: 0.75,
+                width: 1.5,
+                draw(ctx, alpha) {
+                    ctx.beginPath();
+                    const [x0, y0] = p(0.50, 0.78); // запястье
+                    const [cx1, cy1] = p(0.48, 0.60);
+                    const [cx2, cy2] = p(0.49, 0.40);
+                    const [x1, y1]  = p(0.50, 0.22); // основание среднего пальца
+                    ctx.moveTo(x0, y0);
+                    ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x1, y1);
+                    ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.7})`;
+                    ctx.lineWidth   = this.width;
+                    ctx.stroke();
+                },
+            },
+            {
+                // Линия интуиции: небольшая дуга с правого края
+                label: 'intuition',
+                threshold: 0.87,
+                width: 1.3,
+                draw(ctx, alpha) {
+                    ctx.beginPath();
+                    const [x0, y0] = p(0.78, 0.38);
+                    const [cx1, cy1] = p(0.84, 0.52);
+                    const [x1, y1]  = p(0.78, 0.66);
+                    ctx.moveTo(x0, y0);
+                    ctx.quadraticCurveTo(cx1, cy1, x1, y1);
+                    ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.6})`;
+                    ctx.lineWidth   = this.width;
+                    ctx.stroke();
+                },
+            },
         ];
 
-        lineConfigs.forEach(({ startAngle, endAngle, radius, threshold }) => {
-            if (progress < threshold) return;
-            const alpha = Math.min(1, (progress - threshold) / 0.15);
-            ctx.strokeStyle = `rgba(255, 198, 41, ${alpha * 0.7})`;
-            ctx.lineWidth   = 1.5;
-            ctx.shadowColor = 'rgba(255, 198, 41, 0.8)';
-            ctx.shadowBlur  = 6;
-            ctx.beginPath();
-            ctx.arc(cx, cy, radius, startAngle, endAngle);
-            ctx.stroke();
-            ctx.shadowBlur = 0;
+        // Draw each line clipped to circle, with glow
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(s / 2, s / 2, s / 2 - 2, 0, Math.PI * 2);
+        ctx.clip();
+
+        palmLines.forEach(line => {
+            if (progress < line.threshold) return;
+            const alpha = Math.min(1, (progress - line.threshold) / 0.12);
+            ctx.shadowColor = 'rgba(255, 198, 41, 0.9)';
+            ctx.shadowBlur  = 8;
+            line.draw(ctx, alpha);
+            ctx.shadowBlur  = 0;
         });
 
-        // Scanning sweep line
-        const sweepY = cy - (size / 2 - 4) + (size - 8) * progress;
-        const sweepAlpha = Math.sin(progress * Math.PI) * 0.85;
+        // Scanning sweep line (horizontal, fades in/out)
+        const sweepY     = s * 0.1 + (s * 0.8) * progress;
+        const sweepAlpha = Math.sin(progress * Math.PI) * 0.7;
         ctx.strokeStyle = `rgba(255, 198, 41, ${sweepAlpha})`;
-        ctx.lineWidth   = 2;
+        ctx.lineWidth   = 1.5;
         ctx.shadowColor = 'rgba(255, 198, 41, 1)';
-        ctx.shadowBlur  = 10;
+        ctx.shadowBlur  = 12;
         ctx.beginPath();
-        ctx.moveTo(cx - size * 0.4, sweepY);
-        ctx.lineTo(cx + size * 0.4, sweepY);
+        ctx.moveTo(s * 0.1, sweepY);
+        ctx.lineTo(s * 0.9, sweepY);
         ctx.stroke();
         ctx.shadowBlur = 0;
+
+        ctx.restore();
     }
 
     // -----------------------------------------------------------------------
