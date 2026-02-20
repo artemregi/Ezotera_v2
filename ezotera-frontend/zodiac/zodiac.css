@@ -60,8 +60,8 @@ body.zodiac-page {
 /* ===== CHARACTERISTICS BLOCK ===== */
 .zodiac-characteristics {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-xl);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-lg);
     margin-bottom: var(--spacing-3xl);
     padding: var(--spacing-2xl);
     background: rgba(255, 255, 255, 0.08);
@@ -159,7 +159,10 @@ body.zodiac-page {
 /* ===== BIRTH DATES TABLE ===== */
 .zodiac-dates-table {
     margin-bottom: var(--spacing-3xl);
-    overflow-x: auto;
+    padding: var(--spacing-2xl);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .zodiac-dates-table__title {
@@ -168,32 +171,49 @@ body.zodiac-page {
     font-weight: 700;
     color: var(--color-white);
     margin-bottom: var(--spacing-lg);
-}
-
-.zodiac-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.zodiac-table td {
-    padding: var(--spacing-md);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: var(--font-size-sm);
-    color: rgba(255, 255, 255, 0.8);
     text-align: center;
 }
 
-.zodiac-table td:last-child {
-    border-right: none;
+.zodiac-dates-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
 }
 
-.zodiac-table tr:last-child td {
-    border-bottom: none;
+.zodiac-date-range {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.zodiac-date-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-sm);
+}
+
+.zodiac-date-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0;
+}
+
+.zodiac-date-details {
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+}
+
+.zodiac-details-text {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
 }
 
 /* ===== CONTENT SECTIONS ===== */
@@ -236,12 +256,42 @@ body.zodiac-page {
 /* ===== COMPATIBILITY GRID ===== */
 .zodiac-compatibility {
     margin-bottom: var(--spacing-3xl);
+    padding: var(--spacing-2xl);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .zodiac-compat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+}
+
+.zodiac-compat-section {
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zodiac-compat-section__title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+    margin-top: 0;
+}
+
+.zodiac-compat-section > .zodiac-compat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.zodiac-compat-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-md);
 }
 
 .zodiac-compat-item {

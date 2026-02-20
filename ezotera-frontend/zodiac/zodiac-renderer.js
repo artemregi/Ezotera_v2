@@ -80,8 +80,8 @@ class ZodiacRenderer {
             <section class="zodiac-hero">
                 <div class="zodiac-container">
                     <div class="zodiac-hero__icon">${this.zodiacData.icon}</div>
-                    <h1 class="zodiac-hero__title">${this.zodiacData.name} Horoscope & Personality Profile</h1>
-                    <p class="zodiac-hero__dates">${this.zodiacData.datesEng}</p>
+                    <h1 class="zodiac-hero__title">${this.zodiacData.name} — Гороскоп и Профиль Личности</h1>
+                    <p class="zodiac-hero__dates">${this.zodiacData.dates}</p>
                 </div>
             </section>
         `;
@@ -91,23 +91,46 @@ class ZodiacRenderer {
      * Render characteristics block (Polarity, Modality, etc.)
      */
     renderCharacteristics() {
+        const polarityText = this.zodiacData.polarity === 'Positive' ? 'Позитивная' : 'Негативная';
+        const modalityMap = {
+            'Cardinal': 'Кардинальный',
+            'Fixed': 'Фиксированный',
+            'Mutable': 'Мутабельный'
+        };
+
         return `
             <section class="zodiac-characteristics">
                 <div class="zodiac-char">
-                    <div class="zodiac-char__label">Polarity</div>
-                    <div class="zodiac-char__value">${this.zodiacData.polarity}</div>
+                    <div class="zodiac-char__label">Полярность</div>
+                    <div class="zodiac-char__value">${polarityText}</div>
                 </div>
                 <div class="zodiac-char">
-                    <div class="zodiac-char__label">Modality</div>
-                    <div class="zodiac-char__value">${this.zodiacData.modality}</div>
+                    <div class="zodiac-char__label">Модальность</div>
+                    <div class="zodiac-char__value">${modalityMap[this.zodiacData.modality] || this.zodiacData.modality}</div>
                 </div>
                 <div class="zodiac-char">
-                    <div class="zodiac-char__label">Ruling Planet</div>
-                    <div class="zodiac-char__value">${this.zodiacData.rulingPlanetEng}</div>
+                    <div class="zodiac-char__label">Управляющая планета</div>
+                    <div class="zodiac-char__value">${this.zodiacData.rulingPlanet}</div>
                 </div>
                 <div class="zodiac-char">
-                    <div class="zodiac-char__label">Ruling House</div>
+                    <div class="zodiac-char__label">Управляющий дом</div>
                     <div class="zodiac-char__value">${this.zodiacData.rulingHouse}</div>
+                </div>
+                <div class="zodiac-char">
+                    <div class="zodiac-char__label">Элемент</div>
+                    <div class="zodiac-char__value">${this.zodiacData.element}</div>
+                </div>
+                <div class="zodiac-char">
+                    <div class="zodiac-char__label">Счастливое число</div>
+                    <div class="zodiac-char__value">${this.zodiacData.luckyNumber}</div>
+                </div>
+                <div class="zodiac-char">
+                    <div class="zodiac-char__label">Счастливый день</div>
+                    <div class="zodiac-char__value">${this.zodiacData.luckyDay}</div>
+                </div>
+                <div class="zodiac-char">
+                    <div class="zodiac-char__label">Счастливый цвет</div>
+                    <div class="zodiac-char__value">${this.zodiacData.color}</div>
                 </div>
             </section>
         `;
@@ -117,34 +140,34 @@ class ZodiacRenderer {
      * Render astrology section (traits, likes/dislikes, compatibility)
      */
     renderAstrology() {
-        const positiveTraits = this.zodiacData.positiveTraitsEng.slice(0, 4).join(', ');
-        const negativeTraits = this.zodiacData.negativeTraitsEng.slice(0, 4).join(', ');
-        const likes = this.zodiacData.likesEng.join(', ');
-        const dislikes = this.zodiacData.dislikesEng.join(', ');
-        const topMatches = this.zodiacData.topLoveMatchesEng.join(', ');
+        const positiveTraits = this.zodiacData.positiveTraits.slice(0, 6).join(', ');
+        const negativeTraits = this.zodiacData.negativeTraits.slice(0, 5).join(', ');
+        const likes = this.zodiacData.likes.join(', ');
+        const dislikes = this.zodiacData.dislikes.join(', ');
+        const topMatches = this.zodiacData.topLoveMatches.join(', ');
 
         return `
             <section class="zodiac-astrology">
-                <h2 class="zodiac-astrology__title">Astrology Zodiac Sign</h2>
+                <h2 class="zodiac-astrology__title">Астрологический Профиль Знака</h2>
                 <div class="zodiac-astrology__grid">
                     <div class="zodiac-astro-item">
-                        <div class="zodiac-astro-item__title">Positive Traits</div>
+                        <div class="zodiac-astro-item__title">✨ Позитивные Качества</div>
                         <div class="zodiac-astro-item__content">${positiveTraits}</div>
                     </div>
                     <div class="zodiac-astro-item">
-                        <div class="zodiac-astro-item__title">Negative Traits</div>
+                        <div class="zodiac-astro-item__title">⚡ Негативные Качества</div>
                         <div class="zodiac-astro-item__content">${negativeTraits}</div>
                     </div>
                     <div class="zodiac-astro-item">
-                        <div class="zodiac-astro-item__title">Likes</div>
+                        <div class="zodiac-astro-item__title">💚 Нравится</div>
                         <div class="zodiac-astro-item__content">${likes}</div>
                     </div>
                     <div class="zodiac-astro-item">
-                        <div class="zodiac-astro-item__title">Dislikes</div>
+                        <div class="zodiac-astro-item__title">🚫 Не Нравится</div>
                         <div class="zodiac-astro-item__content">${dislikes}</div>
                     </div>
                     <div class="zodiac-astro-item">
-                        <div class="zodiac-astro-item__title">Top Love Matches</div>
+                        <div class="zodiac-astro-item__title">💑 Лучшие Пары</div>
                         <div class="zodiac-astro-item__content">${topMatches}</div>
                     </div>
                 </div>
@@ -153,34 +176,30 @@ class ZodiacRenderer {
     }
 
     /**
-     * Render birth dates table
+     * Render birth dates section with period range
      */
     renderBirthDatesTable() {
-        const dates = this.zodiacData.birthDates || [];
-        const columns = 3;
-        let tableHTML = `
+        return `
             <section class="zodiac-dates-table">
-                <h2 class="zodiac-dates-table__title">All Birth Dates for ${this.zodiacData.engName}</h2>
-                <table class="zodiac-table">
-                    <tbody>
-        `;
-
-        for (let i = 0; i < dates.length; i += columns) {
-            tableHTML += '<tr>';
-            for (let j = 0; j < columns; j++) {
-                const date = dates[i + j] || '';
-                tableHTML += `<td>${date}</td>`;
-            }
-            tableHTML += '</tr>';
-        }
-
-        tableHTML += `
-                    </tbody>
-                </table>
+                <h2 class="zodiac-dates-table__title">📅 Период рождения ${this.zodiacData.name}</h2>
+                <div class="zodiac-dates-info">
+                    <div class="zodiac-date-range">
+                        <p class="zodiac-date-label">Период:</p>
+                        <p class="zodiac-date-value">${this.zodiacData.dates}</p>
+                    </div>
+                    <div class="zodiac-date-details">
+                        <p class="zodiac-details-text">
+                            Люди, рожденные в период между <strong>${this.zodiacData.dates}</strong>,
+                            принадлежат к знаку зодиака <strong>${this.zodiacData.name}</strong>.
+                            Это ${this.zodiacData.element === 'Огонь' ? 'огненный' :
+                                   this.zodiacData.element === 'Земля' ? 'земной' :
+                                   this.zodiacData.element === 'Воздух' ? 'воздушный' : 'водный'} знак,
+                            управляемый планетой <strong>${this.zodiacData.rulingPlanet}</strong>.
+                        </p>
+                    </div>
+                </div>
             </section>
         `;
-
-        return tableHTML;
     }
 
     /**
@@ -189,33 +208,35 @@ class ZodiacRenderer {
     renderContentSections() {
         const textSections = this.zodiacData.textSections || {};
 
+        const elementName = this.zodiacData.element;
+
         return `
             <section class="zodiac-sections">
                 <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">${this.zodiacData.engName}: The ${this.zodiacData.elementEng} Sign of Stability and Sensuality</h2>
+                    <h2 class="zodiac-section__title">🔥 ${this.zodiacData.name}: Знак Стихии ${elementName}</h2>
                     <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.element || 'Content about the element sign...')}
+                        ${this.escapeHtml(textSections.element || 'Описание знака зодиака...')}
                     </div>
                 </article>
 
                 <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">Strengths, Weaknesses, and Relationship Dynamics</h2>
+                    <h2 class="zodiac-section__title">💪 Сильные Стороны, Слабости и Динамика Отношений</h2>
                     <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.strengths || 'Content about strengths and weaknesses...')}
+                        ${this.escapeHtml(textSections.strengths || 'Информация о сильных сторонах и слабостях...')}
                     </div>
                 </article>
 
                 <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">Compatibility with Other Zodiac Signs</h2>
+                    <h2 class="zodiac-section__title">💑 Совместимость с Другими Знаками Зодиака</h2>
                     <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.compatibility || 'Content about compatibility...')}
+                        ${this.escapeHtml(textSections.compatibility || 'Информация о совместимости...')}
                     </div>
                 </article>
 
                 <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">Embracing the ${this.zodiacData.engName} Way</h2>
+                    <h2 class="zodiac-section__title">🌟 Путь ${this.zodiacData.name}</h2>
                     <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.philosophy || 'Content about philosophy and personal development...')}
+                        ${this.escapeHtml(textSections.philosophy || 'Информация о философии и личностном развитии...')}
                     </div>
                 </article>
             </section>
@@ -228,43 +249,55 @@ class ZodiacRenderer {
     renderCompatibility() {
         const compatible = this.zodiacData.compatibleSigns || {};
         let html = '<section class="zodiac-compatibility">';
-        html += '<h2 class="zodiac-astrology__title">Compatibility with Other Signs</h2>';
+        html += '<h2 class="zodiac-astrology__title">💕 Совместимость с Другими Знаками</h2>';
         html += '<div class="zodiac-compat-grid">';
 
         // Excellent matches
-        if (compatible.excellent) {
+        if (compatible.excellent && compatible.excellent.length > 0) {
+            html += '<div class="zodiac-compat-section">';
+            html += '<h3 class="zodiac-compat-section__title">🟢 Идеальная Совместимость</h3>';
+            html += '<div class="zodiac-compat-items">';
             compatible.excellent.forEach(sign => {
                 html += `
                     <div class="zodiac-compat-item zodiac-compat-item--excellent">
                         <div class="zodiac-compat-item__sign">${sign}</div>
-                        <div class="zodiac-compat-item__level">Excellent Match</div>
+                        <div class="zodiac-compat-item__level">Идеально</div>
                     </div>
                 `;
             });
+            html += '</div></div>';
         }
 
         // Good matches
-        if (compatible.good) {
+        if (compatible.good && compatible.good.length > 0) {
+            html += '<div class="zodiac-compat-section">';
+            html += '<h3 class="zodiac-compat-section__title">🔵 Хорошая Совместимость</h3>';
+            html += '<div class="zodiac-compat-items">';
             compatible.good.forEach(sign => {
                 html += `
                     <div class="zodiac-compat-item zodiac-compat-item--good">
                         <div class="zodiac-compat-item__sign">${sign}</div>
-                        <div class="zodiac-compat-item__level">Good Match</div>
+                        <div class="zodiac-compat-item__level">Хорошо</div>
                     </div>
                 `;
             });
+            html += '</div></div>';
         }
 
         // Challenging matches
-        if (compatible.challenging) {
+        if (compatible.challenging && compatible.challenging.length > 0) {
+            html += '<div class="zodiac-compat-section">';
+            html += '<h3 class="zodiac-compat-section__title">🟠 Сложная Совместимость</h3>';
+            html += '<div class="zodiac-compat-items">';
             compatible.challenging.forEach(sign => {
                 html += `
                     <div class="zodiac-compat-item zodiac-compat-item--challenging">
                         <div class="zodiac-compat-item__sign">${sign}</div>
-                        <div class="zodiac-compat-item__level">Challenging</div>
+                        <div class="zodiac-compat-item__level">Сложно</div>
                     </div>
                 `;
             });
+            html += '</div></div>';
         }
 
         html += '</div></section>';
@@ -277,52 +310,52 @@ class ZodiacRenderer {
     renderConsultation() {
         return `
             <section class="zodiac-consultation">
-                <h2 class="zodiac-consultation__title">Free Astrology Consultation</h2>
+                <h2 class="zodiac-consultation__title">🔮 Бесплатная Астрологическая Консультация</h2>
                 <p class="zodiac-consultation__text">
-                    Get personalized insights about your zodiac sign from our expert astrologers.
-                    Connect with specialists who understand the unique characteristics of ${this.zodiacData.engName}.
+                    Получите персональные рекомендации о знаке зодиака ${this.zodiacData.name} от наших опытных астрологов.
+                    Свяжитесь со специалистами, которые понимают уникальные характеристики вашего знака.
                 </p>
 
                 <div class="zodiac-advisors">
                     <div class="zodiac-advisor">
                         <div class="zodiac-advisor__image">🔮</div>
-                        <div class="zodiac-advisor__name">Celestine Oracle</div>
-                        <div class="zodiac-advisor__specialty">Natal Charts & Predictions</div>
+                        <div class="zodiac-advisor__name">Небесный Оракул</div>
+                        <div class="zodiac-advisor__specialty">Натальные карты и прогнозы</div>
                     </div>
                     <div class="zodiac-advisor">
                         <div class="zodiac-advisor__image">✨</div>
-                        <div class="zodiac-advisor__name">Luna Mystique</div>
-                        <div class="zodiac-advisor__specialty">Relationship Readings</div>
+                        <div class="zodiac-advisor__name">Лунная Мистика</div>
+                        <div class="zodiac-advisor__specialty">Чтение отношений</div>
                     </div>
                     <div class="zodiac-advisor">
                         <div class="zodiac-advisor__image">💫</div>
-                        <div class="zodiac-advisor__name">Stellar Wisdom</div>
-                        <div class="zodiac-advisor__specialty">Career & Finance</div>
+                        <div class="zodiac-advisor__name">Звёздная Мудрость</div>
+                        <div class="zodiac-advisor__specialty">Карьера и финансы</div>
                     </div>
                     <div class="zodiac-advisor">
                         <div class="zodiac-advisor__image">🌙</div>
-                        <div class="zodiac-advisor__name">Nova Guide</div>
-                        <div class="zodiac-advisor__specialty">Personal Growth</div>
+                        <div class="zodiac-advisor__name">Галактический Проводник</div>
+                        <div class="zodiac-advisor__specialty">Личностный рост</div>
                     </div>
                 </div>
 
                 <div class="zodiac-faq">
-                    <h3 class="zodiac-faq__title">Frequently Asked Questions</h3>
+                    <h3 class="zodiac-faq__title">❓ Часто Задаваемые Вопросы</h3>
                     ${this.renderFAQItem(
-                        'What strengths and weaknesses are associated with this sign?',
-                        'Every zodiac sign has unique strengths and challenges. ' + this.zodiacData.engName + ' is known for their distinctive qualities that shape their personality and interactions.'
+                        'Какие сильные и слабые стороны у этого знака?',
+                        'Каждый знак зодиака имеет уникальные сильные стороны и вызовы. ' + this.zodiacData.name + ' известны своими отличительными качествами, которые формируют их личность и взаимодействия.'
                     )}
                     ${this.renderFAQItem(
-                        'How does this zodiac sign affect approach to finances and material wealth?',
-                        'Your zodiac sign influences your financial habits and relationship with material wealth. ' + this.zodiacData.engName + ' natives typically approach money with their characteristic traits.'
+                        'Как этот знак влияет на отношение к финансам и материальному благосостоянию?',
+                        'Ваш знак зодиака влияет на ваши финансовые привычки и отношение к материальному благосостоянию. Представители знака ' + this.zodiacData.name + ' обычно подходят к деньгам в соответствии со своими характеристиками.'
                     )}
                     ${this.renderFAQItem(
-                        'What compatibility can I expect with other signs?',
-                        this.zodiacData.engName + ' shows varying levels of compatibility with different zodiac signs. Some combinations flow naturally, while others require more effort to balance.'
+                        'Какую совместимость я могу ожидать с другими знаками?',
+                        this.zodiacData.name + ' проявляет различные уровни совместимости с другими знаками зодиака. Некоторые комбинации работают естественно, а другим требуется больше усилий для баланса.'
                     )}
                     ${this.renderFAQItem(
-                        'What horoscopes or challenges can often be associated with this sign?',
-                        'Each sign faces specific challenges and opportunities. Understanding these can help ' + this.zodiacData.engName + ' natives navigate life with greater awareness.'
+                        'Какие вызовы и возможности связаны с этим знаком?',
+                        'Каждый знак сталкивается с конкретными вызовами и возможностями. Понимание этого может помочь представителям ' + this.zodiacData.name + ' лучше ориентироваться в жизни.'
                     )}
                 </div>
             </section>
@@ -348,13 +381,11 @@ class ZodiacRenderer {
      * Render all zodiac signs grid (footer)
      */
     renderAllSigns() {
-        // This would typically load all signs from the data
-        // For now, we'll create a placeholder that references external data
         return `
             <section class="zodiac-all-signs">
-                <h2 class="zodiac-all-signs__title">Explore All Zodiac Signs</h2>
+                <h2 class="zodiac-all-signs__title">✨ Исследуйте Все Знаки Зодиака</h2>
                 <div class="zodiac-signs-grid" id="zodiac-signs-grid">
-                    <!-- Signs will be loaded here -->
+                    <!-- Знаки будут загружены отсюда -->
                 </div>
             </section>
         `;
@@ -393,8 +424,8 @@ class ZodiacRenderer {
                 gridHTML += `
                     <a href="./${sign.id}.html" class="zodiac-sign-card">
                         <span class="zodiac-sign-card__icon">${sign.icon}</span>
-                        <div class="zodiac-sign-card__name">${sign.engName}</div>
-                        <div class="zodiac-sign-card__dates">${sign.datesEng}</div>
+                        <div class="zodiac-sign-card__name">${sign.name}</div>
+                        <div class="zodiac-sign-card__dates">${sign.dates}</div>
                     </a>
                 `;
             });
