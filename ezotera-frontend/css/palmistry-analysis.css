@@ -1,0 +1,547 @@
+/**
+ * Palmistry Analysis — Modal, Scan Animation, Results
+ * Добавляется поверх palmistry.css без конфликтов
+ */
+
+/* ============================================================
+   MODAL OVERLAY
+   ============================================================ */
+.palm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 20, 30, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.palm-modal-overlay.is-visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.palm-modal {
+    background: #0f1f2e;
+    border: 1px solid rgba(255, 198, 41, 0.2);
+    border-radius: 20px;
+    padding: 40px 36px;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.palm-modal-overlay.is-visible .palm-modal {
+    transform: translateY(0);
+}
+
+.palm-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.2s;
+}
+
+.palm-modal__close:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================================
+   UPLOAD SCREEN
+   ============================================================ */
+.palm-screen {
+    display: none;
+}
+
+.palm-screen.is-active {
+    display: block;
+}
+
+.palm-upload__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+.palm-upload__subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    margin: 0 0 28px;
+    line-height: 1.5;
+}
+
+/* Drop zone */
+.palm-dropzone {
+    border: 2px dashed rgba(255, 198, 41, 0.35);
+    border-radius: 14px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+}
+
+.palm-dropzone:hover,
+.palm-dropzone.is-dragover {
+    border-color: rgba(255, 198, 41, 0.7);
+    background: rgba(255, 198, 41, 0.04);
+}
+
+.palm-dropzone__icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.palm-dropzone__text {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 6px;
+}
+
+.palm-dropzone__hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+}
+
+.palm-dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+/* Preview thumbnail */
+.palm-preview {
+    display: none;
+    margin-top: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.palm-preview.is-visible {
+    display: block;
+}
+
+.palm-preview img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.palm-preview__change {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Privacy note */
+.palm-upload__privacy {
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Submit button */
+.palm-upload__submit {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ffc629, #ff9f1c);
+    color: #0f1f2e;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.palm-upload__submit:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.palm-upload__submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.palm-upload__error {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #ff6b6b;
+    text-align: center;
+    min-height: 18px;
+}
+
+/* ============================================================
+   SCAN / ANALYSIS ANIMATION SCREEN
+   ============================================================ */
+.palm-scan {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.palm-scan__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.palm-scan__subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 28px;
+}
+
+/* Canvas container with glow */
+.palm-scan__canvas-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 28px;
+}
+
+.palm-scan__canvas {
+    border-radius: 50%;
+    width: 240px;
+    height: 240px;
+    border: 1px solid rgba(255, 198, 41, 0.3);
+}
+
+.palm-scan__glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 198, 41, 0.12) 0%, transparent 70%);
+    animation: glowPulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.05); }
+}
+
+/* Scan line sweep */
+.palm-scan__line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 198, 41, 0.8), transparent);
+    top: 0;
+    animation: scanSweep 2s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+@keyframes scanSweep {
+    0%   { top: 10%;  opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { top: 90%; opacity: 0; }
+}
+
+/* Status messages */
+.palm-scan__status {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    min-height: 22px;
+    margin-bottom: 16px;
+    transition: opacity 0.3s;
+}
+
+/* Progress bar */
+.palm-scan__progress-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.palm-scan__progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ffc629, #ff9f1c);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.palm-scan__progress-pct {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Lines detected badges */
+.palm-scan__lines {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.palm-scan__line-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 198, 41, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.4s, transform 0.4s, color 0.3s, border-color 0.3s;
+}
+
+.palm-scan__line-badge.is-found {
+    opacity: 1;
+    transform: scale(1);
+    color: #ffc629;
+    border-color: rgba(255, 198, 41, 0.6);
+}
+
+/* ============================================================
+   RESULTS SCREEN
+   ============================================================ */
+.palm-results {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 198, 41, 0.3) transparent;
+}
+
+.palm-results__header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.palm-results__icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.palm-results__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.palm-results__meta {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Preview text */
+.palm-results__preview {
+    background: rgba(255, 198, 41, 0.05);
+    border: 1px solid rgba(255, 198, 41, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: pre-wrap;
+    margin-bottom: 24px;
+}
+
+/* Divider separator */
+.palm-results__separator {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.palm-results__separator::before,
+.palm-results__separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.palm-results__separator::before { left: 0; }
+.palm-results__separator::after  { right: 0; }
+
+/* Blur gate */
+.palm-results__blur-gate {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.palm-results__full-preview {
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.75);
+    white-space: pre-wrap;
+    filter: blur(5px);
+    user-select: none;
+    pointer-events: none;
+    max-height: 120px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+
+.palm-results__blur-gate.is-unlocked .palm-results__full-preview {
+    filter: none;
+    user-select: auto;
+    pointer-events: auto;
+    max-height: none;
+    mask-image: none;
+}
+
+.palm-results__blur-gate.is-unlocked .palm-results__unlock-overlay {
+    display: none;
+}
+
+/* Unlock overlay */
+.palm-results__unlock-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 31, 46, 0.1) 0%, rgba(15, 31, 46, 0.97) 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 24px;
+    text-align: center;
+}
+
+.palm-results__unlock-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.palm-results__unlock-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.palm-results__unlock-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.palm-results__unlock-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ffc629, #ff9f1c);
+    color: #0f1f2e;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.palm-results__unlock-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Full text (rendered as markdown-like) */
+.palm-results__full-text {
+    display: none;
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: pre-wrap;
+}
+
+.palm-results__full-text.is-visible {
+    display: block;
+}
+
+/* Repeat CTA */
+.palm-results__restart {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.palm-results__restart-btn {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.palm-results__restart-btn:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 560px) {
+    .palm-modal {
+        padding: 28px 20px;
+    }
+
+    .palm-scan__canvas-wrap {
+        width: 190px;
+        height: 190px;
+    }
+
+    .palm-scan__canvas {
+        width: 190px;
+        height: 190px;
+    }
+
+    .palm-upload__title,
+    .palm-scan__title,
+    .palm-results__title {
+        font-size: 20px;
+    }
+}

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/palmistry.css">
+    <link rel="stylesheet" href="css/palmistry-analysis.css">
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
@@ -25,6 +26,7 @@
     <script src="js/navigation.js"></script>
 
     <!-- Palmistry Page Scripts -->
+    <script src="js/palmistry-upload.js"></script>
     <script src="js/palmistry.js"></script>
 
 </head>
@@ -394,28 +396,114 @@
     </main>
 
     <!-- ============================================
-         FUTURE BACKEND INTEGRATION PLACEHOLDER
+         PALMISTRY ANALYSIS MODAL
          ============================================ -->
-    <section id="integration-placeholder" style="display: none;">
-        <!-- FUTURE BACKEND INTEGRATION START -->
-        <!--
-            This section will contain:
-            1. Upload logic - file input handling, image validation
-            2. Image processing - sending to AI backend
-            3. Payment logic - if moving from free to paid model
-            4. AI response rendering - displaying palmistry analysis
-            5. Email delivery - sending report to user
-            6. Data storage - user account history (optional)
+    <div id="palmModal" class="palm-modal-overlay" role="dialog" aria-modal="true" aria-label="Анализ ладони">
+        <div class="palm-modal">
+            <button class="palm-modal__close" id="palmModalClose" aria-label="Закрыть">✕</button>
 
-            Structure placeholder for future development:
-            - Modal/overlay for image upload
-            - Progress indicator during AI processing
-            - Results display component
-            - Email form component
-            - Error handling UI
-        -->
-        <!-- FUTURE BACKEND INTEGRATION END -->
-    </section>
+            <!-- ── SCREEN 1: UPLOAD ── -->
+            <div id="palmScreenUpload" class="palm-screen is-active">
+                <h2 class="palm-upload__title">Загрузите фото ладони</h2>
+                <p class="palm-upload__subtitle">
+                    Сфотографируйте левую ладонь при хорошем освещении,<br>
+                    раскрытую и расслабленную
+                </p>
+
+                <div id="palmDropzone" class="palm-dropzone">
+                    <span class="palm-dropzone__icon">🤚</span>
+                    <p class="palm-dropzone__text">Нажмите или перетащите фото сюда</p>
+                    <p class="palm-dropzone__hint">JPG, PNG, WebP — до 10 МБ</p>
+                    <input type="file" id="palmFileInput" accept="image/jpeg,image/png,image/webp" aria-label="Выбрать фото ладони">
+                </div>
+
+                <div id="palmImagePreview" class="palm-preview">
+                    <img src="" alt="Предпросмотр ладони">
+                    <button id="palmChangePhotoBtn" class="palm-preview__change">Изменить фото</button>
+                </div>
+
+                <p class="palm-upload__privacy">
+                    🔒 Фото анализируется локально и не хранится на сервере.<br>
+                    Конфиденциальность гарантирована.
+                </p>
+
+                <button id="palmSubmitBtn" class="palm-upload__submit" disabled>
+                    Начать анализ
+                </button>
+                <p id="palmUploadError" class="palm-upload__error"></p>
+            </div>
+
+            <!-- ── SCREEN 2: SCAN ANIMATION ── -->
+            <div id="palmScreenScan" class="palm-screen">
+                <div class="palm-scan">
+                    <h2 class="palm-scan__title">Анализируем вашу ладонь</h2>
+                    <p class="palm-scan__subtitle">Это займёт несколько секунд</p>
+
+                    <div class="palm-scan__canvas-wrap">
+                        <canvas id="palmScanCanvas" class="palm-scan__canvas" width="240" height="240"></canvas>
+                        <div class="palm-scan__glow"></div>
+                    </div>
+
+                    <p id="palmScanStatus" class="palm-scan__status">Обнаружение руки...</p>
+
+                    <div class="palm-scan__progress-track">
+                        <div id="palmScanBar" class="palm-scan__progress-bar"></div>
+                    </div>
+                    <p id="palmScanPct" class="palm-scan__progress-pct">0%</p>
+
+                    <div class="palm-scan__lines">
+                        <span class="palm-scan__line-badge">Линия жизни</span>
+                        <span class="palm-scan__line-badge">Линия сердца</span>
+                        <span class="palm-scan__line-badge">Линия головы</span>
+                        <span class="palm-scan__line-badge">Линия судьбы</span>
+                        <span class="palm-scan__line-badge">Линия интуиции</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SCREEN 3: RESULTS ── -->
+            <div id="palmScreenResults" class="palm-screen">
+                <div class="palm-results">
+                    <div class="palm-results__header">
+                        <div class="palm-results__icon">🔮</div>
+                        <h2 class="palm-results__title">Ваш персональный разбор</h2>
+                        <p class="palm-results__meta">Анализ завершён · 5 линий прочитано</p>
+                    </div>
+
+                    <!-- Free preview -->
+                    <div id="palmResultsPreview" class="palm-results__preview"></div>
+
+                    <div class="palm-results__separator">— полный анализ —</div>
+
+                    <!-- Blur gate: teaser of full text + unlock overlay -->
+                    <div id="palmResultsBlurGate" class="palm-results__blur-gate">
+                        <div id="palmResultsBlurSnippet" class="palm-results__full-preview"></div>
+
+                        <div class="palm-results__unlock-overlay">
+                            <div class="palm-results__unlock-icon">🔒</div>
+                            <h3 class="palm-results__unlock-title">Полный анализ ждёт вас</h3>
+                            <p class="palm-results__unlock-desc">
+                                Любовь, карьера, судьба, скрытые таланты<br>и прогноз на ближайший год — в полной версии
+                            </p>
+                            <button id="palmUnlockBtn" class="palm-results__unlock-btn">
+                                Разблокировать полный анализ
+                            </button>
+                        </div>
+
+                        <!-- Revealed after unlock -->
+                        <div id="palmResultsFull" class="palm-results__full-text"></div>
+                    </div>
+
+                    <div class="palm-results__restart">
+                        <button id="palmRestartBtn" class="palm-results__restart-btn">
+                            Сделать новый анализ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.palm-modal -->
+    </div><!-- /#palmModal -->
 
 </body>
 </html>

@@ -8,8 +8,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Import API handlers
-const loginHandler = require('./auth/login');
-const registerHandler = require('./auth/register');
+const loginHandler      = require('./auth/login');
+const registerHandler   = require('./auth/register');
+const palmUploadHandler = require('./palmistry/upload');
+const palmUnlockHandler = require('./palmistry/unlock');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -113,6 +115,10 @@ const server = http.createServer(async (req, res) => {
                 await loginHandler(req, res);
             } else if (pathname === '/api/auth/register' && req.method === 'POST') {
                 await registerHandler(req, res);
+            } else if (pathname === '/api/palmistry/upload') {
+                await palmUploadHandler(req, res);
+            } else if (pathname === '/api/palmistry/unlock') {
+                await palmUnlockHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {
@@ -171,10 +177,12 @@ server.listen(PORT, () => {
 
     console.log(`\n🚀 Development server running at http://localhost:${PORT}`);
     console.log(`\n📝 Available endpoints:`);
-    console.log(`   GET  http://localhost:${PORT}/api/health        - Check DB connection`);
-    console.log(`   GET  http://localhost:${PORT}/api/users         - List all users`);
-    console.log(`   POST http://localhost:${PORT}/api/auth/login    - Login user`);
-    console.log(`   POST http://localhost:${PORT}/api/auth/register - Register user`);
+    console.log(`   GET  http://localhost:${PORT}/api/health              - Check DB connection`);
+    console.log(`   GET  http://localhost:${PORT}/api/users               - List all users`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/login          - Login user`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/register       - Register user`);
+    console.log(`   POST http://localhost:${PORT}/api/palmistry/upload    - Palmistry analysis`);
+    console.log(`   POST http://localhost:${PORT}/api/palmistry/unlock    - Unlock full reading`);
     console.log(`\n⚙️  Environment check:`);
     console.log(`   POSTGRES_URL: ${process.env.POSTGRES_URL ? '✅ Set' : '❌ Not set'}`);
     console.log(`   JWT_SECRET: ${process.env.JWT_SECRET ? '✅ Set' : '❌ Not set'}`);
