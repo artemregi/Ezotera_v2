@@ -242,6 +242,9 @@
                 initializeNavigation();
             }
 
+            // Check auth status now that header is fully in DOM
+            updateHeaderForAuthenticatedUser();
+
         } catch (error) {
             console.error('Error loading header:', error);
         }
@@ -367,25 +370,6 @@
     // If DOM is still loading, wait for it; otherwise load immediately
     const initializeHeader = () => {
         loadHeader();
-        // Wait for header to be fully injected, then check auth
-        // Use longer timeout to ensure header is fully in DOM
-        let retryCount = 0;
-        const maxRetries = 5;
-
-        const tryUpdateHeader = () => {
-            // Check if header actions exist before trying to update
-            if (document.querySelector('.header__actions')) {
-                updateHeaderForAuthenticatedUser();
-            } else if (retryCount < maxRetries) {
-                // Retry if header not found
-                retryCount++;
-                setTimeout(tryUpdateHeader, 100 + (retryCount * 50));
-            } else {
-                console.debug('Header actions element not found after retries');
-            }
-        };
-
-        setTimeout(tryUpdateHeader, 150);
     };
 
     if (document.readyState === 'loading') {
