@@ -76,6 +76,7 @@
                 logoSrc: '../assets/icons/logo.jpg',
                 zodiacBase: './',
                 aboutHref: '../about.html',
+                palmistryHref: '../palmistry.html',
                 loginHref: '../auth/login.html',
                 onboardingHref: '../onboarding/step-1-name.html'
             };
@@ -86,6 +87,7 @@
                 indexHref: '../index.html',
                 logoSrc: '../assets/icons/logo.jpg',
                 zodiacBase: '../zodiac/',
+                palmistryHref: '../palmistry.html',
                 aboutHref: '../about.html',
                 loginHref: '#',
                 onboardingHref: '../onboarding/step-1-name.html'
@@ -97,6 +99,7 @@
                 indexHref: '../index.html',
                 logoSrc: '../assets/icons/logo.jpg',
                 zodiacBase: '../zodiac/',
+                palmistryHref: '../palmistry.html',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
                 onboardingHref: '#'
@@ -108,6 +111,7 @@
                 indexHref: 'index.html',
                 logoSrc: 'assets/icons/logo.jpg',
                 zodiacBase: 'zodiac/',
+                palmistryHref: 'palmistry.html',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
                 onboardingHref: 'onboarding/step-1-name.html'
@@ -119,6 +123,7 @@
                 indexHref: 'index.html',
                 logoSrc: 'assets/icons/logo.jpg',
                 zodiacBase: 'zodiac/',
+                palmistryHref: 'palmistry.html',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
                 onboardingHref: 'onboarding/step-1-name.html'
@@ -206,6 +211,7 @@
                 .replace(/LOGO_SRC/g, paths.logoSrc)
                 .replace(/ZODIAC_BASE/g, paths.zodiacBase)
                 .replace(/ABOUT_HREF/g, paths.aboutHref)
+                .replace(/PALMISTRY_HREF/g, paths.palmistryHref)
                 .replace(/LOGIN_HREF/g, paths.loginHref)
                 .replace(/ONBOARDING_HREF/g, paths.onboardingHref);
 
@@ -363,15 +369,23 @@
         loadHeader();
         // Wait for header to be fully injected, then check auth
         // Use longer timeout to ensure header is fully in DOM
-        setTimeout(() => {
+        let retryCount = 0;
+        const maxRetries = 5;
+
+        const tryUpdateHeader = () => {
             // Check if header actions exist before trying to update
             if (document.querySelector('.header__actions')) {
                 updateHeaderForAuthenticatedUser();
-            } else {
+            } else if (retryCount < maxRetries) {
                 // Retry if header not found
-                setTimeout(updateHeaderForAuthenticatedUser, 100);
+                retryCount++;
+                setTimeout(tryUpdateHeader, 100 + (retryCount * 50));
+            } else {
+                console.debug('Header actions element not found after retries');
             }
-        }, 150);
+        };
+
+        setTimeout(tryUpdateHeader, 150);
     };
 
     if (document.readyState === 'loading') {
