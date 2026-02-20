@@ -4,6 +4,14 @@
    ============================================ */
 
 /* ===== PAGE LAYOUT ===== */
+body.zodiac-page {
+    background: var(--gradient-hero) !important;
+    background-attachment: fixed;
+    color: var(--color-text);
+    position: relative;
+    min-height: 100vh;
+}
+
 .zodiac-page {
     background: var(--gradient-hero);
     color: var(--color-text);

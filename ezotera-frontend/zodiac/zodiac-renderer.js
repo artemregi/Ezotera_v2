@@ -37,7 +37,7 @@ class ZodiacRenderer {
      */
     async loadZodiacData() {
         try {
-            const response = await fetch('../zodiac-data.json');
+            const response = await fetch('./zodiac-data.json');
             const data = await response.json();
 
             // Find the sign data
@@ -385,7 +385,7 @@ class ZodiacRenderer {
 
         try {
             // Try to load all signs data
-            const response = await fetch('../zodiac-data.json');
+            const response = await fetch('./zodiac-data.json');
             const allSigns = await response.json();
 
             let gridHTML = '';
