@@ -8,10 +8,13 @@ const fs = require('fs');
 const path = require('path');
 
 // Import API handlers
-const loginHandler      = require('./auth/login');
-const registerHandler   = require('./auth/register');
-const palmUploadHandler = require('./palmistry/upload');
-const palmUnlockHandler = require('./palmistry/unlock');
+const loginHandler           = require('./auth/login');
+const registerHandler        = require('./auth/register');
+const forgotPasswordHandler  = require('./auth/forgot-password');
+const verifyOTPHandler       = require('./auth/verify-otp');
+const resetPasswordHandler   = require('./auth/reset-password');
+const palmUploadHandler      = require('./palmistry/upload');
+const palmUnlockHandler      = require('./palmistry/unlock');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -115,6 +118,12 @@ const server = http.createServer(async (req, res) => {
                 await loginHandler(req, res);
             } else if (pathname === '/api/auth/register' && req.method === 'POST') {
                 await registerHandler(req, res);
+            } else if (pathname === '/api/auth/forgot-password' && req.method === 'POST') {
+                await forgotPasswordHandler(req, res);
+            } else if (pathname === '/api/auth/verify-otp' && req.method === 'POST') {
+                await verifyOTPHandler(req, res);
+            } else if (pathname === '/api/auth/reset-password' && req.method === 'POST') {
+                await resetPasswordHandler(req, res);
             } else if (pathname === '/api/palmistry/upload') {
                 await palmUploadHandler(req, res);
             } else if (pathname === '/api/palmistry/unlock') {
@@ -177,14 +186,22 @@ server.listen(PORT, () => {
 
     console.log(`\n🚀 Development server running at http://localhost:${PORT}`);
     console.log(`\n📝 Available endpoints:`);
-    console.log(`   GET  http://localhost:${PORT}/api/health              - Check DB connection`);
-    console.log(`   GET  http://localhost:${PORT}/api/users               - List all users`);
-    console.log(`   POST http://localhost:${PORT}/api/auth/login          - Login user`);
-    console.log(`   POST http://localhost:${PORT}/api/auth/register       - Register user`);
-    console.log(`   POST http://localhost:${PORT}/api/palmistry/upload    - Palmistry analysis`);
-    console.log(`   POST http://localhost:${PORT}/api/palmistry/unlock    - Unlock full reading`);
+    console.log(`   GET  http://localhost:${PORT}/api/health                 - Check DB connection`);
+    console.log(`   GET  http://localhost:${PORT}/api/users                  - List all users`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/login             - Login user`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/register          - Register user`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/forgot-password   - Request password reset OTP`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/verify-otp        - Verify OTP`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/reset-password    - Reset password with OTP`);
+    console.log(`   POST http://localhost:${PORT}/api/palmistry/upload       - Palmistry analysis`);
+    console.log(`   POST http://localhost:${PORT}/api/palmistry/unlock       - Unlock full reading`);
     console.log(`\n⚙️  Environment check:`);
     console.log(`   POSTGRES_URL: ${process.env.POSTGRES_URL ? '✅ Set' : '❌ Not set'}`);
     console.log(`   JWT_SECRET: ${process.env.JWT_SECRET ? '✅ Set' : '❌ Not set'}`);
+    console.log(`   SMTP_HOST: ${process.env.SMTP_HOST ? '✅ Set' : '❌ Not set'}`);
+    console.log(`   SMTP_PORT: ${process.env.SMTP_PORT ? '✅ Set' : '❌ Not set'}`);
+    console.log(`   SMTP_USER: ${process.env.SMTP_USER ? '✅ Set' : '❌ Not set'}`);
+    console.log(`   SMTP_PASS: ${process.env.SMTP_PASS ? '✅ Set' : '❌ Not set'}`);
+    console.log(`   SMTP_FROM: ${process.env.SMTP_FROM ? '✅ Set' : '❌ Not set'}`);
     console.log(`   NODE_ENV: ${process.env.NODE_ENV}`);
 });

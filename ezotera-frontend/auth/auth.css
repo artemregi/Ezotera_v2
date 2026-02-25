@@ -289,6 +289,181 @@
 }
 
 
+/* ===== HELP TEXT ===== */
+.auth__help-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.auth__help-text a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-fast);
+}
+
+.auth__help-text a:hover {
+    color: var(--color-accent-light);
+    text-decoration: underline;
+}
+
+
+/* ===== PASSWORD RESET — MULTI-STEP ===== */
+
+/* Progress Indicator */
+.reset-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-light-gray);
+}
+
+.reset-progress__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    position: relative;
+}
+
+.reset-progress__number {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-off-white);
+    border: 2px solid var(--color-light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-light);
+    transition: all var(--transition-normal);
+}
+
+.reset-progress__item--active .reset-progress__number {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: white;
+}
+
+.reset-progress__label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-normal);
+}
+
+.reset-progress__item--active .reset-progress__label {
+    color: var(--color-accent);
+}
+
+.reset-progress__line {
+    flex: 1;
+    height: 2px;
+    background-color: var(--color-light-gray);
+    margin: 0 var(--spacing-sm);
+    margin-top: 20px;
+}
+
+
+/* Step Container */
+.reset-step {
+    display: none;
+}
+
+.reset-step--active {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Email Highlight */
+.reset-email-highlight {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
+}
+
+
+/* OTP Input Special Styling */
+.auth__input--otp {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 8px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    padding: 16px;
+}
+
+
+/* Password Strength Indicator */
+.password-strength {
+    margin: var(--spacing-md) 0;
+}
+
+.password-strength__bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+}
+
+.password-strength__fill {
+    height: 100%;
+    background-color: #cbd5e1;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.password-strength__text {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+
+/* Success State */
+.reset-success {
+    text-align: center;
+}
+
+.reset-success__icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #34d399, #10b981);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.reset-success__icon svg {
+    width: 48px;
+    height: 48px;
+    color: white;
+    stroke-width: 2;
+}
+
+.reset-success .auth__title {
+    color: #10b981;
+}
+
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
     .auth__card {
@@ -303,5 +478,25 @@
         flex-direction: column;
         align-items: flex-start;
         gap: var(--spacing-sm);
+    }
+
+    .reset-progress {
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-lg);
+    }
+
+    .reset-progress__number {
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-size-sm);
+    }
+
+    .reset-progress__label {
+        font-size: 10px;
+    }
+
+    .reset-progress__line {
+        margin: 0 4px;
+        margin-top: 16px;
     }
 }

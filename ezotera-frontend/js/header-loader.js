@@ -380,6 +380,10 @@
     // Load header as soon as possible
     // If DOM is still loading, wait for it; otherwise load immediately
     const initializeHeader = () => {
+        // Skip header loading on auth pages (login, register, forgot-password)
+        if (document.body.classList.contains('auth-body')) {
+            return;
+        }
         loadHeader();
     };
 
