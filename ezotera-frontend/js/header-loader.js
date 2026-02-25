@@ -78,7 +78,8 @@
                 aboutHref: '../about.html',
                 palmistryHref: '../palmistry.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '../onboarding/step-1-name.html'
+                onboardingHref: '../onboarding/step-1-name.html',
+                payHref: '../pay.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -90,7 +91,8 @@
                 palmistryHref: '../palmistry.html',
                 aboutHref: '../about.html',
                 loginHref: '#',
-                onboardingHref: '../onboarding/step-1-name.html'
+                onboardingHref: '../onboarding/step-1-name.html',
+                payHref: '../pay.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -102,7 +104,8 @@
                 palmistryHref: '../palmistry.html',
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
-                onboardingHref: '#'
+                onboardingHref: '#',
+                payHref: '../pay.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -114,7 +117,8 @@
                 palmistryHref: 'palmistry.html',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html'
+                onboardingHref: 'onboarding/step-1-name.html',
+                payHref: 'pay.html'
             };
         } else {
             return {
@@ -126,7 +130,8 @@
                 palmistryHref: 'palmistry.html',
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
-                onboardingHref: 'onboarding/step-1-name.html'
+                onboardingHref: 'onboarding/step-1-name.html',
+                payHref: 'pay.html'
             };
         }
     };
@@ -213,7 +218,8 @@
                 .replace(/ABOUT_HREF/g, paths.aboutHref)
                 .replace(/PALMISTRY_HREF/g, paths.palmistryHref)
                 .replace(/LOGIN_HREF/g, paths.loginHref)
-                .replace(/ONBOARDING_HREF/g, paths.onboardingHref);
+                .replace(/ONBOARDING_HREF/g, paths.onboardingHref)
+                .replace(/PAY_HREF/g, paths.payHref);
 
             // Insert header at the beginning of body or before first main element
             const headerContainer = document.createElement('div');
