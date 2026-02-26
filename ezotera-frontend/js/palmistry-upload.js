@@ -651,7 +651,7 @@
                     return;
                 }
                 if (apiResult && apiResult.success) {
-                    showResults(apiResult.preview, apiResult.isPaid, null);
+                    showResults(apiResult.preview, apiResult.isPaid, apiResult.teaser || null);
                 }
             }
         };

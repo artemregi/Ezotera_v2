@@ -427,6 +427,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 12px;
+    min-height: 240px;
 }
 
 .palm-results__full-preview {

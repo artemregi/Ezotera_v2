@@ -81,7 +81,7 @@ module.exports = async (req, res) => {
     // --- Check if session already exists (idempotent) ---
     try {
         const existing = await pool.query(
-            'SELECT session_id, preview_text, paid_at FROM public.palm_analyses WHERE session_id = $1',
+            'SELECT session_id, preview_text, full_text, paid_at FROM public.palm_analyses WHERE session_id = $1',
             [sessionId]
         );
 
@@ -96,6 +96,7 @@ module.exports = async (req, res) => {
                 success:   true,
                 sessionId: row.session_id,
                 preview:   row.preview_text,
+                teaser:    (row.full_text || '').slice(0, 400),
                 isPaid:    !!row.paid_at,
             });
         }
@@ -140,6 +141,7 @@ module.exports = async (req, res) => {
         success:   true,
         sessionId,
         preview,
+        teaser:    full.slice(0, 400),
         isPaid:    false,
     });
 };
