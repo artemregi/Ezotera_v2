@@ -8,13 +8,18 @@ const fs = require('fs');
 const path = require('path');
 
 // Import API handlers
-const loginHandler           = require('./auth/login');
-const registerHandler        = require('./auth/register');
-const forgotPasswordHandler  = require('./auth/forgot-password');
-const verifyOTPHandler       = require('./auth/verify-otp');
-const resetPasswordHandler   = require('./auth/reset-password');
-const palmUploadHandler      = require('./palmistry/upload');
-const palmUnlockHandler      = require('./palmistry/unlock');
+const loginHandler                    = require('./auth/login');
+const registerHandler                 = require('./auth/register');
+const registerFromOnboardingHandler   = require('./auth/register-from-onboarding');
+const forgotPasswordHandler           = require('./auth/forgot-password');
+const verifyOTPHandler                = require('./auth/verify-otp');
+const resetPasswordHandler            = require('./auth/reset-password');
+const palmUploadHandler               = require('./palmistry/upload');
+const palmUnlockHandler               = require('./palmistry/unlock');
+const verifyHandler                   = require('./auth/verify');
+const logoutHandler                   = require('./auth/logout');
+const userProfileHandler              = require('./user/profile');
+const onboardingCompleteHandler       = require('./onboarding/complete');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -118,6 +123,8 @@ const server = http.createServer(async (req, res) => {
                 await loginHandler(req, res);
             } else if (pathname === '/api/auth/register' && req.method === 'POST') {
                 await registerHandler(req, res);
+            } else if (pathname === '/api/auth/register-from-onboarding' && req.method === 'POST') {
+                await registerFromOnboardingHandler(req, res);
             } else if (pathname === '/api/auth/forgot-password' && req.method === 'POST') {
                 await forgotPasswordHandler(req, res);
             } else if (pathname === '/api/auth/verify-otp' && req.method === 'POST') {
@@ -128,6 +135,14 @@ const server = http.createServer(async (req, res) => {
                 await palmUploadHandler(req, res);
             } else if (pathname === '/api/palmistry/unlock') {
                 await palmUnlockHandler(req, res);
+            } else if (pathname === '/api/auth/verify' && req.method === 'GET') {
+                await verifyHandler(req, res);
+            } else if (pathname === '/api/auth/logout' && req.method === 'POST') {
+                await logoutHandler(req, res);
+            } else if (pathname === '/api/user/profile' && req.method === 'GET') {
+                await userProfileHandler(req, res);
+            } else if (pathname === '/api/onboarding/complete' && req.method === 'POST') {
+                await onboardingCompleteHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {
@@ -190,6 +205,7 @@ server.listen(PORT, () => {
     console.log(`   GET  http://localhost:${PORT}/api/users                  - List all users`);
     console.log(`   POST http://localhost:${PORT}/api/auth/login             - Login user`);
     console.log(`   POST http://localhost:${PORT}/api/auth/register          - Register user`);
+    console.log(`   POST http://localhost:${PORT}/api/auth/register-from-onboarding - Register from onboarding`);
     console.log(`   POST http://localhost:${PORT}/api/auth/forgot-password   - Request password reset OTP`);
     console.log(`   POST http://localhost:${PORT}/api/auth/verify-otp        - Verify OTP`);
     console.log(`   POST http://localhost:${PORT}/api/auth/reset-password    - Reset password with OTP`);

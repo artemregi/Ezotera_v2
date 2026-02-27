@@ -675,8 +675,8 @@
                 console.log('⚠️ Response not OK, status:', response.status);
                 return response.json().then(function(err) {
                     console.error('❌ Error from server:', err);
-                    throw new Error(err.message || 'Registration failed');
-                }).catch(function(parseError) {
+                    throw new Error(err.message || 'Ошибка регистрации');
+                }, function(parseError) {
                     console.error('❌ Failed to parse error response:', parseError);
                     throw new Error('Ошибка сервера: не удалось получить ответ');
                 });

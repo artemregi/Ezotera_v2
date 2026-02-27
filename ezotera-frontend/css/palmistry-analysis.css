@@ -445,11 +445,7 @@
 }
 
 .palm-results__blur-gate.is-unlocked .palm-results__full-preview {
-    filter: none;
-    user-select: auto;
-    pointer-events: auto;
-    max-height: none;
-    mask-image: none;
+    display: none;
 }
 
 .palm-results__blur-gate.is-unlocked .palm-results__unlock-overlay {
