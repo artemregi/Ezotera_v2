@@ -97,7 +97,7 @@ module.exports = async (req, res) => {
         // Generate JWT token and set cookie for automatic login
         console.log('🎫 Generating JWT token...');
         const token = generateToken(user.id, user.email, '24h');
-        setCookie(res, token);
+        setCookie(res, token, undefined, req);
         console.log('✅ Token generated and cookie set');
 
         // Success response - user is now registered AND logged in

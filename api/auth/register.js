@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
         const token = generateToken(user.id, user.email, '24h');
 
         // Set httpOnly cookie
-        setCookie(res, token);
+        setCookie(res, token, undefined, req);
 
         // Success response with redirect to index page (preview will be shown there)
         res.status(201).json({

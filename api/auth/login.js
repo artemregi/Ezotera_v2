@@ -81,7 +81,7 @@ module.exports = async (req, res) => {
 
         // Set cookie (7 days or 24 hours)
         const maxAge = remember ? 7 * 24 * 60 * 60 : 24 * 60 * 60;
-        setCookie(res, token, maxAge);
+        setCookie(res, token, maxAge, req);
 
         // Success response
         res.status(200).json({
