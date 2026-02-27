@@ -400,7 +400,13 @@
                     window.location.href = '/auth/login.html';
                     return;
                 }
-                throw new Error('Ошибка загрузки профиля');
+                var status = response.status;
+                return response.json().then(function(errData) {
+                    throw new Error((errData && errData.message) || ('Ошибка загрузки профиля [' + status + ']'));
+                }).catch(function(parseErr) {
+                    if (parseErr.message && parseErr.message.indexOf('[') !== -1) throw parseErr;
+                    throw new Error('Ошибка загрузки профиля [' + status + ']');
+                });
             }
             return response.json();
         })
@@ -408,7 +414,7 @@
             if (result && result.success) {
                 displayUserData(result.user);
             } else {
-                showError('Не удалось загрузить данные профиля');
+                showError((result && result.message) || 'Не удалось загрузить данные профиля');
             }
         })
         .catch(function(err) {

@@ -69,10 +69,12 @@ module.exports = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Profile fetch error:', error);
+        console.error('Profile fetch error:', error.message);
+        console.error('Profile fetch stack:', error.stack);
         res.status(500).json({
             success: false,
-            message: 'Произошла ошибка при загрузке профиля'
+            message: 'Произошла ошибка при загрузке профиля',
+            detail: process.env.NODE_ENV !== 'production' ? error.message : undefined
         });
     }
 };
