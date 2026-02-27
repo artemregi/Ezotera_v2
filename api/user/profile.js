@@ -8,9 +8,14 @@ module.exports = async (req, res) => {
     }
 
     try {
+        const rawCookie = req.headers.cookie || '';
+        console.log('[Profile] Cookie header present:', rawCookie.length > 0 ? `YES (${rawCookie.length} chars)` : 'NO — browser did not send the cookie');
+
         const token = extractTokenFromCookies(req);
+        console.log('[Profile] auth_token extracted:', token ? 'YES' : 'NO — cookie missing or misnamed');
 
         if (!token) {
+            console.warn('[Profile] → 401: no auth_token cookie received');
             return res.status(401).json({
                 success: false,
                 message: 'Необходима авторизация'
@@ -18,7 +23,9 @@ module.exports = async (req, res) => {
         }
 
         const decoded = verifyToken(token);
+        console.log('[Profile] Token verified:', decoded ? `YES (userId=${decoded.userId})` : 'NO — signature invalid or expired');
         if (!decoded) {
+            console.warn('[Profile] → 401: token verification failed (bad secret or expired)');
             return res.status(401).json({
                 success: false,
                 message: 'Недействительный токен'

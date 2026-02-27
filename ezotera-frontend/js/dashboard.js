@@ -389,16 +389,22 @@
     // ── Fetch user profile from API ──────────────────────────────────────────
     function fetchUserProfile() {
         showLoading();
+        console.log('[Dashboard] Fetching user profile…');
 
         fetch('/api/user/profile', {
             method: 'GET',
             credentials: 'include'
         })
         .then(function(response) {
+            console.log('[Dashboard] Profile response status:', response.status);
             if (!response.ok) {
                 if (response.status === 401) {
+                    console.warn('[Dashboard] 401 — no valid session, redirecting to login');
                     window.location.href = '/auth/login.html';
-                    return;
+                    // Return a never-resolving promise so the chain stops here.
+                    // Previously, plain `return` passed undefined to the next .then,
+                    // which called showError() and flashed an error before the redirect.
+                    return new Promise(function() {});
                 }
                 var status = response.status;
                 return response.json().then(function(errData) {
@@ -412,13 +418,15 @@
         })
         .then(function(result) {
             if (result && result.success) {
+                console.log('[Dashboard] Profile loaded for user:', result.user && result.user.email);
                 displayUserData(result.user);
             } else {
+                console.error('[Dashboard] Profile response not successful:', result);
                 showError((result && result.message) || 'Не удалось загрузить данные профиля');
             }
         })
         .catch(function(err) {
-            console.error('Profile fetch error:', err);
+            console.error('[Dashboard] Profile fetch error:', err);
             showError(err.message || 'Произошла ошибка при загрузке данных');
         });
     }

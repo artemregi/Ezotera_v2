@@ -86,8 +86,19 @@ const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // Enable CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Enable CORS — must use a specific origin (not '*') so browsers honour
+    // credentials: 'include' and store the Set-Cookie from login responses.
+    // Set ALLOWED_ORIGINS env var to your production domain(s), comma-separated.
+    // e.g. ALLOWED_ORIGINS=https://yourdomain.ru,https://www.yourdomain.ru
+    const requestOrigin = req.headers.origin;
+    const allowedOrigins = process.env.ALLOWED_ORIGINS
+        ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+        : ['http://localhost:3001'];
+    const corsOrigin = (requestOrigin && allowedOrigins.includes(requestOrigin))
+        ? requestOrigin
+        : allowedOrigins[0];
+    res.setHeader('Access-Control-Allow-Origin', corsOrigin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Content-Type', 'application/json');
