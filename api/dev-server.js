@@ -108,7 +108,11 @@ const server = http.createServer(async (req, res) => {
     req.on('end', async () => {
         try {
             if (body) {
-                req.body = JSON.parse(body);
+                try {
+                    req.body = JSON.parse(body);
+                } catch (e) {
+                    req.body = {};
+                }
             } else {
                 req.body = {};
             }
