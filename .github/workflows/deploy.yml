@@ -1,0 +1,37 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual deployment'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          port: 22
+          script: |
+            set -e
+            cd /var/www/myapp
+            echo "=== Pulling latest code ==="
+            git pull origin main
+            echo "=== Installing dependencies ==="
+            npm install --production
+            echo "=== Restarting Node.js process ==="
+            pm2 restart all || (pm2 start api/dev-server.js --name ezoterra && pm2 save)
+            echo "=== Verifying server is up ==="
+            sleep 3
+            curl -sf http://localhost:3001/api/health && echo "Server OK" || echo "Server health check failed"
+            echo "=== Deploy complete ==="
