@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const { amount, description, invoiceId, isTest } = req.body;
+        const { amount, description, invoiceId, isTest, returnPath } = req.body;
 
         if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
             return res.status(400).json({ success: false, message: 'Некорректная сумма' });
@@ -49,13 +49,17 @@ module.exports = async (req, res) => {
             .digest('hex');
 
         const siteUrl = process.env.APP_URL || 'https://esoterra.online';
+        // returnPath allows a custom success redirect (e.g. '/palmistry.html?paid=1')
+        const successUrl = (returnPath && typeof returnPath === 'string')
+            ? `${siteUrl}${returnPath}`
+            : `${siteUrl}/payment-success.html`;
         const params = new URLSearchParams({
             MerchantLogin: login,
             OutSum: outSum,
             InvId: String(invId),
             Description: description,
             SignatureValue: signatureValue,
-            SuccessURL: `${siteUrl}/payment-success.html`,
+            SuccessURL: successUrl,
             FailURL: `${siteUrl}/payment-fail.html`,
             Encoding: 'utf-8',
         });

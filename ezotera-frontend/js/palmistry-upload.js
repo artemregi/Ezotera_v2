@@ -660,11 +660,55 @@
     }
 
     // -----------------------------------------------------------------------
-    // Unlock handler
+    // Тестовый режим оплаты (true = тест, false = боевой)
+    // -----------------------------------------------------------------------
+    var PALM_IS_TEST = true; // TODO: поменять на false для боевых платежей
+
+    // -----------------------------------------------------------------------
+    // Unlock handler — редирект на Robokassa
     // -----------------------------------------------------------------------
     async function handleUnlock() {
         const btn = document.getElementById('palmUnlockBtn');
-        if (btn) { btn.disabled = true; btn.textContent = 'Обработка...'; }
+        if (btn) { btn.disabled = true; btn.textContent = 'Загрузка…'; }
+
+        try {
+            if (!currentSessionId) throw new Error('Сессия не найдена. Загрузите фото заново.');
+
+            // Сохраняем сессию и превью перед редиректом
+            const previewEl = document.getElementById('palmResultsPreview');
+            localStorage.setItem('palm_pending_session', currentSessionId);
+            localStorage.setItem('palm_pending_preview', previewEl ? previewEl.textContent : '');
+
+            const response = await fetch('/api/payment/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    amount: 490,
+                    description: 'Хиромантия — полный разбор',
+                    isTest: PALM_IS_TEST,
+                    returnPath: '/palmistry.html?paid=1',
+                }),
+            });
+
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'Ошибка создания платежа');
+            }
+
+            window.location.href = data.paymentUrl;
+        } catch (err) {
+            alert('Не удалось создать платёж: ' + err.message + '\n\nПожалуйста, попробуйте ещё раз или свяжитесь с нами.');
+            if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Unlock после возврата с оплаты (без повторного редиректа)
+    // -----------------------------------------------------------------------
+    async function handleUnlockAfterPayment() {
+        const btn = document.getElementById('palmUnlockBtn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Загружаем разбор…'; }
 
         try {
             const data = await unlockAnalysis();
@@ -679,9 +723,8 @@
                 }
             }
         } catch (err) {
-            alert(err.message || 'Не удалось разблокировать. Попробуйте позже.');
-        } finally {
             if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
+            alert(err.message || 'Не удалось разблокировать. Попробуйте ещё раз.');
         }
     }
 
@@ -724,6 +767,23 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
         setupDropzone();
+
+        // Возврат с оплаты Robokassa: ?paid=1
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('paid') === '1') {
+            var pendingSession = localStorage.getItem('palm_pending_session');
+            var pendingPreview = localStorage.getItem('palm_pending_preview') || '';
+            if (pendingSession) {
+                currentSessionId = pendingSession;
+                localStorage.removeItem('palm_pending_session');
+                localStorage.removeItem('palm_pending_preview');
+                // Открываем модал и показываем экран результатов
+                openModal();
+                showResults(pendingPreview, false, '');
+                // Авторазблокировка через небольшую задержку
+                setTimeout(handleUnlockAfterPayment, 600);
+            }
+        }
     }
 
     // -----------------------------------------------------------------------
