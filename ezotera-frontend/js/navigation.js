@@ -8,13 +8,9 @@
 (function () {
     'use strict';
 
-    /* ----- DOM Element References ----- */
-    var headerElement = document.getElementById('header');
-    var burgerButton = document.getElementById('burgerMenu');
-    var mobileNavigation = document.getElementById('mobileNav');
-
     /* ----- Header Scroll Effect ----- */
     function initializeHeaderScroll() {
+        var headerElement = document.getElementById('header');
         if (!headerElement) {
             return;
         }
@@ -153,28 +149,40 @@
     }
 
 
-    /* ----- Mobile Menu Toggle ----- */
+    /* ----- Mobile Menu — Event Delegation ----- */
+    /* Attach once on document so it works regardless of when
+       the header is injected into the DOM.               */
+    var mobileMenuInitialized = false;
+
     function initializeMobileMenu() {
-        if (!burgerButton || !mobileNavigation) {
+        if (mobileMenuInitialized) {
             return;
         }
+        mobileMenuInitialized = true;
 
-        burgerButton.addEventListener('click', function () {
-            var isOpen = mobileNavigation.classList.contains('header__mobile-nav--open');
-
-            if (isOpen) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        });
-
-        /* Close menu when clicking outside */
+        /* Single delegated listener handles burger click AND outside click */
         document.addEventListener('click', function (event) {
-            var isInsideMenu = mobileNavigation.contains(event.target);
-            var isInsideBurger = burgerButton.contains(event.target);
+            var burger = event.target.closest('#burgerMenu');
 
-            if (!isInsideMenu && !isInsideBurger) {
+            if (burger) {
+                /* Burger clicked — toggle menu */
+                var mobileNav = document.getElementById('mobileNav');
+                if (!mobileNav) { return; }
+
+                if (mobileNav.classList.contains('header__mobile-nav--open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+                return;
+            }
+
+            /* Click outside burger and menu — close menu */
+            var mobileNav = document.getElementById('mobileNav');
+            if (!mobileNav) { return; }
+
+            var insideMenu = event.target.closest('#mobileNav');
+            if (!insideMenu && mobileNav.classList.contains('header__mobile-nav--open')) {
                 closeMobileMenu();
             }
         });
@@ -188,6 +196,8 @@
     }
 
     function openMobileMenu() {
+        var mobileNavigation = document.getElementById('mobileNav');
+        var burgerButton = document.getElementById('burgerMenu');
         if (!mobileNavigation || !burgerButton) {
             return;
         }
@@ -198,6 +208,8 @@
     }
 
     function closeMobileMenu() {
+        var mobileNavigation = document.getElementById('mobileNav');
+        var burgerButton = document.getElementById('burgerMenu');
         if (!mobileNavigation || !burgerButton) {
             return;
         }
@@ -267,6 +279,7 @@
                     event.preventDefault();
                     closeMobileMenu();
 
+                    var headerElement = document.getElementById('header');
                     var headerHeight = headerElement ? headerElement.offsetHeight : 0;
                     var targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
 
