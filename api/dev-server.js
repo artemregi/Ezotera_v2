@@ -20,6 +20,8 @@ const verifyHandler                   = require('./auth/verify');
 const logoutHandler                   = require('./auth/logout');
 const userProfileHandler              = require('./user/profile');
 const onboardingCompleteHandler       = require('./onboarding/complete');
+const paymentCreateHandler            = require('./payment/create');
+const paymentResultHandler            = require('./payment/result');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -158,6 +160,10 @@ const server = http.createServer(async (req, res) => {
                 await userProfileHandler(req, res);
             } else if (pathname === '/api/onboarding/complete' && req.method === 'POST') {
                 await onboardingCompleteHandler(req, res);
+            } else if (pathname === '/api/payment/create' && req.method === 'POST') {
+                await paymentCreateHandler(req, res);
+            } else if (pathname === '/api/payment/result') {
+                await paymentResultHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {
