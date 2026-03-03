@@ -78,6 +78,7 @@
     font-weight: var(--font-weight-medium);
     border-radius: var(--radius-md);
     transition: color var(--transition-fast), background-color var(--transition-fast);
+    white-space: nowrap;
 }
 
 .header__nav-link:hover {
@@ -160,6 +161,8 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .header__sign-in {
@@ -293,8 +296,8 @@
     }
 }
 
-/* Tablet and below */
-@media (max-width: 768px) {
+/* Tablet and below — also covers narrow laptop where all nav items don't fit */
+@media (max-width: 1100px) {
     .header__nav {
         display: none;
     }

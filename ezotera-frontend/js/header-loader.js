@@ -294,13 +294,14 @@
         const dashboardHref = paths.depth === 2 ? '../dashboard.html' : 'dashboard.html';
 
         // Create new authenticated header HTML
-        const userName = user.name || user.email;
+        // Shorten display name: use name if set, otherwise just the part before @ in email
+        const rawName = user.name || user.email;
+        const shortName = rawName.includes('@') ? rawName.split('@')[0] : rawName;
+        const displayName = shortName.length > 14 ? shortName.slice(0, 14) + '…' : shortName;
         const authenticatedHTML = `
-            <div class="header__user-greeting">
-                <span class="header__user-name">👤 ${escapeHtml(userName)}</span>
-            </div>
+            <span class="header__user-name">👤 ${escapeHtml(displayName)}</span>
             <a href="${dashboardHref}" class="header__dashboard-link" title="Личный кабинет">
-                Личный кабинет
+                Кабинет
             </a>
             <button class="header__logout-btn" title="Выйти из аккаунта">
                 Выйти
@@ -323,7 +324,7 @@
         if (mobileActions) {
             const mobileAuthHTML = `
                 <div class="header__mobile-user-greeting">
-                    <span class="header__mobile-user-name">👤 ${escapeHtml(userName)}</span>
+                    <span class="header__mobile-user-name">👤 ${escapeHtml(displayName)}</span>
                 </div>
                 <a href="${dashboardHref}" class="button button--outline-white button--full-width">
                     Личный кабинет
