@@ -37,6 +37,7 @@
     align-items: center;
     gap: var(--spacing-sm);
     z-index: var(--z-overlay);
+    flex-shrink: 0;
 }
 
 .header__logo-icon {
@@ -72,7 +73,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-sm);
     color: rgba(255, 255, 255, 0.85);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
@@ -284,19 +285,7 @@
 
 /* ----- Responsive ----- */
 
-/* Laptop */
-@media (max-width: 1024px) {
-    .header__nav {
-        gap: 0;
-    }
-
-    .header__nav-link {
-        padding: var(--spacing-sm) var(--spacing-sm);
-        font-size: var(--font-size-xs);
-    }
-}
-
-/* Tablet and below — also covers narrow laptop where all nav items don't fit */
+/* Tablet and below — switch to burger menu */
 @media (max-width: 1100px) {
     .header__nav {
         display: none;
