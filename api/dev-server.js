@@ -37,6 +37,14 @@ function wrapResponse(res) {
         this.setHeader('Content-Type', 'application/json');
         this.end(JSON.stringify(data));
     };
+    res.send = function(data) {
+        if (typeof data === 'object') {
+            this.setHeader('Content-Type', 'application/json');
+            this.end(JSON.stringify(data));
+        } else {
+            this.end(String(data));
+        }
+    };
     return res;
 }
 

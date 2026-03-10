@@ -1,11 +1,14 @@
 const crypto = require('crypto');
+const { pool } = require('../../lib/db');
+const { extractTokenFromCookies, verifyToken } = require('../../lib/auth');
 
 /**
  * POST /api/payment/create
  * Generates a Robokassa payment URL with SHA256 signature.
+ * Also saves a pending order record to the database.
  *
  * Body: { amount, description, invoiceId?, isTest? }
- * Returns: { paymentUrl }
+ * Returns: { paymentUrl, invId }
  */
 module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') {
@@ -69,6 +72,31 @@ module.exports = async (req, res) => {
         }
 
         const paymentUrl = `https://auth.robokassa.ru/Merchant/Index.aspx?${params.toString()}`;
+
+        // Save pending order to database (non-blocking — payment proceeds even if this fails)
+        try {
+            let userId = null;
+            let userEmail = null;
+
+            const token = extractTokenFromCookies(req);
+            if (token) {
+                const decoded = verifyToken(token);
+                if (decoded) {
+                    userId = decoded.userId;
+                    userEmail = decoded.email;
+                }
+            }
+
+            await pool.query(
+                `INSERT INTO public.orders (user_id, user_email, inv_id, amount, description, is_test)
+                 VALUES ($1, $2, $3, $4, $5, $6)
+                 ON CONFLICT (inv_id) DO NOTHING`,
+                [userId, userEmail, invId, parseFloat(outSum), description, Boolean(isTest)]
+            );
+        } catch (dbErr) {
+            console.error('Failed to save pending order:', dbErr.message);
+            // Do not abort — user must reach Robokassa
+        }
 
         return res.status(200).json({ success: true, paymentUrl, invId });
     } catch (error) {
