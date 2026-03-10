@@ -43,27 +43,26 @@ jobs:
             echo "=== Pulling latest code ==="
             git pull origin main
             echo "=== Writing .env ==="
-            cat > .env <<EOF
-            POSTGRES_URL=$POSTGRES_URL
-            JWT_SECRET=$JWT_SECRET
-            NODE_ENV=production
-            APP_URL=https://www.esoterra.online
-            ALLOWED_ORIGINS=https://www.esoterra.online
-            RESET_OTP_EXPIRATION_MINUTES=10
-            ROBOKASSA_LOGIN=$ROBOKASSA_LOGIN
-            ROBOKASSA_PASSWORD1=$ROBOKASSA_PASSWORD1
-            ROBOKASSA_PASSWORD2=$ROBOKASSA_PASSWORD2
-            ROBOKASSA_TEST_PASSWORD1=$ROBOKASSA_TEST_PASSWORD1
-            ROBOKASSA_TEST_PASSWORD2=$ROBOKASSA_TEST_PASSWORD2
-            ROBOKASSA_HASH_ALGO=$ROBOKASSA_HASH_ALGO
-            SMTP_HOST=$SMTP_HOST
-            SMTP_PORT=$SMTP_PORT
-            SMTP_FROM=$SMTP_FROM
-            EOF
+            printf "POSTGRES_URL=%s\n" "$POSTGRES_URL" > .env
+            printf "JWT_SECRET=%s\n" "$JWT_SECRET" >> .env
+            printf "NODE_ENV=production\n" >> .env
+            printf "APP_URL=https://www.esoterra.online\n" >> .env
+            printf "ALLOWED_ORIGINS=https://www.esoterra.online\n" >> .env
+            printf "RESET_OTP_EXPIRATION_MINUTES=10\n" >> .env
+            printf "ROBOKASSA_LOGIN=%s\n" "$ROBOKASSA_LOGIN" >> .env
+            printf "ROBOKASSA_PASSWORD1=%s\n" "$ROBOKASSA_PASSWORD1" >> .env
+            printf "ROBOKASSA_PASSWORD2=%s\n" "$ROBOKASSA_PASSWORD2" >> .env
+            printf "ROBOKASSA_TEST_PASSWORD1=%s\n" "$ROBOKASSA_TEST_PASSWORD1" >> .env
+            printf "ROBOKASSA_TEST_PASSWORD2=%s\n" "$ROBOKASSA_TEST_PASSWORD2" >> .env
+            printf "ROBOKASSA_HASH_ALGO=%s\n" "$ROBOKASSA_HASH_ALGO" >> .env
+            printf "SMTP_HOST=%s\n" "$SMTP_HOST" >> .env
+            printf "SMTP_PORT=%s\n" "$SMTP_PORT" >> .env
+            printf "SMTP_FROM=%s\n" "$SMTP_FROM" >> .env
+            echo ".env written, $(wc -l < .env) lines"
             echo "=== Installing dependencies ==="
             npm install --production
             echo "=== Restarting Node.js process ==="
-            pm2 restart myapp
+            pm2 restart myapp --update-env
             echo "=== Verifying server is up ==="
             sleep 3
             curl -sf http://localhost:3001/api/health && echo "✅ Server OK" || echo "❌ Server health check failed"
