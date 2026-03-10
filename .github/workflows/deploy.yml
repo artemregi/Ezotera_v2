@@ -22,6 +22,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_DEPLOY_KEY }}
           port: 22
+          envs: POSTGRES_URL,JWT_SECRET,ROBOKASSA_LOGIN,ROBOKASSA_PASSWORD1,ROBOKASSA_PASSWORD2,ROBOKASSA_TEST_PASSWORD1,ROBOKASSA_TEST_PASSWORD2,ROBOKASSA_HASH_ALGO,SMTP_HOST,SMTP_PORT,SMTP_FROM
           script: |
             set -e
             # Load NVM so node and pm2 are on PATH
@@ -30,6 +31,24 @@ jobs:
             cd /var/www/myapp
             echo "=== Pulling latest code ==="
             git pull origin main
+            echo "=== Updating .env ==="
+            cat > .env << ENVEOF
+            POSTGRES_URL=${POSTGRES_URL}
+            JWT_SECRET=${JWT_SECRET}
+            NODE_ENV=production
+            APP_URL=https://www.esoterra.online
+            ALLOWED_ORIGINS=https://www.esoterra.online
+            RESET_OTP_EXPIRATION_MINUTES=10
+            ROBOKASSA_LOGIN=${ROBOKASSA_LOGIN}
+            ROBOKASSA_PASSWORD1=${ROBOKASSA_PASSWORD1}
+            ROBOKASSA_PASSWORD2=${ROBOKASSA_PASSWORD2}
+            ROBOKASSA_TEST_PASSWORD1=${ROBOKASSA_TEST_PASSWORD1}
+            ROBOKASSA_TEST_PASSWORD2=${ROBOKASSA_TEST_PASSWORD2}
+            ROBOKASSA_HASH_ALGO=${ROBOKASSA_HASH_ALGO}
+            SMTP_HOST=${SMTP_HOST}
+            SMTP_PORT=${SMTP_PORT}
+            SMTP_FROM=${SMTP_FROM}
+            ENVEOF
             echo "=== Installing dependencies ==="
             npm install --production
             echo "=== Restarting Node.js process ==="
