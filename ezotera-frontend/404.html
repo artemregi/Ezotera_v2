@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Страница не найдена | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+
+    <style>
+        /* 404 Page Specific Styles */
+        .error-page {
+            min-height: 100vh;
+            background: var(--gradient-hero);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+        }
+
+        .error-page__content {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .error-page__code {
+            font-size: 8rem;
+            font-weight: var(--font-weight-bold);
+            color: rgba(255, 255, 255, 0.15);
+            line-height: 1;
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-heading);
+        }
+
+        .error-page__icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+        }
+
+        .error-page__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .error-page__description {
+            font-size: var(--font-size-base);
+            color: rgba(255, 255, 255, 0.7);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .error-page__actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-page__links {
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-2xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .error-page__links-title {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .error-page__links-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .error-page__link {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: var(--font-size-sm);
+            transition: color var(--transition-fast);
+        }
+
+        .error-page__link:hover {
+            color: var(--color-accent-light);
+        }
+
+        @media (max-width: 768px) {
+            .error-page__code {
+                font-size: 6rem;
+            }
+
+            .error-page__icon {
+                font-size: 3rem;
+            }
+
+            .error-page__title {
+                font-size: var(--font-size-2xl);
+            }
+
+            .error-page__actions {
+                flex-direction: column;
+            }
+
+            .error-page__actions .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 404 ERROR PAGE ===== -->
+    <main class="error-page">
+        <div class="error-page__content">
+
+            <div class="error-page__code">404</div>
+            <div class="error-page__icon">🔮</div>
+
+            <h1 class="error-page__title">Страница не найдена</h1>
+
+            <p class="error-page__description">
+                К сожалению, запрашиваемая страница не существует или была перемещена.
+                Возможно, звезды указывают вам другой путь.
+            </p>
+
+            <div class="error-page__actions">
+                <a href="index.html" class="button button--primary">На главную</a>
+                <a href="onboarding/step-1-name.html" class="button button--secondary">Начать онбординг</a>
+            </div>
+
+            <div class="error-page__links">
+                <p class="error-page__links-title">Полезные ссылки</p>
+                <div class="error-page__links-list">
+                    <a href="about.html" class="error-page__link">О проекте</a>
+                    <a href="pricing.html" class="error-page__link">Тарифы</a>
+                    <a href="contact.html" class="error-page__link">Контакты</a>
+                    <a href="auth/login.html" class="error-page__link">Вход в аккаунт</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

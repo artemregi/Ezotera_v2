@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="AI анализ линий ладони: раскройте ответы о любви, карьере и будущем. Бесплатный персональный разбор за 60 секунд.">
+    <title>Хиромантия: Анализ ладони | Ezotera</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/palmistry.css">
+    <link rel="stylesheet" href="css/palmistry-analysis.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <!-- Global Navigation (Dropdowns, Mobile Menu) -->
+    <script src="js/navigation.js"></script>
+
+    <!-- MediaPipe Hand Landmarker (Tasks Vision API) -->
+    <!-- Loads ~3MB model from Google CDN — no API key needed, runs 100% in browser -->
+    <script type="module">
+        import {
+            HandLandmarker,
+            FilesetResolver
+        } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs';
+
+        async function initMediaPipe() {
+            try {
+                const vision = await FilesetResolver.forVisionTasks(
+                    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
+                );
+                window.__palmHandLandmarker = await HandLandmarker.createFromOptions(vision, {
+                    baseOptions: {
+                        modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+                        delegate: 'GPU',
+                    },
+                    runningMode:        'IMAGE',
+                    numHands:           1,
+                    minHandDetectionConfidence: 0.4,
+                    minHandPresenceConfidence:  0.4,
+                    minTrackingConfidence:      0.4,
+                });
+                console.log('[MediaPipe] Hand Landmarker ready');
+            } catch (e) {
+                console.warn('[MediaPipe] Failed to init, will use fallback lines:', e.message);
+            }
+        }
+
+        // Expose HandLandmarker class for detection check in palmistry-upload.js
+        window.HandLandmarker = HandLandmarker;
+        initMediaPipe();
+    </script>
+
+    <!-- Palmistry Page Scripts -->
+    <script src="js/palmistry-upload.js"></script>
+    <script src="js/palmistry.js"></script>
+
+</head>
+<body class="palmistry-page">
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main class="palmistry-main">
+
+        <!-- HERO SECTION -->
+        <section class="palmistry-hero section--dark">
+            <div class="container">
+                <div class="palmistry-hero__content">
+                    <h1 class="palmistry-hero__title">Ваша ладонь уже знает ответы.</h1>
+
+                    <p class="palmistry-hero__subtitle">
+                        Почему одни и те же ситуации повторяются? Почему решения даются так сложно? Ответы уже в линиях вашей ладони. Персональный анализ, который раскроет то, что вы давно чувствовали, но не могли понять.
+                    </p>
+
+                    <div class="palmistry-hero__cta-block">
+                        <button class="button button--primary button--large palmistry-hero__cta" id="cta-hero-primary">
+                            Получить персональный разбор
+                        </button>
+                        <p class="palmistry-hero__microcopy">
+                            Без регистрации. Конфиденциально. Анализ займет менее минуты.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="palmistry-hero__visual">
+                    <div class="palmistry-hero__glow"></div>
+                    <svg class="palmistry-hero__icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,198,41,0.2)" stroke-width="1"/>
+                        <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,198,41,0.15)" stroke-width="1"/>
+                        <path d="M100 20 Q140 60 140 100 Q140 140 100 160 Q60 140 60 100 Q60 60 100 20" fill="none" stroke="rgba(255,198,41,0.4)" stroke-width="2"/>
+                        <circle cx="100" cy="100" r="8" fill="rgba(255,198,41,0.6)"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUST BLOCK -->
+        <section class="palmistry-trust section">
+            <div class="container">
+                <div class="palmistry-trust__stats">
+                    <div class="palmistry-trust__stat">
+                        <div class="palmistry-trust__rating">⭐⭐⭐⭐⭐</div>
+                        <p class="palmistry-trust__rating-text">4.8 из 5</p>
+                    </div>
+                    <div class="palmistry-trust__stat">
+                        <p class="palmistry-trust__number">100,000+</p>
+                        <p class="palmistry-trust__description">анализов проведено</p>
+                    </div>
+                </div>
+
+                <div class="palmistry-testimonials">
+                    <div class="palmistry-testimonial">
+                        <p class="palmistry-testimonial__text">
+                            "После анализа я наконец поняла, почему мои отношения повторяют один и тот же сценарий. Совпадения оказались поразительными. Я начала действовать осознанно, и всё изменилось."
+                        </p>
+                        <p class="palmistry-testimonial__author">Мария К., 34 года</p>
+                    </div>
+
+                    <div class="palmistry-testimonial">
+                        <p class="palmistry-testimonial__text">
+                            "Я работал на нелюбимой работе 7 лет. Анализ показал мои настоящие таланты, которые я подавлял. Спустя 3 месяца я сменил карьеру. Лучшее решение, которое я когда-либо принимал."
+                        </p>
+                        <p class="palmistry-testimonial__author">Алексей В., 41 год</p>
+                    </div>
+
+                    <div class="palmistry-testimonial">
+                        <p class="palmistry-testimonial__text">
+                            "Не верила в такое, но результаты просто пугают точностью. Всё совпало с моей жизнью. Теперь я знаю, к чему готовиться в следующие 2 года."
+                        </p>
+                        <p class="palmistry-testimonial__author">Екатерина Л., 28 лет</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM AGITATION SECTION -->
+        <section class="palmistry-problems section--alt">
+            <div class="container">
+                <h2 class="palmistry-problems__title section__title">Вы это узнаете?</h2>
+
+                <div class="palmistry-problems__grid">
+                    <div class="palmistry-problem-card">
+                        <h3 class="palmistry-problem-card__title">Неопределенность в отношениях</h3>
+                        <p class="palmistry-problem-card__text">
+                            Вы не знаете, стоит ли продолжать отношения или уйти. Партнер хороший человек, но что-то не то. Вы циклитесь в одних и тех же ссорах, забываете, как была радость.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-problem-card">
+                        <h3 class="palmistry-problem-card__title">Повторяющиеся ошибки</h3>
+                        <p class="palmistry-problem-card__text">
+                            Вы выбираете одинаковых партнеров. Повторяются одни и те же конфликты на работе. Деньги уходят по одним и тем же каналам. Будто бы вы на колесе в клетке, а не в жизни.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-problem-card">
+                        <h3 class="palmistry-problem-card__title">Страх неправильного выбора</h3>
+                        <p class="palmistry-problem-card__text">
+                            Вы сомневаетесь в своем пути. "Может, это не моё?" Видите успех других и чувствуете, что идете не туда. Боитесь потратить еще 5 лет на неправильное направление.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-problem-card">
+                        <h3 class="palmistry-problem-card__title">Нереализованный потенциал</h3>
+                        <p class="palmistry-problem-card__text">
+                            Вы знаете, что способны на большее. Но что это "большее"? Откуда начать? Почему мотивация рассыпается после первых шагов?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS SECTION -->
+        <section class="palmistry-benefits section" id="benefits">
+            <div class="container">
+                <h2 class="palmistry-benefits__title section__title">Что раскроет анализ вашей ладони</h2>
+                <p class="palmistry-benefits__subtitle">
+                    Персональный разбор, который вы получите, покажет вам то, что вы уже подсознательно знаете
+                </p>
+
+                <div class="palmistry-cards-grid">
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">💕</div>
+                        <h3 class="palmistry-benefit-card__title">Любовные сценарии</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Анализ раскрывает вашу естественную модель в отношениях: чего вы действительно ищите, какие паттерны повторяются, и как разорвать цикл, если он вас не устраивает.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">🎯</div>
+                        <h3 class="palmistry-benefit-card__title">Карьерный вектор</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Какая сфера деятельности соответствует вашей природе? Какие навыки развивать? Анализ показывает, в каком направлении вы естественно сильнее.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">⭐</div>
+                        <h3 class="palmistry-benefit-card__title">Скрытые таланты</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Часто мы не замечаем свои способности, потому что они кажутся обычными. Анализ выделяет именно то, что вы можете монетизировать или развить.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">💰</div>
+                        <h3 class="palmistry-benefit-card__title">Финансовые циклы</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Ладонь показывает ваше отношение к деньгам, когда приходят периоды достатка, и где обычно происходят утечки ресурсов.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">🔐</div>
+                        <h3 class="palmistry-benefit-card__title">Внутренние блоки</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Что мешает вам действовать? Какие убеждения держат вас назад? Анализ выявляет неосознанные страхи и показывает, как с ними работать.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-benefit-card">
+                        <div class="palmistry-benefit-card__icon">🌟</div>
+                        <h3 class="palmistry-benefit-card__title">Поворотные моменты</h3>
+                        <p class="palmistry-benefit-card__text">
+                            Вы узнаете, когда ожидать ключевые решения и периоды трансформации. Это помогает быть готовым, а не застать врасплох.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEMPORAL HORIZONS SECTION -->
+        <section class="palmistry-horizons section--alt">
+            <div class="container">
+                <h2 class="palmistry-horizons__title section__title">Что вас ждёт впереди</h2>
+                <p class="palmistry-horizons__subtitle">
+                    Линии ладони хранят не только ваше прошлое — они указывают на ключевые периоды трансформации в будущем
+                </p>
+
+                <div class="palmistry-horizons__grid">
+                    <div class="palmistry-horizon-card">
+                        <div class="palmistry-horizon-card__years">5 лет</div>
+                        <h3 class="palmistry-horizon-card__title">Что вас ждёт через 5 лет</h3>
+                        <p class="palmistry-horizon-card__text">
+                            В ближайшие пять лет вас ожидают важные решения, которые определят вектор вашей жизни. Линии ладони указывают на период роста, в котором скрытые возможности начнут проявляться — в отношениях, профессии и внутреннем состоянии. Те, кто слышит свою природу, делают правильный выбор именно в это время.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-horizon-card">
+                        <div class="palmistry-horizon-card__years">10 лет</div>
+                        <h3 class="palmistry-horizon-card__title">Что изменится в вашей жизни через 10 лет</h3>
+                        <p class="palmistry-horizon-card__text">
+                            Через десять лет многое в вашей жизни будет выглядеть иначе. Карта судьбы показывает, в какой сфере вас ждёт наибольшая трансформация — и что нужно заложить уже сейчас, чтобы этот период стал временем расцвета, а не сожалений. Люди, знающие свой путь, приходят к этому рубежу подготовленными.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS SECTION -->
+        <section class="palmistry-how-it-works section--dark" id="how-it-works">
+            <div class="container">
+                <h2 class="palmistry-how-it-works__title section__title">Как это работает</h2>
+
+                <div class="palmistry-steps">
+                    <div class="palmistry-step">
+                        <div class="palmistry-step__number">1</div>
+                        <h3 class="palmistry-step__title">Загрузите фото ладони</h3>
+                        <p class="palmistry-step__description">
+                            Сделайте четкое фото обеих ладоней при хорошем свете.
+                        </p>
+                        <p class="palmistry-step__microcopy">
+                            ✓ Фото не будут опубликованы<br>
+                            ✓ Сразу удалятся после анализа
+                        </p>
+                    </div>
+
+                    <div class="palmistry-step__divider"></div>
+
+                    <div class="palmistry-step">
+                        <div class="palmistry-step__number">2</div>
+                        <h3 class="palmistry-step__title">Алгоритм дешифрует ваш рисунок</h3>
+                        <p class="palmistry-step__description">
+                            Наш алгоритм использует специализированные вычислительные модели для дешифровки уникального рисунка вашей руки.
+                        </p>
+                        <p class="palmistry-step__microcopy">
+                            ✓ Анализ займет менее минуты<br>
+                            ✓ Индивидуальный подход
+                        </p>
+                    </div>
+
+                    <div class="palmistry-step__divider"></div>
+
+                    <div class="palmistry-step">
+                        <div class="palmistry-step__number">3</div>
+                        <h3 class="palmistry-step__title">Получите персональный разбор</h3>
+                        <p class="palmistry-step__description">
+                            Индивидуальный отчет на 3-5 страниц с конкретными рекомендациями.
+                        </p>
+                        <p class="palmistry-step__microcopy">
+                            ✓ Отправим на почту<br>
+                            ✓ В защищенном формате
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY PERSONALIZED SECTION -->
+        <section class="palmistry-personalized section">
+            <div class="container">
+                <h2 class="palmistry-personalized__title section__title">Почему это персонализировано именно для вас</h2>
+
+                <div class="palmistry-personalized__content">
+                    <div class="palmistry-personalized__block">
+                        <h3 class="palmistry-personalized__subtitle">Это не гороскоп</h3>
+                        <p class="palmistry-personalized__text">
+                            Гороскопы даны одинаковые миллионам людей, рожденных в один день. Ваша ладонь — уникальна, как отпечаток пальца. Только у вас такой рисунок линий.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-personalized__block">
+                        <h3 class="palmistry-personalized__subtitle">Линии ладони уникальны</h3>
+                        <p class="palmistry-personalized__text">
+                            У вас никогда не будет такие же линии, как у другого человека. Это ваша карта судьбы, которая отражает ваш путь, способности, и паттерны поведения. Даже у близнецов линии разные.
+                        </p>
+                    </div>
+
+                    <div class="palmistry-personalized__block">
+                        <h3 class="palmistry-personalized__subtitle">Алгоритм анализирует глубину</h3>
+                        <p class="palmistry-personalized__text">
+                            AI смотрит на форму ладони, длину и глубину главных линий, пересечения, холмы, узоры. Это научный подход, обогащенный древней мудростью. Современный + мистический, но обоснованный.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="palmistry-faq section--alt" id="faq">
+            <div class="container">
+                <h2 class="palmistry-faq__title section__title">Частые вопросы</h2>
+
+                <div class="palmistry-faq__list">
+                    <details class="palmistry-faq-item" open>
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Насколько это точно?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Точность зависит от качества фото и вашей открытости к результатам. На тестировании алгоритм показал 87% совпадение с реальными жизненными сценариями пользователей. Но это не магия — это анализ паттернов, которые уже заложены в вашей природе.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Это AI или реальный хиромант?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Это гибридный подход. AI анализирует физические параметры ладони, а интерпретация строится на основе классических принципов хиромантии, проверенных веками. Это быстрее и доступнее, чем приватная консультация, но столь же глубоко.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Безопасны ли мои данные?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Да. Ваше фото используется только для анализа и автоматически удаляется из системы после обработки. Мы не продаем данные, не делимся ими с третьими сторонами. Конфиденциальность — наш приоритет.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Что если фото плохого качества?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Если фото слишком нечеткое, наша система попросит переснять. Лучше один раз хорошо, чем ошибиться. Мы дадим четкие инструкции, как правильно сфотографировать ладонь.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Сколько времени занимает анализ?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            От загрузки до получения отчета — обычно менее 60 секунд. Иногда чуть дольше, если сервер занят, но максимум 3 минуты. Отчет придет на вашу почту автоматически.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Это развлечение или серьезный анализ?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Если вы берете это как игру — наслаждайтесь. Если вы ищете глубокие ответы о себе — они там есть. Мы верим, что истина нередко одета в форму развлечения, и люди лучше воспринимают инсайты, когда они интересны.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Можно ли повторить анализ?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Да, но не рекомендуется часто. Линии ладони меняются медленно, примерно раз в 2-3 года. Если вы прошли анализ — подождите, пока что-то кардинально не изменится в вашей жизни, тогда повторите.
+                        </p>
+                    </details>
+
+                    <details class="palmistry-faq-item">
+                        <summary class="palmistry-faq-item__summary">
+                            <span class="palmistry-faq-item__question">Нужно ли платить?</span>
+                            <span class="palmistry-faq-item__icon">+</span>
+                        </summary>
+                        <p class="palmistry-faq-item__answer">
+                            Первый персональный разбор — бесплатный. Это инвестиция в вашу уверенность. Дополнительные углубленные консультации (если захотите) — платные, но это будет предложено позже, и вы сами решите.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA SECTION -->
+        <section class="palmistry-final-cta section--dark section--large">
+            <div class="container">
+                <div class="palmistry-final-cta__content">
+                    <h2 class="palmistry-final-cta__title">Ответы уже у вас в руках.</h2>
+                    <p class="palmistry-final-cta__subtitle">
+                        Вы уже чувствуете, что что-то не так. Вы уже знаете, что можете больше. Каждый день без ответа — это еще один день в неопределенности. Начните сейчас. Это займет одну минуту.
+                    </p>
+
+                    <button class="button button--primary button--large palmistry-final-cta__button" id="cta-final-primary">
+                        Начать анализ ладони
+                    </button>
+
+                    <p class="palmistry-final-cta__microcopy">
+                        Анализ бесплатный. Результат — в вашей почте через минуту. Никаких скрытых платежей.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================
+         PALMISTRY ANALYSIS MODAL
+         ============================================ -->
+    <div id="palmModal" class="palm-modal-overlay" role="dialog" aria-modal="true" aria-label="Анализ ладони">
+        <div class="palm-modal">
+            <button class="palm-modal__close" id="palmModalClose" aria-label="Закрыть">✕</button>
+
+            <!-- ── SCREEN 1: UPLOAD ── -->
+            <div id="palmScreenUpload" class="palm-screen is-active">
+                <h2 class="palm-upload__title">Загрузите фото ладони</h2>
+                <p class="palm-upload__subtitle">
+                    Сфотографируйте левую ладонь при хорошем освещении,<br>
+                    раскрытую и расслабленную
+                </p>
+
+                <div id="palmDropzone" class="palm-dropzone">
+                    <span class="palm-dropzone__icon">🤚</span>
+                    <p class="palm-dropzone__text">Нажмите или перетащите фото сюда</p>
+                    <p class="palm-dropzone__hint">JPG, PNG, WebP — до 10 МБ</p>
+                    <input type="file" id="palmFileInput" accept="image/jpeg,image/png,image/webp" aria-label="Выбрать фото ладони">
+                </div>
+
+                <div id="palmImagePreview" class="palm-preview">
+                    <img src="" alt="Предпросмотр ладони">
+                    <button id="palmChangePhotoBtn" class="palm-preview__change">Изменить фото</button>
+                </div>
+
+                <p class="palm-upload__privacy">
+                    🔒 Фото анализируется локально и не хранится на сервере.<br>
+                    Конфиденциальность гарантирована.
+                </p>
+
+                <button id="palmSubmitBtn" class="palm-upload__submit" disabled>
+                    Начать анализ
+                </button>
+                <p id="palmUploadError" class="palm-upload__error"></p>
+            </div>
+
+            <!-- ── SCREEN 2: SCAN ANIMATION ── -->
+            <div id="palmScreenScan" class="palm-screen">
+                <div class="palm-scan">
+                    <h2 class="palm-scan__title">Анализируем вашу ладонь</h2>
+                    <p class="palm-scan__subtitle">Это займёт несколько секунд</p>
+
+                    <div class="palm-scan__canvas-wrap">
+                        <canvas id="palmScanCanvas" class="palm-scan__canvas" width="240" height="240"></canvas>
+                        <div class="palm-scan__glow"></div>
+                    </div>
+
+                    <p id="palmScanStatus" class="palm-scan__status">Обнаружение руки...</p>
+
+                    <div class="palm-scan__progress-track">
+                        <div id="palmScanBar" class="palm-scan__progress-bar"></div>
+                    </div>
+                    <p id="palmScanPct" class="palm-scan__progress-pct">0%</p>
+
+                    <div class="palm-scan__lines">
+                        <span class="palm-scan__line-badge">Линия жизни</span>
+                        <span class="palm-scan__line-badge">Линия сердца</span>
+                        <span class="palm-scan__line-badge">Линия головы</span>
+                        <span class="palm-scan__line-badge">Линия судьбы</span>
+                        <span class="palm-scan__line-badge">Линия интуиции</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SCREEN 3: RESULTS ── -->
+            <div id="palmScreenResults" class="palm-screen">
+                <div class="palm-results">
+                    <div class="palm-results__header">
+                        <div class="palm-results__icon">🔮</div>
+                        <h2 class="palm-results__title">Ваш персональный разбор</h2>
+                        <p class="palm-results__meta">Анализ завершён · 5 линий прочитано</p>
+                    </div>
+
+                    <!-- Free preview -->
+                    <div id="palmResultsPreview" class="palm-results__preview"></div>
+
+                    <div class="palm-results__separator">— полный анализ —</div>
+
+                    <!-- Blur gate: teaser of full text + unlock overlay -->
+                    <div id="palmResultsBlurGate" class="palm-results__blur-gate">
+                        <div id="palmResultsBlurSnippet" class="palm-results__full-preview"></div>
+
+                        <div class="palm-results__unlock-overlay">
+                            <div class="palm-results__unlock-icon">🔒</div>
+                            <h3 class="palm-results__unlock-title">Полный анализ ждёт вас</h3>
+                            <p class="palm-results__unlock-desc">
+                                Любовь, карьера, судьба, скрытые таланты<br>и прогноз на ближайший год — в полной версии
+                            </p>
+                            <button id="palmUnlockBtn" class="palm-results__unlock-btn">
+                                Разблокировать полный анализ
+                            </button>
+                        </div>
+
+                        <!-- Revealed after unlock -->
+                        <div id="palmResultsFull" class="palm-results__full-text"></div>
+                    </div>
+
+                    <div class="palm-results__restart">
+                        <button id="palmRestartBtn" class="palm-results__restart-btn">
+                            Сделать новый анализ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.palm-modal -->
+    </div><!-- /#palmModal -->
+
+</body>
+</html>

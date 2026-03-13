@@ -1,0 +1,209 @@
+/* ============================================
+   CONTACT PAGE STYLES — Ezotera Frontend
+   Contact hero, form, info sidebar
+   ============================================ */
+
+
+/* ===== CONTACT HERO ===== */
+.contact-hero {
+    padding-top: calc(var(--header-height) + var(--spacing-4xl));
+}
+
+.contact-hero__title {
+    font-size: var(--font-size-4xl);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-hero__subtitle {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: var(--line-height-relaxed);
+}
+
+
+/* ===== CONTACT CONTENT LAYOUT ===== */
+.contact-content__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: start;
+}
+
+
+/* ===== CONTACT FORM ===== */
+.contact-form__title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+.contact-form__field {
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-form__label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-form__required {
+    color: var(--color-secondary);
+}
+
+.contact-form__input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--color-off-white);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.contact-form__input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+    background-color: var(--color-white);
+}
+
+.contact-form__input::placeholder {
+    color: var(--color-gray);
+}
+
+.contact-form__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23adb5bd' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.contact-form__textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form__error {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-secondary);
+    margin-top: var(--spacing-xs);
+    min-height: 1em;
+}
+
+.contact-form__input--invalid {
+    border-color: var(--color-secondary);
+}
+
+.contact-form__submit {
+    margin-top: var(--spacing-sm);
+}
+
+/* Status Messages */
+.contact-form__status {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.contact-form__status--success {
+    background-color: rgba(108, 92, 231, 0.08);
+    color: var(--color-accent-dark);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+.contact-form__status--error {
+    background-color: rgba(225, 112, 85, 0.08);
+    color: var(--color-secondary);
+    border: 1px solid rgba(225, 112, 85, 0.2);
+}
+
+
+/* ===== CONTACT INFO SIDEBAR ===== */
+.contact-info {
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+}
+
+.contact-info__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-primary);
+}
+
+.contact-info__item {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact-info__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(108, 92, 231, 0.08);
+    border-radius: var(--radius-md);
+}
+
+.contact-info__label {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.contact-info__value {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+}
+
+.contact-info__divider {
+    height: 1px;
+    background-color: var(--color-light-gray);
+    margin: var(--spacing-lg) 0;
+}
+
+.contact-info__help-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-relaxed);
+}
+
+
+/* ===== RESPONSIVE — CONTACT PAGE ===== */
+
+@media (max-width: 768px) {
+    .contact-content__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form__row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info {
+        order: -1;
+    }
+}

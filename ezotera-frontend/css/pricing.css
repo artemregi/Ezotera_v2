@@ -1,0 +1,278 @@
+/* ============================================
+   PRICING PAGE STYLES — Ezotera Frontend
+   Pricing hero, cards, toggle, payment, guarantee
+   ============================================ */
+
+
+/* ===== PRICING HERO ===== */
+.pricing-hero {
+    padding-top: calc(var(--header-height) + var(--spacing-4xl));
+}
+
+.pricing-hero__title {
+    font-size: var(--font-size-4xl);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-lg);
+}
+
+.pricing-hero__subtitle {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-2xl);
+    line-height: var(--line-height-relaxed);
+}
+
+
+/* ===== BILLING TOGGLE ===== */
+.pricing-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.pricing-toggle__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: rgba(255, 255, 255, 0.5);
+    transition: color var(--transition-fast);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.pricing-toggle__label--active {
+    color: var(--color-white);
+}
+
+.pricing-toggle__badge {
+    display: inline-block;
+    background: var(--gradient-accent);
+    color: var(--color-white);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    padding: 2px 8px;
+    border-radius: var(--radius-2xl);
+}
+
+.pricing-toggle__switch {
+    width: 48px;
+    height: 26px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    padding: 0;
+}
+
+.pricing-toggle__switch[aria-checked="true"] {
+    background-color: var(--color-accent);
+}
+
+.pricing-toggle__knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-base);
+}
+
+.pricing-toggle__switch[aria-checked="true"] .pricing-toggle__knob {
+    transform: translateX(22px);
+}
+
+
+/* ===== PRICING CARDS ===== */
+.pricing-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    align-items: stretch;
+}
+
+.pricing-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    border: 1px solid var(--color-light-gray);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Featured card */
+.pricing-card--featured {
+    border-color: var(--color-accent);
+    border-width: 2px;
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.03);
+}
+
+.pricing-card--featured:hover {
+    transform: scale(1.03) translateY(-4px);
+}
+
+.pricing-card__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-accent);
+    color: var(--color-white);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    padding: 6px 20px;
+    border-radius: var(--radius-2xl);
+    white-space: nowrap;
+}
+
+.pricing-card__header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.pricing-card__name {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.pricing-card__description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+.pricing-card__price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-light-gray);
+}
+
+.pricing-card__amount {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.pricing-card__currency {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+
+.pricing-card__period {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+.pricing-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+    flex-grow: 1;
+}
+
+.pricing-card__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.pricing-card__feature svg {
+    flex-shrink: 0;
+}
+
+.pricing-card__feature--disabled {
+    color: var(--color-gray);
+}
+
+.pricing-card__cta {
+    margin-top: auto;
+}
+
+
+/* ===== PAYMENT METHODS ===== */
+.payment-methods__icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+    flex-wrap: wrap;
+}
+
+.payment-methods__icon {
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.payment-methods__icon:hover {
+    opacity: 1;
+}
+
+
+/* ===== GUARANTEE ===== */
+.guarantee__inner {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.guarantee__inner img {
+    margin: 0 auto var(--spacing-lg);
+}
+
+.guarantee__title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.guarantee__text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-xl);
+}
+
+
+/* ===== RESPONSIVE — PRICING PAGE ===== */
+
+@media (max-width: 1024px) {
+    .pricing-cards__grid {
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-cards__grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .pricing-card--featured {
+        transform: none;
+        order: -1;
+    }
+
+    .pricing-card--featured:hover {
+        transform: translateY(-4px);
+    }
+}

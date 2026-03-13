@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <title>Оплата не прошла — Ezotera</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        .payment-result {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+        .payment-result__card {
+            background: var(--color-white);
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+            padding: var(--spacing-2xl) var(--spacing-xl);
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+        }
+        .payment-result__icon {
+            width: 72px;
+            height: 72px;
+            background: #fdecea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+        }
+        .payment-result__icon svg {
+            width: 36px;
+            height: 36px;
+            color: #e74c3c;
+        }
+        .payment-result__title {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        .payment-result__desc {
+            color: var(--color-text-muted);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-xl);
+        }
+        .payment-result__actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="payment-result section--light">
+            <div class="payment-result__card">
+                <div class="payment-result__icon">
+                    <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                        <path d="M10 10l16 16M26 10L10 26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h1 class="payment-result__title">Оплата не прошла</h1>
+                <p class="payment-result__desc">
+                    К сожалению, платёж не был завершён. Попробуйте ещё раз или свяжитесь с нами для помощи.
+                </p>
+                <div class="payment-result__actions">
+                    <a href="pay.html" class="button button--primary">
+                        Попробовать снова
+                    </a>
+                    <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                        Написать в Telegram
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <script src="js/footer-loader.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>
