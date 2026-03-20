@@ -102,12 +102,19 @@
 
     <script src="js/footer-loader.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/cookie-consent.js"></script>
     <script>
-        // Show invoice ID from Robokassa redirect params
+        // Show payment info from CloudPayments redirect params
         var params = new URLSearchParams(window.location.search);
-        var invId = params.get('InvId');
-        if (invId) {
-            document.getElementById('invInfo').textContent = 'Номер заказа: ' + invId;
+        var transactionId = params.get('TransactionId');
+        var invoiceId = params.get('invoiceId');
+        var amount = params.get('Amount');
+        var parts = [];
+        if (invoiceId) parts.push('Заказ: ' + invoiceId);
+        if (transactionId) parts.push('Транзакция: ' + transactionId);
+        if (amount) parts.push('Сумма: ' + parseFloat(amount).toLocaleString('ru-RU') + ' ₽');
+        if (parts.length > 0) {
+            document.getElementById('invInfo').textContent = parts.join(' · ');
         }
     </script>
 </body>

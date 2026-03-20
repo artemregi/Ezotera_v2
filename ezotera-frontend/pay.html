@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#152b35">
-    <meta name="description" content="Консультации с духовным наставником EsoTerra — духовные практики, медитации и мягкая работа с энергией. Безопасная оплата через Robokassa.">
+    <meta name="description" content="Персональные информационно-консультационные сессии Ezotera — анализ личности, ментальный коучинг, психологическая поддержка. Безопасная оплата через CloudPayments.">
     <title>Консультации — Ezotera</title>
 
     <!-- Fonts -->
@@ -20,6 +20,8 @@
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
+    <!-- CloudPayments Widget -->
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 </head>
 <body>
 
@@ -29,10 +31,10 @@
         <section class="pay-hero section--dark section">
             <div class="container">
                 <div class="pay-hero__content text-center">
-                    <span class="pay-hero__badge">EsoTerra Pay</span>
-                    <h1 class="pay-hero__title">Консультации с духовным наставником</h1>
+                    <span class="pay-hero__badge">Ezotera</span>
+                    <h1 class="pay-hero__title">Персональные консультации</h1>
                     <p class="pay-hero__subtitle">
-                        Духовные практики, медитации и мягкая работа с энергией — консультации, которые меняют реальность.
+                        Информационно-аналитические сессии для самопознания, личностного роста и ментального благополучия.
                     </p>
                     <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--primary button--large" target="_blank" rel="noopener noreferrer">
                         Записаться на консультацию
@@ -42,7 +44,7 @@
                             <path d="M8 1L2 4v4c0 3.3 2.5 6.4 6 7 3.5-.6 6-3.7 6-7V4L8 1z" stroke="currentColor" stroke-width="1.5"/>
                             <path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        Безопасная оплата через Robokassa · SSL-шифрование
+                        Безопасная оплата через CloudPayments · SSL-шифрование
                     </p>
                 </div>
 
@@ -68,6 +70,22 @@
         </section>
 
 
+        <!-- ===== CONSENT ===== -->
+        <section class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="container">
+                <div style="background:#f7f8fa;border:1px solid #e0e4ea;border-radius:8px;padding:16px 20px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;">
+                    <input type="checkbox" id="payConsent" name="pay_consent" required style="margin-top:3px;flex-shrink:0;cursor:pointer;">
+                    <label for="payConsent" style="font-size:0.9rem;color:#555;line-height:1.6;cursor:pointer;">
+                        Нажимая «Оплатить», я принимаю условия
+                        <a href="legal/oferta.html">Публичной оферты</a>,
+                        соглашаюсь с <a href="legal/privacy.html">Политикой конфиденциальности</a>
+                        и даю согласие на обработку персональных данных.
+                        Я понимаю, что все услуги носят <a href="legal/disclaimer.html">информационный характер</a>.
+                    </label>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== SERVICES ===== -->
         <section class="pay-services section" id="services">
             <div class="container">
@@ -85,14 +103,14 @@
                             <h3 class="pay-service-card__title">Источник сил</h3>
                             <p class="pay-service-card__theme">Здоровье и внутренний ресурс</p>
                             <p class="pay-service-card__desc">
-                                Восстановление энергии, уверенности и душевного равновесия. Преодоление апатии, обретение ясности ума и мотивации к действиям. Вы ощутите прилив бодрости и жизненных сил.
+                                Аналитическая сессия, направленная на восстановление внутреннего баланса и осознанности. Проработка состояний апатии, обретение ясности целей и мотивации к действиям.
                             </p>
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">2 250 ₽</span>
                             <button class="button button--primary"
                                     data-pay-amount="2250"
-                                    data-pay-desc="Источник сил — EsoTerra">Оплатить</button>
+                                    data-pay-desc="Источник сил — Ezotera">Оплатить</button>
                         </div>
                     </article>
 
@@ -103,14 +121,14 @@
                             <h3 class="pay-service-card__title">Тепло близости</h3>
                             <p class="pay-service-card__theme">Гармония в любви и отношениях</p>
                             <p class="pay-service-card__desc">
-                                Пробуждение чувства собственной ценности и привлекательности. Открытость сердцу, увеличение теплоты и заботы в отношениях. Вы можете заметить, как окружение начинает чаще проявлять знаки внимания.
+                                Работа с самовосприятием и коммуникационными паттернами. Аналитическая сессия по повышению уверенности в себе и улучшению качества межличностных взаимодействий.
                             </p>
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">3 600 ₽</span>
                             <button class="button button--primary"
                                     data-pay-amount="3600"
-                                    data-pay-desc="Тепло близости — EsoTerra">Оплатить</button>
+                                    data-pay-desc="Тепло близости — Ezotera">Оплатить</button>
                         </div>
                     </article>
 
@@ -121,14 +139,14 @@
                             <h3 class="pay-service-card__title">Притяжение изобилия</h3>
                             <p class="pay-service-card__theme">Денежный поток и возможности</p>
                             <p class="pay-service-card__desc">
-                                Активация и усиление Вашего финансового канала. Привлечение новых источников дохода: от карьерного роста и неожиданных бонусов до выгодных предложений и возврата долгов. Деньги начнут приходить легче.
+                                Исследование ресурсных состояний и карьерных возможностей. Аналитическая сессия по выявлению личных точек роста и формированию осознанного отношения к финансовым целям.
                             </p>
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">3 150 ₽</span>
                             <button class="button button--primary"
                                     data-pay-amount="3150"
-                                    data-pay-desc="Притяжение изобилия — EsoTerra">Оплатить</button>
+                                    data-pay-desc="Притяжение изобилия — Ezotera">Оплатить</button>
                         </div>
                     </article>
 
@@ -156,14 +174,14 @@
                             <h3 class="pay-service-card__title">Системный перезапуск</h3>
                             <p class="pay-service-card__theme">Комплексное обновление жизни</p>
                             <p class="pay-service-card__desc">
-                                Синхронные и быстрые позитивные изменения во всех ключевых сферах. Обретение новой степени уверенности, привлекательности и энергии для карьерного прорыва. Включает защиту всех трёх каналов (здоровье, отношения, финансы) на протяжении года.
+                                Комплексная аналитическая работа с ключевыми сферами жизни. Сессии по самопознанию, личностному росту и формированию осознанных стратегий в сферах здоровья, отношений и карьеры.
                             </p>
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">6 500 ₽</span>
                             <button class="button button--primary"
                                     data-pay-amount="6500"
-                                    data-pay-desc="Системный перезапуск — EsoTerra">Оплатить</button>
+                                    data-pay-desc="Системный перезапуск — Ezotera">Оплатить</button>
                         </div>
                     </article>
 
@@ -254,31 +272,31 @@
 
                     <div class="faq__item">
                         <button class="faq__question" aria-expanded="false">
-                            <span>Это точно работает? Это не обман?</span>
+                            <span>Что я получу в результате консультации?</span>
                             <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
                         </button>
                         <div class="faq__answer">
-                            <p>Эзотерика — это не магия, а работа с энергией и сознанием. Эффект проявляется как постепённые изменения — больше спокойствия, совпадений и возможностей.</p>
+                            <p>Вы получаете персонализированную аналитическую сессию с разбором вашего запроса и рекомендациями по дальнейшим шагам. Все материалы носят информационный и образовательный характер.</p>
                         </div>
                     </div>
 
                     <div class="faq__item">
                         <button class="faq__question" aria-expanded="false">
-                            <span>А если я «не чувствую» энергию?</span>
+                            <span>Какие форматы консультаций доступны?</span>
                             <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
                         </button>
                         <div class="faq__answer">
-                            <p>Чувствовать энергию — природный навык. С практикой Вы начнёте замечать тонкие ощущения.</p>
+                            <p>Доступны текстовые и видео-консультации через Telegram. Выберите удобный формат при записи.</p>
                         </div>
                     </div>
 
                     <div class="faq__item">
                         <button class="faq__question" aria-expanded="false">
-                            <span>Как быстро появляются результаты?</span>
+                            <span>Как долго длится сессия?</span>
                             <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
                         </button>
                         <div class="faq__answer">
-                            <p>Скорость зависит от регулярности. Иногда облегчение приходит после первой сессии, устойчивые изменения — за несколько недель.</p>
+                            <p>Стандартная сессия — 60 минут. Индивидуальная консультация — по договорённости с консультантом.</p>
                         </div>
                     </div>
 
@@ -288,7 +306,7 @@
                             <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
                         </button>
                         <div class="faq__answer">
-                            <p>Напишите эксперту — поможем. Robokassa подключена как платёжный провайдер.</p>
+                            <p>Напишите нам на <a href="mailto:alitex@esoterraplus.ru">alitex@esoterraplus.ru</a> или в Telegram. Оплата принимается через CloudPayments (Visa, Mastercard, МИР, SBP).</p>
                         </div>
                     </div>
 
@@ -330,12 +348,15 @@
                         АО «АЛЬФА-БАНК», БИК 044525593 · р/с 40702810272031200112 · к/с 30101810200000000593
                     </p>
                     <nav class="pay-legal__links" aria-label="Юридические документы">
-                        <a href="#" class="pay-legal__link">Публичная оферта</a>
-                        <a href="#" class="pay-legal__link">Политика возвратов</a>
-                        <a href="#" class="pay-legal__link">Приватность</a>
-                        <a href="#" class="pay-legal__link">Cookie</a>
-                        <a href="#" class="pay-legal__link">Политика обработки персональных данных</a>
+                        <a href="legal/oferta.html" class="pay-legal__link">Публичная оферта</a>
+                        <a href="legal/refund.html" class="pay-legal__link">Политика возвратов</a>
+                        <a href="legal/privacy.html" class="pay-legal__link">Конфиденциальность</a>
+                        <a href="legal/cookie.html" class="pay-legal__link">Cookie</a>
+                        <a href="legal/disclaimer.html" class="pay-legal__link">Дисклеймер</a>
                     </nav>
+                    <p class="pay-legal__disclaimer" style="margin-top:12px;font-size:0.8rem;color:#888;line-height:1.6;">
+                        Все консультации и материалы носят исключительно информационный и развлекательный характер. ООО «АЛИТЕХ» не гарантирует конкретных финансовых, медицинских или жизненных результатов. Услуги не являются медицинской помощью.
+                    </p>
                 </div>
             </div>
         </section>
@@ -349,7 +370,8 @@
     <script src="js/footer-loader.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/robokassa.js"></script>
+    <script src="js/cloudpayments.js"></script>
 
+    <script src="js/cookie-consent.js"></script>
 </body>
 </html>

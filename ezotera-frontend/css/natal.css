@@ -1,0 +1,640 @@
+/* ===================================================
+   Natal Chart Page Styles
+   Dark cosmic theme
+   =================================================== */
+
+.natal-page {
+    background: #0a0a14;
+    color: #e8e0f0;
+}
+
+/* ---- Hero ---- */
+.natal-hero {
+    background: linear-gradient(160deg, #0d0d22 0%, #12082a 50%, #0a0a14 100%);
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.natal-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(130, 80, 220, 0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 60%, rgba(80, 120, 220, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.natal-hero__inner {
+    position: relative;
+    z-index: 1;
+}
+
+.natal-hero__badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(130, 80, 220, 0.2);
+    border: 1px solid rgba(130, 80, 220, 0.4);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: #b080e0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.natal-hero__title {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 700;
+    color: #f0eaff;
+    margin-bottom: 20px;
+    line-height: 1.15;
+}
+
+.natal-hero__subtitle {
+    font-size: 1.05rem;
+    color: #a090c0;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ---- Form Section ---- */
+.natal-form-section {
+    padding: 60px 0 80px;
+    background: #0a0a14;
+}
+
+.natal-form-card {
+    background: #10101e;
+    border: 1px solid rgba(130, 80, 220, 0.2);
+    border-radius: 20px;
+    padding: 48px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(130, 80, 220, 0.05);
+}
+
+.natal-form-card__title {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: 1.5rem;
+    color: #f0eaff;
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.natal-form__row {
+    margin-bottom: 24px;
+}
+
+.natal-form__row--3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 640px) {
+    .natal-form__row--3 {
+        grid-template-columns: 1fr;
+    }
+    .natal-form-card {
+        padding: 28px 20px;
+    }
+}
+
+.natal-form__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.natal-form__label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #a090c0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.natal-form__req {
+    color: #c080ff;
+}
+
+.natal-form__input {
+    background: #16162a;
+    border: 1px solid rgba(130, 80, 220, 0.25);
+    border-radius: 10px;
+    color: #f0eaff;
+    font-size: 0.97rem;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    -webkit-appearance: none;
+    color-scheme: dark;
+}
+
+.natal-form__input:focus {
+    border-color: rgba(130, 80, 220, 0.6);
+    box-shadow: 0 0 0 3px rgba(130, 80, 220, 0.12);
+}
+
+.natal-form__input::placeholder {
+    color: #5a5070;
+}
+
+.natal-form__hint {
+    font-size: 0.76rem;
+    color: #6a5a80;
+    margin-top: 6px;
+}
+
+.natal-form__coords {
+    background: rgba(130, 80, 220, 0.08);
+    border: 1px solid rgba(130, 80, 220, 0.2);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.84rem;
+    color: #b090d0;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.natal-form__autocomplete {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #1c1c30;
+    border: 1px solid rgba(130, 80, 220, 0.3);
+    border-radius: 10px;
+    z-index: 100;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.natal-form__autocomplete-item {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    color: #d0c0e8;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(130,80,220,0.1);
+    transition: background 0.15s;
+}
+
+.natal-form__autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.natal-form__autocomplete-item:hover {
+    background: rgba(130, 80, 220, 0.15);
+}
+
+.natal-form__footer {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.natal-form__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #7030c0 0%, #5020a0 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 42px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 8px 28px rgba(112, 48, 192, 0.45);
+    font-family: inherit;
+}
+
+.natal-form__submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(112, 48, 192, 0.55);
+}
+
+.natal-form__submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.natal-form__submit-icon {
+    font-size: 1.1rem;
+}
+
+/* ---- Loading ---- */
+.natal-loading {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.natal-loading__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+}
+
+.natal-loading__spinner {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.natal-loading__orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: orbitSpin 2s linear infinite;
+}
+
+.natal-loading__orbit--1 {
+    border-top-color: rgba(130, 80, 220, 0.8);
+    animation-duration: 1.4s;
+}
+
+.natal-loading__orbit--2 {
+    inset: 12px;
+    border-right-color: rgba(80, 160, 220, 0.6);
+    animation-duration: 2s;
+    animation-direction: reverse;
+}
+
+.natal-loading__orbit--3 {
+    inset: 24px;
+    border-bottom-color: rgba(200, 120, 255, 0.5);
+    animation-duration: 2.8s;
+}
+
+@keyframes orbitSpin {
+    to { transform: rotate(360deg); }
+}
+
+.natal-loading__core {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #b080e0;
+    animation: pulseStar 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseStar {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+.natal-loading__text {
+    color: #a090c0;
+    font-size: 1rem;
+    animation: fadeText 0.8s ease-in-out;
+}
+
+@keyframes fadeText {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Result ---- */
+.natal-result {
+    padding: 60px 0 80px;
+    background: #0a0a14;
+}
+
+.natal-result__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.natal-result__name {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: 2rem;
+    color: #f0eaff;
+    margin-bottom: 6px;
+}
+
+.natal-result__meta {
+    color: #8070a0;
+    font-size: 0.88rem;
+}
+
+.natal-result__new-btn {
+    background: rgba(130, 80, 220, 0.1);
+    border: 1px solid rgba(130, 80, 220, 0.3);
+    color: #b080e0;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.natal-result__new-btn:hover {
+    background: rgba(130, 80, 220, 0.2);
+}
+
+/* ---- Main layout: chart + planets ---- */
+.natal-result__main {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    margin-bottom: 48px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .natal-result__main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---- SVG Chart ---- */
+.natal-chart-wrap {
+    background: #0d0d20;
+    border: 1px solid rgba(130, 80, 220, 0.15);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 60px rgba(100, 60, 180, 0.1) inset;
+}
+
+.natal-chart-svg {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 24px rgba(130, 80, 220, 0.15));
+}
+
+/* ---- Planets table ---- */
+.natal-planets-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.natal-planets__title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8070a0;
+    margin-bottom: 14px;
+}
+
+.natal-planets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.natal-planets-table th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6a5a80;
+    padding: 6px 8px;
+    text-align: left;
+    border-bottom: 1px solid rgba(130, 80, 220, 0.15);
+}
+
+.natal-planets-table td {
+    padding: 9px 8px;
+    color: #d0c0e0;
+    border-bottom: 1px solid rgba(130, 80, 220, 0.07);
+}
+
+.natal-planets-table td:first-child {
+    color: #f0eaff;
+    font-weight: 500;
+}
+
+.planet-glyph {
+    font-size: 1.1em;
+    margin-right: 4px;
+}
+
+/* ---- Angles grid ---- */
+.natal-angles__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.natal-angle-item {
+    background: rgba(130, 80, 220, 0.07);
+    border: 1px solid rgba(130, 80, 220, 0.15);
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.natal-angle-item__label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8070a0;
+    margin-bottom: 4px;
+}
+
+.natal-angle-item__value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e8d8ff;
+}
+
+/* ---- Aspects ---- */
+.natal-aspects-wrap {
+    margin-bottom: 48px;
+}
+
+.natal-section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8070a0;
+    margin-bottom: 18px;
+}
+
+.natal-aspects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.natal-aspect-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.natal-aspect-chip--trine {
+    background: rgba(60, 180, 100, 0.1);
+    border-color: rgba(60, 180, 100, 0.25);
+    color: #80d0a0;
+}
+
+.natal-aspect-chip--sextile {
+    background: rgba(60, 140, 200, 0.1);
+    border-color: rgba(60, 140, 200, 0.25);
+    color: #80b8e8;
+}
+
+.natal-aspect-chip--conjunction {
+    background: rgba(200, 160, 255, 0.1);
+    border-color: rgba(200, 160, 255, 0.25);
+    color: #c8a0ff;
+}
+
+.natal-aspect-chip--opposition {
+    background: rgba(220, 60, 60, 0.1);
+    border-color: rgba(220, 60, 60, 0.25);
+    color: #e08080;
+}
+
+.natal-aspect-chip--square {
+    background: rgba(220, 120, 40, 0.1);
+    border-color: rgba(220, 120, 40, 0.25);
+    color: #e0a060;
+}
+
+/* ---- AI Interpretation ---- */
+.natal-interpretation {
+    background: #10101e;
+    border: 1px solid rgba(130, 80, 220, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 60px rgba(100, 60, 180, 0.06) inset;
+}
+
+.natal-interpretation__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.natal-interpretation__badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(130, 80, 220, 0.15);
+    border: 1px solid rgba(130, 80, 220, 0.3);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #b080e0;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.natal-interpretation__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px 0;
+    color: #8070a0;
+    font-size: 0.9rem;
+}
+
+.natal-interp-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(130, 80, 220, 0.2);
+    border-top-color: rgba(130, 80, 220, 0.8);
+    border-radius: 50%;
+    animation: orbitSpin 0.9s linear infinite;
+}
+
+.natal-interpretation__text {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: #c8b8e0;
+}
+
+.natal-interpretation__text h3 {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: 1.1rem;
+    color: #e8d8ff;
+    margin: 28px 0 10px;
+}
+
+.natal-interpretation__text h3:first-child {
+    margin-top: 0;
+}
+
+.natal-interpretation__text p {
+    margin-bottom: 16px;
+}
+
+.natal-interpretation__text strong {
+    color: #e0ccff;
+}
+
+.natal-interpretation__text ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+}
+
+.natal-interpretation__text li {
+    margin-bottom: 6px;
+}
+
+/* ---- Disclaimer ---- */
+.natal-disclaimer {
+    padding: 36px 0 60px;
+    background: #0a0a14;
+    border-top: 1px solid rgba(130, 80, 220, 0.08);
+}
+
+.natal-disclaimer__text {
+    font-size: 0.8rem;
+    color: #504060;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 480px) {
+    .natal-hero {
+        padding: 60px 0 40px;
+    }
+    .natal-interpretation {
+        padding: 24px 18px;
+    }
+    .natal-result__header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .natal-result__new-btn {
+        text-align: center;
+    }
+}

@@ -60,6 +60,11 @@
             line-height: 1.6;
             margin-bottom: var(--spacing-xl);
         }
+        .payment-result__inv {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-xl);
+        }
         .payment-result__actions {
             display: flex;
             flex-direction: column;
@@ -80,12 +85,16 @@
                 <p class="payment-result__desc">
                     К сожалению, платёж не был завершён. Попробуйте ещё раз или свяжитесь с нами для помощи.
                 </p>
+                <p class="payment-result__inv" id="failInfo"></p>
                 <div class="payment-result__actions">
                     <a href="pay.html" class="button button--primary">
                         Попробовать снова
                     </a>
                     <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--secondary" target="_blank" rel="noopener noreferrer">
                         Написать в Telegram
+                    </a>
+                    <a href="mailto:alitex@esoterraplus.ru" class="button button--secondary">
+                        Написать на email
                     </a>
                 </div>
             </div>
@@ -96,5 +105,19 @@
 
     <script src="js/footer-loader.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/cookie-consent.js"></script>
+    <script>
+        // Show failure reason from CloudPayments redirect params
+        var params = new URLSearchParams(window.location.search);
+        var reason = params.get('reason');
+        var invoiceId = params.get('invoiceId');
+        var parts = [];
+        if (invoiceId) parts.push('Заказ: ' + invoiceId);
+        if (reason) parts.push('Причина: ' + reason);
+        if (parts.length > 0) {
+            var el = document.getElementById('failInfo');
+            if (el) el.textContent = parts.join(' · ');
+        }
+    </script>
 </body>
 </html>

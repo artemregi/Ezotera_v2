@@ -22,6 +22,10 @@ const userProfileHandler              = require('./user/profile');
 const onboardingCompleteHandler       = require('./onboarding/complete');
 const paymentCreateHandler            = require('./payment/create');
 const paymentResultHandler            = require('./payment/result');
+const paymentCheckHandler             = require('./payment/check');
+const paymentFailHandler              = require('./payment/fail');
+const paymentRefundHandler            = require('./payment/refund');
+const natalInterpretHandler           = require('./natal/interpret');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -172,6 +176,14 @@ const server = http.createServer(async (req, res) => {
                 await paymentCreateHandler(req, res);
             } else if (pathname === '/api/payment/result') {
                 await paymentResultHandler(req, res);
+            } else if (pathname === '/api/payment/check') {
+                await paymentCheckHandler(req, res);
+            } else if (pathname === '/api/payment/fail') {
+                await paymentFailHandler(req, res);
+            } else if (pathname === '/api/payment/refund') {
+                await paymentRefundHandler(req, res);
+            } else if (pathname === '/api/natal/interpret' && req.method === 'POST') {
+                await natalInterpretHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {

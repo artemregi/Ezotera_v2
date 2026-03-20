@@ -105,6 +105,14 @@
                                 <span class="contact-form__error" id="contactMessageError"></span>
                             </div>
 
+                            <div class="contact-form__field" style="display:flex;align-items:flex-start;gap:10px;">
+                                <input type="checkbox" id="contactConsent" name="contact_consent" required style="margin-top:3px;flex-shrink:0;cursor:pointer;">
+                                <label for="contactConsent" style="font-size:0.85rem;color:#666;line-height:1.6;cursor:pointer;">
+                                    Согласен на обработку персональных данных в соответствии с
+                                    <a href="legal/privacy.html">Политикой конфиденциальности</a> (152-ФЗ)
+                                </label>
+                            </div>
+
                             <button type="submit" class="button button--primary button--full-width contact-form__submit" id="contactSubmit">
                                 Отправить сообщение
                             </button>
@@ -145,7 +153,7 @@
                             </div>
                             <div>
                                 <h4 class="contact-info__label">Адрес</h4>
-                                <p class="contact-info__value">14 Panagioti Tsangari, 1-й этаж,<br>Офис 1E, 4047, Лимассол, Кипр</p>
+                                <p class="contact-info__value">445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</p>
                             </div>
                         </div>
 
@@ -191,41 +199,39 @@
                         <img src="assets/images/placeholder.jpg" alt="Ezotera" class="footer__logo-icon" width="32" height="32">
                         <span class="footer__logo-text">Ezotera</span>
                     </a>
-                    <p class="footer__description">Персональные астрологические консультации для осознанной и гармоничной жизни.</p>
-                    <address class="footer__address">14 Panagioti Tsangari, 1-й этаж,<br>Офис 1E, 4047, Лимассол, Кипр</address>
+                    <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
                 </div>
                 <div class="footer__column">
                     <h4 class="footer__column-title">Поддержка</h4>
                     <nav class="footer__links">
                         <a href="contact.html" class="footer__link">Контакты</a>
-                        <a href="#" class="footer__link">Центр помощи</a>
-                        <a href="#" class="footer__link">FAQ</a>
-                        <a href="#" class="footer__link">Мой аккаунт</a>
+                        <a href="index.html#faq" class="footer__link">FAQ</a>
+                        <a href="dashboard.html" class="footer__link">Мой аккаунт</a>
                     </nav>
                 </div>
                 <div class="footer__column">
-                    <h4 class="footer__column-title">Контент</h4>
+                    <h4 class="footer__column-title">Информация</h4>
                     <nav class="footer__links">
-                        <a href="#" class="footer__link">Блог</a>
-                        <a href="#" class="footer__link">Отзывы</a>
-                        <a href="#" class="footer__link">Дисклеймер</a>
+                        <a href="legal/disclaimer.html" class="footer__link">Дисклеймер</a>
+                        <a href="legal/oferta.html" class="footer__link">Публичная оферта</a>
                     </nav>
                 </div>
                 <div class="footer__column">
                     <h4 class="footer__column-title">Правовая информация</h4>
                     <nav class="footer__links">
-                        <a href="#" class="footer__link">Политика конфиденциальности</a>
-                        <a href="#" class="footer__link">Условия использования</a>
-                        <a href="#" class="footer__link">Условия оплаты</a>
-                        <a href="#" class="footer__link">Политика возврата</a>
+                        <a href="legal/privacy.html" class="footer__link">Политика конфиденциальности</a>
+                        <a href="legal/terms.html" class="footer__link">Условия использования</a>
+                        <a href="legal/refund.html" class="footer__link">Политика возврата</a>
+                        <a href="legal/cookie.html" class="footer__link">Политика Cookie</a>
                     </nav>
                 </div>
             </div>
             <div class="footer__bottom">
-                <p class="footer__copyright">&copy; 2026 Ezotera. Все права защищены.</p>
+                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
                 <div class="footer__legal">
-                    <a href="#" class="footer__legal-link">Политика конфиденциальности</a>
-                    <a href="#" class="footer__legal-link">Условия использования</a>
+                    <a href="legal/privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
+                    <a href="legal/terms.html" class="footer__legal-link">Условия использования</a>
                 </div>
             </div>
         </div>
@@ -234,5 +240,6 @@
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/forms.js"></script>
+    <script src="js/cookie-consent.js"></script>
 </body>
 </html>

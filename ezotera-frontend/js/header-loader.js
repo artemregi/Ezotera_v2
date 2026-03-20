@@ -79,7 +79,9 @@
                 palmistryHref: '../palmistry.html',
                 loginHref: '../auth/login.html',
                 onboardingHref: '../onboarding/step-1-name.html',
-                payHref: '../pay.html'
+                payHref: '../pay.html',
+                natalHref: '../natal.html',
+                comingSoonHref: '../coming-soon.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -92,7 +94,9 @@
                 aboutHref: '../about.html',
                 loginHref: '#',
                 onboardingHref: '../onboarding/step-1-name.html',
-                payHref: '../pay.html'
+                payHref: '../pay.html',
+                natalHref: '../natal.html',
+                comingSoonHref: '../coming-soon.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -105,7 +109,9 @@
                 aboutHref: '../about.html',
                 loginHref: '../auth/login.html',
                 onboardingHref: '#',
-                payHref: '../pay.html'
+                payHref: '../pay.html',
+                natalHref: '../natal.html',
+                comingSoonHref: '../coming-soon.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -118,7 +124,9 @@
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
                 onboardingHref: 'onboarding/step-1-name.html',
-                payHref: 'pay.html'
+                payHref: 'pay.html',
+                natalHref: 'natal.html',
+                comingSoonHref: 'coming-soon.html'
             };
         } else {
             return {
@@ -131,7 +139,9 @@
                 aboutHref: 'about.html',
                 loginHref: 'auth/login.html',
                 onboardingHref: 'onboarding/step-1-name.html',
-                payHref: 'pay.html'
+                payHref: 'pay.html',
+                natalHref: 'natal.html',
+                comingSoonHref: 'coming-soon.html'
             };
         }
     };
@@ -219,7 +229,9 @@
                 .replace(/PALMISTRY_HREF/g, paths.palmistryHref)
                 .replace(/LOGIN_HREF/g, paths.loginHref)
                 .replace(/ONBOARDING_HREF/g, paths.onboardingHref)
-                .replace(/PAY_HREF/g, paths.payHref);
+                .replace(/PAY_HREF/g, paths.payHref)
+                .replace(/NATAL_HREF/g, paths.natalHref)
+                .replace(/COMING_SOON_HREF/g, paths.comingSoonHref);
 
             // Insert header at the beginning of body or before first main element
             const headerContainer = document.createElement('div');

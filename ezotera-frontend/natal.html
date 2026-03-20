@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Натальная карта — Ezotera</title>
+    <meta name="description" content="Персональная натальная карта по дате, времени и месту рождения. Точный астрологический портрет с интерпретацией от ИИ.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/natal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <script src="js/header-loader.js"></script>
+</head>
+<body class="natal-page">
+
+<main>
+    <!-- Hero -->
+    <section class="natal-hero">
+        <div class="container">
+            <div class="natal-hero__inner">
+                <div class="natal-hero__badge">✦ Карта личности</div>
+                <h1 class="natal-hero__title">Натальная карта</h1>
+                <p class="natal-hero__subtitle">
+                    Точный астрологический портрет на основе даты, времени и места рождения.
+                    Визуализация планет, домов и аспектов — с персональной интерпретацией.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form -->
+    <section class="natal-form-section" id="natalForm">
+        <div class="container">
+            <div class="natal-form-card">
+                <h2 class="natal-form-card__title">Введите данные рождения</h2>
+                <form class="natal-form" id="birthForm" novalidate>
+                    <div class="natal-form__row">
+                        <div class="natal-form__field">
+                            <label class="natal-form__label" for="birthName">Имя</label>
+                            <input class="natal-form__input" type="text" id="birthName"
+                                   placeholder="Ваше имя" autocomplete="given-name">
+                        </div>
+                    </div>
+                    <div class="natal-form__row natal-form__row--3">
+                        <div class="natal-form__field">
+                            <label class="natal-form__label" for="birthDate">Дата рождения <span class="natal-form__req">*</span></label>
+                            <input class="natal-form__input" type="date" id="birthDate" required>
+                        </div>
+                        <div class="natal-form__field">
+                            <label class="natal-form__label" for="birthTime">Время рождения</label>
+                            <input class="natal-form__input" type="time" id="birthTime"
+                                   placeholder="12:00" value="12:00">
+                            <span class="natal-form__hint">Если неизвестно — оставьте 12:00</span>
+                        </div>
+                        <div class="natal-form__field">
+                            <label class="natal-form__label" for="birthCity">Место рождения <span class="natal-form__req">*</span></label>
+                            <input class="natal-form__input" type="text" id="birthCity"
+                                   placeholder="Например: Москва" autocomplete="off" required>
+                            <div class="natal-form__autocomplete" id="cityAutocomplete"></div>
+                        </div>
+                    </div>
+                    <div class="natal-form__coords" id="coordsDisplay" style="display:none">
+                        <span class="natal-form__coords-label">📍</span>
+                        <span id="coordsText"></span>
+                    </div>
+                    <input type="hidden" id="birthLat">
+                    <input type="hidden" id="birthLon">
+
+                    <div class="natal-form__footer">
+                        <button type="submit" class="natal-form__submit" id="calcBtn">
+                            <span class="natal-form__submit-icon">✦</span>
+                            Рассчитать карту
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading -->
+    <section class="natal-loading" id="natalLoading" style="display:none">
+        <div class="container">
+            <div class="natal-loading__inner">
+                <div class="natal-loading__spinner">
+                    <div class="natal-loading__orbit natal-loading__orbit--1"></div>
+                    <div class="natal-loading__orbit natal-loading__orbit--2"></div>
+                    <div class="natal-loading__orbit natal-loading__orbit--3"></div>
+                    <div class="natal-loading__core">✦</div>
+                </div>
+                <p class="natal-loading__text" id="loadingText">Вычисляем положение планет…</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Result -->
+    <section class="natal-result" id="natalResult" style="display:none">
+        <div class="container">
+
+            <!-- Title bar -->
+            <div class="natal-result__header">
+                <div>
+                    <h2 class="natal-result__name" id="resultName">Натальная карта</h2>
+                    <p class="natal-result__meta" id="resultMeta"></p>
+                </div>
+                <button class="natal-result__new-btn" id="newChartBtn">← Новая карта</button>
+            </div>
+
+            <!-- Chart + planets side by side -->
+            <div class="natal-result__main">
+                <!-- SVG Chart -->
+                <div class="natal-chart-wrap">
+                    <svg id="natalSvg" class="natal-chart-svg" viewBox="0 0 600 600"
+                         xmlns="http://www.w3.org/2000/svg">
+                    </svg>
+                </div>
+
+                <!-- Planets table -->
+                <div class="natal-planets-wrap">
+                    <h3 class="natal-planets__title">Планеты</h3>
+                    <table class="natal-planets-table" id="planetsTable">
+                        <thead>
+                            <tr>
+                                <th>Планета</th>
+                                <th>Знак</th>
+                                <th>°</th>
+                                <th>Дом</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planetsBody">
+                        </tbody>
+                    </table>
+
+                    <div class="natal-angles">
+                        <h3 class="natal-planets__title">Углы карты</h3>
+                        <div class="natal-angles__grid" id="anglesGrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aspects -->
+            <div class="natal-aspects-wrap">
+                <h3 class="natal-section-title">Основные аспекты</h3>
+                <div class="natal-aspects-list" id="aspectsList"></div>
+            </div>
+
+            <!-- AI Interpretation -->
+            <div class="natal-interpretation" id="interpretationBlock">
+                <div class="natal-interpretation__header">
+                    <h3 class="natal-section-title">Интерпретация карты</h3>
+                    <span class="natal-interpretation__badge">✦ ИИ-анализ</span>
+                </div>
+                <div class="natal-interpretation__body" id="interpretationBody">
+                    <div class="natal-interpretation__loading" id="interpretationLoading">
+                        <div class="natal-interp-spinner"></div>
+                        <p>Анализируем карту…</p>
+                    </div>
+                    <div class="natal-interpretation__text" id="interpretationText" style="display:none"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section class="natal-disclaimer">
+        <div class="container">
+            <p class="natal-disclaimer__text">
+                Натальная карта и её интерпретация носят исключительно информационный и развлекательный характер.
+                ООО «АЛИТЕХ» не гарантирует конкретных жизненных результатов. Материалы не заменяют
+                профессиональную психологическую или медицинскую консультацию.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer></footer>
+<script src="js/footer-loader.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/cookie-consent.js"></script>
+
+<!-- Astronomy Engine (client-side planet calculations) -->
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2/astronomy.browser.min.js"></script>
+<!-- Natal chart logic -->
+<script src="js/natal-chart.js"></script>
+</body>
+</html>

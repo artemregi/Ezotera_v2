@@ -1,104 +1,91 @@
 const crypto = require('crypto');
 const { pool } = require('../../lib/db');
-const { sendPaymentReceiptEmail } = require('../../lib/mail');
 
 /**
- * Updates order status to 'paid' and sends a receipt email.
- * Errors are caught internally so Robokassa always gets "OK{InvId}".
+ * Verifies CloudPayments HMAC-SHA256 webhook signature.
+ * CloudPayments signs the raw POST body with CP_SECRET_KEY.
+ * The signature is passed in the X-Content-HMAC header as Base64.
  */
-async function markOrderPaid(invId, outSum, isTest) {
-    try {
-        const result = await pool.query(
-            `UPDATE public.orders
-             SET status = 'paid',
-                 paid_at = CURRENT_TIMESTAMP,
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE inv_id = $1
-             RETURNING user_email, amount, description`,
-            [parseInt(invId, 10)]
-        );
-
-        if (result.rows.length === 0) {
-            console.warn(`markOrderPaid: no order found for inv_id=${invId}`);
-            return;
-        }
-
-        const { user_email, amount, description } = result.rows[0];
-        console.log(`Order #${invId} marked as paid. Email: ${user_email || 'n/a'}`);
-
-        if (user_email) {
-            await sendPaymentReceiptEmail(user_email, {
-                invId,
-                amount: amount || outSum,
-                description: description || 'Услуга Ezotera',
-                isTest
-            }).catch(err => console.error('Receipt email error:', err.message));
-        }
-    } catch (err) {
-        console.error('markOrderPaid error:', err.message);
+function verifyHmac(rawBody, hmacHeader) {
+    const secretKey = process.env.CP_SECRET_KEY;
+    if (!secretKey) {
+        console.warn('CP_SECRET_KEY not set — skipping HMAC verification (dev mode)');
+        return true;
     }
+    const expected = crypto
+        .createHmac('sha256', secretKey)
+        .update(rawBody)
+        .digest('base64');
+    return expected === hmacHeader;
 }
 
 /**
- * POST /api/payment/result  (Robokassa Result URL)
- * Verifies that the payment notification is genuine using SHA256 and Password2.
+ * POST /api/payment/result  (CloudPayments Pay webhook)
+ * Called by CloudPayments when a payment is completed.
+ * Must return { "code": 0 } to acknowledge.
  *
- * Robokassa sends: OutSum, InvId, SignatureValue, IsTest (optional)
- * We must respond with "OK{InvId}" to acknowledge success.
+ * CloudPayments sends (application/x-www-form-urlencoded):
+ *   TransactionId, Amount, Currency, InvoiceId, AccountId,
+ *   Status (Completed), Email, ...
  */
 module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
-
-    if (req.method !== 'POST' && req.method !== 'GET') {
+    if (req.method !== 'POST') {
         return res.status(405).end();
     }
 
     try {
-        const params = req.method === 'POST' ? req.body : req.query;
-        const { OutSum, InvId, SignatureValue, IsTest } = params;
+        const rawBody = req.body ? JSON.stringify(req.body) : '';
+        const hmacHeader = req.headers['x-content-hmac'] || '';
 
-        if (!OutSum || !InvId || !SignatureValue) {
-            console.warn('Robokassa result: missing params', params);
-            return res.status(400).send('bad request');
+        if (!verifyHmac(rawBody, hmacHeader)) {
+            console.warn('CloudPayments Pay webhook: invalid HMAC signature');
+            return res.status(200).json({ code: 10, message: 'Invalid signature' });
         }
 
-        const isTest = IsTest === '1' || IsTest === 1;
-        const password2 = isTest
-            ? process.env.ROBOKASSA_TEST_PASSWORD2
-            : process.env.ROBOKASSA_PASSWORD2;
+        const {
+            TransactionId,
+            Amount,
+            Currency,
+            InvoiceId,
+            AccountId,
+            Status,
+            Email,
+        } = req.body;
 
-        if (!password2) {
-            console.error('ROBOKASSA_PASSWORD2 not set — accepting without verification (dev mode)');
-            console.log(`Payment received: InvId=${InvId}, OutSum=${OutSum}`);
-            await markOrderPaid(InvId, OutSum, isTest);
-            return res.status(200).send(`OK${InvId}`);
+        console.log(`CloudPayments Pay: TransactionId=${TransactionId}, InvoiceId=${InvoiceId}, Amount=${Amount}, Status=${Status}`);
+
+        if (Status !== 'Completed') {
+            // Treat non-completed as failed; return code 0 to acknowledge
+            await pool.query(
+                `UPDATE public.payments
+                 SET status = 'failed', cp_transaction_id = $1, updated_at = NOW()
+                 WHERE order_id = $2`,
+                [String(TransactionId), String(InvoiceId)]
+            ).catch(e => console.error('DB update failed:', e.message));
+            return res.status(200).json({ code: 0 });
         }
 
-        const hashAlgo = (process.env.ROBOKASSA_HASH_ALGO || 'md5').toLowerCase();
-        const expected = crypto
-            .createHash(hashAlgo)
-            .update(`${OutSum}:${InvId}:${password2}`)
-            .digest('hex')
-            .toLowerCase();
+        // Mark as successful
+        await pool.query(
+            `UPDATE public.payments
+             SET status = 'success',
+                 cp_transaction_id = $1,
+                 user_email = COALESCE(user_email, $2),
+                 updated_at = NOW()
+             WHERE order_id = $3`,
+            [String(TransactionId), Email || AccountId || null, String(InvoiceId)]
+        ).catch(e => console.error('DB update failed:', e.message));
 
-        const received = String(SignatureValue).toLowerCase();
+        console.log(`✅ Payment confirmed: TransactionId=${TransactionId}, InvoiceId=${InvoiceId}`);
 
-        if (expected !== received) {
-            console.warn(`Robokassa result: invalid signature. Expected ${expected}, got ${received}`);
-            return res.status(400).send('bad sign');
-        }
-
-        // Signature is valid — payment confirmed
-        console.log(`✅ Payment confirmed: InvId=${InvId}, OutSum=${OutSum}, isTest=${isTest}`);
-
-        await markOrderPaid(InvId, OutSum, isTest);
-
-        // Required response: "OK{InvId}"
-        return res.status(200).send(`OK${InvId}`);
+        // CloudPayments expects { "code": 0 } to confirm receipt
+        return res.status(200).json({ code: 0 });
     } catch (error) {
         console.error('Payment result error:', error);
-        return res.status(500).send('error');
+        // Return code 0 anyway to prevent CloudPayments retry loop
+        return res.status(200).json({ code: 0 });
     }
 };

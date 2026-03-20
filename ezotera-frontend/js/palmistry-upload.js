@@ -660,12 +660,7 @@
     }
 
     // -----------------------------------------------------------------------
-    // Тестовый режим оплаты (true = тест, false = боевой)
-    // -----------------------------------------------------------------------
-    var PALM_IS_TEST = true; // TODO: поменять на false для боевых платежей
-
-    // -----------------------------------------------------------------------
-    // Unlock handler — редирект на Robokassa
+    // Unlock handler — CloudPayments widget
     // -----------------------------------------------------------------------
     async function handleUnlock() {
         const btn = document.getElementById('palmUnlockBtn');
@@ -674,20 +669,13 @@
         try {
             if (!currentSessionId) throw new Error('Сессия не найдена. Загрузите фото заново.');
 
-            // Сохраняем сессию и превью перед редиректом
-            const previewEl = document.getElementById('palmResultsPreview');
-            localStorage.setItem('palm_pending_session', currentSessionId);
-            localStorage.setItem('palm_pending_preview', previewEl ? previewEl.textContent : '');
-
             const response = await fetch('/api/payment/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify({
                     amount: 490,
-                    description: 'Хиромантия — полный разбор',
-                    isTest: PALM_IS_TEST,
-                    returnPath: '/palmistry.html?paid=1',
+                    description: 'Анализ личности — полный разбор',
                 }),
             });
 
@@ -696,7 +684,39 @@
                 throw new Error(data.message || 'Ошибка создания платежа');
             }
 
-            window.location.href = data.paymentUrl;
+            if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
+
+            var widget = new cp.CloudPayments();
+            widget.charge({
+                publicId: data.publicId,
+                description: data.description,
+                amount: parseFloat(data.amount),
+                currency: 'RUB',
+                invoiceId: data.orderId,
+                accountId: data.email || '',
+                data: {
+                    CloudPayments: {
+                        CustomerReceipt: {
+                            Items: [{
+                                label: data.description,
+                                price: parseFloat(data.amount),
+                                quantity: 1.0,
+                                amount: parseFloat(data.amount),
+                                vat: null,
+                                method: 0,
+                                object: 4
+                            }],
+                            taxationSystem: 1,
+                            email: data.email || ''
+                        }
+                    }
+                }
+            }, function onSuccess() {
+                // Unlock content immediately after payment
+                handleUnlockAfterPayment();
+            }, function onFail(reason) {
+                alert('Платёж не прошёл: ' + (reason || 'неизвестная ошибка'));
+            });
         } catch (err) {
             alert('Не удалось создать платёж: ' + err.message + '\n\nПожалуйста, попробуйте ещё раз или свяжитесь с нами.');
             if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
@@ -768,22 +788,7 @@
 
         setupDropzone();
 
-        // Возврат с оплаты Robokassa: ?paid=1
-        var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('paid') === '1') {
-            var pendingSession = localStorage.getItem('palm_pending_session');
-            var pendingPreview = localStorage.getItem('palm_pending_preview') || '';
-            if (pendingSession) {
-                currentSessionId = pendingSession;
-                localStorage.removeItem('palm_pending_session');
-                localStorage.removeItem('palm_pending_preview');
-                // Открываем модал и показываем экран результатов
-                openModal();
-                showResults(pendingPreview, false, '');
-                // Авторазблокировка через небольшую задержку
-                setTimeout(handleUnlockAfterPayment, 600);
-            }
-        }
+        // CloudPayments widget handles payment inline — no redirect-based return needed
     }
 
     // -----------------------------------------------------------------------
