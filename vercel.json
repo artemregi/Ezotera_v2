@@ -1,11 +1,12 @@
 {
   "version": 2,
+  "outputDirectory": "ezotera-frontend",
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
-        { "key": "Access-Control-Allow-Origin", "value": "https://ezoterav2.vercel.app" },
+        { "key": "Access-Control-Allow-Origin", "value": "https://ezotera-v2.vercel.app" },
         { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
