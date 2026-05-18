@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#152b35">
-    <meta name="description" content="Ежедневный гороскоп для всех знаков зодиака на сегодня, 18 мая 2026. Прогноз для Овна, Тельца, Близнецов и всех остальных знаков.">
-    <title>Гороскоп на сегодня — Esoterra</title>
+    <meta name="description" content="Еженедельный гороскоп для всех знаков зодиака. Прогноз для Овна, Тельца, Близнецов и всех остальных знаков на текущую неделю.">
+    <title>Гороскоп на неделю — Esoterra</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -346,24 +346,16 @@
             <div class="container">
                 <div class="horoscope-hero__date-badge">
                     <span>🌙</span>
-                    <span>18 мая 2026 года</span>
+                    <span id="hero-week-range">Загружаем…</span>
                 </div>
-                <h1 class="horoscope-hero__title">Гороскоп на сегодня</h1>
+                <h1 class="horoscope-hero__title">Гороскоп на неделю</h1>
                 <p class="horoscope-hero__subtitle">
-                    Узнайте, что приготовили для Вас звёзды в этот день. Персональный прогноз для Вашего знака зодиака.
+                    Узнайте, что приготовили для Вас звёзды на эту неделю. Прогноз для каждого знака зодиака.
                 </p>
-                <div class="horoscope-hero__meta">
+                <div class="horoscope-hero__meta" id="hero-meta">
                     <div class="horoscope-hero__meta-item">
-                        <span>🌒</span>
-                        <span>Растущая луна, 11-й лунный день</span>
-                    </div>
-                    <div class="horoscope-hero__meta-item">
-                        <span>♍</span>
-                        <span>Луна в Деве</span>
-                    </div>
-                    <div class="horoscope-hero__meta-item">
-                        <span>☿</span>
-                        <span>Меркурий прямой</span>
+                        <span>🌙</span>
+                        <span id="hero-moon">…</span>
                     </div>
                 </div>
             </div>
@@ -374,437 +366,17 @@
         <section class="section section--dark">
             <div class="container">
 
-                <!-- Совет дня -->
+                <!-- Совет недели -->
                 <div class="day-advice">
                     <div class="day-advice__icon">✨</div>
-                    <h2 class="day-advice__title">Совет дня</h2>
-                    <p class="day-advice__text">
-                        Растущая Луна в Деве наполняет этот день практической энергией и вниманием к деталям.
-                        Это превосходное время для того, чтобы разобраться с накопившимися делами,
-                        упорядочить мысли и навести порядок в жизни. Аналитический ум сегодня работает
-                        особенно чётко — доверяйте логике больше, чем интуиции. Избегайте излишней
-                        самокритики: стремление к совершенству полезно, но не позволяйте ему парализовать
-                        Вашу активность. Вечером уделите время заботе о здоровье и восстановлению сил.
-                    </p>
+                    <h2 class="day-advice__title">Астрологический совет недели</h2>
+                    <p class="day-advice__text" id="weekly-tip">Загружаем прогноз…</p>
+                    <div id="planetary-events" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;"></div>
                 </div>
 
-                <!-- Табы -->
-                <div class="horoscope-tabs">
-                    <button class="horoscope-tab active">Сегодня</button>
-                    <button class="horoscope-tab">На неделю</button>
-                    <button class="horoscope-tab">На месяц</button>
-                </div>
-
-                <!-- Сетка знаков -->
-                <div class="zodiac-grid">
-
-                    <!-- Овен -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♈</span>
-                            <div>
-                                <div class="zodiac-card__name">Овен</div>
-                                <div class="zodiac-card__dates">21 марта — 19 апреля</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Марс придаёт Вам решительности — сегодня удастся сдвинуть с места дела,
-                            которые долго откладывались. Однако не торопитесь с финансовыми решениями:
-                            Луна в Деве советует проверить каждую цифру дважды.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Спонтанный жест тронет партнёра</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Инициатива будет замечена руководством</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Умеренная физическая нагрузка пойдёт на пользу</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 1, 9, 18</span>
-                            <span class="zodiac-card__color">🎨 Красный</span>
-                        </div>
-                    </div>
-
-                    <!-- Телец -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♉</span>
-                            <div>
-                                <div class="zodiac-card__name">Телец</div>
-                                <div class="zodiac-card__dates">20 апреля — 20 мая</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Венера благоволит Вашим финансовым начинаниям — сегодня хорошее время
-                            для переговоров о повышении или новых проектах. В личных отношениях
-                            царит гармония, однако избегайте упрямства в споре о мелочах.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Романтический вечер сблизит Вас с близким</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Финансовые переговоры пройдут успешно</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Обратите внимание на питание и режим дня</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 2, 6, 15</span>
-                            <span class="zodiac-card__color">🎨 Зелёный</span>
-                        </div>
-                    </div>
-
-                    <!-- Близнецы -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♊</span>
-                            <div>
-                                <div class="zodiac-card__name">Близнецы</div>
-                                <div class="zodiac-card__dates">21 мая — 20 июня</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Меркурий прямой — отличный день для переговоров, подписания договоров
-                            и решения коммуникативных вопросов. Ваше красноречие сегодня особенно
-                            убедительно, используйте это для продвижения важных идей.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Искренний разговор разрешит накопившееся напряжение</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Отличный день для презентаций и переговоров</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Нервная система требует отдыха вечером</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 3, 5, 12</span>
-                            <span class="zodiac-card__color">🎨 Жёлтый</span>
-                        </div>
-                    </div>
-
-                    <!-- Рак -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♋</span>
-                            <div>
-                                <div class="zodiac-card__name">Рак</div>
-                                <div class="zodiac-card__dates">21 июня — 22 июля</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Луна управляет Вашим знаком — сегодня её пребывание в Деве усиливает
-                            интуицию и помогает расставить приоритеты. Домашние дела и забота о
-                            близких принесут Вам глубокое удовлетворение.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Забота и внимание укрепят отношения</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Командная работа даст отличные результаты</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Избегайте стресса, медитация поможет</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 2, 7, 11</span>
-                            <span class="zodiac-card__color">🎨 Серебристый</span>
-                        </div>
-                    </div>
-
-                    <!-- Лев -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♌</span>
-                            <div>
-                                <div class="zodiac-card__name">Лев</div>
-                                <div class="zodiac-card__dates">23 июля — 22 августа</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Солнце придаёт Вам харизмы, но Луна в Деве призывает к скромности
-                            и точности. Сосредоточьтесь на деталях проекта, который давно требует
-                            доработки — результат приятно удивит Вас и окружающих.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Уступчивость сегодня — залог гармонии</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Проверьте документы — ошибки легко исправить сейчас</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Спина и позвоночник требуют внимания</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 1, 4, 17</span>
-                            <span class="zodiac-card__color">🎨 Золотой</span>
-                        </div>
-                    </div>
-
-                    <!-- Дева -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♍</span>
-                            <div>
-                                <div class="zodiac-card__name">Дева</div>
-                                <div class="zodiac-card__dates">23 августа — 22 сентября</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Луна в Вашем знаке — один из лучших дней месяца! Аналитические способности
-                            на пике, всё задуманное реализуется с удивительной точностью. Используйте
-                            эту силу для планирования и систематизации важных дел.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Открытость к диалогу принесёт сближение</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">День идеален для детального анализа и планирования</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Превосходный день для начала оздоровительной программы</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 5, 14, 23</span>
-                            <span class="zodiac-card__color">🎨 Синий</span>
-                        </div>
-                    </div>
-
-                    <!-- Весы -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♎</span>
-                            <div>
-                                <div class="zodiac-card__name">Весы</div>
-                                <div class="zodiac-card__dates">23 сентября — 22 октября</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Венера благоприятствует Вашим социальным взаимодействиям — отличный день
-                            для встреч с деловыми партнёрами и важных переговоров. Ваш природный
-                            дипломатизм поможет найти компромисс в сложной ситуации.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Романтическая встреча принесёт радость</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Партнёрские соглашения будут особенно выгодны</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Прогулка на свежем воздухе восстановит силы</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 6, 9, 24</span>
-                            <span class="zodiac-card__color">🎨 Розовый</span>
-                        </div>
-                    </div>
-
-                    <!-- Скорпион -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♏</span>
-                            <div>
-                                <div class="zodiac-card__name">Скорпион</div>
-                                <div class="zodiac-card__dates">23 октября — 21 ноября</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Плутон активизирует Вашу проницательность — Вы видите ситуацию насквозь
-                            там, где другие видят лишь поверхность. Избегайте манипуляций: честный
-                            разговор сегодня эффективнее скрытых игр.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Глубокая близость важнее внешних проявлений</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Исследование и анализ данных принесут открытия</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Психоэмоциональное состояние требует баланса</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 8, 11, 22</span>
-                            <span class="zodiac-card__color">🎨 Бордовый</span>
-                        </div>
-                    </div>
-
-                    <!-- Стрелец -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♐</span>
-                            <div>
-                                <div class="zodiac-card__name">Стрелец</div>
-                                <div class="zodiac-card__dates">22 ноября — 21 декабря</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Юпитер расширяет Ваш кругозор, но Луна в Деве напоминает: без конкретного
-                            плана мечты остаются мечтами. Запишите свои идеи и составьте чёткий план
-                            действий — сегодняшний день благоприятен для структурирования.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Новые знакомства возможны в неожиданном месте</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Обучение и повышение квалификации — в приоритете</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Бёдра и нижняя часть спины нуждаются в разминке</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 3, 7, 21</span>
-                            <span class="zodiac-card__color">🎨 Фиолетовый</span>
-                        </div>
-                    </div>
-
-                    <!-- Козерог -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♑</span>
-                            <div>
-                                <div class="zodiac-card__name">Козерог</div>
-                                <div class="zodiac-card__dates">22 декабря — 19 января</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Сатурн поддерживает Ваши долгосрочные стратегии — терпение сегодня
-                            вознаградится. Отличный день для работы с документами, подписания
-                            договоров и решения бюрократических вопросов.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Стабильность и надёжность привлекательны для партнёра</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Долгосрочные инвестиции и планирование на высоте</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Суставы и кости — уделите им внимание</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 4, 8, 13</span>
-                            <span class="zodiac-card__color">🎨 Тёмно-синий</span>
-                        </div>
-                    </div>
-
-                    <!-- Водолей -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♒</span>
-                            <div>
-                                <div class="zodiac-card__name">Водолей</div>
-                                <div class="zodiac-card__dates">20 января — 18 февраля</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Уран искрит оригинальными идеями — сегодня Ваши нестандартные решения
-                            будут особенно востребованы. Обратите внимание на коллег, которым нужна
-                            помощь: взаимовыручка сегодня обернётся поддержкой для Вас в будущем.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Дружеские отношения могут перерасти в большее</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Командные проекты и коллаборации очень перспективны</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Голеностоп и кровообращение — уделите внимание</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 4, 11, 29</span>
-                            <span class="zodiac-card__color">🎨 Электрик</span>
-                        </div>
-                    </div>
-
-                    <!-- Рыбы -->
-                    <div class="zodiac-card">
-                        <div class="zodiac-card__header">
-                            <span class="zodiac-card__icon">♓</span>
-                            <div>
-                                <div class="zodiac-card__name">Рыбы</div>
-                                <div class="zodiac-card__dates">19 февраля — 20 марта</div>
-                            </div>
-                        </div>
-                        <p class="zodiac-card__text">
-                            Нептун усиливает Вашу интуицию, а Луна в Деве помогает воплощать
-                            мечты в реальные шаги. Используйте творческую энергию дня: запись
-                            идей, начало художественного проекта или практика медитации принесут вдохновение.
-                        </p>
-                        <div class="zodiac-card__aspects">
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">❤️ Любовь</span>
-                                <span class="zodiac-card__aspect-value">Романтика и чувственность на высоком уровне</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">💼 Карьера</span>
-                                <span class="zodiac-card__aspect-value">Творческие проекты получат неожиданную поддержку</span>
-                            </div>
-                            <div class="zodiac-card__aspect">
-                                <span class="zodiac-card__aspect-label">🌿 Здоровье</span>
-                                <span class="zodiac-card__aspect-value">Ноги и лимфатическая система нуждаются в внимании</span>
-                            </div>
-                        </div>
-                        <div class="zodiac-card__footer">
-                            <span class="zodiac-card__lucky">🔢 Числа: 2, 7, 12</span>
-                            <span class="zodiac-card__color">🎨 Морской</span>
-                        </div>
-                    </div>
+                <!-- Сетка знаков — заполняется из horoscope-data.json -->
+                <div class="zodiac-grid" id="zodiac-grid">
+                    <div id="zodiac-loading" style="grid-column:1/-1;text-align:center;padding:60px 0;color:rgba(255,255,255,.5)">🔮 Загружаем гороскоп…</div>
 
                 </div><!-- /zodiac-grid -->
             </div>
@@ -912,13 +484,86 @@
     <script src="js/navigation.js"></script>
     <script src="js/cookie-consent.js"></script>
     <script>
-        // Tab switching
-        document.querySelectorAll('.horoscope-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.horoscope-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+    (function () {
+        var SIGNS = [
+            { id: 'aries',       name: 'Овен',      icon: '♈', dates: '21 марта — 19 апреля' },
+            { id: 'taurus',      name: 'Телец',     icon: '♉', dates: '20 апреля — 20 мая' },
+            { id: 'gemini',      name: 'Близнецы',  icon: '♊', dates: '21 мая — 20 июня' },
+            { id: 'cancer',      name: 'Рак',       icon: '♋', dates: '21 июня — 22 июля' },
+            { id: 'leo',         name: 'Лев',       icon: '♌', dates: '23 июля — 22 августа' },
+            { id: 'virgo',       name: 'Дева',      icon: '♍', dates: '23 августа — 22 сентября' },
+            { id: 'libra',       name: 'Весы',      icon: '♎', dates: '23 сентября — 22 октября' },
+            { id: 'scorpio',     name: 'Скорпион',  icon: '♏', dates: '23 октября — 21 ноября' },
+            { id: 'sagittarius', name: 'Стрелец',   icon: '♐', dates: '22 ноября — 21 декабря' },
+            { id: 'capricorn',   name: 'Козерог',   icon: '♑', dates: '22 декабря — 19 января' },
+            { id: 'aquarius',    name: 'Водолей',   icon: '♒', dates: '20 января — 18 февраля' },
+            { id: 'pisces',      name: 'Рыбы',      icon: '♓', dates: '19 февраля — 20 марта' }
+        ];
+
+        function energyBar(level) {
+            var filled = Math.round(level);
+            return '<span style="color:var(--color-accent-light);letter-spacing:1px;font-size:.8rem">' +
+                '★'.repeat(filled) + '☆'.repeat(10 - filled) + '</span>';
+        }
+
+        function renderCard(sign, data) {
+            return '<div class="zodiac-card">' +
+                '<div class="zodiac-card__header">' +
+                    '<span class="zodiac-card__icon">' + sign.icon + '</span>' +
+                    '<div><div class="zodiac-card__name">' + sign.name + '</div>' +
+                    '<div class="zodiac-card__dates">' + sign.dates + '</div></div>' +
+                '</div>' +
+                '<p class="zodiac-card__text">' + data.general + '</p>' +
+                '<div class="zodiac-card__aspects">' +
+                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">❤️ Любовь</span><span class="zodiac-card__aspect-value">' + data.love + '</span></div>' +
+                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💼 Карьера</span><span class="zodiac-card__aspect-value">' + data.career + '</span></div>' +
+                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">🌿 Здоровье</span><span class="zodiac-card__aspect-value">' + data.health + '</span></div>' +
+                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💡 Совет</span><span class="zodiac-card__aspect-value">' + data.advice + '</span></div>' +
+                '</div>' +
+                '<div class="zodiac-card__footer">' +
+                    '<span class="zodiac-card__lucky">🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ') + '</span>' +
+                    '<span class="zodiac-card__color">🎨 ' + data.luckyColor + '</span>' +
+                '</div>' +
+                '<div style="margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.5)">Энергия: ' + energyBar(data.energy) + '</div>' +
+                '</div>';
+        }
+
+        fetch('horoscope-data.json')
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                // Hero
+                var weekEl = document.getElementById('hero-week-range');
+                if (weekEl) weekEl.textContent = d.weekRange;
+                var moonEl = document.getElementById('hero-moon');
+                if (moonEl) moonEl.textContent = d.moonPhase;
+
+                // Planetary events
+                var evEl = document.getElementById('planetary-events');
+                if (evEl && d.planetaryEvents) {
+                    evEl.innerHTML = d.planetaryEvents.map(function(e) {
+                        return '<span style="background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:100px;padding:4px 14px;font-size:.8rem;color:var(--color-accent-light)">⚡ ' + e + '</span>';
+                    }).join('');
+                }
+
+                // Weekly tip
+                var tipEl = document.getElementById('weekly-tip');
+                if (tipEl) tipEl.textContent = d.weeklyTip;
+
+                // Cards
+                var grid = document.getElementById('zodiac-grid');
+                var loading = document.getElementById('zodiac-loading');
+                if (loading) loading.remove();
+                SIGNS.forEach(function(sign) {
+                    var signData = d.signs[sign.id];
+                    if (signData && grid) grid.insertAdjacentHTML('beforeend', renderCard(sign, signData));
+                });
+            })
+            .catch(function(err) {
+                console.error('Horoscope load error:', err);
+                var el = document.getElementById('zodiac-loading');
+                if (el) el.textContent = 'Не удалось загрузить гороскоп. Попробуйте обновить страницу.';
             });
-        });
+    })();
     </script>
 </body>
 </html>

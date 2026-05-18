@@ -1,0 +1,43 @@
+name: 🔮 Weekly Horoscope Generation
+
+on:
+  schedule:
+    # Every Monday at 06:00 Moscow time = 03:00 UTC
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual generation'
+
+jobs:
+  generate:
+    name: Generate horoscopes via Claude AI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate horoscopes
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-horoscopes.js
+
+      - name: Commit and push
+        run: |
+          git config user.name  "Esoterra Horoscope Bot"
+          git config user.email "bot@esoterra.app"
+          git add ezotera-frontend/horoscope-data.json
+          git diff --staged --quiet && echo "No changes" || (
+            git commit -m "feat: weekly horoscopes $(date +'%d.%m.%Y') 🔮 [skip ci]"
+            git push origin main
+          )
