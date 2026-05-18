@@ -81,7 +81,11 @@
                 onboardingHref: '../onboarding/step-1-name.html',
                 payHref: '../pay.html',
                 natalHref: '../natal.html',
-                comingSoonHref: '../coming-soon.html'
+                comingSoonHref: '../coming-soon.html',
+                horoscopeHref: '../horoscope.html',
+                compatHref: '../compatibility.html',
+                numerologyHref: '../numerology.html',
+                blogHref: '../blog.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -96,7 +100,11 @@
                 onboardingHref: '../onboarding/step-1-name.html',
                 payHref: '../pay.html',
                 natalHref: '../natal.html',
-                comingSoonHref: '../coming-soon.html'
+                comingSoonHref: '../coming-soon.html',
+                horoscopeHref: '../horoscope.html',
+                compatHref: '../compatibility.html',
+                numerologyHref: '../numerology.html',
+                blogHref: '../blog.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -111,7 +119,11 @@
                 onboardingHref: '#',
                 payHref: '../pay.html',
                 natalHref: '../natal.html',
-                comingSoonHref: '../coming-soon.html'
+                comingSoonHref: '../coming-soon.html',
+                horoscopeHref: '../horoscope.html',
+                compatHref: '../compatibility.html',
+                numerologyHref: '../numerology.html',
+                blogHref: '../blog.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -126,7 +138,11 @@
                 onboardingHref: 'onboarding/step-1-name.html',
                 payHref: 'pay.html',
                 natalHref: 'natal.html',
-                comingSoonHref: 'coming-soon.html'
+                comingSoonHref: 'coming-soon.html',
+                horoscopeHref: 'horoscope.html',
+                compatHref: 'compatibility.html',
+                numerologyHref: 'numerology.html',
+                blogHref: 'blog.html'
             };
         } else {
             return {
@@ -141,7 +157,11 @@
                 onboardingHref: 'onboarding/step-1-name.html',
                 payHref: 'pay.html',
                 natalHref: 'natal.html',
-                comingSoonHref: 'coming-soon.html'
+                comingSoonHref: 'coming-soon.html',
+                horoscopeHref: 'horoscope.html',
+                compatHref: 'compatibility.html',
+                numerologyHref: 'numerology.html',
+                blogHref: 'blog.html'
             };
         }
     };
@@ -231,6 +251,10 @@
                 .replace(/ONBOARDING_HREF/g, paths.onboardingHref)
                 .replace(/PAY_HREF/g, paths.payHref)
                 .replace(/NATAL_HREF/g, paths.natalHref)
+                .replace(/HOROSCOPE_HREF/g, paths.horoscopeHref)
+                .replace(/COMPAT_HREF/g, paths.compatHref)
+                .replace(/NUMEROLOGY_HREF/g, paths.numerologyHref)
+                .replace(/BLOG_HREF/g, paths.blogHref)
                 .replace(/COMING_SOON_HREF/g, paths.comingSoonHref);
 
             // Insert header at the beginning of body or before first main element

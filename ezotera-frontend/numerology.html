@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Нумерология — наука чисел и судьбы. Рассчитайте своё число жизненного пути и узнайте, что оно означает.">
+    <title>Нумерология — Esoterra</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        /* ===== HERO ===== */
+        .num-hero {
+            background: var(--gradient-hero);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .num-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(108,92,231,0.2) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .num-hero__numbers {
+            font-size: 1.3rem;
+            letter-spacing: 0.3em;
+            color: var(--color-accent-light);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        .num-hero__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            color: var(--color-white);
+            margin-bottom: 16px;
+        }
+        .num-hero__subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== CALCULATOR ===== */
+        .num-calc-section {
+            background: #0c1b24;
+            padding: 80px 0;
+        }
+        .num-calc-box {
+            max-width: 580px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 48px 40px;
+        }
+        .num-calc-box__title {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            color: var(--color-white);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .num-calc-box__sub {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+        .num-calc-box__label {
+            display: block;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+        .num-date-input {
+            width: 100%;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: var(--color-white);
+            padding: 14px 18px;
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            outline: none;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .num-date-input:focus { border-color: var(--color-accent); }
+        .num-date-input::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.5); }
+        .num-calc-box__btn { width: 100%; padding: 16px; font-size: 1.05rem; }
+
+        /* ===== RESULT ===== */
+        .num-result {
+            display: none;
+            margin-top: 32px;
+            background: rgba(108,92,231,0.1);
+            border: 1px solid rgba(108,92,231,0.3);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            animation: fadeInUp 0.4s ease;
+        }
+        .num-result.visible { display: block; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .num-result__big {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            color: var(--color-accent-light);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .num-result__archetype {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+        .num-result__text {
+            font-size: 0.93rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.75;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+        .num-result__columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+        @media (max-width: 500px) { .num-result__columns { grid-template-columns: 1fr; } }
+        .num-result__col-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+        .num-result__col--str .num-result__col-title { color: #55efc4; }
+        .num-result__col--weak .num-result__col-title { color: #ff7675; }
+        .num-result__col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .num-result__col li {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            padding-left: 16px;
+            position: relative;
+        }
+        .num-result__col--str li::before { content: '+'; position: absolute; left: 0; color: #55efc4; font-weight: 700; }
+        .num-result__col--weak li::before { content: '−'; position: absolute; left: 0; color: #ff7675; font-weight: 700; }
+        .num-result__compat {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .num-result__compat span {
+            color: var(--color-accent-light);
+            font-weight: 600;
+        }
+        .num-result__famous {
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .num-result__famous span { color: rgba(255,255,255,0.8); }
+
+        /* ===== NUMBERS SECTION ===== */
+        .numbers-section {
+            background: #0e1f27;
+            padding: 80px 0;
+        }
+        .numbers-section__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--color-white);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .numbers-section__sub {
+            text-align: center;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.95rem;
+            margin-bottom: 52px;
+        }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .number-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            padding: 28px 26px;
+            transition: all 0.3s ease;
+        }
+        .number-card:hover {
+            border-color: rgba(108,92,231,0.35);
+            transform: translateY(-3px);
+        }
+        .number-card__header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .number-card__num {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--color-accent-light);
+            line-height: 1;
+            min-width: 50px;
+        }
+        .number-card__title-wrap {}
+        .number-card__title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: var(--color-white);
+            margin-bottom: 2px;
+        }
+        .number-card__sub {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+        }
+        .number-card__text {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.68);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .number-card__row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .number-card__tag-group {
+            flex: 1;
+            min-width: 120px;
+        }
+        .number-card__tag-title {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 6px;
+        }
+        .number-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .number-card__tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.7);
+        }
+        .number-card__famous {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding-top: 10px;
+        }
+        .number-card__famous span { color: rgba(255,255,255,0.75); }
+
+        /* ===== NAME NUMBER ===== */
+        .name-number-section {
+            background: #0c1b24;
+            padding: 80px 0;
+        }
+        .name-number-box {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .name-number-box__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.7rem, 3vw, 2.2rem);
+            color: var(--color-white);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .name-number-box p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.78;
+            margin-bottom: 20px;
+        }
+        .name-table-wrap {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin: 32px 0;
+        }
+        .name-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+        .name-table th, .name-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.875rem;
+        }
+        .name-table th {
+            background: rgba(108,92,231,0.15);
+            color: var(--color-accent-light);
+            font-weight: 600;
+        }
+        .name-table td { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.02); }
+
+        /* ===== FAQ ===== */
+        .faq-section { background: #0e1f27; padding: 80px 0; }
+        .faq-title { font-family: var(--font-heading); font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--color-white); text-align: center; margin-bottom: 48px; }
+        .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+        .faq-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden; }
+        .faq-item__question { width: 100%; background: none; border: none; padding: 20px 24px; text-align: left; color: var(--color-white); font-size: 0.975rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--font-primary); }
+        .faq-item__arrow { font-size: 1.1rem; transition: transform 0.25s ease; flex-shrink: 0; }
+        .faq-item.open .faq-item__arrow { transform: rotate(180deg); }
+        .faq-item__answer { display: none; padding: 0 24px 20px; font-size: 0.9rem; color: rgba(255,255,255,0.68); line-height: 1.75; }
+        .faq-item.open .faq-item__answer { display: block; }
+    </style>
+</head>
+<body>
+
+    <main>
+
+        <!-- ===== HERO ===== -->
+        <section class="num-hero">
+            <div class="container">
+                <div class="num-hero__numbers">1 · 2 · 3 · 4 · 5 · 6 · 7 · 8 · 9</div>
+                <h1 class="num-hero__title">Нумерология — Наука чисел и судьбы</h1>
+                <p class="num-hero__subtitle">
+                    Каждое число несёт в себе вибрацию, архетип и послание. Нумерология помогает
+                    расшифровать Ваш жизненный путь, раскрыть таланты и понять, какие уроки
+                    приготовила для Вас судьба.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ===== КАЛЬКУЛЯТОР ===== -->
+        <section class="num-calc-section">
+            <div class="container">
+                <div class="num-calc-box">
+                    <h2 class="num-calc-box__title">Число жизненного пути</h2>
+                    <p class="num-calc-box__sub">Введите дату рождения — мы рассчитаем Ваше число и раскроем его значение</p>
+
+                    <label class="num-calc-box__label" for="birthDate">Ваша дата рождения</label>
+                    <input type="date" id="birthDate" class="num-date-input" min="1900-01-01" max="2010-12-31">
+                    <button class="button button--primary num-calc-box__btn" id="calcNumBtn">Рассчитать моё число</button>
+
+                    <!-- Результат -->
+                    <div class="num-result" id="numResult">
+                        <div class="num-result__big" id="resNum"></div>
+                        <div class="num-result__archetype" id="resArchetype"></div>
+                        <p class="num-result__text" id="resText"></p>
+                        <div class="num-result__columns">
+                            <div class="num-result__col num-result__col--str">
+                                <div class="num-result__col-title">Сильные стороны</div>
+                                <ul id="resStr"></ul>
+                            </div>
+                            <div class="num-result__col num-result__col--weak">
+                                <div class="num-result__col-title">Точки роста</div>
+                                <ul id="resWeak"></ul>
+                            </div>
+                        </div>
+                        <div class="num-result__compat">Совместимые числа: <span id="resCompat"></span></div>
+                        <div class="num-result__famous">Известные люди с Вашим числом: <span id="resFamous"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ВСЕ ЧИСЛА ===== -->
+        <section class="numbers-section">
+            <div class="container">
+                <h2 class="numbers-section__title">Значение чисел жизненного пути</h2>
+                <p class="numbers-section__sub">Нажмите на карточку, чтобы узнать подробное описание каждого числа</p>
+
+                <div class="numbers-grid">
+
+                    <!-- Число 1 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">1</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Лидер</div>
+                                <div class="number-card__sub">Солнце · Начало · Инициатива</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Единица — символ начала, воли и самодостаточности. Люди с числом 1 рождены
+                            для лидерства: они независимы, целеустремлённы и умеют вдохновлять других.
+                            Их жизненный путь — быть первопроходцем, открывать новые территории и
+                            устанавливать собственные правила. Главный урок — научиться принимать
+                            помощь и сотрудничать, не теряя при этом своей силы.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Решительность</span>
+                                    <span class="number-card__tag">Лидерство</span>
+                                    <span class="number-card__tag">Новаторство</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Эгоцентризм</span>
+                                    <span class="number-card__tag">Упрямство</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Дональд Трамп (14.06.1946 = 1+4+0+6+1+9+4+6=31=4 — не совпадает, см. ниже)</span></div>
+                    </div>
+
+                    <!-- Число 2 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">2</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Дипломат</div>
+                                <div class="number-card__sub">Луна · Партнёрство · Гармония</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Двойка — архетип партнёрства и мира. Люди с числом 2 наделены
+                            исключительной эмпатией, чуткостью и умением слышать других. Они — мастера
+                            компромисса и лучшие союзники. Их сила в сотрудничестве, а не в
+                            одиночестве. Главный урок — научиться отстаивать собственные потребности,
+                            не растворяясь в нуждах окружающих.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Эмпатия</span>
+                                    <span class="number-card__tag">Дипломатия</span>
+                                    <span class="number-card__tag">Терпение</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Зависимость</span>
+                                    <span class="number-card__tag">Нерешительность</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Михаил Горбачёв (02.03.1931 = 2+3+1+9+3+1=19=10=1) · Билл Клинтон (19.08.1946 = 1+9+8+1+9+4+6=38=11)</span></div>
+                    </div>
+
+                    <!-- Число 3 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">3</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Творец</div>
+                                <div class="number-card__sub">Юпитер · Творчество · Экспрессия</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Тройка — число творчества, радости и самовыражения. Эти люди обладают
+                            живым умом, природным обаянием и даром слова. Им легко находить общий
+                            язык с людьми, и они способны превращать обычное в волшебное. Их урок —
+                            научиться доводить дела до конца и не разбрасываться талантами,
+                            сосредоточившись на главном.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Творчество</span>
+                                    <span class="number-card__tag">Коммуникация</span>
+                                    <span class="number-card__tag">Оптимизм</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Поверхностность</span>
+                                    <span class="number-card__tag">Непостоянство</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Дэвид Боуи (08.01.1947=8+1+1+9+4+7=30=3) · Хилари Клинтон (26.10.1947=2+6+1+0+1+9+4+7=30=3)</span></div>
+                    </div>
+
+                    <!-- Число 4 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">4</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Строитель</div>
+                                <div class="number-card__sub">Уран · Система · Труд</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Четвёрка — число порядка, дисциплины и надёжности. Люди с числом 4
+                            — настоящие строители жизни: они методичны, ответственны и умеют
+                            воплощать планы в реальность. Их сила — в упорном труде и системном
+                            подходе. Главный урок — научиться гибкости и принятию изменений,
+                            не цепляясь за привычный порядок вещей.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Надёжность</span>
+                                    <span class="number-card__tag">Организованность</span>
+                                    <span class="number-card__tag">Практичность</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Жёсткость</span>
+                                    <span class="number-card__tag">Упрямство</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Владимир Путин (07.10.1952=7+1+0+1+9+5+2=25=7 — см. число 7) · Билл Гейтс (28.10.1955=2+8+1+0+1+9+5+5=31=4)</span></div>
+                    </div>
+
+                    <!-- Число 5 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">5</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Искатель</div>
+                                <div class="number-card__sub">Меркурий · Свобода · Перемены</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Пятёрка — число свободы, перемен и многогранного опыта. Люди с числом 5
+                            рождены путешествовать — как в буквальном, так и в переносном смысле.
+                            Они адаптивны, любопытны и умеют находить возможности там, где другие
+                            видят препятствия. Их главный урок — научиться принимать ответственность
+                            и не бояться глубины долгосрочных обязательств.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Адаптивность</span>
+                                    <span class="number-card__tag">Смелость</span>
+                                    <span class="number-card__tag">Харизма</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Непостоянство</span>
+                                    <span class="number-card__tag">Импульсивность</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Мик Джаггер (26.07.1943=2+6+7+1+9+4+3=32=5) · Авраам Линкольн (12.02.1809=1+2+2+1+8+0+9=23=5)</span></div>
+                    </div>
+
+                    <!-- Число 6 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">6</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Целитель</div>
+                                <div class="number-card__sub">Венера · Любовь · Ответственность</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Шестёрка — число любви, семьи и служения. Люди с числом 6 обладают
+                            врождённым чувством ответственности и искренне заботятся об окружающих.
+                            Их дом — их крепость, а самая большая радость — видеть счастье близких.
+                            Главный урок — научиться принимать несовершенство мира и не брать на
+                            себя ответственность за жизни других людей.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Забота</span>
+                                    <span class="number-card__tag">Верность</span>
+                                    <span class="number-card__tag">Мудрость</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Гиперопека</span>
+                                    <span class="number-card__tag">Перфекционизм</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Альберт Эйнштейн (14.03.1879=1+4+3+1+8+7+9=33=6) · Майкл Джексон (29.08.1958=2+9+8+1+9+5+8=42=6)</span></div>
+                    </div>
+
+                    <!-- Число 7 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">7</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Мудрец</div>
+                                <div class="number-card__sub">Нептун · Познание · Духовность</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Семёрка — самое мистическое из чисел. Люди с числом 7 ищут истину
+                            за пределами видимого — они философы, исследователи и духовные
+                            искатели. Их интеллект глубок, интуиция развита, и они часто чувствуют
+                            себя «другими» среди людей. Главный урок — научиться доверять и
+                            открываться близким, не уходя в изоляцию.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Аналитика</span>
+                                    <span class="number-card__tag">Интуиция</span>
+                                    <span class="number-card__tag">Мудрость</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Замкнутость</span>
+                                    <span class="number-card__tag">Скептицизм</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Владимир Путин (07.10.1952=7+1+0+1+9+5+2=25=7) · Леонардо ДиКаприо (11.11.1974=1+1+1+1+1+9+7+4=25=7)</span></div>
+                    </div>
+
+                    <!-- Число 8 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">8</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Властелин</div>
+                                <div class="number-card__sub">Сатурн · Власть · Материя</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Восьмёрка — число власти, материального успеха и кармических уроков.
+                            Люди с числом 8 рождены для большой игры — бизнеса, политики, финансов.
+                            Их отличает амбициозность, стратегическое мышление и магнетизм.
+                            Главный урок — научиться использовать власть мудро и не забывать о
+                            духовных ценностях в погоне за успехом.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Амбиции</span>
+                                    <span class="number-card__tag">Стратегия</span>
+                                    <span class="number-card__tag">Лидерство</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Властолюбие</span>
+                                    <span class="number-card__tag">Жёсткость</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Барак Обама (04.08.1961=4+8+1+9+6+1=29=11) · Мартин Лютер Кинг (15.01.1929=1+5+1+1+9+2+9=28=10=1)</span></div>
+                    </div>
+
+                    <!-- Число 9 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">9</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Гуманист</div>
+                                <div class="number-card__sub">Марс · Служение · Завершение</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Девятка — завершающее число, символ мудрости и сострадания. Люди с числом 9
+                            несут в себе опыт всех предыдущих чисел — они широки душой, способны
+                            видеть большую картину и служить человечеству. Их призвание — благотворительность,
+                            искусство, духовность. Главный урок — отпускать прошлое и не цепляться
+                            за людей и ситуации.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Сострадание</span>
+                                    <span class="number-card__tag">Щедрость</span>
+                                    <span class="number-card__tag">Мудрость</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Самопожертвование</span>
+                                    <span class="number-card__tag">Разочарование</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Махатма Ганди (02.10.1869=2+1+0+1+8+6+9=27=9) · Мать Тереза (27.08.1910=2+7+8+1+9+1+0=28=10=1)</span></div>
+                    </div>
+
+                    <!-- Число 11 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">11</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Мастер-интуит</div>
+                                <div class="number-card__sub">Мастер-число · Озарение · Вдохновение</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Одиннадцать — первое из мастер-чисел, число духовного озарения. Люди с числом 11
+                            наделены исключительной интуицией, чувствительностью и способностью
+                            вдохновлять других. Они воспринимают мир тоньше, чем большинство, и
+                            часто приходят к людям с особым посланием. Главный урок — научиться
+                            заземлять свои высокие идеалы в реальные действия.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Интуиция</span>
+                                    <span class="number-card__tag">Вдохновение</span>
+                                    <span class="number-card__tag">Чувствительность</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Тревожность</span>
+                                    <span class="number-card__tag">Идеализм</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Барак Обама (04.08.1961=4+8+1+9+6+1=29=11) · Принцесса Диана (01.07.1961=1+7+1+9+6+1=25=7)</span></div>
+                    </div>
+
+                    <!-- Число 22 -->
+                    <div class="number-card">
+                        <div class="number-card__header">
+                            <div class="number-card__num">22</div>
+                            <div class="number-card__title-wrap">
+                                <div class="number-card__title">Мастер-строитель</div>
+                                <div class="number-card__sub">Мастер-число · Воплощение · Масштаб</div>
+                            </div>
+                        </div>
+                        <p class="number-card__text">
+                            Двадцать два — наиболее мощное из мастер-чисел, число великих созидателей.
+                            Люди с числом 22 способны воплощать масштабные идеи на благо многих —
+                            строить институты, создавать движения, менять системы. Их видение охватывает
+                            как духовные, так и материальные измерения. Главный урок — не бояться
+                            масштаба своих задач и брать на себя соответствующую ответственность.
+                        </p>
+                        <div class="number-card__row">
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Сильные стороны</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Масштаб мышления</span>
+                                    <span class="number-card__tag">Практичность</span>
+                                    <span class="number-card__tag">Харизма</span>
+                                </div>
+                            </div>
+                            <div class="number-card__tag-group">
+                                <div class="number-card__tag-title">Точки роста</div>
+                                <div class="number-card__tags">
+                                    <span class="number-card__tag">Перегрузка</span>
+                                    <span class="number-card__tag">Самоограничение</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-card__famous">Известные: <span>Пол Маккартни (18.06.1942=1+8+6+1+9+4+2=31=4) · Далай-лама XIV (06.07.1935=6+7+1+9+3+5=31=4)</span></div>
+                    </div>
+
+                </div><!-- /numbers-grid -->
+            </div>
+        </section>
+
+
+        <!-- ===== ЧИСЛО ИМЕНИ ===== -->
+        <section class="name-number-section">
+            <div class="container">
+                <div class="name-number-box">
+                    <h2 class="name-number-box__title">Число имени: как рассчитать</h2>
+                    <p>
+                        Помимо числа жизненного пути, в нумерологии огромное значение имеет число имени —
+                        оно отражает Вашу социальную личность, то, как Вас воспринимают другие, и какую
+                        роль Вы играете в социуме. Для расчёта каждой букве имени присваивается
+                        соответствующее число по таблице Пифагора.
+                    </p>
+                    <div class="name-table-wrap">
+                        <table class="name-table">
+                            <thead>
+                                <tr>
+                                    <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>А И Й Я</td>
+                                    <td>Б К Р</td>
+                                    <td>В Л С</td>
+                                    <td>Г М Т</td>
+                                    <td>Д Н У</td>
+                                    <td>Е О Ф Э</td>
+                                    <td>Ж П Х Ю</td>
+                                    <td>З Р Ц</td>
+                                    <td>И Щ Ъ Ь</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        Например, имя АННА: А(1) + Н(5) + Н(5) + А(1) = 12 → 1+2 = 3.
+                        Число имени 3 говорит о творческой, общительной натуре с выраженным даром
+                        самовыражения. Суммируйте все числа до однозначного (исключение — мастер-числа
+                        11 и 22, которые не редуцируются).
+                    </p>
+                    <p>
+                        Число имени, данного при рождении, считается наиболее значимым. Если Вы сменили
+                        имя или используете псевдоним, его число также влияет на Вас, но иначе — оно
+                        отражает ту роль и маску, которую Вы сознательно выбрали для взаимодействия
+                        с миром. Многие публичные люди выбирают псевдонимы с «выгодным» числом.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== FAQ ===== -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="faq-title">Часто задаваемые вопросы о нумерологии</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-item__question">
+                            Как рассчитать число жизненного пути?
+                            <span class="faq-item__arrow">▼</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            Сложите все цифры даты рождения до однозначного числа. Например, 15 апреля
+                            1990 года: 1+5+4+1+9+9+0 = 29, затем 2+9 = 11. Поскольку 11 — мастер-число,
+                            оно не редуцируется. Если бы получилось 12, следующий шаг: 1+2 = 3. Мастер-числа
+                            (11, 22, 33) оставляются без изменений — они несут особую вибрацию.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-item__question">
+                            Что такое мастер-числа и почему они особенные?
+                            <span class="faq-item__arrow">▼</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            Мастер-числа (11, 22, 33) — это числа повышенной вибрации, несущие как
+                            огромный потенциал, так и усиленные жизненные испытания. Люди с мастер-числами
+                            приходят в мир с особой миссией. Однако эта сила даётся нелегко: путь к
+                            её раскрытию часто сопряжён с серьёзными вызовами и необходимостью
+                            глубокой внутренней работы.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-item__question">
+                            Какое число считается самым удачным?
+                            <span class="faq-item__arrow">▼</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            В нумерологии не существует «лучших» или «худших» чисел. Каждое число несёт
+                            уникальные качества, потенциал и уроки. Число 8 ассоциируется с материальным
+                            успехом, 11 — с духовным даром, 1 — с лидерством. Однако каждое число имеет
+                            как светлую, так и теневую стороны. Ключ не в «хорошем» числе, а в том,
+                            насколько осознанно Вы работаете с энергией своего числа.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-item__question">
+                            Влияет ли нумерология на выбор имени для ребёнка?
+                            <span class="faq-item__arrow">▼</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            Многие родители обращаются к нумерологии при выборе имени — стремясь подобрать
+                            такое, число которого гармонирует с числом жизненного пути ребёнка или
+                            дополняет его. Это не строгое правило, а дополнительный инструмент. Важнее
+                            всего, чтобы имя нравилось Вам и звучало гармонично — ведь ребёнок будет
+                            слышать его каждый день своей жизни.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-item__question">
+                            Как нумерология связана с астрологией?
+                            <span class="faq-item__arrow">▼</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            Нумерология и астрология — родственные системы самопознания. В нумерологии
+                            каждое число соответствует планете: 1 — Солнце, 2 — Луна, 3 — Юпитер,
+                            4 — Уран, 5 — Меркурий, 6 — Венера, 7 — Нептун, 8 — Сатурн, 9 — Марс.
+                            Вместе они дают многогранную картину личности — нумерология описывает
+                            жизненный путь в числах, астрология — в планетарных энергиях.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA ===== -->
+        <section style="background:#0c1b24; padding:80px 0;">
+            <div class="container">
+                <div style="text-align:center; background:var(--gradient-hero); border-radius:24px; padding:60px 40px; border:1px solid rgba(108,92,231,0.2);">
+                    <h2 style="font-family:var(--font-heading); font-size:clamp(1.6rem,3vw,2.2rem); color:var(--color-white); margin-bottom:16px;">
+                        Хотите полный нумерологический анализ?
+                    </h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.05rem; max-width:540px; margin:0 auto 32px;">
+                        Персональный нумерологический портрет от экспертов Esoterra — анализ числа судьбы,
+                        имени, личностных циклов и совместимости. Глубокий инсайт, который меняет
+                        понимание своего пути.
+                    </p>
+                    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                        <a href="pay.html" class="button button--primary">Заказать консультацию</a>
+                        <a href="onboarding/step-1-name.html" class="button button--secondary">Начать бесплатно</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo"><span class="footer__logo-text">Esoterra</span></a>
+                    <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="index.html#faq" class="footer__link">FAQ</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/privacy.html" class="footer__link">Политика конфиденциальности</a>
+                        <a href="legal/terms.html" class="footer__link">Условия использования</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/cookie-consent.js"></script>
+    <script>
+        // Numerology data
+        const numData = {
+            1: {
+                archetype: 'Лидер — Число Первопроходца',
+                text: 'Ваше число жизненного пути — 1. Вы рождены, чтобы прокладывать путь туда, где ещё не ступала нога человека. Ваша энергия — это воля, независимость и несгибаемый дух. Вы можете делать то, что другим кажется невозможным, просто потому что верите в себя безоговорочно. Ваш путь — путь лидера, инициатора и вдохновителя.',
+                str: ['Решительность и целеустремлённость','Природное лидерство','Способность вдохновлять других','Оригинальность мышления'],
+                weak: ['Склонность к эгоцентризму','Трудности с делегированием','Нетерпимость к слабостям','Упрямство в спорах'],
+                compat: '3, 5, 9',
+                famous: 'Стив Джобс (24.02.1955=24=6 — нет), проверить отдельно'
+            },
+            2: {
+                archetype: 'Дипломат — Число Партнёрства',
+                text: 'Ваше число жизненного пути — 2. Вы — мастер отношений и тонкий ценитель человеческой природы. Ваша сила скрыта, но именно Вы часто являетесь тем, кто удерживает баланс в коллективе, семье или партнёрстве. Вы слышите то, что другие не замечают, и чувствуете атмосферу задолго до того, как она становится очевидной.',
+                str: ['Тонкая эмпатия и чуткость','Дипломатический талант','Умение слушать и слышать','Терпение и миролюбие'],
+                weak: ['Нерешительность в кризисных ситуациях','Зависимость от мнения других','Склонность к обидам','Избегание конфликтов в ущерб себе'],
+                compat: '4, 6, 8',
+                famous: 'Принц Уильям (21.06.1982=2+1+6+1+9+8+2=29=11)'
+            },
+            3: {
+                archetype: 'Творец — Число Самовыражения',
+                text: 'Ваше число жизненного пути — 3. Вы несёте в мир радость, красоту и вдохновение. Ваш природный дар — творить: словом, образом, движением или идеей. Люди тянутся к Вашей энергии, потому что рядом с Вами жизнь становится ярче. Ваш путь — через самовыражение прийти к подлинному счастью и поделиться им с другими.',
+                str: ['Творческое воображение','Природное обаяние','Дар общения и юмор','Оптимизм и жизнерадостность'],
+                weak: ['Поверхностность при многочисленных интересах','Разбросанность и непоследовательность','Избегание ответственности','Эмоциональная нестабильность'],
+                compat: '1, 5, 9',
+                famous: 'Хилари Клинтон (26.10.1947=3) · Дэвид Боуи (08.01.1947=3)'
+            },
+            4: {
+                archetype: 'Строитель — Число Фундамента',
+                text: 'Ваше число жизненного пути — 4. Вы — тот, на ком держится мир. Ваша надёжность, трудолюбие и способность доводить любое дело до конца — редкие и ценные качества. Вы строите не быстро, но основательно, и созданное Вами стоит долго. Ваш путь — возводить прочные основания: в карьере, семье, ценностях.',
+                str: ['Надёжность и ответственность','Системное мышление','Практичность и трудолюбие','Умение планировать'],
+                weak: ['Сопротивление переменам','Жёсткость и прямолинейность','Чрезмерный консерватизм','Склонность к занудству'],
+                compat: '2, 6, 8',
+                famous: 'Билл Гейтс (28.10.1955=31=4) · Арнольд Шварценеггер (30.07.1947=4)'
+            },
+            5: {
+                archetype: 'Искатель — Число Свободы',
+                text: 'Ваше число жизненного пути — 5. Жизнь для Вас — это бесконечное путешествие и источник удивительных открытий. Вы рождены для перемен, и именно в динамике Вы находите своё лучшее «я». Рутина для Вас — яд, а новые горизонты — кислород. Ваш путь — через разнообразный опыт найти свою истинную свободу.',
+                str: ['Адаптивность к переменам','Смелость и авантюризм','Природная харизма','Многогранные таланты'],
+                weak: ['Страх обязательств','Импульсивность в решениях','Непостоянство в отношениях','Разбросанность интересов'],
+                compat: '1, 3, 7',
+                famous: 'Мик Джаггер (26.07.1943=32=5) · Авраам Линкольн (12.02.1809=23=5)'
+            },
+            6: {
+                archetype: 'Целитель — Число Любви',
+                text: 'Ваше число жизненного пути — 6. Вы созданы для любви, заботы и создания красоты вокруг себя. Ваш дом — Ваша крепость, Ваши близкие — Ваш главный приоритет. Вы обладаете редким даром исцелять других своим присутствием. Ваш путь — через служение и любовь прийти к внутренней гармонии и принятию несовершенства.',
+                str: ['Глубокая способность любить','Ответственность и верность','Художественный вкус','Целительная энергия'],
+                weak: ['Гиперопека над близкими','Болезненный перфекционизм','Склонность к самопожертвованию','Контроль под видом заботы'],
+                compat: '2, 4, 9',
+                famous: 'Альберт Эйнштейн (14.03.1879=33=6) · Майкл Джексон (29.08.1958=42=6)'
+            },
+            7: {
+                archetype: 'Мудрец — Число Познания',
+                text: 'Ваше число жизненного пути — 7. Вы — искатель истины, философ и духовный исследователь. Вам недостаточно видимой поверхности вещей — Вы стремитесь к сути. Ваш ум работает на глубинах, недоступных большинству, а интуиция нередко удивляет даже Вас самих. Ваш путь — через познание прийти к доверию к жизни.',
+                str: ['Глубина аналитического ума','Высокоразвитая интуиция','Философское мышление','Духовная восприимчивость'],
+                weak: ['Замкнутость и отчуждённость','Избыточный скептицизм','Трудности с доверием','Уход в себя в стрессе'],
+                compat: '3, 5, 9',
+                famous: 'Владимир Путин (07.10.1952=25=7) · Леонардо ДиКаприо (11.11.1974=25=7)'
+            },
+            8: {
+                archetype: 'Властелин — Число Силы',
+                text: 'Ваше число жизненного пути — 8. Вы рождены для большой игры. Власть, деньги, влияние — не просто соблазны, а инструменты, которыми Вы призваны пользоваться осознанно. Ваша кармическая задача — научиться балансировать между материальным и духовным, между силой и состраданием. Ваш путь — через мастерство прийти к мудрости.',
+                str: ['Стратегическое мышление','Магнетизм и влияние','Способность аккумулировать ресурсы','Организаторский талант'],
+                weak: ['Властолюбие','Жёсткость в отношениях','Материализм','Страх потери контроля'],
+                compat: '2, 4, 6',
+                famous: 'Джек Николсон (22.04.1937=22) · Пабло Пикассо (25.10.1881=2+5+1+0+1+8+8+1=26=8)'
+            },
+            9: {
+                archetype: 'Гуманист — Число Служения',
+                text: 'Ваше число жизненного пути — 9. Вы несёте в себе мудрость всех чисел, прошедших до Вас. Ваша душа стара и глубока, Ваше сострадание — безгранично. Вы видите человечество как единое целое и чувствуете ответственность за его благополучие. Ваш путь — через отпускание и служение прийти к истинному освобождению.',
+                str: ['Безграничное сострадание','Способность видеть «большую картину»','Щедрость и великодушие','Духовная мудрость'],
+                weak: ['Склонность к самопожертвованию','Разочарование в людях','Трудности с отпусканием','Нереалистичные ожидания'],
+                compat: '3, 6, 9',
+                famous: 'Махатма Ганди (02.10.1869=27=9) · Моцарт (27.01.1756=2+7+1+1+7+5+6=29=11)'
+            },
+            11: {
+                archetype: 'Мастер-Интуит — Число Озарения',
+                text: 'Ваше число жизненного пути — 11. Это мастер-число, несущее особую вибрацию. Вы наделены исключительной интуицией, способностью вдохновлять людей и ощущением особого предназначения. Ваша чувствительность — это и дар, и вызов. Путь числа 11 — через принятие своей особенности научиться использовать её не как бремя, а как силу.',
+                str: ['Исключительная интуиция','Способность вдохновлять','Духовная восприимчивость','Харизматичность'],
+                weak: ['Тревожность и перевозбуждение','Чрезмерный идеализм','Нестабильность в стрессе','Ощущение «непонятости»'],
+                compat: '2, 4, 22',
+                famous: 'Барак Обама (04.08.1961=29=11) · Билл Клинтон (19.08.1946=38=11)'
+            },
+            22: {
+                archetype: 'Мастер-Строитель — Число Воплощения',
+                text: 'Ваше число жизненного пути — 22. Это самое мощное из мастер-чисел. Вы способны строить то, что изменяет жизни многих людей — системы, организации, движения. В Вас сочетаются интуиция 11 и практичность 4. Ваш путь — взять на себя масштабную ответственность и реализовать потенциал, данный Вам для блага мира.',
+                str: ['Масштаб видения','Практичность в воплощении','Природный магнетизм','Способность объединять людей'],
+                weak: ['Перегрузка от масштаба задач','Самоограничение','Страх не оправдать предназначение','Подавление эмоций'],
+                compat: '4, 8, 11',
+                famous: 'Уилл Смит (25.09.1968=4+0=4 — нет) · Мэрилин Монро (01.06.1926=1+6+1+9+2+6=25=7)'
+            }
+        };
+
+        function calcLifePath(dateStr) {
+            const digits = dateStr.replace(/-/g, '').split('').map(Number);
+            let sum = digits.reduce((a, b) => a + b, 0);
+            while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+                sum = String(sum).split('').map(Number).reduce((a, b) => a + b, 0);
+            }
+            return sum;
+        }
+
+        document.getElementById('calcNumBtn').addEventListener('click', function() {
+            const dateVal = document.getElementById('birthDate').value;
+            if (!dateVal) {
+                alert('Пожалуйста, введите дату рождения.');
+                return;
+            }
+            const num = calcLifePath(dateVal);
+            const data = numData[num] || numData[9];
+
+            document.getElementById('resNum').textContent = num;
+            document.getElementById('resArchetype').textContent = data.archetype;
+            document.getElementById('resText').textContent = data.text;
+
+            const strUl = document.getElementById('resStr');
+            strUl.innerHTML = data.str.map(s => `<li>${s}</li>`).join('');
+            const weakUl = document.getElementById('resWeak');
+            weakUl.innerHTML = data.weak.map(s => `<li>${s}</li>`).join('');
+
+            document.getElementById('resCompat').textContent = data.compat;
+            document.getElementById('resFamous').textContent = data.famous;
+
+            const result = document.getElementById('numResult');
+            result.classList.add('visible');
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-item__question').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const item = this.closest('.faq-item');
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

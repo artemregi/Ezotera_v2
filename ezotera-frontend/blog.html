@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Астрологический блог Esoterra — статьи о знаках зодиака, гороскопах, нумерологии, совместимости и саморазвитии.">
+    <title>Астрологический блог — Esoterra</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        /* ===== HERO ===== */
+        .blog-hero {
+            background: var(--gradient-hero);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(108,92,231,0.2) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .blog-hero__label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108,92,231,0.15);
+            border: 1px solid rgba(108,92,231,0.3);
+            border-radius: 100px;
+            padding: 6px 18px;
+            font-size: 0.875rem;
+            color: var(--color-accent-light);
+            margin-bottom: 24px;
+        }
+        .blog-hero__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            color: var(--color-white);
+            margin-bottom: 16px;
+        }
+        .blog-hero__subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== BLOG MAIN ===== */
+        .blog-main {
+            background: #0c1b24;
+            padding: 80px 0;
+        }
+
+        /* ===== FILTERS ===== */
+        .blog-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+        .blog-filter {
+            padding: 8px 22px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            font-family: var(--font-primary);
+            font-weight: 500;
+        }
+        .blog-filter.active,
+        .blog-filter:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        /* ===== ARTICLES GRID ===== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        @media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .blog-grid { grid-template-columns: 1fr; } }
+
+        .article-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-card:hover {
+            border-color: rgba(108,92,231,0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .article-card.hidden { display: none; }
+
+        .article-card__image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-card__image--horoscopes { background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%); }
+        .article-card__image--zodiac { background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%); }
+        .article-card__image--numerology { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+        .article-card__image--natal { background: linear-gradient(135deg, #0f3460 0%, #533483 100%); }
+        .article-card__image--lunar { background: linear-gradient(135deg, #0f2027 0%, #203a43 100%); }
+        .article-card__image--venus { background: linear-gradient(135deg, #b06ab3 0%, #4568dc 100%); }
+        .article-card__image--relationships { background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%); }
+        .article-card__image--scorpio { background: linear-gradient(135deg, #1a1a2e 0%, #800000 100%); }
+        .article-card__image--saturn { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+
+        .article-card__body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-card__meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .article-card__category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-weight: 600;
+        }
+        .article-card__category--horoscopes { background: rgba(17,153,142,0.2); color: #11998e; }
+        .article-card__category--zodiac { background: rgba(131,58,180,0.2); color: #c77dff; }
+        .article-card__category--numerology { background: rgba(108,92,231,0.2); color: var(--color-accent-light); }
+        .article-card__category--relationships { background: rgba(201,75,75,0.2); color: #ff8fa3; }
+        .article-card__category--self-dev { background: rgba(85,239,196,0.15); color: #55efc4; }
+        .article-card__date {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+        }
+        .article-card__title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-white);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .article-card__excerpt {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.62);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .article-card__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-accent-light);
+            text-decoration: none;
+            transition: gap 0.2s ease;
+        }
+        .article-card__link:hover { gap: 10px; }
+
+        /* ===== FEATURED (первая статья большая) ===== */
+        .blog-featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .blog-featured:hover {
+            border-color: rgba(108,92,231,0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        @media (max-width: 768px) {
+            .blog-featured { grid-template-columns: 1fr; }
+        }
+        .blog-featured__image {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            background: linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #11998e 100%);
+        }
+        .blog-featured__body {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .blog-featured__badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-gold);
+            border: 1px solid rgba(249,202,36,0.3);
+            border-radius: 100px;
+            padding: 4px 14px;
+            margin-bottom: 16px;
+        }
+        .blog-featured__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+            color: var(--color-white);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .blog-featured__excerpt {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+        .blog-featured__meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .blog-featured__cat {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: rgba(17,153,142,0.2);
+            color: #11998e;
+            font-weight: 600;
+        }
+        .blog-featured__date {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .blog-layout { grid-template-columns: 1fr; }
+        }
+        .blog-sidebar {}
+        .sidebar-widget {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+        .sidebar-widget__title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            font-size: 0.8rem;
+            padding: 5px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(108,92,231,0.3);
+            color: rgba(255,255,255,0.65);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tag:hover {
+            background: rgba(108,92,231,0.2);
+            border-color: var(--color-accent);
+            color: var(--color-white);
+        }
+        .popular-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .popular-list li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .popular-list__num {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: rgba(108,92,231,0.5);
+            line-height: 1.2;
+            min-width: 22px;
+        }
+        .popular-list__title {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.5;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .popular-list__title:hover { color: var(--color-accent-light); }
+
+        /* ===== SUBSCRIBE ===== */
+        .subscribe-section {
+            background: #0e1f27;
+            padding: 80px 0;
+        }
+        .subscribe-box {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .subscribe-box__icon {
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+        }
+        .subscribe-box__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: var(--color-white);
+            margin-bottom: 12px;
+        }
+        .subscribe-box__text {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .subscribe-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .subscribe-form__input {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: var(--color-white);
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .subscribe-form__input::placeholder { color: rgba(255,255,255,0.35); }
+        .subscribe-form__input:focus { border-color: var(--color-accent); }
+        .subscribe-form__note {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+
+        <!-- ===== HERO ===== -->
+        <section class="blog-hero">
+            <div class="container">
+                <div class="blog-hero__label">
+                    <span>📖</span>
+                    <span>Знания и вдохновение</span>
+                </div>
+                <h1 class="blog-hero__title">Астрологический блог</h1>
+                <p class="blog-hero__subtitle">
+                    Статьи, практики и инсайты о звёздах, числах и самопознании.
+                    Погрузитесь в мир астрологии вместе с экспертами Esoterra.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ===== BLOG ===== -->
+        <section class="blog-main">
+            <div class="container">
+                <div class="blog-layout">
+
+                    <!-- MAIN CONTENT -->
+                    <div>
+                        <!-- Filters -->
+                        <div class="blog-filters">
+                            <button class="blog-filter active" data-filter="all">Все статьи</button>
+                            <button class="blog-filter" data-filter="horoscopes">Гороскопы</button>
+                            <button class="blog-filter" data-filter="zodiac">Знаки зодиака</button>
+                            <button class="blog-filter" data-filter="relationships">Отношения</button>
+                            <button class="blog-filter" data-filter="self-dev">Саморазвитие</button>
+                            <button class="blog-filter" data-filter="numerology">Нумерология</button>
+                        </div>
+
+                        <!-- FEATURED ARTICLE -->
+                        <div class="blog-featured" data-category="horoscopes" style="margin-bottom:28px;">
+                            <div class="blog-featured__image">☿</div>
+                            <div class="blog-featured__body">
+                                <div class="blog-featured__badge">⭐ Главная статья</div>
+                                <div class="blog-featured__meta">
+                                    <span class="blog-featured__cat">Гороскопы</span>
+                                    <span class="blog-featured__date">15 апреля 2026</span>
+                                </div>
+                                <h2 class="blog-featured__title">Ретроградный Меркурий 2026: чего ожидать и как подготовиться</h2>
+                                <p class="blog-featured__excerpt">
+                                    С 29 апреля по 23 мая 2026 года Меркурий входит в ретроградную фазу в знаке Близнецов.
+                                    Этот период традиционно связывают с коммуникативными сбоями, техническими неполадками
+                                    и возвращением прошлого. Но не всё так мрачно — при правильной подготовке ретроград
+                                    становится временем глубокого переосмысления и перезагрузки.
+                                </p>
+                                <a href="#" class="article-card__link">Читать полностью →</a>
+                            </div>
+                        </div>
+
+                        <!-- ARTICLES GRID -->
+                        <div class="blog-grid">
+
+                            <!-- Статья 2 -->
+                            <div class="article-card" data-category="relationships">
+                                <div class="article-card__image article-card__image--zodiac">♈♍</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--relationships">Отношения</span>
+                                        <span class="article-card__date">8 апреля 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Овен и Дева: неожиданный союз, который работает</h3>
+                                    <p class="article-card__excerpt">
+                                        На первый взгляд, Овен и Дева — полные противоположности. Импульсивный огненный
+                                        знак и методичная земля. Но именно это притяжение «несовместимых» знаков нередко
+                                        оказывается самым трансформирующим в жизни обоих.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 3 -->
+                            <div class="article-card" data-category="numerology">
+                                <div class="article-card__image article-card__image--numerology">7</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--numerology">Нумерология</span>
+                                        <span class="article-card__date">1 апреля 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Число судьбы 7: почему эти люди всегда чувствуют себя чужими</h3>
+                                    <p class="article-card__excerpt">
+                                        Число 7 — самое мистическое в нумерологии. Люди с этим числом жизненного пути
+                                        часто описывают себя как «не таких, как все». Почему это происходит — и как
+                                        превратить ощущение чужеродности в суперсилу?
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 4 -->
+                            <div class="article-card" data-category="self-dev">
+                                <div class="article-card__image article-card__image--natal">🌟</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--self-dev">Саморазвитие</span>
+                                        <span class="article-card__date">25 марта 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Натальная карта: 5 аспектов, которые определяют Вашу жизнь</h3>
+                                    <p class="article-card__excerpt">
+                                        Из сотен элементов натальной карты пять играют ключевую роль в формировании
+                                        Вашего характера, карьеры и отношений. Разберём, на что стоит обратить
+                                        внимание в первую очередь.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 5 -->
+                            <div class="article-card" data-category="horoscopes">
+                                <div class="article-card__image article-card__image--lunar">🌙</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--horoscopes">Гороскопы</span>
+                                        <span class="article-card__date">20 марта 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Лунный календарь мая 2026: лучшие дни для важных решений</h3>
+                                    <p class="article-card__excerpt">
+                                        Май 2026 богат на астрологические события: Венера меняет знак, Луна проходит
+                                        через все 12 знаков зодиака, а Меркурий выходит из ретрограда. Узнайте,
+                                        какие дни подходят для ключевых шагов именно в Вашей жизни.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 6 -->
+                            <div class="article-card" data-category="zodiac">
+                                <div class="article-card__image article-card__image--venus">♀</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--zodiac">Знаки зодиака</span>
+                                        <span class="article-card__date">12 марта 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Венера в Тельце: как это влияет на отношения каждого знака</h3>
+                                    <p class="article-card__excerpt">
+                                        Когда Венера входит в свой родной знак Тельца, энергия любви приобретает
+                                        особую чувственность, глубину и постоянство. Разберём, как этот транзит
+                                        проявится для каждого из 12 знаков зодиака.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 7 -->
+                            <div class="article-card" data-category="relationships">
+                                <div class="article-card__image article-card__image--relationships">💔</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--relationships">Отношения</span>
+                                        <span class="article-card__date">5 марта 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Токсичные паттерны в отношениях: что говорит астрология</h3>
+                                    <p class="article-card__excerpt">
+                                        Астрология способна вскрыть глубинные причины повторяющихся деструктивных
+                                        паттернов в отношениях. Квадрат Венеры и Сатурна, Луна в Скорпионе,
+                                        Марс в 12 доме — что за этим стоит?
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 8 -->
+                            <div class="article-card" data-category="zodiac">
+                                <div class="article-card__image article-card__image--scorpio">♏</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--zodiac">Знаки зодиака</span>
+                                        <span class="article-card__date">28 февраля 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Скорпион: тёмная сторона и скрытый потенциал</h3>
+                                    <p class="article-card__excerpt">
+                                        Скорпион — знак, окружённый мифами и страхами. За репутацией манипулятора
+                                        и ревнивца скрывается один из самых преданных, глубоких и трансформирующихся
+                                        знаков зодиака. Развенчиваем мифы и раскрываем правду.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 9 -->
+                            <div class="article-card" data-category="self-dev">
+                                <div class="article-card__image article-card__image--saturn">♄</div>
+                                <div class="article-card__body">
+                                    <div class="article-card__meta">
+                                        <span class="article-card__category article-card__category--self-dev">Саморазвитие</span>
+                                        <span class="article-card__date">20 февраля 2026</span>
+                                    </div>
+                                    <h3 class="article-card__title">Как Сатурн формирует Вашу карьеру и финансы</h3>
+                                    <p class="article-card__excerpt">
+                                        Сатурн — планета дисциплины, кармических уроков и долгосрочного успеха.
+                                        Его положение в Вашей натальной карте во многом определяет отношение к
+                                        труду, деньгам и профессиональной реализации.
+                                    </p>
+                                    <a href="#" class="article-card__link">Читать далее →</a>
+                                </div>
+                            </div>
+
+                        </div><!-- /blog-grid -->
+                    </div>
+
+                    <!-- SIDEBAR -->
+                    <aside class="blog-sidebar">
+
+                        <!-- Популярные статьи -->
+                        <div class="sidebar-widget">
+                            <h3 class="sidebar-widget__title">📈 Популярное</h3>
+                            <ul class="popular-list">
+                                <li>
+                                    <span class="popular-list__num">01</span>
+                                    <span class="popular-list__title">Натальная карта: 5 аспектов, которые определяют Вашу жизнь</span>
+                                </li>
+                                <li>
+                                    <span class="popular-list__num">02</span>
+                                    <span class="popular-list__title">Ретроградный Меркурий 2026: чего ожидать</span>
+                                </li>
+                                <li>
+                                    <span class="popular-list__num">03</span>
+                                    <span class="popular-list__title">Скорпион: тёмная сторона и скрытый потенциал</span>
+                                </li>
+                                <li>
+                                    <span class="popular-list__num">04</span>
+                                    <span class="popular-list__title">Число судьбы 7: почему эти люди всегда чувствуют себя чужими</span>
+                                </li>
+                                <li>
+                                    <span class="popular-list__num">05</span>
+                                    <span class="popular-list__title">Токсичные паттерны в отношениях: что говорит астрология</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Облако тегов -->
+                        <div class="sidebar-widget">
+                            <h3 class="sidebar-widget__title">🏷️ Теги</h3>
+                            <div class="tag-cloud">
+                                <span class="tag">Меркурий</span>
+                                <span class="tag">Ретроград</span>
+                                <span class="tag">Луна</span>
+                                <span class="tag">Венера</span>
+                                <span class="tag">Сатурн</span>
+                                <span class="tag">Натальная карта</span>
+                                <span class="tag">Совместимость</span>
+                                <span class="tag">Нумерология</span>
+                                <span class="tag">Скорпион</span>
+                                <span class="tag">Овен</span>
+                                <span class="tag">Отношения</span>
+                                <span class="tag">Лунный календарь</span>
+                                <span class="tag">Юпитер</span>
+                                <span class="tag">Синастрия</span>
+                                <span class="tag">Транзиты</span>
+                                <span class="tag">Асцендент</span>
+                                <span class="tag">Кармические узлы</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="sidebar-widget" style="background:rgba(108,92,231,0.1); border-color:rgba(108,92,231,0.25); text-align:center;">
+                            <div style="font-size:2.2rem; margin-bottom:12px;">🔮</div>
+                            <h3 class="sidebar-widget__title" style="margin-bottom:12px;">Персональный прогноз</h3>
+                            <p style="font-size:0.85rem; color:rgba(255,255,255,0.65); line-height:1.6; margin-bottom:20px;">
+                                Получите анализ Вашей натальной карты от профессионального астролога Esoterra
+                            </p>
+                            <a href="pay.html" class="button button--primary" style="width:100%; display:block; text-align:center;">Заказать</a>
+                        </div>
+
+                        <!-- Категории -->
+                        <div class="sidebar-widget">
+                            <h3 class="sidebar-widget__title">📚 Категории</h3>
+                            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
+                                <li style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                                    <span style="color:rgba(255,255,255,0.75);">Гороскопы</span>
+                                    <span style="color:rgba(255,255,255,0.4);">2</span>
+                                </li>
+                                <li style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                                    <span style="color:rgba(255,255,255,0.75);">Знаки зодиака</span>
+                                    <span style="color:rgba(255,255,255,0.4);">2</span>
+                                </li>
+                                <li style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                                    <span style="color:rgba(255,255,255,0.75);">Отношения</span>
+                                    <span style="color:rgba(255,255,255,0.4);">2</span>
+                                </li>
+                                <li style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                                    <span style="color:rgba(255,255,255,0.75);">Саморазвитие</span>
+                                    <span style="color:rgba(255,255,255,0.4);">2</span>
+                                </li>
+                                <li style="display:flex; justify-content:space-between; font-size:0.88rem;">
+                                    <span style="color:rgba(255,255,255,0.75);">Нумерология</span>
+                                    <span style="color:rgba(255,255,255,0.4);">1</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ПОДПИСКА ===== -->
+        <section class="subscribe-section">
+            <div class="container">
+                <div class="subscribe-box">
+                    <div class="subscribe-box__icon">✉️</div>
+                    <h2 class="subscribe-box__title">Подпишитесь на астрологическую рассылку</h2>
+                    <p class="subscribe-box__text">
+                        Получайте еженедельные астрологические прогнозы, разборы транзитов
+                        и эксклюзивные материалы прямо на Вашу электронную почту.
+                        Без спама — только полезный контент от экспертов Esoterra.
+                    </p>
+                    <form class="subscribe-form" onsubmit="handleSubscribe(event)">
+                        <input
+                            type="email"
+                            class="subscribe-form__input"
+                            placeholder="Ваш email-адрес"
+                            required
+                            id="subscribeEmail"
+                        >
+                        <button type="submit" class="button button--primary">Подписаться</button>
+                    </form>
+                    <p class="subscribe-form__note">
+                        Нажимая кнопку, Вы соглашаетесь с
+                        <a href="legal/privacy.html" style="color:rgba(255,255,255,0.55);">политикой конфиденциальности</a>.
+                        Отписаться можно в любой момент.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo"><span class="footer__logo-text">Esoterra</span></a>
+                    <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="index.html#faq" class="footer__link">FAQ</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/privacy.html" class="footer__link">Политика конфиденциальности</a>
+                        <a href="legal/terms.html" class="footer__link">Условия использования</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/cookie-consent.js"></script>
+    <script>
+        // Filter logic
+        const filters = document.querySelectorAll('.blog-filter');
+        const articles = document.querySelectorAll('.article-card');
+        const featured = document.querySelector('.blog-featured');
+
+        filters.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filters.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+
+                // Show/hide featured
+                if (featured) {
+                    const featCat = featured.dataset.category;
+                    featured.style.display = (filter === 'all' || filter === featCat) ? '' : 'none';
+                }
+
+                // Show/hide article cards
+                articles.forEach(card => {
+                    const cat = card.dataset.category;
+                    if (filter === 'all' || cat === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Subscribe handler
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const email = document.getElementById('subscribeEmail').value;
+            const btn = e.target.querySelector('button');
+            btn.textContent = '✓ Вы подписаны!';
+            btn.disabled = true;
+            btn.style.background = '#55efc4';
+            btn.style.color = '#0c1b24';
+        }
+    </script>
+</body>
+</html>
