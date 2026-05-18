@@ -41,8 +41,8 @@
     --gradient-dark-section: linear-gradient(180deg, #0e1f27 0%, #152b35 100%);
 
     /* Typography */
-    --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-primary: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
     /* Font Sizes */
     --font-size-xs: 0.75rem;
@@ -275,14 +275,16 @@ p {
 }
 
 .button--primary {
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #7c6fee 0%, #6c5ce7 50%, #5a4de0 100%);
     color: var(--color-white);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4), 0 0 0 1px rgba(162,155,254,0.2) inset;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .button--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(108, 92, 231, 0.6), 0 0 0 1px rgba(162,155,254,0.3) inset;
+    background: linear-gradient(135deg, #8d80f5 0%, #7c6fee 50%, #6c5ce7 100%);
 }
 
 .button--primary:focus {
@@ -314,6 +316,33 @@ p {
 .button--primary:hover::after {
     left: 120%;
 }
+
+.button--gold {
+    background: linear-gradient(135deg, #d4a843 0%, #c9a227 40%, #a67c00 100%);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(201,162,39,0.4), 0 0 0 1px rgba(212,168,67,0.3) inset;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.button--gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(201,162,39,0.6), 0 0 0 1px rgba(212,168,67,0.4) inset;
+    background: linear-gradient(135deg, #e0b84d 0%, #d4a843 40%, #b88a00 100%);
+}
+
+.button--gold::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -60%;
+    width: 40%; height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+}
+
+.button--gold:hover::after { left: 120%; }
 
 .button--secondary {
     background-color: transparent;

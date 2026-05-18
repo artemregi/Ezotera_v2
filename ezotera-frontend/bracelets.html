@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Браслеты Esoterra из натуральных камней — кунцит, содалит, турмалин, агат дзи. Ручная работа, эзотерическая сила, подарочная упаковка.">
+    <title>Браслеты — Esoterra</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        /* ============================================
+           BRACELETS PAGE — Esoterra
+           ============================================ */
+
+        /* ----- Hero ----- */
+        .br-hero {
+            background: var(--gradient-hero);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .br-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 20% 30%, rgba(108, 92, 231, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201, 162, 39, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .br-hero__badge {
+            display: inline-block;
+            background: rgba(201, 162, 39, 0.15);
+            border: 1px solid rgba(201, 162, 39, 0.4);
+            color: #c9a227;
+            font-family: var(--font-primary);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            letter-spacing: 0.08em;
+            padding: 6px 18px;
+            border-radius: var(--radius-full);
+            margin-bottom: 24px;
+        }
+
+        .br-hero__title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 700;
+            color: var(--color-white);
+            margin: 0 0 20px;
+            line-height: var(--line-height-tight);
+        }
+
+        .br-hero__subtitle {
+            font-family: var(--font-primary);
+            font-size: var(--font-size-md);
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 640px;
+            margin: 0 auto 48px;
+            line-height: var(--line-height-relaxed);
+        }
+
+        .br-hero__facts {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .br-hero__fact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .br-hero__fact-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .br-hero__fact-text {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.65);
+            font-weight: var(--font-weight-medium);
+            letter-spacing: 0.03em;
+        }
+
+        /* ----- Philosophy ----- */
+        .br-philosophy {
+            background: var(--color-primary);
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .br-philosophy__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .br-philosophy__text {
+            font-family: var(--font-primary);
+            font-size: var(--font-size-md);
+            color: rgba(255, 255, 255, 0.72);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .br-philosophy__text strong {
+            color: var(--color-white);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .br-philosophy__values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .br-philosophy__value {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .br-philosophy__value-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .br-philosophy__value-label {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-white);
+            display: block;
+        }
+
+        /* ----- Bracelets Grid ----- */
+        .br-grid {
+            background: linear-gradient(180deg, #0e1f27 0%, #152b35 100%);
+            padding: 100px 0;
+        }
+
+        .br-grid__header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .br-grid__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--color-white);
+            margin: 0 0 12px;
+        }
+
+        .br-grid__subtitle {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: var(--font-size-base);
+        }
+
+        .br-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        /* Bracelet card */
+        .br-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardFadeIn 0.6s ease forwards;
+        }
+
+        .br-card:nth-child(1) { animation-delay: 0.1s; }
+        .br-card:nth-child(2) { animation-delay: 0.2s; }
+        .br-card:nth-child(3) { animation-delay: 0.3s; }
+        .br-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .br-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 64px rgba(108, 92, 231, 0.25), 0 0 0 1px rgba(108, 92, 231, 0.2);
+            border-color: rgba(108, 92, 231, 0.3);
+        }
+
+        .br-card__photo-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+        }
+
+        .br-card__photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+            border-radius: 0;
+        }
+
+        .br-card:hover .br-card__photo {
+            transform: scale(1.04);
+        }
+
+        .br-card__photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(14, 31, 39, 0.7) 0%, transparent 55%);
+        }
+
+        .br-card__stone-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(201, 162, 39, 0.18);
+            border: 1px solid rgba(201, 162, 39, 0.45);
+            color: #c9a227;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.06em;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            backdrop-filter: blur(8px);
+        }
+
+        .br-card__body {
+            padding: 28px 28px 0;
+        }
+
+        .br-card__title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin: 0 0 6px;
+            line-height: 1.3;
+        }
+
+        .br-card__desc {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.65);
+            line-height: var(--line-height-relaxed);
+            margin: 12px 0 20px;
+        }
+
+        .br-card__props {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .br-card__prop {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(108, 92, 231, 0.12);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            border-radius: var(--radius-full);
+            padding: 4px 10px;
+        }
+
+        .br-card__prop::before {
+            content: '✦';
+            color: #c9a227;
+            font-size: 0.6rem;
+        }
+
+        .br-card__ideal {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .br-card__ideal strong {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: normal;
+        }
+
+        .br-card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            margin-top: 4px;
+        }
+
+        .br-card__price {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #c9a227;
+            letter-spacing: -0.01em;
+        }
+
+        .br-card__price::before {
+            content: '✦ ';
+            font-size: 0.8rem;
+            vertical-align: middle;
+            opacity: 0.8;
+        }
+
+        /* Order button — gold-violet gradient */
+        .btn-order {
+            display: inline-block;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #c9a227, #6c5ce7);
+            color: #fff;
+            font-family: var(--font-primary);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: box-shadow var(--transition-base), transform var(--transition-fast), filter var(--transition-base);
+            box-shadow: 0 4px 18px rgba(108, 92, 231, 0.35);
+            white-space: nowrap;
+        }
+
+        .btn-order:hover {
+            box-shadow: 0 6px 28px rgba(201, 162, 39, 0.45), 0 0 0 1px rgba(201, 162, 39, 0.3);
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        .btn-order:active {
+            transform: translateY(0);
+        }
+
+        /* ----- Choose section ----- */
+        .br-choose {
+            background: var(--color-primary);
+            padding: 100px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .br-choose__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--color-white);
+            text-align: center;
+            margin: 0 0 12px;
+        }
+
+        .br-choose__subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 56px;
+        }
+
+        .br-choose__methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .br-choose__method {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px 28px;
+        }
+
+        .br-choose__method-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, #c9a227, #6c5ce7);
+            color: #fff;
+            font-weight: 700;
+            font-size: var(--font-size-sm);
+            margin-bottom: 16px;
+        }
+
+        .br-choose__method-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-white);
+            margin: 0 0 10px;
+        }
+
+        .br-choose__method-desc {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.6);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Goal table */
+        .br-goal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .br-goal-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .br-goal-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .br-goal-table td {
+            padding: 8px 4px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .br-goal-table td:first-child {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: var(--font-weight-medium);
+            white-space: nowrap;
+            padding-right: 12px;
+        }
+
+        .br-goal-table td .arrow {
+            color: #c9a227;
+            margin: 0 6px;
+        }
+
+        /* Zodiac list */
+        .br-zodiac-list {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0;
+        }
+
+        .br-zodiac-list li {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.65);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1.5;
+        }
+
+        .br-zodiac-list li:last-child {
+            border-bottom: none;
+        }
+
+        .br-zodiac-list li strong {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ----- How we work ----- */
+        .br-how {
+            background: linear-gradient(180deg, #0e1f27 0%, #152b35 100%);
+            padding: 100px 0;
+        }
+
+        .br-how__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--color-white);
+            text-align: center;
+            margin: 0 0 12px;
+        }
+
+        .br-how__subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 56px;
+        }
+
+        .br-how__steps {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .br-how__step {
+            flex: 1;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .br-how__step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: rgba(108, 92, 231, 0.15);
+            border: 2px solid rgba(108, 92, 231, 0.4);
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-accent-light);
+            margin-bottom: 20px;
+        }
+
+        .br-how__step-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-white);
+            margin: 0 0 10px;
+        }
+
+        .br-how__step-desc {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.6);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .br-how__connector {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(108, 92, 231, 0.4), rgba(201, 162, 39, 0.4));
+            margin-top: 27px;
+            flex-shrink: 0;
+        }
+
+        /* ----- Reviews ----- */
+        .br-reviews {
+            background: var(--color-primary);
+            padding: 100px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .br-reviews__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--color-white);
+            text-align: center;
+            margin: 0 0 12px;
+        }
+
+        .br-reviews__subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 56px;
+        }
+
+        .br-reviews__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .br-review {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px;
+            transition: border-color var(--transition-base);
+        }
+
+        .br-review:hover {
+            border-color: rgba(108, 92, 231, 0.25);
+        }
+
+        .br-review__stars {
+            color: #c9a227;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .br-review__text {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.72);
+            line-height: var(--line-height-relaxed);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .br-review__author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .br-review__avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, #6c5ce7, #c9a227);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .br-review__name {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-white);
+            font-size: var(--font-size-sm);
+        }
+
+        .br-review__city {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .br-review__bracelet {
+            font-size: 0.72rem;
+            color: #c9a227;
+            margin-top: 2px;
+        }
+
+        /* ----- CTA block ----- */
+        .br-cta {
+            background: var(--gradient-hero);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .br-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(108, 92, 231, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .br-cta__title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--color-white);
+            margin: 0 0 16px;
+        }
+
+        .br-cta__desc {
+            font-size: var(--font-size-md);
+            color: rgba(255, 255, 255, 0.68);
+            max-width: 540px;
+            margin: 0 auto 36px;
+            line-height: var(--line-height-relaxed);
+        }
+
+        .br-cta__actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ----- Responsive ----- */
+        @media (max-width: 900px) {
+            .br-philosophy__inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .br-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .br-choose__methods {
+                grid-template-columns: 1fr;
+            }
+
+            .br-how__steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 32px;
+            }
+
+            .br-how__connector {
+                width: 2px;
+                height: 40px;
+                margin: 0;
+            }
+
+            .br-reviews__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .br-hero {
+                padding: 100px 0 60px;
+            }
+
+            .br-hero__facts {
+                gap: 24px;
+            }
+
+            .br-card__footer {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .br-philosophy__values {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Container utility (if not in global) */
+        .container {
+            max-width: var(--container-max-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--container-padding);
+            padding-right: var(--container-padding);
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+
+        <!-- ===== HERO ===== -->
+        <section class="br-hero">
+            <div class="container">
+                <span class="br-hero__badge">✦ Ручная работа · Натуральные камни</span>
+                <h1 class="br-hero__title">Браслеты Esoterra</h1>
+                <p class="br-hero__subtitle">
+                    Каждый браслет — не просто украшение. Это личный символ Вашей силы, защиты и намерения.
+                    Создан вручную из натуральных камней с вниманием к каждой детали.
+                </p>
+                <div class="br-hero__facts">
+                    <div class="br-hero__fact">
+                        <span class="br-hero__fact-icon">💎</span>
+                        <span class="br-hero__fact-text">100% натуральные камни</span>
+                    </div>
+                    <div class="br-hero__fact">
+                        <span class="br-hero__fact-icon">✋</span>
+                        <span class="br-hero__fact-text">Ручная работа</span>
+                    </div>
+                    <div class="br-hero__fact">
+                        <span class="br-hero__fact-icon">🎁</span>
+                        <span class="br-hero__fact-text">Подарочная упаковка</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== PHILOSOPHY ===== -->
+        <section class="br-philosophy">
+            <div class="container">
+                <div class="br-philosophy__inner">
+                    <div class="br-philosophy__text">
+                        <p>
+                            Мы верим, что <strong>каждый камень несёт в себе определённую частоту энергии</strong>.
+                            Правильно подобранный браслет становится ежедневным напоминанием о Вашем намерении —
+                            защититься, открыться, привлечь или отпустить.
+                        </p>
+                        <p style="margin-top: 20px;">
+                            Носите его как якорь к тому состоянию, которое хотите сохранить.
+                            Пусть он будет с Вами в моменты, когда нужна поддержка, ясность или просто —
+                            тихое напоминание о том, кто Вы есть.
+                        </p>
+                    </div>
+                    <div class="br-philosophy__values">
+                        <div class="br-philosophy__value">
+                            <span class="br-philosophy__value-icon">🔮</span>
+                            <span class="br-philosophy__value-label">Энергетика камней</span>
+                        </div>
+                        <div class="br-philosophy__value">
+                            <span class="br-philosophy__value-icon">🌿</span>
+                            <span class="br-philosophy__value-label">Природная сила</span>
+                        </div>
+                        <div class="br-philosophy__value">
+                            <span class="br-philosophy__value-icon">🤍</span>
+                            <span class="br-philosophy__value-label">Чистое намерение</span>
+                        </div>
+                        <div class="br-philosophy__value">
+                            <span class="br-philosophy__value-icon">✨</span>
+                            <span class="br-philosophy__value-label">Осознанный выбор</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== BRACELETS GRID ===== -->
+        <section class="br-grid" id="bracelets">
+            <div class="container">
+                <div class="br-grid__header">
+                    <h2 class="br-grid__title">Коллекция браслетов</h2>
+                    <p class="br-grid__subtitle">Четыре браслета — четыре пути к себе</p>
+                </div>
+
+                <div class="br-cards">
+
+                    <!-- Bracelet 1 — Кунцит -->
+                    <article class="br-card">
+                        <div class="br-card__photo-wrap">
+                            <img
+                                class="br-card__photo"
+                                src="assets/images/bracelet-1.jpg"
+                                alt="Браслет Кунцит — нежность и любовь"
+                                loading="lazy"
+                            >
+                            <div class="br-card__photo-overlay"></div>
+                            <span class="br-card__stone-badge">Натуральный кунцит · розовый</span>
+                        </div>
+                        <div class="br-card__body">
+                            <h3 class="br-card__title">Кунцит · Нежность и Любовь</h3>
+                            <p class="br-card__desc">
+                                Кунцит называют камнем открытого сердца. Он мягко снимает барьеры, которые мы выстраиваем
+                                вокруг себя, и позволяет любви — к себе и другим — течь свободно. Этот браслет для тех,
+                                кто хочет чувствовать больше: больше тепла, больше близости, больше себя.
+                            </p>
+                            <div class="br-card__props">
+                                <span class="br-card__prop">Притягивает любовь</span>
+                                <span class="br-card__prop">Снижает тревогу</span>
+                                <span class="br-card__prop">Открывает сердце</span>
+                                <span class="br-card__prop">Дарит душевный покой</span>
+                            </div>
+                            <p class="br-card__ideal">
+                                <strong>Идеально для:</strong> тех, кто переживает непростой период в отношениях или хочет привлечь новую любовь
+                            </p>
+                        </div>
+                        <div class="br-card__footer">
+                            <span class="br-card__price">1 490 ₽</span>
+                            <a
+                                href="https://wa.me/79999999999?text=Хочу+заказать+браслет+Кунцит+·+Нежность+и+Любовь"
+                                class="btn-order"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Заказать браслет</a>
+                        </div>
+                    </article>
+
+                    <!-- Bracelet 2 — Содалит и руны -->
+                    <article class="br-card">
+                        <div class="br-card__photo-wrap">
+                            <img
+                                class="br-card__photo"
+                                src="assets/images/bracelet-2.jpg"
+                                alt="Браслет Содалит и Руны Феху — мудрость и достаток"
+                                loading="lazy"
+                            >
+                            <div class="br-card__photo-overlay"></div>
+                            <span class="br-card__stone-badge">Содалит + руны Феху · синий</span>
+                        </div>
+                        <div class="br-card__body">
+                            <h3 class="br-card__title">Содалит и Руны Феху · Мудрость и Достаток</h3>
+                            <p class="br-card__desc">
+                                Содалит — камень ясного ума и глубокой интуиции. Руна Феху — древний символ изобилия и удачи
+                                в делах. Вместе они создают мощный амулет для тех, кто стремится к успеху, но хочет идти к нему
+                                мудро — не вопреки себе, а в согласии с собой.
+                            </p>
+                            <div class="br-card__props">
+                                <span class="br-card__prop">Усиливает интуицию</span>
+                                <span class="br-card__prop">Привлекает достаток</span>
+                                <span class="br-card__prop">Защищает от манипуляций</span>
+                                <span class="br-card__prop">Проясняет ум</span>
+                            </div>
+                            <p class="br-card__ideal">
+                                <strong>Идеально для:</strong> предпринимателей, тех, кто принимает важные решения, и карьерного роста
+                            </p>
+                        </div>
+                        <div class="br-card__footer">
+                            <span class="br-card__price">1 890 ₽</span>
+                            <a
+                                href="https://wa.me/79999999999?text=Хочу+заказать+браслет+Содалит+и+Руны+Феху"
+                                class="btn-order"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Заказать браслет</a>
+                        </div>
+                    </article>
+
+                    <!-- Bracelet 3 — Турмалин и Агат -->
+                    <article class="br-card">
+                        <div class="br-card__photo-wrap">
+                            <img
+                                class="br-card__photo"
+                                src="assets/images/bracelet-3.jpg"
+                                alt="Браслет Турмалин и Тибетский Агат — сила и равновесие"
+                                loading="lazy"
+                            >
+                            <div class="br-card__photo-overlay"></div>
+                            <span class="br-card__stone-badge">Турмалин + тибетский агат дзи</span>
+                        </div>
+                        <div class="br-card__body">
+                            <h3 class="br-card__title">Турмалин и Тибетский Агат · Сила и Равновесие</h3>
+                            <p class="br-card__desc">
+                                Турмалин создаёт энергетический щит, тибетский агат дзи несёт в себе тысячелетнюю мудрость
+                                буддийских монахов. Этот браслет — для тех, кто хочет чувствовать себя защищённым: от внешнего
+                                негатива, от чужих энергий, от собственных сомнений.
+                            </p>
+                            <div class="br-card__props">
+                                <span class="br-card__prop">Защита от негатива</span>
+                                <span class="br-card__prop">Притягивает удачу</span>
+                                <span class="br-card__prop">Усиливает внутреннюю силу</span>
+                                <span class="br-card__prop">Дарит спокойствие</span>
+                            </div>
+                            <p class="br-card__ideal">
+                                <strong>Идеально для:</strong> тех, кто работает с людьми или чувствует энергетическое истощение
+                            </p>
+                        </div>
+                        <div class="br-card__footer">
+                            <span class="br-card__price">2 190 ₽</span>
+                            <a
+                                href="https://wa.me/79999999999?text=Хочу+заказать+браслет+Турмалин+и+Тибетский+Агат"
+                                class="btn-order"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Заказать браслет</a>
+                        </div>
+                    </article>
+
+                    <!-- Bracelet 4 — Триада -->
+                    <article class="br-card">
+                        <div class="br-card__photo-wrap">
+                            <img
+                                class="br-card__photo"
+                                src="assets/images/bracelet-4.jpg"
+                                alt="Браслет Триада — содалит, кунцит и турмалин"
+                                loading="lazy"
+                            >
+                            <div class="br-card__photo-overlay"></div>
+                            <span class="br-card__stone-badge">Содалит + кунцит + турмалин · плетёная нить</span>
+                        </div>
+                        <div class="br-card__body">
+                            <h3 class="br-card__title">Триада · Содалит, Кунцит и Турмалин</h3>
+                            <p class="br-card__desc">
+                                Три камня — три грани Вашей силы. Содалит обостряет интуицию и ясность мышления. Кунцит наполняет
+                                сердце теплом и принятием. Турмалин оберегает от всего лишнего. Браслет-триада создан для тех,
+                                кто ищет не просто украшение, а полноценный инструмент внутреннего баланса.
+                            </p>
+                            <div class="br-card__props">
+                                <span class="br-card__prop">Баланс ума и сердца</span>
+                                <span class="br-card__prop">Защита и любовь</span>
+                                <span class="br-card__prop">Ясность решений</span>
+                                <span class="br-card__prop">Гармония во всём</span>
+                            </div>
+                            <p class="br-card__ideal">
+                                <strong>Идеально для:</strong> тех, кто хочет всё сразу: и защиту, и любовь, и ясность
+                            </p>
+                        </div>
+                        <div class="br-card__footer">
+                            <span class="br-card__price">2 490 ₽</span>
+                            <a
+                                href="https://wa.me/79999999999?text=Хочу+заказать+браслет+Триада"
+                                class="btn-order"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Заказать браслет</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== HOW TO CHOOSE ===== -->
+        <section class="br-choose">
+            <div class="container">
+                <h2 class="br-choose__title">Как выбрать свой браслет</h2>
+                <p class="br-choose__subtitle">Три пути к правильному выбору — доверьтесь тому, что откликается</p>
+
+                <div class="br-choose__methods">
+
+                    <!-- По интуиции -->
+                    <div class="br-choose__method">
+                        <div class="br-choose__method-num">1</div>
+                        <h3 class="br-choose__method-title">По интуиции</h3>
+                        <p class="br-choose__method-desc">
+                            Посмотрите на все четыре браслета. Тот, к которому тянется взгляд и рука —
+                            и есть Ваш. Тело знает, что ему нужно. Доверьтесь первому импульсу: именно он
+                            указывает на то, чего сейчас не хватает.
+                        </p>
+                    </div>
+
+                    <!-- По цели -->
+                    <div class="br-choose__method">
+                        <div class="br-choose__method-num">2</div>
+                        <h3 class="br-choose__method-title">По цели</h3>
+                        <p class="br-choose__method-desc">Знаете, чего хотите? Выбирайте осознанно:</p>
+                        <table class="br-goal-table">
+                            <tr>
+                                <td>Любовь и тепло</td>
+                                <td><span class="arrow">→</span> Кунцит</td>
+                            </tr>
+                            <tr>
+                                <td>Защита и сила</td>
+                                <td><span class="arrow">→</span> Турмалин и Агат</td>
+                            </tr>
+                            <tr>
+                                <td>Мудрость и достаток</td>
+                                <td><span class="arrow">→</span> Содалит и Феху</td>
+                            </tr>
+                            <tr>
+                                <td>Всё и сразу</td>
+                                <td><span class="arrow">→</span> Триада</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- По знаку зодиака -->
+                    <div class="br-choose__method">
+                        <div class="br-choose__method-num">3</div>
+                        <h3 class="br-choose__method-title">По знаку зодиака</h3>
+                        <p class="br-choose__method-desc">Стихия подскажет направление:</p>
+                        <ul class="br-zodiac-list">
+                            <li><strong>Огонь</strong> (Овен, Лев, Стрелец) — Турмалин: укрощает энергию, защищает от импульсивности</li>
+                            <li><strong>Земля</strong> (Телец, Дева, Козерог) — Содалит и Феху: усиливает практичность и финансовый поток</li>
+                            <li><strong>Воздух</strong> (Близнецы, Весы, Водолей) — Кунцит: возвращает в сердце из вечного потока мыслей</li>
+                            <li><strong>Вода</strong> (Рак, Скорпион, Рыбы) — Триада: полный баланс для чуткой натуры</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== HOW WE WORK ===== -->
+        <section class="br-how">
+            <div class="container">
+                <h2 class="br-how__title">Как мы работаем</h2>
+                <p class="br-how__subtitle">От выбора до Вашей руки — с заботой о каждом шаге</p>
+
+                <div class="br-how__steps">
+                    <div class="br-how__step">
+                        <div class="br-how__step-number">01</div>
+                        <h3 class="br-how__step-title">Вы выбираете браслет</h3>
+                        <p class="br-how__step-desc">
+                            Нажмите «Заказать браслет» и напишите нам. Расскажите, что сейчас важно для Вас —
+                            мы поможем с выбором, если нужно.
+                        </p>
+                    </div>
+                    <div class="br-how__connector" aria-hidden="true"></div>
+                    <div class="br-how__step">
+                        <div class="br-how__step-number">02</div>
+                        <h3 class="br-how__step-title">Мы собираем его вручную</h3>
+                        <p class="br-how__step-desc">
+                            Каждый браслет плетётся вручную с осознанным намерением. Камни отбираются
+                            индивидуально — так, чтобы энергетика была цельной и чистой.
+                        </p>
+                    </div>
+                    <div class="br-how__connector" aria-hidden="true"></div>
+                    <div class="br-how__step">
+                        <div class="br-how__step-number">03</div>
+                        <h3 class="br-how__step-title">Доставляем с любовью</h3>
+                        <p class="br-how__step-desc">
+                            Браслет приходит в подарочном мешочке с описанием камней и их свойств.
+                            Готовый подарок — себе или близкому человеку.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== REVIEWS ===== -->
+        <section class="br-reviews">
+            <div class="container">
+                <h2 class="br-reviews__title">Отзывы</h2>
+                <p class="br-reviews__subtitle">Истории тех, кто уже носит свой браслет</p>
+
+                <div class="br-reviews__grid">
+
+                    <div class="br-review">
+                        <div class="br-review__stars">★★★★★</div>
+                        <p class="br-review__text">
+                            «Взяла браслет с кунцитом в момент, когда чувствовала себя совершенно закрытой после
+                            расставания. Не верила, что камень что-то изменит — но носить его приятно, он напоминает
+                            каждый день о намерении открыться. Через месяц познакомилась с удивительным человеком.
+                            Совпадение? Может быть. Но я благодарна.»
+                        </p>
+                        <div class="br-review__author">
+                            <div class="br-review__avatar">М</div>
+                            <div>
+                                <div class="br-review__name">Марина К.</div>
+                                <div class="br-review__city">Москва</div>
+                                <div class="br-review__bracelet">✦ Кунцит · Нежность и Любовь</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="br-review">
+                        <div class="br-review__stars">★★★★★</div>
+                        <p class="br-review__text">
+                            «Скептически относился к эзотерике, но жена подарила браслет с содалитом перед важными
+                            переговорами. Сидел на встрече, крутил его — и поймал себя на том, что думаю чище,
+                            говорю спокойнее. Сделку закрыли. Заказал ещё один — для партнёра.»
+                        </p>
+                        <div class="br-review__author">
+                            <div class="br-review__avatar">Д</div>
+                            <div>
+                                <div class="br-review__name">Дмитрий Р.</div>
+                                <div class="br-review__city">Санкт-Петербург</div>
+                                <div class="br-review__bracelet">✦ Содалит и Руны Феху · Мудрость и Достаток</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="br-review">
+                        <div class="br-review__stars">★★★★★</div>
+                        <p class="br-review__text">
+                            «Триада — это что-то особенное. Я долго выбирала между браслетами и не могла решить.
+                            Написала в поддержку, они посоветовали триаду — и это было идеально. Три камня как три
+                            части меня: голова, сердце и щит. Ношу каждый день уже полгода, не снимаю.»
+                        </p>
+                        <div class="br-review__author">
+                            <div class="br-review__avatar">А</div>
+                            <div>
+                                <div class="br-review__name">Анна В.</div>
+                                <div class="br-review__city">Екатеринбург</div>
+                                <div class="br-review__bracelet">✦ Триада · Содалит, Кунцит и Турмалин</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA ===== -->
+        <section class="br-cta">
+            <div class="container">
+                <h2 class="br-cta__title">Не можете выбрать? Мы поможем</h2>
+                <p class="br-cta__desc">
+                    Напишите нам — расскажите, что сейчас важно для Вас, и мы подберём браслет
+                    под Вашу энергию, запрос и намерение. Бесплатно и без обязательств.
+                </p>
+                <div class="br-cta__actions">
+                    <a
+                        href="https://wa.me/79999999999?text=Помогите+подобрать+браслет"
+                        class="btn-order"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style="padding: 14px 32px; font-size: 1rem;"
+                    >Получить консультацию</a>
+                    <a
+                        href="contact.html"
+                        class="button button--outline-white button--large"
+                        style="padding: 14px 32px;"
+                    >Написать нам</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer></footer>
+
+    <!-- Scripts -->
+    <script src="js/footer-loader.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/cookie-consent.js"></script>
+
+</body>
+</html>

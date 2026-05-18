@@ -87,7 +87,8 @@
                 numerologyHref: '../numerology.html',
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
-                practicesHref: '../practices.html'
+                practicesHref: '../practices.html',
+                braceletHref: '../bracelets.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -108,7 +109,8 @@
                 numerologyHref: '../numerology.html',
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
-                practicesHref: '../practices.html'
+                practicesHref: '../practices.html',
+                braceletHref: '../bracelets.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -129,7 +131,8 @@
                 numerologyHref: '../numerology.html',
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
-                practicesHref: '../practices.html'
+                practicesHref: '../practices.html',
+                braceletHref: '../bracelets.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -150,7 +153,8 @@
                 numerologyHref: 'numerology.html',
                 blogHref: 'blog.html',
                 plannerHref: 'planner.html',
-                practicesHref: 'practices.html'
+                practicesHref: 'practices.html',
+                braceletHref: 'bracelets.html'
             };
         } else {
             return {
@@ -171,7 +175,8 @@
                 numerologyHref: 'numerology.html',
                 blogHref: 'blog.html',
                 plannerHref: 'planner.html',
-                practicesHref: 'practices.html'
+                practicesHref: 'practices.html',
+                braceletHref: 'bracelets.html'
             };
         }
     };
@@ -267,7 +272,8 @@
                 .replace(/BLOG_HREF/g, paths.blogHref)
                 .replace(/PLANNER_HREF/g, paths.plannerHref)
                 .replace(/PRACTICES_HREF/g, paths.practicesHref)
-                .replace(/COMING_SOON_HREF/g, paths.comingSoonHref);
+                .replace(/COMING_SOON_HREF/g, paths.comingSoonHref)
+                .replace(/BRACELETS_HREF/g, paths.braceletHref);
 
             // Insert header at the beginning of body or before first main element
             const headerContainer = document.createElement('div');
