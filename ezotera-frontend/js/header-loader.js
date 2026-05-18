@@ -85,7 +85,9 @@
                 horoscopeHref: '../horoscope.html',
                 compatHref: '../compatibility.html',
                 numerologyHref: '../numerology.html',
-                blogHref: '../blog.html'
+                blogHref: '../blog.html',
+                plannerHref: '../planner.html',
+                practicesHref: '../practices.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -104,7 +106,9 @@
                 horoscopeHref: '../horoscope.html',
                 compatHref: '../compatibility.html',
                 numerologyHref: '../numerology.html',
-                blogHref: '../blog.html'
+                blogHref: '../blog.html',
+                plannerHref: '../planner.html',
+                practicesHref: '../practices.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -123,7 +127,9 @@
                 horoscopeHref: '../horoscope.html',
                 compatHref: '../compatibility.html',
                 numerologyHref: '../numerology.html',
-                blogHref: '../blog.html'
+                blogHref: '../blog.html',
+                plannerHref: '../planner.html',
+                practicesHref: '../practices.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -142,7 +148,9 @@
                 horoscopeHref: 'horoscope.html',
                 compatHref: 'compatibility.html',
                 numerologyHref: 'numerology.html',
-                blogHref: 'blog.html'
+                blogHref: 'blog.html',
+                plannerHref: 'planner.html',
+                practicesHref: 'practices.html'
             };
         } else {
             return {
@@ -161,7 +169,9 @@
                 horoscopeHref: 'horoscope.html',
                 compatHref: 'compatibility.html',
                 numerologyHref: 'numerology.html',
-                blogHref: 'blog.html'
+                blogHref: 'blog.html',
+                plannerHref: 'planner.html',
+                practicesHref: 'practices.html'
             };
         }
     };
@@ -255,6 +265,8 @@
                 .replace(/COMPAT_HREF/g, paths.compatHref)
                 .replace(/NUMEROLOGY_HREF/g, paths.numerologyHref)
                 .replace(/BLOG_HREF/g, paths.blogHref)
+                .replace(/PLANNER_HREF/g, paths.plannerHref)
+                .replace(/PRACTICES_HREF/g, paths.practicesHref)
                 .replace(/COMING_SOON_HREF/g, paths.comingSoonHref);
 
             // Insert header at the beginning of body or before first main element

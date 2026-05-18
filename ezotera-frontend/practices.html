@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Смысловые практики Esoterra — медитации, аффирмации, ритуалы новолуния и визуализации для гармонии с космическими ритмами.">
+    <title>Смысловые практики — Esoterra</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        /* ===== PRACTICES HERO ===== */
+        .practices-hero {
+            padding-top: calc(var(--header-height) + var(--spacing-4xl));
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .practices-hero__title {
+            font-size: var(--font-size-4xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .practices-hero__subtitle {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: var(--line-height-relaxed);
+        }
+
+        .practices-hero__stars {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .practices-hero__star {
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-gold);
+            border-radius: var(--radius-full);
+            opacity: 0.7;
+        }
+
+        .practices-hero__star:nth-child(3) {
+            width: 10px;
+            height: 10px;
+            opacity: 1;
+        }
+
+        /* ===== NEWMOON SECTION ===== */
+        .newmoon {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .newmoon__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(162, 155, 254, 0.1) 100%);
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            color: var(--color-accent);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            padding: 6px 16px;
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .newmoon__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .practice-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            border: 1px solid var(--color-light-gray);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .practice-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .practice-card__icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .practice-card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-family: var(--font-heading);
+        }
+
+        .practice-card__intro {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-lg);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .practice-card__steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .practice-step {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: flex-start;
+        }
+
+        .practice-step__num {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            background: var(--gradient-accent);
+            color: var(--color-white);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            margin-top: 2px;
+        }
+
+        .practice-step__text {
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        .practice-card__affirmation {
+            margin-top: var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.06) 0%, rgba(162, 155, 254, 0.06) 100%);
+            border-left: 3px solid var(--color-accent);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: var(--font-size-sm);
+            color: var(--color-accent-dark);
+            font-style: italic;
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        /* ===== AFFIRMATIONS ===== */
+        .affirmations {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .affirmations__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .zodiac-affirmation-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--color-light-gray);
+            transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+            text-align: center;
+        }
+
+        .zodiac-affirmation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent-light);
+        }
+
+        .zodiac-affirmation-card__icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .zodiac-affirmation-card__sign {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-heading);
+        }
+
+        .zodiac-affirmation-card__list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            text-align: left;
+        }
+
+        .zodiac-affirmation-card__item {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-light);
+            line-height: var(--line-height-relaxed);
+            padding: var(--spacing-sm);
+            background-color: var(--color-off-white);
+            border-radius: var(--radius-sm);
+            border-left: 2px solid var(--color-accent-light);
+        }
+
+        /* ===== VISUALIZATION ===== */
+        .visualization {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .visualization__inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .visualization__header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .visualization__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .visualization__subtitle {
+            font-size: var(--font-size-base);
+            color: rgba(255, 255, 255, 0.7);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .visualization__name {
+            display: inline-block;
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-gold);
+            margin-bottom: var(--spacing-2xl);
+            text-align: center;
+            width: 100%;
+        }
+
+        .visualization__steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .viz-step {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: flex-start;
+        }
+
+        .viz-step__num {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(249, 202, 36, 0.2) 0%, rgba(249, 202, 36, 0.1) 100%);
+            border: 2px solid rgba(249, 202, 36, 0.5);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-gold);
+            margin-top: 2px;
+        }
+
+        .viz-step__content {
+            flex: 1;
+        }
+
+        .viz-step__title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .viz-step__description {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.65);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        .visualization__note {
+            margin-top: var(--spacing-2xl);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background-color: rgba(249, 202, 36, 0.08);
+            border: 1px solid rgba(249, 202, 36, 0.2);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.75);
+            text-align: center;
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        /* ===== ELEMENTS ===== */
+        .elements {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .elements__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .element-card {
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .element-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .element-card--fire {
+            background: linear-gradient(145deg, #2c1a0e 0%, #3d1f0a 100%);
+            border: 1px solid rgba(230, 100, 30, 0.3);
+        }
+
+        .element-card--earth {
+            background: linear-gradient(145deg, #0e1f12 0%, #152b1a 100%);
+            border: 1px solid rgba(46, 139, 87, 0.3);
+        }
+
+        .element-card--air {
+            background: linear-gradient(145deg, #0d1a2c 0%, #122238 100%);
+            border: 1px solid rgba(100, 160, 230, 0.3);
+        }
+
+        .element-card--water {
+            background: linear-gradient(145deg, #0a1525 0%, #0c1d38 100%);
+            border: 1px solid rgba(74, 117, 200, 0.3);
+        }
+
+        .element-card__icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .element-card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-xs);
+            font-family: var(--font-heading);
+        }
+
+        .element-card--fire .element-card__title { color: #f39c12; }
+        .element-card--earth .element-card__title { color: #2ecc71; }
+        .element-card--air .element-card__title { color: #74b9ff; }
+        .element-card--water .element-card__title { color: #a29bfe; }
+
+        .element-card__signs {
+            font-size: var(--font-size-xs);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.4;
+        }
+
+        .element-card--fire .element-card__signs { color: rgba(230, 160, 80, 0.7); }
+        .element-card--earth .element-card__signs { color: rgba(100, 200, 120, 0.7); }
+        .element-card--air .element-card__signs { color: rgba(120, 180, 240, 0.7); }
+        .element-card--water .element-card__signs { color: rgba(162, 155, 254, 0.7); }
+
+        .element-card__practice-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .element-card__practice-text {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.6);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .element-card__practice-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== CTA ===== */
+        .practices-cta {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .practices-cta__inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .practices-cta__icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .practices-cta__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .practices-cta__text {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: var(--spacing-2xl);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .newmoon__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .affirmations__grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .elements__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .newmoon__grid {
+                grid-template-columns: 1fr;
+                max-width: 540px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .affirmations__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .elements__grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .viz-step {
+                gap: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .affirmations__grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main>
+
+        <!-- ===== HERO ===== -->
+        <section class="practices-hero section--dark section text-center">
+            <div class="container">
+                <h1 class="practices-hero__title">Смысловые практики</h1>
+                <p class="practices-hero__subtitle">
+                    Практики осознанности, медитации и ритуалы для гармонии с космическими ритмами. Каждый шаг ведёт Вас к глубинному пониманию себя и своего места во Вселенной.
+                </p>
+                <div class="practices-hero__stars">
+                    <span class="practices-hero__star"></span>
+                    <span class="practices-hero__star"></span>
+                    <span class="practices-hero__star"></span>
+                    <span class="practices-hero__star"></span>
+                    <span class="practices-hero__star"></span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ПРАКТИКИ НОВОЛУНИЯ ===== -->
+        <section class="newmoon section">
+            <div class="container">
+                <div class="section__header">
+                    <div class="newmoon__badge">🌑 Ближайшее новолуние — 27 мая 2026</div>
+                    <h2 class="section__title">Практики новолуния</h2>
+                    <p class="section__subtitle">
+                        Новолуние — самое мощное время для закладки намерений. Приготовьтесь встретить его осознанно с помощью этих четырёх практик.
+                    </p>
+                </div>
+
+                <div class="newmoon__grid">
+
+                    <!-- Ритуал намерений -->
+                    <div class="practice-card fade-in">
+                        <span class="practice-card__icon">🕯️</span>
+                        <h3 class="practice-card__title">Ритуал намерений</h3>
+                        <p class="practice-card__intro">
+                            Один из самых древних и действенных способов взаимодействия с энергией новолуния. Слова, написанные на новолуние, обретают особую силу — они буквально «вписываются» в новый лунный цикл.
+                        </p>
+                        <div class="practice-card__steps">
+                            <div class="practice-step">
+                                <span class="practice-step__num">1</span>
+                                <p class="practice-step__text">Выберите тихое место и зажгите белую или серебристую свечу. Свеча символизирует свет намерения, исходящий в мир.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">2</span>
+                                <p class="practice-step__text">Возьмите чистый лист бумаги и ручку с чернилами (не карандаш). Сделайте три медленных глубоких вдоха, освобождая ум от суеты дня.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">3</span>
+                                <p class="practice-step__text">Запишите ровно 3 намерения. Формулируйте их в настоящем времени, от первого лица, в утвердительной форме. Не «хочу», а «я имею», «я создаю», «я живу».</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">4</span>
+                                <p class="practice-step__text">Прочитайте каждое намерение вслух трижды, вкладывая в слова чувство — представляйте, как Вы уже живёте в реальности, которую описываете.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">5</span>
+                                <p class="practice-step__text">Сложите лист, положите под свечу и дайте ей догореть. Листок храните до следующего новолуния, затем сожгите с благодарностью.</p>
+                            </div>
+                        </div>
+                        <p class="practice-card__affirmation">
+                            «Я доверяю Вселенной и открываю сердце навстречу тому, что мне предназначено.»
+                        </p>
+                    </div>
+
+                    <!-- Медитация тишины -->
+                    <div class="practice-card fade-in">
+                        <span class="practice-card__icon">🧘</span>
+                        <h3 class="practice-card__title">Медитация тишины</h3>
+                        <p class="practice-card__intro">
+                            Десятиминутная практика для обнуления внутреннего шума и выхода в пространство чистого присутствия. Особенно эффективна в ночное время в день новолуния.
+                        </p>
+                        <div class="practice-card__steps">
+                            <div class="practice-step">
+                                <span class="practice-step__num">1</span>
+                                <p class="practice-step__text">Сядьте удобно, выпрямив спину. Поставьте таймер на 10 минут. Закройте глаза и положите руки на колени ладонями вверх.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">2</span>
+                                <p class="practice-step__text">Сделайте 7 медленных вдохов и выдохов, каждый раз удлиняя выдох вдвое длиннее вдоха. Почувствуйте, как тело расслабляется с каждым выдохом.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">3</span>
+                                <p class="practice-step__text">Когда мысли приходят — не боритесь с ними. Просто наблюдайте, как они проплывают мимо, словно облака. Вы — небо, а не облака.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">4</span>
+                                <p class="practice-step__text">Направьте внимание в центр груди. Представьте там тихий, мерно пульсирующий свет — это Ваше подлинное «Я», спокойное и мудрое.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">5</span>
+                                <p class="practice-step__text">Когда таймер зазвонит, не торопитесь открывать глаза. Сделайте ещё три вдоха и мысленно задайте себе вопрос: «Что важно для меня прямо сейчас?» Запомните первый образ или слово, которое возникнет.</p>
+                            </div>
+                        </div>
+                        <p class="practice-card__affirmation">
+                            «В тишине я слышу голос своей мудрости. Я в безопасности. Я дома.»
+                        </p>
+                    </div>
+
+                    <!-- Журнал благодарности -->
+                    <div class="practice-card fade-in">
+                        <span class="practice-card__icon">📓</span>
+                        <h3 class="practice-card__title">Журнал благодарности</h3>
+                        <p class="practice-card__intro">
+                            Благодарность — это не просто хорошая привычка, а мощный энергетический сигнал. Когда Вы искренне благодарны за то, что имеете, Вселенная откликается щедростью.
+                        </p>
+                        <div class="practice-card__steps">
+                            <div class="practice-step">
+                                <span class="practice-step__num">1</span>
+                                <p class="practice-step__text">Заведите отдельную тетрадь или блокнот только для этой практики. Красивая обложка усилит Ваше намерение — это важнее, чем кажется.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">2</span>
+                                <p class="practice-step__text">Каждое утро (или вечером нового дня) записывайте ровно 5 вещей, за которые Вы благодарны. Не повторяйтесь — ищите новое каждый день.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">3</span>
+                                <p class="practice-step__text">Пишите конкретно: не «я благодарна за семью», а «я благодарна маме за звонок вчера вечером, её голос напомнил мне, что я любима». Детали оживляют благодарность.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">4</span>
+                                <p class="practice-step__text">На новолуние — перечитайте записи последних 29 дней. Вы увидите паттерны своей жизни — и поймёте, в чём Ваше истинное изобилие.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">5</span>
+                                <p class="practice-step__text">После перечтения добавьте одну страницу: «5 вещей, за которые я заранее благодарна в следующем месяце» — так Вы программируете будущее с позиции благодарности.</p>
+                            </div>
+                        </div>
+                        <p class="practice-card__affirmation">
+                            «Я замечаю дары жизни каждый день. Изобилие уже здесь, рядом со мной.»
+                        </p>
+                    </div>
+
+                    <!-- Очищение пространства -->
+                    <div class="practice-card fade-in">
+                        <span class="practice-card__icon">🌿</span>
+                        <h3 class="practice-card__title">Очищение пространства</h3>
+                        <p class="practice-card__intro">
+                            Перед тем как наполнить жизнь новым, необходимо освободить место. Эта практика очищает дом от накопившихся энергий и создаёт чистое поле для нового цикла.
+                        </p>
+                        <div class="practice-card__steps">
+                            <div class="practice-step">
+                                <span class="practice-step__num">1</span>
+                                <p class="practice-step__text">Начните с физической уборки — выбросьте или отдайте ненужные вещи. Новолуние — лучшее время для расхламления: то, что Вы отпускаете, уходит навсегда.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">2</span>
+                                <p class="practice-step__text">Откройте все окна минимум на 5 минут. Старый воздух — старые энергии. Свежий ветер принесёт обновление даже в самый тихий день.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">3</span>
+                                <p class="practice-step__text">Используйте один из очистителей: пучок шалфея (поджечь, дать затлеть и пройтись дымом по периметру комнат), или блюдце с крупной морской солью в каждом углу на 24 часа, или аромалампу с ладаном, сандалом или белым шалфеем.</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">4</span>
+                                <p class="practice-step__text">Во время очищения произносите вслух или про себя: «Всё, что больше не служит моему благу, уходит легко и с благодарностью. Это пространство наполняется светом и любовью.»</p>
+                            </div>
+                            <div class="practice-step">
+                                <span class="practice-step__num">5</span>
+                                <p class="practice-step__text">Завершите практику зажжённой свечой или ароматическими палочками в центре дома, поблагодарив пространство за защиту и уют, которые оно Вам даёт.</p>
+                            </div>
+                        </div>
+                        <p class="practice-card__affirmation">
+                            «Мой дом — это храм. Он наполнен миром, светом и возможностями.»
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== АФФИРМАЦИИ ПО ЗНАКАМ ===== -->
+        <section class="affirmations section section--light">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Аффирмации по знакам зодиака</h2>
+                    <p class="section__subtitle">
+                        Каждый знак обладает уникальными силами и вызовами. Эти аффирмации написаны специально для глубинных архетипов каждого знака — повторяйте их ежедневно утром.
+                    </p>
+                </div>
+
+                <div class="affirmations__grid">
+
+                    <!-- Овен -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♈</span>
+                        <div class="zodiac-affirmation-card__sign">Овен</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Моя энергия созидает, а не разрушает</div>
+                            <div class="zodiac-affirmation-card__item">Я принимаю решения быстро и точно</div>
+                            <div class="zodiac-affirmation-card__item">Мой огонь освещает путь другим</div>
+                        </div>
+                    </div>
+
+                    <!-- Телец -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♉</span>
+                        <div class="zodiac-affirmation-card__sign">Телец</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Изобилие приходит ко мне легко и естественно</div>
+                            <div class="zodiac-affirmation-card__item">Мои усилия всегда приносят стабильный результат</div>
+                            <div class="zodiac-affirmation-card__item">Я создаю красоту везде, где нахожусь</div>
+                        </div>
+                    </div>
+
+                    <!-- Близнецы -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♊</span>
+                        <div class="zodiac-affirmation-card__sign">Близнецы</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Мои слова несут силу и ясность</div>
+                            <div class="zodiac-affirmation-card__item">Я умею слушать так же глубоко, как говорить</div>
+                            <div class="zodiac-affirmation-card__item">Моя любознательность открывает удивительные двери</div>
+                        </div>
+                    </div>
+
+                    <!-- Рак -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♋</span>
+                        <div class="zodiac-affirmation-card__sign">Рак</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Моя чувствительность — дар, а не слабость</div>
+                            <div class="zodiac-affirmation-card__item">Я даю заботу себе с такой же нежностью, как и другим</div>
+                            <div class="zodiac-affirmation-card__item">Я в безопасности, и моя душа знает покой</div>
+                        </div>
+                    </div>
+
+                    <!-- Лев -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♌</span>
+                        <div class="zodiac-affirmation-card__sign">Лев</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Я сияю без страха быть замеченным</div>
+                            <div class="zodiac-affirmation-card__item">Моё сердце способно вмещать безграничную любовь</div>
+                            <div class="zodiac-affirmation-card__item">Истинное величие рождается из щедрости</div>
+                        </div>
+                    </div>
+
+                    <!-- Дева -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♍</span>
+                        <div class="zodiac-affirmation-card__sign">Дева</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Я принимаю себя целиком, включая несовершенства</div>
+                            <div class="zodiac-affirmation-card__item">Мой аналитический ум — инструмент служения</div>
+                            <div class="zodiac-affirmation-card__item">Я достаточно хороша уже прямо сейчас</div>
+                        </div>
+                    </div>
+
+                    <!-- Весы -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♎</span>
+                        <div class="zodiac-affirmation-card__sign">Весы</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Я нахожу баланс между давать и получать</div>
+                            <div class="zodiac-affirmation-card__item">Моя красота исходит изнутри и притягивает гармонию</div>
+                            <div class="zodiac-affirmation-card__item">Я принимаю решения из силы, а не из страха одиночества</div>
+                        </div>
+                    </div>
+
+                    <!-- Скорпион -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♏</span>
+                        <div class="zodiac-affirmation-card__sign">Скорпион</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Я трансформирую боль в мудрость</div>
+                            <div class="zodiac-affirmation-card__item">Моя глубина — это сила, а не угроза</div>
+                            <div class="zodiac-affirmation-card__item">Я открываюсь любви без страха потерять себя</div>
+                        </div>
+                    </div>
+
+                    <!-- Стрелец -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♐</span>
+                        <div class="zodiac-affirmation-card__sign">Стрелец</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Моя свобода питает, а не разрушает близость</div>
+                            <div class="zodiac-affirmation-card__item">Каждое путешествие расширяет границы моей души</div>
+                            <div class="zodiac-affirmation-card__item">Я нахожу истину в пути, а не только в пункте назначения</div>
+                        </div>
+                    </div>
+
+                    <!-- Козерог -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♑</span>
+                        <div class="zodiac-affirmation-card__sign">Козерог</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Я позволяю себе отдыхать без чувства вины</div>
+                            <div class="zodiac-affirmation-card__item">Мои цели велики, и я достигаю их шаг за шагом</div>
+                            <div class="zodiac-affirmation-card__item">Успех приходит ко мне с радостью, а не через страдание</div>
+                        </div>
+                    </div>
+
+                    <!-- Водолей -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♒</span>
+                        <div class="zodiac-affirmation-card__sign">Водолей</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Моя уникальность — вклад в общее благо</div>
+                            <div class="zodiac-affirmation-card__item">Я объединяю людей вокруг общих ценностей</div>
+                            <div class="zodiac-affirmation-card__item">Будущее, которое я вижу, уже рождается через меня</div>
+                        </div>
+                    </div>
+
+                    <!-- Рыбы -->
+                    <div class="zodiac-affirmation-card fade-in">
+                        <span class="zodiac-affirmation-card__icon">♓</span>
+                        <div class="zodiac-affirmation-card__sign">Рыбы</div>
+                        <div class="zodiac-affirmation-card__list">
+                            <div class="zodiac-affirmation-card__item">Моя интуиция ведёт меня точнее любой логики</div>
+                            <div class="zodiac-affirmation-card__item">Я воплощаю мечты в реальность, не теряя их красоты</div>
+                            <div class="zodiac-affirmation-card__item">Мои границы защищают мой свет, не гася его</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ВИЗУАЛИЗАЦИЯ ===== -->
+        <section class="visualization section section--dark">
+            <div class="container">
+                <div class="visualization__inner">
+                    <div class="visualization__header">
+                        <h2 class="visualization__title">Практика визуализации</h2>
+                        <p class="visualization__subtitle">
+                            Глубокая медитативная визуализация для соединения с Вашим высшим «Я» и прокладывания пути к желаемому будущему. Продолжительность: 15–20 минут.
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="visualization__name">✨ «Звёздный маяк» ✨</span>
+                    </div>
+
+                    <div class="visualization__steps">
+                        <div class="viz-step">
+                            <div class="viz-step__num">1</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Подготовка тела</div>
+                                <p class="viz-step__description">Займите удобное положение — лёжа или сидя с прямой спиной. Убедитесь, что Вас ничто не потревожит следующие 20 минут. Укройтесь пледом, если нужно — тело должно быть тёплым и расслабленным. Положите руки свободно.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">2</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Дыхание и вход</div>
+                                <p class="viz-step__description">Закройте глаза и сделайте 3 глубоких вдоха животом. На каждом выдохе представляйте, как напряжение буквально вытекает из тела через ступни в землю. После третьего выдоха позвольте дыханию стать естественным — не управляйте им.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">3</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Ночное небо</div>
+                                <p class="viz-step__description">Представьте, что над Вами открывается бескрайнее ночное небо — глубокое, тёмно-синее, усыпанное тысячами звёзд. Воздух тёплый и тихий. Вы чувствуете лёгкость — словно сила притяжения ослабла, и тело стало почти невесомым. Вы в полной безопасности.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">4</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Ваша звезда</div>
+                                <p class="viz-step__description">Среди тысяч звёзд одна начинает светить ярче остальных. Это Ваша звезда — она горит Вашим цветом (заметьте, каков он), и пульсирует в ритме Вашего сердца. Она всегда была там — она и есть Ваше высшее «Я», Ваша душа в чистом виде.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">5</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Луч света</div>
+                                <p class="viz-step__description">Ваша звезда посылает луч Вашего цвета — он медленно опускается к Вам и входит через макушку головы. Тёплый, бархатный поток наполняет сначала голову, потом грудь, потом живот — всё тело. С каждым вдохом свет становится ярче. Вы — сосуд этого света.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">6</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Послание</div>
+                                <p class="viz-step__description">В состоянии этого наполненного покоя задайте своей звезде вопрос — тот, который давно ждёт ответа. Не торопитесь, не анализируйте. Просто будьте в тишине и примите то, что придёт — образ, слово, ощущение или просто тихая уверенность. Любой ответ верен.</p>
+                            </div>
+                        </div>
+                        <div class="viz-step">
+                            <div class="viz-step__num">7</div>
+                            <div class="viz-step__content">
+                                <div class="viz-step__title">Возвращение и интеграция</div>
+                                <p class="viz-step__description">Поблагодарите звезду и ночное небо. Медленно почувствуйте вес тела, тепло рук, звуки вокруг. Пошевелите пальцами, сделайте глубокий вдох и мягко откройте глаза. Сразу запишите в дневник всё, что Вы видели, чувствовали и получили — образы растворяются быстро.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="visualization__note">
+                        Рекомендуется выполнять на убывающей или новой Луне. Для более глубокого погружения используйте лёгкую медитативную музыку без слов — бинауральные ритмы на частоте 432 Гц или тибетские поющие чаши.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ПРАКТИКИ ПО СТИХИЯМ ===== -->
+        <section class="elements section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Практики по стихиям</h2>
+                    <p class="section__subtitle">
+                        Стихия Вашего знака определяет тип энергии, с которой Вам работать легче всего. Выберите практику, соответствующую Вашей природе.
+                    </p>
+                </div>
+
+                <div class="elements__grid">
+
+                    <!-- Огонь -->
+                    <div class="element-card element-card--fire fade-in">
+                        <span class="element-card__icon">🔥</span>
+                        <div class="element-card__title">Огонь</div>
+                        <div class="element-card__signs">Овен · Лев · Стрелец</div>
+
+                        <div class="element-card__practice-title">Дыхательная практика «Огненное дыхание»</div>
+                        <p class="element-card__practice-text">
+                            Сядьте прямо. Выполните 30 коротких, ритмичных вдохов-выдохов через нос, как будто раздуваете горн внутри живота. После — задержите дыхание на максимально комфортное время. Повторите 3 цикла. Эта практика пробуждает внутренний огонь, снимает апатию и заряжает решимостью.
+                        </p>
+
+                        <div class="element-card__practice-title">Работа с гневом: «Сжечь и отпустить»</div>
+                        <p class="element-card__practice-text">
+                            Напишите на листе бумаги всё, что Вас злит, обижает или сдерживает. Пишите без цензуры, только честно. Затем безопасно сожгите лист (над раковиной или в огнеупорной ёмкости). Наблюдайте, как огонь превращает слова в пепел. Пепел смойте водой. Это ритуал трансформации, а не мести.
+                        </p>
+                    </div>
+
+                    <!-- Земля -->
+                    <div class="element-card element-card--earth fade-in">
+                        <span class="element-card__icon">🌍</span>
+                        <div class="element-card__title">Земля</div>
+                        <div class="element-card__signs">Телец · Дева · Козерог</div>
+
+                        <div class="element-card__practice-title">Практика заземления «Корни»</div>
+                        <p class="element-card__practice-text">
+                            Снимите обувь и встаньте босиком на землю, траву или деревянный пол. Закройте глаза. Представьте, как из ступней растут корни, уходящие глубоко в землю. Дышите медленно — на каждом вдохе корни уходят глубже. Почувствуйте устойчивость и опору. Практикуйте 5–10 минут.
+                        </p>
+
+                        <div class="element-card__practice-title">Контакт с природой: «Лесная ванна»</div>
+                        <p class="element-card__practice-text">
+                            Японская практика синрин-ёку — «лесные ванны». Проведите в лесу или парке минимум 40 минут без телефона. Идите медленно, останавливайтесь. Прикоснитесь к коре дерева, понюхайте листья, прислушайтесь к звукам. Это не прогулка, а медитация через ощущения. Доказано снижает кортизол и восстанавливает нервную систему.
+                        </p>
+                    </div>
+
+                    <!-- Воздух -->
+                    <div class="element-card element-card--air fade-in">
+                        <span class="element-card__icon">🌬️</span>
+                        <div class="element-card__title">Воздух</div>
+                        <div class="element-card__signs">Близнецы · Весы · Водолей</div>
+
+                        <div class="element-card__practice-title">Пранаяма «Нади Шодхана» (поочерёдное дыхание)</div>
+                        <p class="element-card__practice-text">
+                            Сядьте прямо. Прикройте правую ноздрю большим пальцем и сделайте медленный вдох левой. Затем закройте левую ноздрю безымянным пальцем, откройте правую — выдохните. Вдохните правой, закройте её, выдохните левой. Это один цикл. Выполните 10 циклов. Эта пранаяма гармонизирует полушария мозга и успокаивает ментальный шум.
+                        </p>
+
+                        <div class="element-card__practice-title">Практика ясности ума «Пустой экран»</div>
+                        <p class="element-card__practice-text">
+                            Возьмите чистый лист и ручку. Поставьте таймер на 15 минут. Пишите всё, что приходит в голову — без редактирования, цензуры и логики. Когда время выйдет, не перечитывайте — сразу уничтожьте лист. Это «разгрузка ума»: Вы буквально вытряхиваете ментальный мусор на бумагу, освобождая место для ясных мыслей.
+                        </p>
+                    </div>
+
+                    <!-- Вода -->
+                    <div class="element-card element-card--water fade-in">
+                        <span class="element-card__icon">💧</span>
+                        <div class="element-card__title">Вода</div>
+                        <div class="element-card__signs">Рак · Скорпион · Рыбы</div>
+
+                        <div class="element-card__practice-title">Практика с водой «Слёзы и волны»</div>
+                        <p class="element-card__practice-text">
+                            Наполните ванну тёплой водой, добавьте морскую соль и несколько капель масла лаванды или иланг-иланга. Погружаясь, представьте, что вода принимает от Вас всё лишнее — обиды, тревоги, усталость. Они растворяются в воде. Полежите 20 минут в тишине или под мягкую музыку. Когда сольёте воду — представьте, как всё отпущенное уходит вместе с ней.
+                        </p>
+
+                        <div class="element-card__practice-title">Эмоциональное очищение «Дневник чувств»</div>
+                        <p class="element-card__practice-text">
+                            Каждый вечер записывайте 3 эмоции, которые Вы испытали за день. Для каждой: назовите её точным словом, найдите в теле место, где Вы её ощущали, и напишите — что именно её вызвало. Это практика эмоционального интеллекта, которая со временем превращает эмоциональные бури в мудрость и сочувствие к себе.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA ===== -->
+        <section class="practices-cta section section--dark">
+            <div class="container">
+                <div class="practices-cta__inner">
+                    <span class="practices-cta__icon">🌟</span>
+                    <h2 class="practices-cta__title">Получите персональный план практик на месяц</h2>
+                    <p class="practices-cta__text">
+                        Общие практики — это основа. Но настоящая трансформация происходит тогда, когда практики выстроены именно под Вашу натальную карту, текущие транзиты и личные задачи. Наш астролог составит для Вас индивидуальный план на следующий месяц.
+                    </p>
+                    <a href="pay.html" class="button button--primary button--large">Получить персональный план</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">
+                        <span class="footer__logo-text">Esoterra</span>
+                    </a>
+                    <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="index.html#faq" class="footer__link">FAQ</a>
+                        <a href="dashboard.html" class="footer__link">Мой аккаунт</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/disclaimer.html" class="footer__link">Дисклеймер</a>
+                        <a href="legal/oferta.html" class="footer__link">Публичная оферта</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/privacy.html" class="footer__link">Политика конфиденциальности</a>
+                        <a href="legal/terms.html" class="footer__link">Условия использования</a>
+                        <a href="legal/refund.html" class="footer__link">Политика возврата</a>
+                        <a href="legal/cookie.html" class="footer__link">Политика Cookie</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <div class="footer__legal">
+                    <a href="legal/privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
+                    <a href="legal/terms.html" class="footer__legal-link">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/cookie-consent.js"></script>
+</body>
+</html>

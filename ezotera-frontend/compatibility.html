@@ -135,17 +135,17 @@
             font-size: 1.05rem;
         }
 
-        /* ===== RESULT BLOCKS ===== */
-        .compat-result {
-            display: none;
+        /* ===== RESULT DISPLAY ===== */
+        #compat-result-display {
             margin-top: 36px;
+        }
+        .compat-result {
             background: rgba(108,92,231,0.08);
             border: 1px solid rgba(108,92,231,0.25);
             border-radius: 20px;
             padding: 36px;
             animation: fadeInUp 0.4s ease;
         }
-        .compat-result.visible { display: block; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
@@ -169,6 +169,10 @@
             font-size: 1.5rem;
             color: var(--color-white);
             margin-bottom: 4px;
+        }
+        .compat-result__elements {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
         }
         .compat-result__score-wrap {
             text-align: right;
@@ -217,6 +221,7 @@
             height: 100%;
             border-radius: 100px;
             background: var(--gradient-accent);
+            transition: width 0.6s ease;
         }
         .compat-bar__value {
             font-size: 0.85rem;
@@ -262,7 +267,7 @@
             font-weight: 600;
             font-size: 0.85rem;
         }
-        .compat-matrix td { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.02); }
+        .compat-matrix td { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.02); cursor: pointer; }
         .compat-matrix tr:hover td { background: rgba(108,92,231,0.08); }
 
         /* ===== ARTICLE ===== */
@@ -415,325 +420,8 @@
 
                     <button class="button button--primary calc-btn" id="calcBtn">Узнать совместимость</button>
 
-                    <!-- ===== РЕЗУЛЬТАТЫ (Овен с каждым знаком) ===== -->
-                    <div class="compat-result" id="res-aries-aries">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♈</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Овен</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Огонь</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">72%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Два Овна — это союз двух сильных лидеров с одинаковым темпераментом. Между ними
-                            вспыхивает мгновенная искра: оба энергичны, страстны и любят побеждать. Однако
-                            главная трудность — кто будет ведущим? Оба привыкли быть первыми, и борьба за
-                            первенство может перерасти в постоянное соперничество. Если они научатся
-                            направлять энергию не друг против друга, а в общем направлении — получится
-                            мощный тандем, способный свернуть горы.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:75%"></div></div><span class="compat-bar__value">75%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:70%"></div></div><span class="compat-bar__value">70%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:65%"></div></div><span class="compat-bar__value">65%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-taurus">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♉</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Телец</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Земля</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">65%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Овен и Телец — союз огня и земли, где разница темпераментов ощущается особенно остро.
-                            Овен торопится вперёд, Телец предпочитает медленный и надёжный шаг. В любви это может
-                            выражаться как притяжение противоположностей: страсть Овна и чувственность Тельца
-                            создают особую химию. Трудности возникают в планировании: Овен хочет всё и сразу,
-                            Телец ценит стабильность и последовательность. Взаимное уважение к темпу партнёра —
-                            ключ к гармоничным отношениям.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:68%"></div></div><span class="compat-bar__value">68%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:60%"></div></div><span class="compat-bar__value">60%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:62%"></div></div><span class="compat-bar__value">62%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-gemini">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♊</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Близнецы</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Воздух</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">85%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Один из наиболее динамичных союзов зодиака! Воздух раздувает огонь — Близнецы
-                            вдохновляют Овна идеями, а Овен даёт Близнецам энергию для воплощения. Оба обожают
-                            приключения, новые впечатления и перемены. Скуки в этом союзе практически не бывает.
-                            Единственный риск — поверхностность: оба знака легко увлекаются, но не всегда доводят
-                            дела до конца. Вместе они должны научиться завершать начатое.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:87%"></div></div><span class="compat-bar__value">87%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:90%"></div></div><span class="compat-bar__value">90%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:78%"></div></div><span class="compat-bar__value">78%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-cancer">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♋</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Рак</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Вода</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">58%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Сложный, но трогательный союз. Овен привлекает Рака своей смелостью и
-                            решительностью — он кажется защитником, о котором мечтает ранимый Рак.
-                            Однако прямолинейность Овна часто ранит чувствительного Рака. Рак нуждается
-                            в эмоциональной безопасности, которую Овен не всегда умеет обеспечить.
-                            При взаимном желании этот союз может стать гармоничным: Овен даёт Раку
-                            уверенность, Рак дарит Овну тепло и домашний уют.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:60%"></div></div><span class="compat-bar__value">60%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:55%"></div></div><span class="compat-bar__value">55%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:58%"></div></div><span class="compat-bar__value">58%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-leo">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♌</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Лев</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Огонь</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">88%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Блестящий огненный союз! Оба знака полны жизненной силы, амбиций и желания
-                            блистать. Овен восхищается величием Льва, Лев обожает энергию и напор Овна.
-                            Вместе они создают впечатляющий дуэт — яркий, харизматичный и полный
-                            приключений. Главная угроза — борьба за лидерство и задетое самолюбие.
-                            Оба должны научиться искренне хвалить друг друга — это укрепит союз.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:90%"></div></div><span class="compat-bar__value">90%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:85%"></div></div><span class="compat-bar__value">85%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:82%"></div></div><span class="compat-bar__value">82%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-virgo">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♍</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Дева</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Земля</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">55%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Неожиданный, но рабочий союз. Овен импульсивен и действует первым, Дева
-                            анализирует и предпочитает порядок. Это может раздражать обоих, но может
-                            и стать идеальным балансом: Дева сдерживает импульсивность Овна, Овен
-                            помогает Деве решиться действовать. В любви потребуется терпение: Деве
-                            нужно время, чтобы открыться, а Овну — понять ценность этой глубины.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:55%"></div></div><span class="compat-bar__value">55%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:58%"></div></div><span class="compat-bar__value">58%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:70%"></div></div><span class="compat-bar__value">70%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-libra">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♎</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Весы</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Воздух · Противоположности</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">80%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Противоположные знаки зодиака — и это один из самых магических союзов.
-                            Овен и Весы дополняют друг друга по всем фронтам: напор и дипломатия,
-                            страсть и изящество, действие и размышление. Весы учат Овна слышать
-                            партнёра, Овен даёт Весам смелость принимать решения. Привлечение
-                            к друг другу сильное, однако разные ценности в отношениях потребуют
-                            регулярного диалога и взаимных уступок.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:83%"></div></div><span class="compat-bar__value">83%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:75%"></div></div><span class="compat-bar__value">75%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:78%"></div></div><span class="compat-bar__value">78%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-scorpio">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♏</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Скорпион</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Вода</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">70%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Интенсивный и страстный союз. Оба — управляемые Марсом знаки (Скорпион
-                            также связан с Плутоном), поэтому энергетики много — и страсти, и
-                            конфликтов. Овен открыт и прямолинеен, Скорпион глубок и скрытен — это
-                            вызывает взаимное притяжение и взаимное раздражение. Если оба научатся
-                            доверять, а не соперничать, этот союз станет невероятно мощным.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:74%"></div></div><span class="compat-bar__value">74%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:63%"></div></div><span class="compat-bar__value">63%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:68%"></div></div><span class="compat-bar__value">68%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-sagittarius">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♐</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Стрелец</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Огонь</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">92%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Один из самых гармоничных союзов зодиака! Оба знака огненные, оба любят
-                            свободу, приключения и движение вперёд. Вместе они — неудержимая пара,
-                            способная объехать весь мир и сделать невозможное. Стрелец даёт Овну
-                            философскую глубину, Овен — решительность в реализации идей. Единственная
-                            угроза — отсутствие якоря: оба могут увлечься и забыть о бытовых
-                            обязанностях.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:94%"></div></div><span class="compat-bar__value">94%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:95%"></div></div><span class="compat-bar__value">95%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:80%"></div></div><span class="compat-bar__value">80%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-capricorn">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♑</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Козерог</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Земля</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">62%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Оба знака амбициозны и целеустремлённы, но подходят к достижениям
-                            по-разному. Овен стремительно бросается в бой, Козерог строит медленно
-                            и надёжно. В профессиональном партнёрстве они могут достичь многого,
-                            дополняя друг друга. В личных отношениях разница темпераментов и взглядов
-                            на жизнь создаёт трения — Козерогу нужна стабильность, Овну — свобода
-                            и азарт.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:58%"></div></div><span class="compat-bar__value">58%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:62%"></div></div><span class="compat-bar__value">62%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:78%"></div></div><span class="compat-bar__value">78%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-aquarius">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♒</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Водолей</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Воздух</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">83%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Захватывающий союз двух независимых личностей. Водолей восхищает Овна
-                            своей оригинальностью и интеллектом, Овен поражает Водолея энергией
-                            и смелостью. Оба ценят свободу и не любят ограничений, что создаёт
-                            взаимопонимание. Водолей привносит нестандартные идеи, Овен — волю
-                            их реализовать. Вместе они могут создать что-то по-настоящему новаторское.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:82%"></div></div><span class="compat-bar__value">82%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:88%"></div></div><span class="compat-bar__value">88%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:80%"></div></div><span class="compat-bar__value">80%</span></div>
-                        </div>
-                    </div>
-
-                    <div class="compat-result" id="res-aries-pisces">
-                        <div class="compat-result__header">
-                            <div class="compat-result__signs">♈♓</div>
-                            <div class="compat-result__names">
-                                <div class="compat-result__pair">Овен + Рыбы</div>
-                                <div style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Огонь + Вода</div>
-                            </div>
-                            <div class="compat-result__score-wrap">
-                                <div class="compat-result__score">68%</div>
-                                <div class="compat-result__score-label">совместимость</div>
-                            </div>
-                        </div>
-                        <p class="compat-result__text">
-                            Романтический и несколько неожиданный союз. Рыбы очаровывают Овна своей
-                            мечтательностью и глубиной, Овен привлекает Рыб своей защитной силой.
-                            Энергия Овна и интуиция Рыб могут создать прекрасное дополнение. Трудности
-                            возникают, когда прямолинейность Овна ранит чувствительных Рыб, или когда
-                            Рыбы ускользают от прямого разговора. Важно выстроить пространство для
-                            открытого диалога.
-                        </p>
-                        <div class="compat-result__bars">
-                            <div class="compat-bar"><span class="compat-bar__label">❤️ Любовь</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:70%"></div></div><span class="compat-bar__value">70%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">🤝 Дружба</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:65%"></div></div><span class="compat-bar__value">65%</span></div>
-                            <div class="compat-bar"><span class="compat-bar__label">💼 Работа</span><div class="compat-bar__track"><div class="compat-bar__fill" style="width:60%"></div></div><span class="compat-bar__value">60%</span></div>
-                        </div>
-                    </div>
+                    <!-- Динамический результат -->
+                    <div id="compat-result-display"></div>
 
                 </div><!-- /calc-box -->
             </div>
@@ -947,37 +635,548 @@
     <script src="js/navigation.js"></script>
     <script src="js/cookie-consent.js"></script>
     <script>
-        // Compatibility calculator
-        document.getElementById('calcBtn').addEventListener('click', function() {
-            const s1 = document.getElementById('sign1').value;
-            const s2 = document.getElementById('sign2').value;
-            if (!s1 || !s2) {
-                alert('Пожалуйста, выберите оба знака зодиака.');
-                return;
-            }
-            // Hide all results
-            document.querySelectorAll('.compat-result').forEach(r => r.classList.remove('visible'));
-            // Build result id
-            const signs = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
-            let key = null;
-            if (s1 === 'aries') key = 'res-aries-' + s2;
-            else if (s2 === 'aries') key = 'res-aries-' + s1;
-            const el = key ? document.getElementById(key) : null;
-            if (el) {
-                el.classList.add('visible');
-                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            } else {
-                alert('Прогноз для этой пары скоро появится. Пока доступны пары с Овном.');
-            }
-        });
+    // =============================================
+    // ДАННЫЕ ЗНАКОВ
+    // =============================================
+    const SIGN_INFO = {
+        aries:       { name: 'Овен',      icon: '♈', element: 'Огонь' },
+        taurus:      { name: 'Телец',     icon: '♉', element: 'Земля' },
+        gemini:      { name: 'Близнецы',  icon: '♊', element: 'Воздух' },
+        cancer:      { name: 'Рак',       icon: '♋', element: 'Вода' },
+        leo:         { name: 'Лев',       icon: '♌', element: 'Огонь' },
+        virgo:       { name: 'Дева',      icon: '♍', element: 'Земля' },
+        libra:       { name: 'Весы',      icon: '♎', element: 'Воздух' },
+        scorpio:     { name: 'Скорпион',  icon: '♏', element: 'Вода' },
+        sagittarius: { name: 'Стрелец',   icon: '♐', element: 'Огонь' },
+        capricorn:   { name: 'Козерог',   icon: '♑', element: 'Земля' },
+        aquarius:    { name: 'Водолей',   icon: '♒', element: 'Воздух' },
+        pisces:      { name: 'Рыбы',      icon: '♓', element: 'Вода' }
+    };
 
-        // FAQ accordion
-        document.querySelectorAll('.faq-item__question').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const item = this.closest('.faq-item');
-                item.classList.toggle('open');
-            });
+    // =============================================
+    // ДАННЫЕ СОВМЕСТИМОСТИ (78 пар)
+    // Ключ = два id в алфавитном порядке через дефис
+    // Алфавитный порядок: aquarius < aries < cancer < capricorn < gemini < leo < libra < pisces < sagittarius < scorpio < taurus < virgo
+    // =============================================
+    const COMPAT_DATA = {
+
+        // ── ОВЕН (aries) ──────────────────────────────────────────────
+        'aries-aries': {
+            score: 72,
+            text: 'Два Овна — союз двух сильных лидеров с одинаковым темпераментом. Между ними вспыхивает мгновенная искра: оба энергичны, страстны и любят побеждать. Главная трудность — борьба за первенство, которая может перерасти в постоянное соперничество. Если они научатся направлять энергию в общем направлении, получится мощный тандем, способный свернуть горы.',
+            love: 75, friendship: 70, work: 65
+        },
+        'aries-taurus': {
+            score: 65,
+            text: 'Овен и Телец — союз огня и земли, где разница темпераментов ощущается особенно остро. Овен торопится вперёд, Телец предпочитает медленный и надёжный шаг. В любви страсть Овна и чувственность Тельца создают особую химию. Взаимное уважение к темпу партнёра — ключ к гармоничным отношениям.',
+            love: 68, friendship: 60, work: 62
+        },
+        'aries-gemini': {
+            score: 85,
+            text: 'Один из наиболее динамичных союзов зодиака! Воздух раздувает огонь — Близнецы вдохновляют Овна идеями, а Овен даёт Близнецам энергию для воплощения. Оба обожают приключения и перемены, скуки в этом союзе практически не бывает. Единственный риск — поверхностность: оба знака легко увлекаются, но не всегда доводят начатое до конца.',
+            love: 87, friendship: 90, work: 78
+        },
+        'aries-cancer': {
+            score: 58,
+            text: 'Сложный, но трогательный союз. Овен привлекает Рака своей смелостью и решительностью, однако прямолинейность Овна часто ранит чувствительного Рака. Рак нуждается в эмоциональной безопасности, которую Овен не всегда умеет обеспечить. При взаимном желании этот союз может стать гармоничным: Овен даёт Раку уверенность, Рак дарит Овну тепло и домашний уют.',
+            love: 60, friendship: 55, work: 58
+        },
+        'aries-leo': {
+            score: 88,
+            text: 'Блестящий огненный союз! Оба знака полны жизненной силы, амбиций и желания блистать. Овен восхищается величием Льва, Лев обожает энергию и напор Овна. Вместе они создают впечатляющий дуэт — яркий, харизматичный и полный приключений. Главная угроза — борьба за лидерство, поэтому оба должны искренне хвалить друг друга.',
+            love: 90, friendship: 85, work: 82
+        },
+        'aries-virgo': {
+            score: 55,
+            text: 'Неожиданный, но рабочий союз. Овен импульсивен и действует первым, Дева анализирует и предпочитает порядок. Дева сдерживает импульсивность Овна, Овен помогает Деве решиться действовать. В любви потребуется терпение: Деве нужно время, чтобы открыться, а Овну — понять ценность этой глубины.',
+            love: 55, friendship: 58, work: 70
+        },
+        'aries-libra': {
+            score: 80,
+            text: 'Противоположные знаки зодиака — и это один из самых магических союзов. Овен и Весы дополняют друг друга по всем фронтам: напор и дипломатия, страсть и изящество, действие и размышление. Весы учат Овна слышать партнёра, Овен даёт Весам смелость принимать решения. Сильное притяжение требует регулярного диалога и взаимных уступок.',
+            love: 83, friendship: 75, work: 78
+        },
+        'aries-scorpio': {
+            score: 70,
+            text: 'Интенсивный и страстный союз. Оба управляемы Марсом, поэтому энергетики много — и страсти, и конфликтов. Овен открыт и прямолинеен, Скорпион глубок и скрытен — это вызывает взаимное притяжение и взаимное раздражение. Если оба научатся доверять, а не соперничать, этот союз станет невероятно мощным.',
+            love: 74, friendship: 63, work: 68
+        },
+        'aries-sagittarius': {
+            score: 92,
+            text: 'Один из самых гармоничных союзов зодиака! Оба знака огненные, оба любят свободу, приключения и движение вперёд. Стрелец даёт Овну философскую глубину, Овен — решительность в реализации идей. Единственная угроза — отсутствие якоря: оба могут увлечься и забыть о бытовых обязанностях.',
+            love: 94, friendship: 95, work: 80
+        },
+        'aries-capricorn': {
+            score: 62,
+            text: 'Оба знака амбициозны и целеустремлённы, но подходят к достижениям по-разному. Овен стремительно бросается в бой, Козерог строит медленно и надёжно. В профессиональном партнёрстве они могут достичь многого, дополняя друг друга. В личных отношениях разница темпераментов создаёт трения — Козерогу нужна стабильность, Овну — свобода и азарт.',
+            love: 58, friendship: 62, work: 78
+        },
+        'aries-aquarius': {
+            score: 83,
+            text: 'Захватывающий союз двух независимых личностей. Водолей восхищает Овна своей оригинальностью и интеллектом, Овен поражает Водолея энергией и смелостью. Оба ценят свободу и не любят ограничений. Водолей привносит нестандартные идеи, Овен — волю их реализовать, и вместе они способны создать нечто по-настоящему новаторское.',
+            love: 82, friendship: 88, work: 80
+        },
+        'aries-pisces': {
+            score: 68,
+            text: 'Романтический и несколько неожиданный союз. Рыбы очаровывают Овна своей мечтательностью и глубиной, Овен привлекает Рыб своей защитной силой. Трудности возникают, когда прямолинейность Овна ранит чувствительных Рыб, или когда Рыбы ускользают от прямого разговора. Важно выстроить пространство для открытого диалога.',
+            love: 70, friendship: 65, work: 60
+        },
+
+        // ── ТЕЛЕЦ (taurus) ────────────────────────────────────────────
+        'taurus-taurus': {
+            score: 85,
+            text: 'Два Тельца создают союз, полный стабильности, уюта и взаимного понимания. Оба ценят комфорт, красоту и надёжность, поэтому их дом превращается в настоящее гнездо. Главная опасность — излишняя инертность: оба могут застрять в рутине и избегать необходимых перемен. Однако верность и преданность этой пары — образец для многих.',
+            love: 88, friendship: 83, work: 80
+        },
+        'taurus-gemini': {
+            score: 60,
+            text: 'Телец и Близнецы живут в разных ритмах: Телец ищет постоянство, Близнецы жаждут новизны. Близнецы восхищают Тельца своей живостью ума, но их непостоянство беспокоит. Телец даёт Близнецам надёжную почву под ногами, Близнецы привносят в жизнь Тельца свежий ветер. Союз требует взаимных уступок в темпе и ожиданиях.',
+            love: 58, friendship: 62, work: 65
+        },
+        'cancer-taurus': {
+            score: 87,
+            text: 'Один из наиболее гармоничных союзов зодиака — земля и вода питают друг друга. Оба знака ценят семью, уют и эмоциональную безопасность, поэтому быстро находят общий язык. Телец обеспечивает Раку стабильность и материальный комфорт, Рак дарит Тельцу тепло, заботу и глубокую эмоциональную связь. Это союз, в котором оба чувствуют себя по-настоящему дома.',
+            love: 90, friendship: 85, work: 82
+        },
+        'taurus-leo': {
+            score: 63,
+            text: 'Телец и Лев — оба упрямы и любят быть в центре, но по-разному. Лев обожает внимание публики, Телец предпочитает тихую роскошь. Их объединяет любовь к красоте и качеству жизни. Конфликты чаще всего возникают из-за борьбы за доминирование: оба знака крайне упрямы и не любят отступать. Уважение к позиции партнёра сделает этот союз прочным.',
+            love: 62, friendship: 60, work: 65
+        },
+        'taurus-virgo': {
+            score: 91,
+            text: 'Великолепный союз двух знаков земли! Телец и Дева понимают друг друга на глубинном уровне: оба практичны, надёжны и ценят стабильность. Телец привносит чувственность и терпение, Дева — аналитическую точность и внимание к деталям. Вместе они строят крепкие и долговечные отношения, основанные на взаимном уважении и общих ценностях.',
+            love: 93, friendship: 90, work: 92
+        },
+        'libra-taurus': {
+            score: 75,
+            text: 'Оба знака управляются Венерой — планетой любви и красоты, что создаёт между ними особое притяжение. Телец и Весы ценят гармонию, эстетику и комфортные отношения. Телец более решителен и земной, Весы — воздушны и склонны к колебаниям. Разница в скорости принятия решений может раздражать, но общая любовь к прекрасному их объединяет.',
+            love: 78, friendship: 72, work: 70
+        },
+        'scorpio-taurus': {
+            score: 74,
+            text: 'Противоположные знаки с мощным взаимным притяжением. Телец и Скорпион оба интенсивны в чувствах, оба собственники и оба невероятно упрямы. Телец даёт Скорпиону стабильность и надёжность, Скорпион раскрывает перед Тельцом глубины страсти и трансформации. Главный вызов — взаимная ревность и нежелание уступать в конфликтах.',
+            love: 78, friendship: 68, work: 72
+        },
+        'sagittarius-taurus': {
+            score: 57,
+            text: 'Телец и Стрелец — один из наиболее контрастных союзов. Стрелец жаждет свободы и горизонтов, Телец хочет корней и постоянства. Стрелец восхищает Тельца оптимизмом и широтой взглядов, но его непоследовательность тревожит. Если Телец даст Стрельцу достаточно пространства, а Стрелец будет возвращаться домой — союз возможен.',
+            love: 55, friendship: 60, work: 58
+        },
+        'capricorn-taurus': {
+            score: 93,
+            text: 'Один из самых прочных союзов зодиака. Два знака земли отлично понимают друг друга: оба трудолюбивы, честолюбивы и ценят материальную безопасность. Телец привносит чувственность и уют, Козерог — дисциплину и стратегическое мышление. Вместе они способны построить не просто отношения, а целую жизненную империю, основанную на доверии и общих целях.',
+            love: 92, friendship: 90, work: 95
+        },
+        'aquarius-taurus': {
+            score: 52,
+            text: 'Один из наиболее сложных союзов зодиака. Водолей стремится сломать традиции, Телец их бережёт. Водолей восхищает Тельца нестандартным мышлением, но его отстранённость и постоянное желание перемен беспокоят земного Тельца. Для успеха этой паре необходима огромная взаимная терпимость и уважение к принципиально разным мировоззрениям.',
+            love: 50, friendship: 55, work: 58
+        },
+        'pisces-taurus': {
+            score: 82,
+            text: 'Нежный и гармоничный союз земли и воды. Телец обеспечивает Рыбам ту надёжную почву под ногами, которой им так не хватает. Рыбы, в свою очередь, наполняют жизнь Тельца поэзией, романтикой и духовной глубиной. Телец учит Рыб воплощать мечты в реальность, Рыбы учат Тельца видеть мир за пределами материального.',
+            love: 85, friendship: 80, work: 75
+        },
+
+        // ── БЛИЗНЕЦЫ (gemini) ─────────────────────────────────────────
+        'gemini-gemini': {
+            score: 70,
+            text: 'Два Близнеца — это бесконечный поток идей, разговоров и смены настроений. Они прекрасно понимают друг друга интуитивно, но союз может страдать от отсутствия стабильности — оба непостоянны. Совместная жизнь наполнена весельем и интеллектуальными играми. Главный вызов — научиться быть опорой друг для друга в моменты, когда нужна серьёзность.',
+            love: 68, friendship: 80, work: 65
+        },
+        'cancer-gemini': {
+            score: 58,
+            text: 'Близнецы и Рак — сложная пара: рациональный воздух и эмоциональная вода плохо смешиваются. Рак нуждается в глубокой эмоциональной связи, Близнецы скользят по поверхности и боятся липких чувств. Тем не менее Близнецы очаровывают Рака своим умом, а Рак привлекает Близнецов теплотой и заботой. Взаимопонимание приходит через терпение.',
+            love: 55, friendship: 60, work: 62
+        },
+        'capricorn-gemini': {
+            score: 53,
+            text: 'Близнецы и Козерог живут в разных мирах: один — в мире идей и общения, другой — в мире дисциплины и результата. Козерог кажется Близнецам слишком скучным и серьёзным, Близнецы кажутся Козерогу несерьёзными и поверхностными. Если оба найдут ценность в различиях — Козерог даст структуру идеям Близнецов, а Близнецы оживят консервативный мир Козерога.',
+            love: 50, friendship: 55, work: 60
+        },
+        'gemini-leo': {
+            score: 86,
+            text: 'Искрящийся и радостный союз! Лев обожает быть в центре внимания, Близнецы с удовольствием создают вокруг него блестящую атмосферу. Оба знака экстравертны, коммуникабельны и любят социальную жизнь. Близнецы восхищают Льва своим остроумием, Лев восхищает Близнецов своей яркостью и щедростью. Прекрасный союз с лёгкостью и взаимным восхищением.',
+            love: 88, friendship: 90, work: 82
+        },
+        'gemini-libra': {
+            score: 90,
+            text: 'Один из лучших союзов зодиака — оба знаки воздуха, оба любят общение, идеи и гармонию. Близнецы и Весы легко находят общий язык на интеллектуальном уровне и никогда не исчерпают темы для разговора. Весы привносят в отношения изящество и дипломатию, Близнецы — остроумие и разнообразие. Союз лёгкий, радостный и наполненный взаимным уважением.',
+            love: 90, friendship: 93, work: 88
+        },
+        'gemini-pisces': {
+            score: 63,
+            text: 'Взаимно притягательная, но нестабильная пара. Рыбы восхищаются интеллектом Близнецов, Близнецы очарованы загадочностью Рыб. Однако Рыбам нужна эмоциональная глубина, которую воздушные Близнецы не всегда могут дать. Рыбы могут чувствовать себя непонятыми, Близнецы — эмоционально перегруженными. Союз требует взаимной чуткости и компромиссов.',
+            love: 60, friendship: 65, work: 58
+        },
+        'gemini-sagittarius': {
+            score: 78,
+            text: 'Противоположные знаки с удивительным взаимным притяжением. Оба любят свободу, путешествия и интеллектуальные поиски. Стрелец даёт Близнецам философскую глубину, Близнецы — гибкость мышления и коммуникативные навыки. Главная сложность — оба не любят обязательств и могут бесконечно откладывать серьёзный разговор о будущем.',
+            love: 78, friendship: 82, work: 72
+        },
+        'gemini-scorpio': {
+            score: 55,
+            text: 'Интригующий, но непростой союз. Скорпион привлекает Близнецов своей таинственностью и глубиной, Близнецы интригуют Скорпиона своей переменчивостью. Скорпион хочет полного слияния и верности, Близнецы ценят лёгкость и свободу — здесь и возникает главное противоречие. Взаимопонимание возможно, если Скорпион ослабит контроль, а Близнецы станут более честными.',
+            love: 52, friendship: 58, work: 60
+        },
+        'gemini-virgo': {
+            score: 62,
+            text: 'Оба знака управляются Меркурием, поэтому интеллектуальный диалог у них великолепный. Однако Дева педантична и практична, Близнецы — непоследовательны и поверхностны на её взгляд. Дева помогает Близнецам структурировать хаос идей, Близнецы помогают Деве расслабиться и увидеть картину шире. Сотрудничество требует принятия стиля мышления партнёра.',
+            love: 60, friendship: 65, work: 72
+        },
+        'aquarius-gemini': {
+            score: 88,
+            text: 'Блестящий союз двух знаков воздуха! Близнецы и Водолей — оба нестандартно мыслящие, любят общение и интеллектуальные эксперименты. Водолей привносит оригинальные концепции, Близнецы — коммуникативную лёгкость. Оба ценят личную свободу и не давят на партнёра. Этот союз наполнен искрящимися разговорами, совместными проектами и взаимным восхищением.',
+            love: 86, friendship: 93, work: 88
+        },
+
+        // ── РАК (cancer) ──────────────────────────────────────────────
+        'cancer-cancer': {
+            score: 80,
+            text: 'Два Рака создают союз глубокой эмоциональной близости и взаимной заботы. Оба понимают потребности партнёра без слов и строят поистине уютный семейный мир. Главная опасность — взаимное погружение в обиды и настроения: оба чувствительны, поэтому конфликты могут затягиваться. Если научатся прямо говорить о чувствах — союз станет незыблемым.',
+            love: 83, friendship: 80, work: 72
+        },
+        'cancer-leo': {
+            score: 65,
+            text: 'Рак и Лев — союз сердца и воли. Лев восхищает Рака своей яркостью и уверенностью, Рак привлекает Льва искренней заботой и преданностью. Лев нуждается в восхищении, Рак — в эмоциональной безопасности. Если Лев научится быть нежнее, а Рак — увереннее, эти двое создадут тёплый и защищённый союз.',
+            love: 68, friendship: 62, work: 65
+        },
+        'cancer-virgo': {
+            score: 82,
+            text: 'Прекрасный союз воды и земли. Дева восхищает Рака своей надёжностью и практичностью, Рак дарит Деве ту эмоциональную теплоту, которой ей часто не хватает. Дева помогает Раку структурировать жизнь, Рак учит Деву доверять своим чувствам. Оба заботливы, оба ценят семью — это крепкий и устойчивый союз.',
+            love: 83, friendship: 80, work: 80
+        },
+        'cancer-libra': {
+            score: 60,
+            text: 'Рак и Весы — эмоциональная вода встречается с интеллектуальным воздухом. Весы восхищают Рака изяществом и дипломатичностью, но их холодноватая рациональность обижает ранимого Рака. Рак привлекает Весы своей глубиной, но эмоциональная интенсивность может подавлять. Союз требует от Весов большей эмоциональной включённости, от Рака — большей независимости.',
+            love: 58, friendship: 62, work: 65
+        },
+        'cancer-scorpio': {
+            score: 92,
+            text: 'Один из самых глубоких и интенсивных союзов зодиака. Два знака воды понимают друг друга на уровне, недоступном другим. Рак обеспечивает Скорпиону тепло и безопасность, Скорпион даёт Раку страсть и преданность. Оба интуитивны, оба собственники — союз насыщен чувствами. Главная задача — не позволять взаимным страхам перерастать в ревность и манипуляции.',
+            love: 95, friendship: 88, work: 82
+        },
+        'cancer-sagittarius': {
+            score: 55,
+            text: 'Рак и Стрелец живут в разных мирах: один стремится к корням и дому, другой — к горизонтам и свободе. Стрелец восхищает Рака своим оптимизмом, но боится эмоциональной зависимости, которую создаёт Рак. Если Стрелец будет регулярно возвращаться домой, а Рак научится отпускать на свободу — союз может сложиться.',
+            love: 52, friendship: 57, work: 58
+        },
+        'cancer-capricorn': {
+            score: 72,
+            text: 'Противоположные знаки с глубоким взаимным дополнением. Рак создаёт эмоциональное тепло, Козерог обеспечивает материальную стабильность. Вместе они строят крепкую семью: Рак — её душу, Козерог — её фундамент. Главная сложность — Козерог может казаться эмоционально холодным для чувствительного Рака, а эмоциональность Рака — избыточной для сдержанного Козерога.',
+            love: 73, friendship: 68, work: 78
+        },
+        'aquarius-cancer': {
+            score: 52,
+            text: 'Один из наиболее сложных союзов. Водолей холоден и рационален там, где Рак нуждается в тепле и эмпатии. Рак привязан к прошлому, Водолей устремлён в будущее. Рак хочет слияния, Водолей дорожит независимостью. При огромном взаимном желании они могут многому научить друг друга, но этот путь потребует серьёзной работы над собой.',
+            love: 48, friendship: 55, work: 58
+        },
+        'cancer-pisces': {
+            score: 90,
+            text: 'Магический союз двух знаков воды — один из лучших в зодиаке. Рак и Рыбы говорят на одном эмоциональном языке, понимая друг друга без слов. Рак обеспечивает Рыбам стабильность и защиту, Рыбы наполняют жизнь Рака романтикой и духовной глубиной. Оба чуткие и заботливые, оба способны на глубокую преданность — это союз настоящих родственных душ.',
+            love: 93, friendship: 90, work: 80
+        },
+
+        // ── ЛЕВ (leo) ─────────────────────────────────────────────────
+        'leo-leo': {
+            score: 78,
+            text: 'Два Льва — это союз двух королей, и вопрос о том, кто главнее, будет звучать постоянно. Оба харизматичны, щедры и любят быть в центре внимания. Когда они направляют совместную энергию на общие цели — получается невероятно яркая пара. Главное испытание — научиться восхищаться партнёром так же сильно, как собой.',
+            love: 80, friendship: 78, work: 72
+        },
+        'leo-virgo': {
+            score: 58,
+            text: 'Лев и Дева — союз огня и земли с заметной разницей темпераментов. Лев любит грандиозность и признание, Дева — скромность и точность. Критичность Девы может задеть самолюбие Льва, а пышность Льва может раздражать практичную Деву. Если они сфокусируются на взаимных достоинствах — Дева станет незаменимым помощником великодушного Льва.',
+            love: 55, friendship: 60, work: 68
+        },
+        'leo-libra': {
+            score: 85,
+            text: 'Блестящий и гармоничный союз! Лев и Весы оба любят красоту, общество и романтику. Весы восхищаются величием Льва, Лев обожает изящество и дипломатичность Весов. Вместе они создают элегантную и харизматичную пару, которая блистает в любом окружении. Весы умело сглаживают острые углы самолюбия Льва, Лев помогает Весам принимать решения.',
+            love: 87, friendship: 85, work: 80
+        },
+        'leo-scorpio': {
+            score: 65,
+            text: 'Мощный и противоречивый союз. Оба знака фиксированные, оба не любят уступать — это рождает сильное напряжение. Лев хочет восхищения, Скорпион хочет контроля. Тем не менее взаимное притяжение очень сильное: оба харизматичны, страстны и обладают огромной внутренней силой. Если они направят эту силу на созидание — союз будет незабываемым.',
+            love: 68, friendship: 60, work: 65
+        },
+        'leo-sagittarius': {
+            score: 91,
+            text: 'Один из лучших огненных союзов! Лев и Стрелец — оба страстные, великодушные и любят жизнь во всей её полноте. Стрелец восхищает Льва широтой взглядов и оптимизмом, Лев восхищает Стрельца своим величием и щедростью. Вместе они создают яркий, приключенческий и полный радости союз. Единственный риск — обоим нужен простор, а не ограничения.',
+            love: 92, friendship: 93, work: 85
+        },
+        'capricorn-leo': {
+            score: 62,
+            text: 'Лев и Козерог стремятся к успеху, но разными путями. Лев хочет блистать, Козерог — построить. Козерог кажется Льву слишком скучным и расчётливым, Лев кажется Козерогу расточительным и легкомысленным. Тем не менее при взаимном уважении они могут стать мощным тандемом: амбиции Льва + стратегия Козерога.',
+            love: 60, friendship: 62, work: 73
+        },
+        'aquarius-leo': {
+            score: 73,
+            text: 'Противоположные знаки с притягательным контрастом. Лев ищет личного признания, Водолей хочет изменить мир. Водолей восхищает Льва своей оригинальностью, Лев привлекает Водолея своей харизмой и теплотой. Главный конфликт — Лев нуждается в восхищении, а отстранённый Водолей редко его обеспечивает. Взаимное принятие сделает этот союз поистине уникальным.',
+            love: 73, friendship: 72, work: 75
+        },
+        'leo-pisces': {
+            score: 63,
+            text: 'Лев и Рыбы — неожиданное, но трогательное сочетание. Лев восхищает мечтательных Рыб своей уверенностью и великодушием, Рыбы очаровывают Льва своей загадочностью и чуткостью. Трудности возникают, когда Лев давит на нежных Рыб своей экспансивностью, или когда Рыбы ускользают от прямолинейного Льва. Взаимная нежность поможет преодолеть различия.',
+            love: 65, friendship: 62, work: 60
+        },
+
+        // ── ДЕВА (virgo) ──────────────────────────────────────────────
+        'virgo-virgo': {
+            score: 80,
+            text: 'Две Девы создают аккуратный, организованный и интеллектуально насыщенный союз. Оба понимают стремление партнёра к совершенству и не осуждают за педантизм. Главная опасность — взаимная критичность: две Девы могут бесконечно совершенствовать друг друга, забывая о принятии. Когда они учатся ценить то, что уже есть — союз становится поистине надёжным.',
+            love: 78, friendship: 82, work: 88
+        },
+        'libra-virgo': {
+            score: 68,
+            text: 'Дева и Весы — земля и воздух с разными взглядами на жизнь. Весы ценят красоту и гармонию, Дева — точность и практичность. Аналитический ум Девы может раздражать Весов своей критичностью, а нерешительность Весов — терпение Девы. Тем не менее оба интеллектуальны, оба деликатны — при желании они найдут прекрасный баланс.',
+            love: 65, friendship: 70, work: 75
+        },
+        'scorpio-virgo': {
+            score: 84,
+            text: 'Сильный и глубокий союз. Оба знака аналитичны, проницательны и стремятся к совершенству. Скорпион восхищает Деву своей глубиной и страстью, Дева привлекает Скорпиона надёжностью и умом. Скорпион помогает Деве открыться своим чувствам, Дева помогает Скорпиону структурировать мощные эмоции. Взаимное доверие строится медленно, но становится нерушимым.',
+            love: 83, friendship: 82, work: 88
+        },
+        'sagittarius-virgo': {
+            score: 55,
+            text: 'Дева и Стрелец — союз земли и огня с весьма разными подходами к жизни. Стрелец мыслит глобально и не любит деталей, Дева живёт в деталях и боится неопределённости. Критичность Девы может гасить энтузиазм Стрельца, а хаотичность Стрельца — раздражать Деву. Однако если оба научатся ценить подход партнёра, они создадут баланс мечты и реальности.',
+            love: 52, friendship: 57, work: 62
+        },
+        'capricorn-virgo': {
+            score: 92,
+            text: 'Образцовый союз двух знаков земли. Дева и Козерог понимают друг друга без слов: оба трудолюбивы, ответственны и стремятся к качеству во всём. Козерог восхищает Деву своей целеустремлённостью, Дева помогает Козерогу оптимизировать все процессы. Их союз — образец зрелых, продуманных и долговечных отношений, основанных на взаимном уважении.',
+            love: 90, friendship: 92, work: 95
+        },
+        'aquarius-virgo': {
+            score: 55,
+            text: 'Дева и Водолей — практичность встречается с революционностью, и каждый смотрит на мир через совершенно разные линзы. Водолей кажется Деве слишком хаотичным и непрактичным, Дева кажется Водолею слишком консервативной и придирчивой. Если оба найдут в разнице ценность — Дева привнесёт в идеи Водолея практическую реализуемость.',
+            love: 52, friendship: 57, work: 65
+        },
+        'pisces-virgo': {
+            score: 70,
+            text: 'Противоположные знаки, которые могут великолепно дополнять друг друга. Дева привносит в жизнь Рыб структуру и надёжность, Рыбы наполняют мир Девы романтикой и состраданием. Дева учит Рыб воплощать мечты, Рыбы учат Деву доверять интуиции. Главный вызов — Дева может критиковать ранимых Рыб, а неопределённость Рыб нервировать точную Деву.',
+            love: 70, friendship: 68, work: 72
+        },
+
+        // ── ВЕСЫ (libra) ──────────────────────────────────────────────
+        'libra-libra': {
+            score: 82,
+            text: 'Два знака Весов создают элегантный, гармоничный и эстетически совершенный союз. Оба ценят красоту, справедливость и мирное общение. Главная трудность — двойная нерешительность: оба так долго взвешивают каждое решение, что жизнь может замереть. Если один из партнёров возьмёт на себя роль инициатора — союз расцветёт в полную силу.',
+            love: 83, friendship: 85, work: 78
+        },
+        'libra-scorpio': {
+            score: 63,
+            text: 'Весы и Скорпион — воздух и вода, гармония и интенсивность. Скорпион привлекает Весы своей загадочностью и страстью, Весы привлекают Скорпиона изяществом и интеллектом. Скорпион может казаться Весам слишком тяжёлым эмоционально, Весы — слишком поверхностными для глубокого Скорпиона. Ключ — принятие разной эмоциональной глубины каждого.',
+            love: 62, friendship: 63, work: 65
+        },
+        'libra-sagittarius': {
+            score: 83,
+            text: 'Лёгкий и радостный союз! Весы и Стрелец оба оптимистичны, общительны и любят красоту жизни. Стрелец восхищает Весы своей широтой взглядов и жаждой приключений, Весы привлекают Стрельца своей элегантностью и умением выслушать. Оба избегают конфликтов и ценят свободу — это создаёт особую лёгкость в отношениях. Прекрасная пара для совместных путешествий.',
+            love: 85, friendship: 87, work: 78
+        },
+        'capricorn-libra': {
+            score: 60,
+            text: 'Весы и Козерог — воздух и земля с разными ценностями. Козерог ценит работу и дисциплину, Весы — красоту и общение. Козерог может казаться Весам слишком серьёзным и скучным, Весы — слишком легкомысленными для прагматичного Козерога. При взаимном уважении Козерог даст Весам стабильность, а Весы — гармонию и социальный блеск.',
+            love: 58, friendship: 62, work: 65
+        },
+        'aquarius-libra': {
+            score: 88,
+            text: 'Великолепный союз двух знаков воздуха! Весы и Водолей оба интеллектуальны, прогрессивны и ценят справедливость. Водолей восхищает Весы своим нестандартным мышлением, Весы восхищают Водолея своей дипломатичностью и чувством стиля. Вместе они идеальная пара для интеллектуальных дискуссий, социальных проектов и совместного движения вперёд.',
+            love: 87, friendship: 92, work: 85
+        },
+        'libra-pisces': {
+            score: 73,
+            text: 'Мечтательный и романтичный союз. Оба знака ищут гармонии и идеальных отношений, оба чуткие и склонны к романтике. Весы привносят изящество и баланс, Рыбы — глубину чувств и духовность. Проблемы возникают, когда оба ускользают от конфликтов вместо их разрешения. Принятие реальности вместо идеала сделает этот союз по-настоящему прекрасным.',
+            love: 75, friendship: 73, work: 68
+        },
+
+        // ── СКОРПИОН (scorpio) ────────────────────────────────────────
+        'scorpio-scorpio': {
+            score: 83,
+            text: 'Два Скорпиона — это союз невероятной интенсивности. Никто не может понять Скорпиона так, как другой Скорпион: та же глубина чувств, та же потребность в верности, та же страсть к трансформации. Главная опасность — когда два собственника и два манипулятора встречаются, борьба за контроль может стать разрушительной. Но если оба направят силу на созидание — союз нерушим.',
+            love: 87, friendship: 78, work: 82
+        },
+        'sagittarius-scorpio': {
+            score: 62,
+            text: 'Скорпион и Стрелец — вода и огонь с принципиально разными потребностями. Скорпион хочет глубины и верности, Стрелец — свободы и пространства. Стрелец может казаться Скорпиону слишком поверхностным и безответственным, Скорпион — слишком ревнивым и контролирующим для вольного Стрельца. Взаимопонимание требует серьёзной работы над собой.',
+            love: 60, friendship: 63, work: 65
+        },
+        'capricorn-scorpio': {
+            score: 85,
+            text: 'Мощный и глубокий союз двух знаков с огромной внутренней силой. Скорпион и Козерог оба целеустремлённые, серьёзные и не боятся трудностей. Козерог восхищает Скорпиона своей дисциплиной, Скорпион привлекает Козерога глубиной и страстью. Оба умеют хранить тайны и доверяют действием, а не словами. Прочный и долговечный союз с высокими взаимными требованиями.',
+            love: 85, friendship: 82, work: 90
+        },
+        'aquarius-scorpio': {
+            score: 58,
+            text: 'Скорпион и Водолей — вода и воздух с весьма разными способами существования. Скорпион живёт в мире интенсивных личных чувств, Водолей — в мире идей и человечества в целом. Скорпион хочет близости и верности, Водолей ценит свободу и дистанцию. При огромном взаимном желании они могут научить друг друга многому, но путь будет непростым.',
+            love: 55, friendship: 60, work: 65
+        },
+        'pisces-scorpio': {
+            score: 91,
+            text: 'Один из самых глубоких союзов зодиака. Два знака воды находят друг в друге то, чего им не хватает. Скорпион даёт Рыбам защиту, страсть и направление, Рыбы дарят Скорпиону мягкость, прощение и духовную красоту. Оба интуитивны и погружены в мир чувств. Главная задача — не позволять взаимным страхам превращаться в манипуляции и растворение в партнёре.',
+            love: 93, friendship: 88, work: 82
+        },
+
+        // ── СТРЕЛЕЦ (sagittarius) ─────────────────────────────────────
+        'sagittarius-sagittarius': {
+            score: 84,
+            text: 'Два Стрельца — неудержимый союз двух свободных душ. Оба оптимистичны, жаждут приключений и философских поисков. Вместе они способны объехать весь мир и испытать всё, что жизнь может предложить. Главный вызов — кто из них возьмёт на себя бытовую ответственность? Оба любят большие идеи, но избегают рутины — за этим нужно следить особо.',
+            love: 87, friendship: 90, work: 78
+        },
+        'capricorn-sagittarius': {
+            score: 60,
+            text: 'Стрелец и Козерог стремятся к успеху совершенно по-разному. Стрелец движется вперёд интуитивно и широкими шагами, Козерог — методично и надёжно. Козерог кажется Стрельцу слишком скованным, Стрелец кажется Козерогу безрассудным. Но при взаимном уважении Козерог поможет Стрельцу воплощать мечты, а Стрелец вдохнёт свежий ветер в жизнь Козерога.',
+            love: 57, friendship: 62, work: 68
+        },
+        'aquarius-sagittarius': {
+            score: 86,
+            text: 'Воздушный и свободолюбивый союз двух независимых личностей. Стрелец восхищает Водолея своим оптимизмом и жаждой приключений, Водолей восхищает Стрельца своим нестандартным видением будущего. Оба ценят свободу и не пытаются контролировать партнёра. Союз лёгкий, вдохновляющий и полный совместных открытий — как интеллектуальных, так и буквальных.',
+            love: 85, friendship: 90, work: 82
+        },
+        'pisces-sagittarius': {
+            score: 68,
+            text: 'Романтичный и вдохновляющий союз двух мечтателей. Оба верят в лучшее и любят исследовать мир — Стрелец буквально, Рыбы духовно. Стрелец привлекает Рыб своим оптимизмом и широтой натуры, Рыбы очаровывают Стрельца своей глубиной и состраданием. Трудности возникают в быту: оба могут избегать практических обязанностей, уходя в мечты.',
+            love: 70, friendship: 70, work: 62
+        },
+
+        // ── КОЗЕРОГ (capricorn) ───────────────────────────────────────
+        'capricorn-capricorn': {
+            score: 85,
+            text: 'Два Козерога создают союз, основанный на взаимном уважении, общих амбициях и трудолюбии. Оба понимают стремление партнёра к успеху и поддерживают его. Главная опасность — союз может превратиться в деловое партнёрство без эмоциональной теплоты. Козерогам важно помнить, что карьера — не всё, и уделять время романтике и близости.',
+            love: 82, friendship: 85, work: 95
+        },
+        'aquarius-capricorn': {
+            score: 58,
+            text: 'Козерог и Водолей — традиция встречается с революцией. Козерог чтит устои и проверенные пути, Водолей всегда стремится всё изменить. Водолей кажется Козерогу слишком непредсказуемым, Козерог кажется Водолею слишком консервативным. Тем не менее оба целеустремлённые и умные — если найдут общую цель, их сотрудничество может быть весьма результативным.',
+            love: 55, friendship: 60, work: 68
+        },
+        'capricorn-pisces': {
+            score: 75,
+            text: 'Неожиданно гармоничный союз земли и воды. Козерог обеспечивает Рыбам ту надёжность и структуру, которой им так не хватает. Рыбы наполняют жизнь сдержанного Козерога романтикой, состраданием и духовным измерением. Козерог учит Рыб воплощать мечты в реальность, Рыбы учат Козерога чувствовать. Союз взаимно обогащающий и очень тёплый.',
+            love: 75, friendship: 73, work: 78
+        },
+
+        // ── ВОДОЛЕЙ (aquarius) ────────────────────────────────────────
+        'aquarius-aquarius': {
+            score: 80,
+            text: 'Два Водолея — союз двух оригинальных умов, которые понимают друг друга с полуслова. Оба нестандартны, прогрессивны и ценят свободу. Главная опасность — избыток рационализма и дистанции: оба могут быть эмоционально холодны. Союз наполнен интеллектуальными дискуссиями и общими идеями, но им важно не забывать о глубине чувств.',
+            love: 78, friendship: 88, work: 85
+        },
+        'aquarius-pisces': {
+            score: 63,
+            text: 'Водолей и Рыбы — воздух и вода, разум и чувство. Водолей восхищает Рыб своим нестандартным видением мира, Рыбы привлекают Водолея своей глубиной и интуицией. Водолей нуждается в свободе, Рыбы — в эмоциональной близости. Эти разные потребности могут стать источником непонимания, но при взаимной чуткости — уникальным дополнением.',
+            love: 62, friendship: 65, work: 65
+        },
+
+        // ── РЫБЫ (pisces) ─────────────────────────────────────────────
+        'pisces-pisces': {
+            score: 82,
+            text: 'Два знака Рыбы создают союз невероятной эмоциональной глубины и духовной близости. Оба понимают друг друга интуитивно и способны на безграничное сострадание и преданность. Главная опасность — отсутствие якоря: оба могут уйти в мечты и иллюзии, избегая реальных трудностей. Один из партнёров должен взять на себя роль практичного начала в жизни.',
+            love: 85, friendship: 83, work: 72
+        }
+    };
+
+    // =============================================
+    // ЛОГИКА КАЛЬКУЛЯТОРА
+    // =============================================
+    function getKey(s1, s2) {
+        return [s1, s2].sort().join('-');
+    }
+
+    function getElementLabel(s1, s2) {
+        const e1 = SIGN_INFO[s1].element;
+        const e2 = SIGN_INFO[s2].element;
+        if (s1 === s2) return e1 + ' + ' + e2;
+        const opposites = {
+            'aries-libra': true, 'cancer-capricorn': true,
+            'gemini-sagittarius': true, 'leo-aquarius': true,
+            'scorpio-taurus': true, 'pisces-virgo': true
+        };
+        const key = getKey(s1, s2);
+        const oppLabel = opposites[key] ? ' · Противоположности' : '';
+        return e1 + ' + ' + e2 + oppLabel;
+    }
+
+    function showResult(s1, s2) {
+        const key = getKey(s1, s2);
+        const data = COMPAT_DATA[key];
+        const container = document.getElementById('compat-result-display');
+
+        if (!data) {
+            container.innerHTML = '';
+            return;
+        }
+
+        const i1 = SIGN_INFO[s1];
+        const i2 = SIGN_INFO[s2];
+        const elemLabel = getElementLabel(s1, s2);
+
+        container.innerHTML = `
+            <div class="compat-result">
+                <div class="compat-result__header">
+                    <div class="compat-result__signs">${i1.icon}${i2.icon}</div>
+                    <div class="compat-result__names">
+                        <div class="compat-result__pair">${i1.name} + ${i2.name}</div>
+                        <div class="compat-result__elements">${elemLabel}</div>
+                    </div>
+                    <div class="compat-result__score-wrap">
+                        <div class="compat-result__score">${data.score}%</div>
+                        <div class="compat-result__score-label">совместимость</div>
+                    </div>
+                </div>
+                <p class="compat-result__text">${data.text}</p>
+                <div class="compat-result__bars">
+                    <div class="compat-bar">
+                        <span class="compat-bar__label">❤️ Любовь</span>
+                        <div class="compat-bar__track"><div class="compat-bar__fill" style="width:${data.love}%"></div></div>
+                        <span class="compat-bar__value">${data.love}%</span>
+                    </div>
+                    <div class="compat-bar">
+                        <span class="compat-bar__label">🤝 Дружба</span>
+                        <div class="compat-bar__track"><div class="compat-bar__fill" style="width:${data.friendship}%"></div></div>
+                        <span class="compat-bar__value">${data.friendship}%</span>
+                    </div>
+                    <div class="compat-bar">
+                        <span class="compat-bar__label">💼 Работа</span>
+                        <div class="compat-bar__track"><div class="compat-bar__fill" style="width:${data.work}%"></div></div>
+                        <span class="compat-bar__value">${data.work}%</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Кнопка "Узнать совместимость"
+    document.getElementById('calcBtn').addEventListener('click', function() {
+        const s1 = document.getElementById('sign1').value;
+        const s2 = document.getElementById('sign2').value;
+        if (!s1 || !s2) {
+            document.getElementById('compat-result-display').innerHTML = `
+                <div style="text-align:center; padding:20px; color:rgba(255,255,255,0.6); font-size:0.95rem;">
+                    Пожалуйста, выберите оба знака зодиака.
+                </div>`;
+            return;
+        }
+        showResult(s1, s2);
+    });
+
+    // Также запускать при изменении любого select (удобство)
+    document.getElementById('sign1').addEventListener('change', tryAutoShow);
+    document.getElementById('sign2').addEventListener('change', tryAutoShow);
+    function tryAutoShow() {
+        const s1 = document.getElementById('sign1').value;
+        const s2 = document.getElementById('sign2').value;
+        if (s1 && s2) showResult(s1, s2);
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__question').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const item = this.closest('.faq-item');
+            item.classList.toggle('open');
         });
+    });
     </script>
 </body>
 </html>

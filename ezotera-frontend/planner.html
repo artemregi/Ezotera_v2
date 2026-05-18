@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#152b35">
+    <meta name="description" content="Астрологический планировщик Esoterra — планируйте важные события с учётом лунного календаря и планетарных транзитов.">
+    <title>Астрологический планировщик — Esoterra</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Header Loader -->
+    <script src="js/header-loader.js"></script>
+
+    <style>
+        /* ===== PLANNER HERO ===== */
+        .planner-hero {
+            padding-top: calc(var(--header-height) + var(--spacing-4xl));
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .planner-hero__badge {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: var(--color-white);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            padding: 6px 20px;
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .planner-hero__title {
+            font-size: var(--font-size-4xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .planner-hero__subtitle {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ===== LUNAR CALENDAR ===== */
+        .lunar-calendar {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .lunar-calendar__header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .lunar-calendar__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .lunar-calendar__subtitle {
+            font-size: var(--font-size-base);
+            color: var(--color-text-light);
+        }
+
+        .lunar-calendar__legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+
+        .legend-dot--good { background-color: #27ae60; }
+        .legend-dot--neutral { background-color: #f39c12; }
+        .legend-dot--caution { background-color: #e74c3c; }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .calendar-grid__weekday {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            text-align: center;
+            padding: 12px 4px;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .calendar-day {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-light-gray);
+            border-radius: var(--radius-md);
+            padding: 10px 6px;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            cursor: default;
+        }
+
+        .calendar-day:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-md);
+            z-index: 2;
+            position: relative;
+        }
+
+        .calendar-day--empty {
+            background-color: var(--color-off-white);
+            border-color: transparent;
+        }
+
+        .calendar-day--good {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border-color: #27ae60;
+        }
+
+        .calendar-day--neutral {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 100%);
+            border-color: #f39c12;
+        }
+
+        .calendar-day--caution {
+            background: linear-gradient(135deg, #fdedec 0%, #f9d6d5 100%);
+            border-color: #e74c3c;
+        }
+
+        .calendar-day__number {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .calendar-day--good .calendar-day__number { color: #1e8449; }
+        .calendar-day--neutral .calendar-day__number { color: #d68910; }
+        .calendar-day--caution .calendar-day__number { color: #c0392b; }
+
+        .calendar-day__lunar {
+            font-size: 10px;
+            color: var(--color-text-light);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .calendar-day__sign {
+            font-size: 10px;
+            color: var(--color-text-light);
+            line-height: 1.3;
+        }
+
+        /* ===== MOON PHASES ===== */
+        .moon-phases {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .moon-phases__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .moon-phase-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            border: 1px solid var(--color-light-gray);
+            text-align: center;
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .moon-phase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .moon-phase-card__icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .moon-phase-card__title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xs);
+            font-family: var(--font-heading);
+        }
+
+        .moon-phase-card__days {
+            font-size: var(--font-size-xs);
+            color: var(--color-accent);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .moon-phase-card__description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        .moon-phase-card__actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-md);
+        }
+
+        .moon-phase-card__action-item {
+            font-size: var(--font-size-xs);
+            color: var(--color-text);
+            background-color: var(--color-off-white);
+            border-radius: var(--radius-sm);
+            padding: 4px 8px;
+        }
+
+        /* ===== FAVORABLE DAYS TABLE ===== */
+        .favorable-days {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .favorable-days__table-wrap {
+            overflow-x: auto;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .favorable-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--color-white);
+            font-size: var(--font-size-sm);
+        }
+
+        .favorable-table thead {
+            background-color: var(--color-primary);
+        }
+
+        .favorable-table thead th {
+            color: var(--color-white);
+            font-weight: var(--font-weight-semibold);
+            padding: 16px 20px;
+            text-align: left;
+            font-family: var(--font-primary);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .favorable-table tbody tr {
+            border-bottom: 1px solid var(--color-light-gray);
+            transition: background-color var(--transition-fast);
+        }
+
+        .favorable-table tbody tr:hover {
+            background-color: var(--color-off-white);
+        }
+
+        .favorable-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .favorable-table td {
+            padding: 14px 20px;
+            vertical-align: middle;
+            color: var(--color-text);
+        }
+
+        .favorable-table td:first-child {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+
+        .favorable-table__good {
+            color: #1e8449;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .favorable-table__bad {
+            color: #c0392b;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .favorable-table td .category-icon {
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* ===== PERSONAL CALCULATOR ===== */
+        .personal-calc {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .personal-calc__inner {
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .personal-calc__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .personal-calc__subtitle {
+            font-size: var(--font-size-base);
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: var(--spacing-3xl);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .personal-calc__form {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .personal-calc__field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            text-align: left;
+        }
+
+        .personal-calc__label {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .personal-calc__input {
+            padding: 14px 18px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: var(--radius-lg);
+            color: var(--color-white);
+            font-size: var(--font-size-base);
+            transition: border-color var(--transition-fast), background-color var(--transition-fast);
+        }
+
+        .personal-calc__input:focus {
+            outline: none;
+            border-color: var(--color-accent-light);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .personal-calc__input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        .personal-calc__result {
+            margin-top: var(--spacing-2xl);
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            display: none;
+        }
+
+        .personal-calc__result--visible {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .personal-calc__result-number {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-gold);
+            line-height: 1;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .personal-calc__result-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .personal-calc__result-description {
+            font-size: var(--font-size-base);
+            color: rgba(255, 255, 255, 0.75);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 0;
+        }
+
+        /* ===== CTA BANNER ===== */
+        .planner-cta {
+            padding-top: var(--spacing-4xl);
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .planner-cta__inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .planner-cta__icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .planner-cta__title {
+            font-size: var(--font-size-3xl);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .planner-cta__text {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-2xl);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .moon-phases__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .moon-phases__grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .calendar-grid {
+                gap: 2px;
+            }
+
+            .calendar-day {
+                min-height: 70px;
+                padding: 6px 4px;
+            }
+
+            .calendar-day__sign {
+                display: none;
+            }
+
+            .personal-calc__form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .personal-calc__field {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 56px;
+                padding: 4px 2px;
+            }
+
+            .calendar-day__lunar {
+                display: none;
+            }
+
+            .calendar-day__number {
+                font-size: var(--font-size-base);
+            }
+
+            .lunar-calendar__legend {
+                gap: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main>
+
+        <!-- ===== PLANNER HERO ===== -->
+        <section class="planner-hero section--dark section">
+            <div class="container text-center">
+                <span class="planner-hero__badge">Май 2026</span>
+                <h1 class="planner-hero__title">Астрологический планировщик</h1>
+                <p class="planner-hero__subtitle">
+                    Планируйте важные события с учётом небесных ритмов — лунного календаря, планетарных транзитов и персональных числовых циклов.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ===== ЛУННЫЙ КАЛЕНДАРЬ ===== -->
+        <section class="lunar-calendar section">
+            <div class="container">
+                <div class="lunar-calendar__header">
+                    <h2 class="lunar-calendar__title">Лунный календарь мая 2026</h2>
+                    <p class="lunar-calendar__subtitle">Каждый день расписан по лунному дню, знаку Луны и степени благоприятности</p>
+                </div>
+
+                <!-- Легенда -->
+                <div class="lunar-calendar__legend">
+                    <div class="legend-item">
+                        <span class="legend-dot legend-dot--good"></span>
+                        Отличный день
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-dot--neutral"></span>
+                        Нейтральный день
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-dot--caution"></span>
+                        Осторожно
+                    </div>
+                </div>
+
+                <!-- Сетка календаря -->
+                <div class="calendar-grid">
+                    <!-- Дни недели -->
+                    <div class="calendar-grid__weekday">Пн</div>
+                    <div class="calendar-grid__weekday">Вт</div>
+                    <div class="calendar-grid__weekday">Ср</div>
+                    <div class="calendar-grid__weekday">Чт</div>
+                    <div class="calendar-grid__weekday">Пт</div>
+                    <div class="calendar-grid__weekday">Сб</div>
+                    <div class="calendar-grid__weekday">Вс</div>
+
+                    <!-- 1 мая 2026 — Пятница (3 пустых ячейки: пн, вт, ср) -->
+                    <div class="calendar-day calendar-day--empty"></div>
+                    <div class="calendar-day calendar-day--empty"></div>
+                    <div class="calendar-day calendar-day--empty"></div>
+                    <div class="calendar-day calendar-day--empty"></div>
+
+                    <!-- 1 мая — Пятница — Стрелец — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">1</span>
+                        <span class="calendar-day__lunar">5 л.д.</span>
+                        <span class="calendar-day__sign">♐ Стрелец</span>
+                    </div>
+                    <!-- 2 мая — Суббота — Стрелец -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">2</span>
+                        <span class="calendar-day__lunar">6 л.д.</span>
+                        <span class="calendar-day__sign">♐ Стрелец</span>
+                    </div>
+                    <!-- 3 мая — Воскресенье — Козерог -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">3</span>
+                        <span class="calendar-day__lunar">7 л.д.</span>
+                        <span class="calendar-day__sign">♑ Козерог</span>
+                    </div>
+
+                    <!-- 4 мая — Понедельник — Козерог -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">4</span>
+                        <span class="calendar-day__lunar">8 л.д.</span>
+                        <span class="calendar-day__sign">♑ Козерог</span>
+                    </div>
+                    <!-- 5 мая — Вторник — Водолей -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">5</span>
+                        <span class="calendar-day__lunar">9 л.д.</span>
+                        <span class="calendar-day__sign">♒ Водолей</span>
+                    </div>
+                    <!-- 6 мая — Среда — Водолей — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">6</span>
+                        <span class="calendar-day__lunar">10 л.д.</span>
+                        <span class="calendar-day__sign">♒ Водолей</span>
+                    </div>
+                    <!-- 7 мая — Четверг — Рыбы — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">7</span>
+                        <span class="calendar-day__lunar">11 л.д.</span>
+                        <span class="calendar-day__sign">♓ Рыбы</span>
+                    </div>
+                    <!-- 8 мая — Пятница — Рыбы — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">8</span>
+                        <span class="calendar-day__lunar">12 л.д.</span>
+                        <span class="calendar-day__sign">♓ Рыбы</span>
+                    </div>
+                    <!-- 9 мая — Суббота — Овен — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">9</span>
+                        <span class="calendar-day__lunar">13 л.д.</span>
+                        <span class="calendar-day__sign">♈ Овен</span>
+                    </div>
+                    <!-- 10 мая — Воскресенье — Овен -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">10</span>
+                        <span class="calendar-day__lunar">14 л.д.</span>
+                        <span class="calendar-day__sign">♈ Овен</span>
+                    </div>
+
+                    <!-- 11 мая — Понедельник — Телец — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">11</span>
+                        <span class="calendar-day__lunar">15 л.д.</span>
+                        <span class="calendar-day__sign">♉ Телец</span>
+                    </div>
+                    <!-- 12 мая — Вторник — Телец — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">12</span>
+                        <span class="calendar-day__lunar">16 л.д.</span>
+                        <span class="calendar-day__sign">♉ Телец</span>
+                    </div>
+                    <!-- 13 мая — Среда — Близнецы -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">13</span>
+                        <span class="calendar-day__lunar">17 л.д.</span>
+                        <span class="calendar-day__sign">♊ Близнецы</span>
+                    </div>
+                    <!-- 14 мая — Четверг — Близнецы — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">14</span>
+                        <span class="calendar-day__lunar">18 л.д.</span>
+                        <span class="calendar-day__sign">♊ Близнецы</span>
+                    </div>
+                    <!-- 15 мая — Пятница — Рак — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">15</span>
+                        <span class="calendar-day__lunar">19 л.д.</span>
+                        <span class="calendar-day__sign">♋ Рак</span>
+                    </div>
+                    <!-- 16 мая — Суббота — Рак — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">16</span>
+                        <span class="calendar-day__lunar">20 л.д.</span>
+                        <span class="calendar-day__sign">♋ Рак</span>
+                    </div>
+                    <!-- 17 мая — Воскресенье — Рак -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">17</span>
+                        <span class="calendar-day__lunar">21 л.д.</span>
+                        <span class="calendar-day__sign">♋ Рак</span>
+                    </div>
+
+                    <!-- 18 мая — Понедельник — Лев -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">18</span>
+                        <span class="calendar-day__lunar">22 л.д.</span>
+                        <span class="calendar-day__sign">♌ Лев</span>
+                    </div>
+                    <!-- 19 мая — Вторник — Лев — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">19</span>
+                        <span class="calendar-day__lunar">23 л.д.</span>
+                        <span class="calendar-day__sign">♌ Лев</span>
+                    </div>
+                    <!-- 20 мая — Среда — Дева -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">20</span>
+                        <span class="calendar-day__lunar">24 л.д.</span>
+                        <span class="calendar-day__sign">♍ Дева</span>
+                    </div>
+                    <!-- 21 мая — Четверг — Дева — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">21</span>
+                        <span class="calendar-day__lunar">25 л.д.</span>
+                        <span class="calendar-day__sign">♍ Дева</span>
+                    </div>
+                    <!-- 22 мая — Пятница — Весы — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">22</span>
+                        <span class="calendar-day__lunar">26 л.д.</span>
+                        <span class="calendar-day__sign">♎ Весы</span>
+                    </div>
+                    <!-- 23 мая — Суббота — Весы -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">23</span>
+                        <span class="calendar-day__lunar">27 л.д.</span>
+                        <span class="calendar-day__sign">♎ Весы</span>
+                    </div>
+                    <!-- 24 мая — Воскресенье — Весы -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">24</span>
+                        <span class="calendar-day__lunar">28 л.д.</span>
+                        <span class="calendar-day__sign">♎ Весы</span>
+                    </div>
+
+                    <!-- 25 мая — Понедельник — Скорпион -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">25</span>
+                        <span class="calendar-day__lunar">29 л.д.</span>
+                        <span class="calendar-day__sign">♏ Скорпион</span>
+                    </div>
+                    <!-- 26 мая — Вторник — Скорпион — Отлично -->
+                    <div class="calendar-day calendar-day--good">
+                        <span class="calendar-day__number">26</span>
+                        <span class="calendar-day__lunar">1 л.д.</span>
+                        <span class="calendar-day__sign">♏ Скорпион</span>
+                    </div>
+                    <!-- 27 мая — Среда — Стрелец — Новолуние -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">27</span>
+                        <span class="calendar-day__lunar">2 л.д. 🌑</span>
+                        <span class="calendar-day__sign">♐ Стрелец</span>
+                    </div>
+                    <!-- 28 мая — Четверг — Стрелец — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">28</span>
+                        <span class="calendar-day__lunar">3 л.д.</span>
+                        <span class="calendar-day__sign">♐ Стрелец</span>
+                    </div>
+                    <!-- 29 мая — Пятница — Козерог — Осторожно -->
+                    <div class="calendar-day calendar-day--caution">
+                        <span class="calendar-day__number">29</span>
+                        <span class="calendar-day__lunar">4 л.д.</span>
+                        <span class="calendar-day__sign">♑ Козерог</span>
+                    </div>
+                    <!-- 30 мая — Суббота — Козерог -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">30</span>
+                        <span class="calendar-day__lunar">5 л.д.</span>
+                        <span class="calendar-day__sign">♑ Козерог</span>
+                    </div>
+                    <!-- 31 мая — Воскресенье — Водолей -->
+                    <div class="calendar-day calendar-day--neutral">
+                        <span class="calendar-day__number">31</span>
+                        <span class="calendar-day__lunar">6 л.д.</span>
+                        <span class="calendar-day__sign">♒ Водолей</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ФАЗЫ ЛУНЫ ===== -->
+        <section class="moon-phases section section--light">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Что делать в каждой фазе Луны</h2>
+                    <p class="section__subtitle">Согласуйте свои действия с лунным циклом, чтобы получить максимальный результат</p>
+                </div>
+
+                <div class="moon-phases__grid">
+                    <!-- Новолуние -->
+                    <div class="moon-phase-card fade-in">
+                        <span class="moon-phase-card__icon">🌑</span>
+                        <div class="moon-phase-card__title">Новолуние</div>
+                        <div class="moon-phase-card__days">1–3 лунный день</div>
+                        <p class="moon-phase-card__description">
+                            Время чистого листа. Вселенная принимает Ваши намерения с наибольшей силой. Это лучший момент для посева новых идей, запуска проектов и переосмысления приоритетов.
+                        </p>
+                        <div class="moon-phase-card__actions">
+                            <span class="moon-phase-card__action-item">Ставить новые цели</span>
+                            <span class="moon-phase-card__action-item">Писать намерения</span>
+                            <span class="moon-phase-card__action-item">Начинать новые дела</span>
+                            <span class="moon-phase-card__action-item">Медитировать на желаемое</span>
+                        </div>
+                    </div>
+
+                    <!-- Первая четверть -->
+                    <div class="moon-phase-card fade-in">
+                        <span class="moon-phase-card__icon">🌓</span>
+                        <div class="moon-phase-card__title">Первая четверть</div>
+                        <div class="moon-phase-card__days">7–9 лунный день</div>
+                        <p class="moon-phase-card__description">
+                            Фаза роста и активных действий. Луна набирает силу, поддерживая Вашу энергию и смелость. Принятые сейчас решения обладают особой весомостью и реализуются быстрее.
+                        </p>
+                        <div class="moon-phase-card__actions">
+                            <span class="moon-phase-card__action-item">Активные переговоры</span>
+                            <span class="moon-phase-card__action-item">Принятие решений</span>
+                            <span class="moon-phase-card__action-item">Деловые встречи</span>
+                            <span class="moon-phase-card__action-item">Физические нагрузки</span>
+                        </div>
+                    </div>
+
+                    <!-- Полнолуние -->
+                    <div class="moon-phase-card fade-in">
+                        <span class="moon-phase-card__icon">🌕</span>
+                        <div class="moon-phase-card__title">Полнолуние</div>
+                        <div class="moon-phase-card__days">14–16 лунный день</div>
+                        <p class="moon-phase-card__description">
+                            Пик лунной энергии. Кульминация всего, что Вы начали на новолунии. Эмоции и интуиция обостряются до предела — прислушайтесь к внутреннему голосу. Время завершений и откровений.
+                        </p>
+                        <div class="moon-phase-card__actions">
+                            <span class="moon-phase-card__action-item">Завершать проекты</span>
+                            <span class="moon-phase-card__action-item">Практики благодарности</span>
+                            <span class="moon-phase-card__action-item">Творческое выражение</span>
+                            <span class="moon-phase-card__action-item">Оценка результатов</span>
+                        </div>
+                    </div>
+
+                    <!-- Последняя четверть -->
+                    <div class="moon-phase-card fade-in">
+                        <span class="moon-phase-card__icon">🌗</span>
+                        <div class="moon-phase-card__title">Последняя четверть</div>
+                        <div class="moon-phase-card__days">21–23 лунный день</div>
+                        <p class="moon-phase-card__description">
+                            Фаза убывания — природа сама подталкивает к отдыху и освобождению. Уберите лишнее: ненужные связи, старые убеждения, накопившиеся дела. Готовьтесь к новому циклу.
+                        </p>
+                        <div class="moon-phase-card__actions">
+                            <span class="moon-phase-card__action-item">Отдых и восстановление</span>
+                            <span class="moon-phase-card__action-item">Анализ и рефлексия</span>
+                            <span class="moon-phase-card__action-item">Очищение пространства</span>
+                            <span class="moon-phase-card__action-item">Завершение долгов</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== БЛАГОПРИЯТНЫЕ ДНИ ===== -->
+        <section class="favorable-days section">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Благоприятные дни по категориям</h2>
+                    <p class="section__subtitle">Таблица оптимальных и нежелательных дат для ключевых жизненных решений в мае 2026</p>
+                </div>
+
+                <div class="favorable-days__table-wrap">
+                    <table class="favorable-table">
+                        <thead>
+                            <tr>
+                                <th>Сфера / Дела</th>
+                                <th>Лучшие дни мая</th>
+                                <th>Избегать</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="category-icon">🚀</span> Начало бизнеса</td>
+                                <td class="favorable-table__good">6, 11, 21 мая</td>
+                                <td class="favorable-table__bad">1, 8, 19 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">💰</span> Финансовые решения</td>
+                                <td class="favorable-table__good">7, 12, 15 мая</td>
+                                <td class="favorable-table__bad">9, 14 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">🤝</span> Важные переговоры</td>
+                                <td class="favorable-table__good">5, 11, 22 мая</td>
+                                <td class="favorable-table__bad">8, 19 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">💕</span> Знакомства и свидания</td>
+                                <td class="favorable-table__good">6, 15, 21, 26 мая</td>
+                                <td class="favorable-table__bad">1, 9, 29 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">🏥</span> Медицинские процедуры</td>
+                                <td class="favorable-table__good">12, 16, 22 мая</td>
+                                <td class="favorable-table__bad">14, 28 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">✈️</span> Путешествия</td>
+                                <td class="favorable-table__good">7, 11, 21, 26 мая</td>
+                                <td class="favorable-table__bad">8, 19 мая</td>
+                            </tr>
+                            <tr>
+                                <td><span class="category-icon">🛍️</span> Важные покупки</td>
+                                <td class="favorable-table__good">6, 12, 21 мая</td>
+                                <td class="favorable-table__bad">1, 9, 28 мая</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== ПЕРСОНАЛЬНЫЙ РАСЧЁТ ===== -->
+        <section class="personal-calc section section--dark">
+            <div class="container">
+                <div class="personal-calc__inner">
+                    <h2 class="personal-calc__title">Персональный расчёт дня</h2>
+                    <p class="personal-calc__subtitle">
+                        Введите дату Вашего рождения — система рассчитает Ваше персональное число на сегодня (19 мая 2026) и даст точную рекомендацию.
+                    </p>
+
+                    <div class="personal-calc__form">
+                        <div class="personal-calc__field">
+                            <label class="personal-calc__label" for="birthdateInput">Дата рождения</label>
+                            <input
+                                class="personal-calc__input"
+                                type="date"
+                                id="birthdateInput"
+                                max="2008-12-31"
+                                min="1920-01-01"
+                                placeholder="дд.мм.гггг"
+                            >
+                        </div>
+                        <button class="button button--primary" id="calcBtn" type="button">
+                            Рассчитать мой день
+                        </button>
+                    </div>
+
+                    <div class="personal-calc__result" id="calcResult">
+                        <div class="personal-calc__result-number" id="resultNumber"></div>
+                        <div class="personal-calc__result-title" id="resultTitle"></div>
+                        <p class="personal-calc__result-description" id="resultDescription"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== CTA ===== -->
+        <section class="planner-cta section">
+            <div class="container">
+                <div class="planner-cta__inner">
+                    <span class="planner-cta__icon">🔮</span>
+                    <h2 class="planner-cta__title">Хотите персональный прогноз на месяц?</h2>
+                    <p class="planner-cta__text">
+                        Общий календарь — лишь начало. Ваш персональный астрологический прогноз учитывает натальную карту, текущие планетарные транзиты и личные числовые циклы — всё вместе даёт точные рекомендации именно для Вас.
+                    </p>
+                    <a href="pay.html" class="button button--primary button--large">Получить персональный прогноз</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">
+                        <span class="footer__logo-text">Esoterra</span>
+                    </a>
+                    <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
+                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Поддержка</h4>
+                    <nav class="footer__links">
+                        <a href="contact.html" class="footer__link">Контакты</a>
+                        <a href="index.html#faq" class="footer__link">FAQ</a>
+                        <a href="dashboard.html" class="footer__link">Мой аккаунт</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/disclaimer.html" class="footer__link">Дисклеймер</a>
+                        <a href="legal/oferta.html" class="footer__link">Публичная оферта</a>
+                    </nav>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__column-title">Правовая информация</h4>
+                    <nav class="footer__links">
+                        <a href="legal/privacy.html" class="footer__link">Политика конфиденциальности</a>
+                        <a href="legal/terms.html" class="footer__link">Условия использования</a>
+                        <a href="legal/refund.html" class="footer__link">Политика возврата</a>
+                        <a href="legal/cookie.html" class="footer__link">Политика Cookie</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <div class="footer__legal">
+                    <a href="legal/privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
+                    <a href="legal/terms.html" class="footer__legal-link">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/cookie-consent.js"></script>
+
+    <script>
+        // ===== ПЕРСОНАЛЬНЫЙ РАСЧЁТ ДНЯ =====
+        (function () {
+            'use strict';
+
+            // Описания для чисел 1–9
+            const dayDescriptions = {
+                1: {
+                    title: 'День лидерства и новых начинаний',
+                    description: 'Сегодня Вы обладаете особой силой первопроходца. Берите инициативу в свои руки, принимайте самостоятельные решения и не бойтесь выделяться. Это идеальный день для старта важных дел, презентаций и знакомств с влиятельными людьми. Ваша воля сегодня — мощный инструмент.'
+                },
+                2: {
+                    title: 'День партнёрства и дипломатии',
+                    description: 'Сегодня на первый план выходят отношения и сотрудничество. Прислушивайтесь к мнению других, ищите компромиссы и укрепляйте союзы. Это благоприятный день для переговоров, заключения договорённостей и восстановления нарушенных связей. Мягкость и внимание — Ваши козыри.'
+                },
+                3: {
+                    title: 'День общения и творчества',
+                    description: 'Сегодня слова и идеи льются легко. Используйте этот день для публичных выступлений, творческих проектов, написания текстов и живого общения. Ваш оптимизм заразителен — люди тянутся к Вам. Отличный день для нетворкинга, социальных сетей и всего, что связано с самовыражением.'
+                },
+                4: {
+                    title: 'День труда и организации',
+                    description: 'Сегодня Вселенная поощряет тех, кто работает методично и ответственно. Займитесь систематизацией, планированием, наведением порядка. Это день для скрупулёзных задач: документы, таблицы, структурирование проектов. Не ищите быстрых решений — качество важнее скорости.'
+                },
+                5: {
+                    title: 'День перемен и приключений',
+                    description: 'Сегодня статика невыносима — Вам нужно движение. Смените маршрут, попробуйте что-то новое, примите неожиданное предложение. День благоволит путешествиям, спонтанным встречам и переменам. Ваша гибкость и открытость к новому сегодня приведут к неожиданным, но приятным результатам.'
+                },
+                6: {
+                    title: 'День семьи и красоты',
+                    description: 'Сегодня особенно ценны тепло, гармония и забота. Уделите внимание близким, домашнему очагу и личной эстетике. Это прекрасный день для романтики, семейных ужинов, украшения дома и любых форм красоты. Помогайте другим — и получите в ответ вдвое больше любви.'
+                },
+                7: {
+                    title: 'День размышлений и интуиции',
+                    description: 'Сегодня Ваша интуиция работает на максимуме. Доверяйте внутреннему голосу, уединитесь, если чувствуете такую потребность. Это день для глубокого анализа, медитаций, изучения эзотерики и поиска ответов на важные вопросы. Спешка и шум будут мешать — выберите тишину.'
+                },
+                8: {
+                    title: 'День власти и финансов',
+                    description: 'Сегодня Вы излучаете авторитет и притягиваете материальные возможности. Это лучший день для финансовых решений, карьерных переговоров, инвестиций и проявления лидерских качеств. Говорите уверенно, думайте масштабно. Успех сегодня определяется Вашей готовностью брать на себя ответственность.'
+                },
+                9: {
+                    title: 'День завершения и мудрости',
+                    description: 'Сегодня цикл подходит к концу. Закройте незавершённые дела, простите обиды, отпустите то, что уже отжило своё. Это день щедрости, благодарности и осмысления пройденного пути. Помогите кому-то бескорыстно — и Вселенная откроет для Вас дверь в новый, более богатый цикл.'
+                }
+            };
+
+            // Функция свёртки числа до 1-9
+            function reduceToSingleDigit(n) {
+                while (n > 9) {
+                    n = String(n).split('').reduce((acc, d) => acc + parseInt(d, 10), 0);
+                }
+                return n;
+            }
+
+            // Вычисление персонального числа дня
+            // Формула: (сумма цифр даты рождения) + (сумма цифр сегодняшней даты) → свернуть до 1-9
+            function calcPersonalDay(birthdate) {
+                // Дата рождения
+                const parts = birthdate.split('-');
+                const year = parts[0];
+                const month = parts[1];
+                const day = parts[2];
+                const birthSum = (year + month + day)
+                    .split('')
+                    .reduce((acc, d) => acc + parseInt(d, 10), 0);
+                const birthReduced = reduceToSingleDigit(birthSum);
+
+                // Сегодняшняя дата: 19.05.2026 → 1+9+0+5+2+0+2+6 = 25 → 2+5 = 7
+                const todaySum = 1 + 9 + 0 + 5 + 2 + 0 + 2 + 6; // = 25
+                const todayReduced = reduceToSingleDigit(todaySum); // = 7
+
+                // Личное число дня
+                const personalDay = reduceToSingleDigit(birthReduced + todayReduced);
+                return personalDay;
+            }
+
+            document.getElementById('calcBtn').addEventListener('click', function () {
+                const input = document.getElementById('birthdateInput');
+                const val = input.value;
+
+                if (!val) {
+                    input.style.borderColor = '#e74c3c';
+                    input.focus();
+                    setTimeout(() => { input.style.borderColor = ''; }, 2000);
+                    return;
+                }
+
+                const personalDay = calcPersonalDay(val);
+                const info = dayDescriptions[personalDay];
+
+                document.getElementById('resultNumber').textContent = personalDay;
+                document.getElementById('resultTitle').textContent = info.title;
+                document.getElementById('resultDescription').textContent = info.description;
+
+                const resultEl = document.getElementById('calcResult');
+                resultEl.classList.remove('personal-calc__result--visible');
+                // Trigger reflow для рестарта анимации
+                void resultEl.offsetWidth;
+                resultEl.classList.add('personal-calc__result--visible');
+            });
+
+            // Также по Enter
+            document.getElementById('birthdateInput').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('calcBtn').click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
