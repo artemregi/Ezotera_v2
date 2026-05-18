@@ -40,7 +40,7 @@
         banner.innerHTML = `
             <p style="margin:0;max-width:700px;">
                 Сайт использует cookie для обеспечения корректной работы сервиса и улучшения пользовательского опыта.
-                Продолжая использование сайта, вы соглашаетесь с&nbsp;
+                Продолжая использование сайта, Вы соглашаетесь с&nbsp;
                 <a href="${cookiePolicyPath}" style="color:#a8c9f0;text-decoration:underline;">Политикой использования Cookie</a>.
             </p>
             <button id="cookieConsentAccept" style="

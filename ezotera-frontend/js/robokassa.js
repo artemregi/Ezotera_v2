@@ -1,5 +1,5 @@
 /* ============================================
-   ROBOKASSA PAYMENT HANDLER — Ezotera Frontend
+   ROBOKASSA PAYMENT HANDLER — Esoterra Frontend
    Handles payment button clicks, calls API
    to get a signed payment URL, then redirects.
    ============================================ */

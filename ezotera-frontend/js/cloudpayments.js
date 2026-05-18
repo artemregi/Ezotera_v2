@@ -24,7 +24,7 @@
         buttons.forEach(function (btn) {
             btn.addEventListener('click', function () {
                 var amount  = parseFloat(btn.getAttribute('data-pay-amount'));
-                var desc    = btn.getAttribute('data-pay-desc') || 'Консультация Ezotera';
+                var desc    = btn.getAttribute('data-pay-desc') || 'Консультация Esoterra';
                 var consentBox = document.getElementById('payConsent');
 
                 if (consentBox && !consentBox.checked) {

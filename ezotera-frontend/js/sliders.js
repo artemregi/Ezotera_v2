@@ -1,5 +1,5 @@
 /* ============================================
-   SLIDERS JAVASCRIPT — Ezotera Frontend
+   SLIDERS JAVASCRIPT — Esoterra Frontend
    Testimonial carousel with touch support,
    auto-play, dot navigation
    ============================================ */

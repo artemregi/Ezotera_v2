@@ -1,5 +1,5 @@
 /* ============================================
-   NAVIGATION JAVASCRIPT — Ezotera Frontend
+   NAVIGATION JAVASCRIPT — Esoterra Frontend
    Header scroll behavior, desktop dropdowns
    with delayed close, mobile menu,
    mobile dropdowns, smooth scroll

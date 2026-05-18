@@ -1,5 +1,5 @@
 /* ============================================
-   FORGOT PASSWORD JAVASCRIPT — Ezotera
+   FORGOT PASSWORD JAVASCRIPT — Esoterra
    Multi-step password reset with OTP
    ============================================ */
 

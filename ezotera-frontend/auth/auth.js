@@ -1,5 +1,5 @@
 /* ============================================
-   AUTH JAVASCRIPT — Ezotera Frontend
+   AUTH JAVASCRIPT — Esoterra Frontend
    Handles login and registration validation
    ============================================ */
 
@@ -188,7 +188,7 @@
 
             /* Validate name */
             if (!nameField || !nameField.value.trim()) {
-                showFieldError(nameField, 'registerNameError', 'Пожалуйста, введите ваше имя.');
+                showFieldError(nameField, 'registerNameError', 'Пожалуйста, введите Ваше имя.');
                 isValid = false;
             }
 

@@ -1,5 +1,5 @@
 /* ============================================
-   ANIMATIONS JAVASCRIPT — Ezotera Frontend
+   ANIMATIONS JAVASCRIPT — Esoterra Frontend
    Scroll-based fade-in animations,
    FAQ accordion, pricing toggle,
    counter animations

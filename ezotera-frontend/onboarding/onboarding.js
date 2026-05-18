@@ -1,5 +1,5 @@
 /* ============================================
-   ONBOARDING JAVASCRIPT — Ezotera Frontend
+   ONBOARDING JAVASCRIPT — Esoterra Frontend
    Handles all 9 steps with navigation, validation,
    localStorage persistence, and progress tracking
    ============================================ */
@@ -152,7 +152,7 @@
 
             if (!name) {
                 console.log('Step 1: Name is empty, showing error');
-                showFieldError(nameField, 'userNameError', 'Пожалуйста, введите ваше имя.');
+                showFieldError(nameField, 'userNameError', 'Пожалуйста, введите Ваше имя.');
                 return;
             }
 
@@ -190,7 +190,7 @@
             if (!genderInput) {
                 var errorElement = document.getElementById('userGenderError');
                 if (errorElement) {
-                    errorElement.textContent = 'Пожалуйста, выберите ваш пол.';
+                    errorElement.textContent = 'Пожалуйста, выберите Ваш пол.';
                 }
                 return;
             }
@@ -384,7 +384,7 @@
             if (!statusInput) {
                 var errorElement = document.getElementById('relationshipStatusError');
                 if (errorElement) {
-                    errorElement.textContent = 'Пожалуйста, выберите ваш статус отношений.';
+                    errorElement.textContent = 'Пожалуйста, выберите Ваш статус отношений.';
                 }
                 return;
             }
@@ -495,7 +495,7 @@
 
             var email = emailField.value.trim();
             if (!email) {
-                showFieldError(emailField, 'userEmailError', 'Пожалуйста, введите ваш email.');
+                showFieldError(emailField, 'userEmailError', 'Пожалуйста, введите Ваш email.');
                 return;
             }
             if (!validateEmailFormat(email)) {
