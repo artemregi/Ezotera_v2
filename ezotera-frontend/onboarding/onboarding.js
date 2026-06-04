@@ -221,29 +221,76 @@
             return;
         }
 
-        var birthDateField = document.getElementById('userBirthDate');
-        if (!birthDateField) {
+        var dayEl = document.getElementById('obBirthDay');
+        var monthEl = document.getElementById('obBirthMonth');
+        var yearEl = document.getElementById('obBirthYear');
+        var hiddenDate = document.getElementById('userBirthDate');
+
+        if (!dayEl || !monthEl || !yearEl) {
             return;
         }
+
+        var currentYear = new Date().getFullYear();
+        var minYear = 1920, maxYear = currentYear - 1;
+
+        /* Populate years */
+        for (var y = maxYear; y >= minYear; y--) {
+            var opt = document.createElement('option');
+            opt.value = y; opt.textContent = y;
+            yearEl.appendChild(opt);
+        }
+
+        /* Update days based on month/year */
+        function updateDays() {
+            var prevDay = dayEl.value;
+            var month = parseInt(monthEl.value) || 1;
+            var year = parseInt(yearEl.value) || 2000;
+            var daysInMonth = new Date(year, month, 0).getDate();
+            dayEl.innerHTML = '<option value="">День</option>';
+            for (var d = 1; d <= daysInMonth; d++) {
+                var opt = document.createElement('option');
+                opt.value = d; opt.textContent = d;
+                if (d === parseInt(prevDay)) opt.selected = true;
+                dayEl.appendChild(opt);
+            }
+            syncHidden();
+        }
+
+        function syncHidden() {
+            var d = dayEl.value, m = monthEl.value, y = yearEl.value;
+            if (d && m && y) {
+                hiddenDate.value = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+            } else {
+                hiddenDate.value = '';
+            }
+            clearFieldError(null, 'userBirthDateError');
+        }
+
+        monthEl.addEventListener('change', updateDays);
+        yearEl.addEventListener('change', updateDays);
+        dayEl.addEventListener('change', syncHidden);
+        updateDays();
 
         /* Pre-fill from localStorage */
         var savedData = getOnboardingData();
         if (savedData.user_birth_date) {
-            birthDateField.value = savedData.user_birth_date;
+            var parts = savedData.user_birth_date.split('-');
+            if (parts.length === 3) {
+                yearEl.value = parseInt(parts[0]);
+                monthEl.value = parseInt(parts[1]);
+                updateDays();
+                dayEl.value = parseInt(parts[2]);
+                syncHidden();
+            }
         }
-
-        /* Clear error on input */
-        birthDateField.addEventListener('input', function () {
-            clearFieldError(birthDateField, 'userBirthDateError');
-        });
 
         /* Handle form submission */
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            var birthDate = birthDateField.value;
-            if (!birthDate) {
-                showFieldError(birthDateField, 'userBirthDateError', 'Пожалуйста, укажите дату рождения.');
+            var birthDate = hiddenDate.value;
+            if (!birthDate || !dayEl.value || !monthEl.value || !yearEl.value) {
+                showFieldError(null, 'userBirthDateError', 'Пожалуйста, укажите дату рождения.');
                 return;
             }
 

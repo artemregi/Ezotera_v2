@@ -1,53 +1,38 @@
-const crypto = require('crypto');
 const { pool } = require('../../lib/db');
 
 /**
- * Verifies CloudPayments HMAC-SHA256 webhook signature.
- */
-function verifyHmac(rawBody, hmacHeader) {
-    const secretKey = process.env.CP_SECRET_KEY;
-    if (!secretKey) return true;
-    const expected = crypto
-        .createHmac('sha256', secretKey)
-        .update(rawBody)
-        .digest('base64');
-    return expected === hmacHeader;
-}
-
-/**
- * POST /api/payment/fail  (CloudPayments Fail webhook)
- * Called by CloudPayments when a transaction fails or is declined.
- * Must return { "code": 0 } to acknowledge.
+ * GET/POST /api/payment/fail  (Robokassa FailURL)
+ * User is redirected here when payment fails or is cancelled.
+ * Robokassa sends InvId and OutSum as query/body params.
  */
 module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
-    if (req.method !== 'POST') {
-        return res.status(405).end();
+        res.statusCode = 200;
+        res.end();
+        return;
     }
 
     try {
-        const rawBody = req.body ? JSON.stringify(req.body) : '';
-        const hmacHeader = req.headers['x-content-hmac'] || '';
+        const data = req.method === 'GET' ? (req.query || {}) : (req.body || {});
+        const InvId = data.InvId || '';
 
-        if (!verifyHmac(rawBody, hmacHeader)) {
-            return res.status(200).json({ code: 10, message: 'Invalid signature' });
+        if (InvId) {
+            await pool.query(
+                `UPDATE public.payments SET status = 'failed', updated_at = NOW() WHERE order_id = $1 AND status = 'pending'`,
+                [String(InvId)]
+            ).catch(e => console.error('Fail DB update error:', e.message));
         }
 
-        const { TransactionId, InvoiceId, ReasonCode, Reason } = req.body;
-        console.log(`CloudPayments Fail: TransactionId=${TransactionId}, InvoiceId=${InvoiceId}, Reason=${Reason}`);
+        console.log(`[Robokassa] Payment failed/cancelled: InvId=${InvId}`);
 
-        await pool.query(
-            `UPDATE public.payments
-             SET status = 'failed', cp_transaction_id = $1, updated_at = NOW()
-             WHERE order_id = $2`,
-            [String(TransactionId || ''), String(InvoiceId || '')]
-        ).catch(e => console.error('Fail DB update error:', e.message));
-
-        return res.status(200).json({ code: 0 });
+        // Redirect user back to shop with error message
+        const redirectUrl = (process.env.PRODUCTION_URL || '') + '/shop.html?payment=failed';
+        res.writeHead(302, { 'Location': redirectUrl });
+        res.end();
     } catch (error) {
-        console.error('Payment fail webhook error:', error);
-        return res.status(200).json({ code: 0 });
+        console.error('[Robokassa] Fail handler error:', error);
+        res.statusCode = 302;
+        res.setHeader('Location', '/shop.html?payment=error');
+        res.end();
     }
 };

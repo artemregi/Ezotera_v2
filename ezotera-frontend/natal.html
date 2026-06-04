@@ -117,8 +117,31 @@
                     </div>
                     <div class="natal-form__row natal-form__row--3">
                         <div class="natal-form__field">
-                            <label class="natal-form__label" for="birthDate">Дата рождения <span class="natal-form__req">*</span></label>
-                            <input class="natal-form__input" type="date" id="birthDate" required>
+                            <label class="natal-form__label">Дата рождения <span class="natal-form__req">*</span></label>
+                            <div class="natal-form__date-selects">
+                                <select class="natal-form__input natal-form__select" id="birthDay" required>
+                                    <option value="">День</option>
+                                </select>
+                                <select class="natal-form__input natal-form__select" id="birthMonth" required>
+                                    <option value="">Месяц</option>
+                                    <option value="1">Январь</option>
+                                    <option value="2">Февраль</option>
+                                    <option value="3">Март</option>
+                                    <option value="4">Апрель</option>
+                                    <option value="5">Май</option>
+                                    <option value="6">Июнь</option>
+                                    <option value="7">Июль</option>
+                                    <option value="8">Август</option>
+                                    <option value="9">Сентябрь</option>
+                                    <option value="10">Октябрь</option>
+                                    <option value="11">Ноябрь</option>
+                                    <option value="12">Декабрь</option>
+                                </select>
+                                <select class="natal-form__input natal-form__select" id="birthYear" required>
+                                    <option value="">Год</option>
+                                </select>
+                            </div>
+                            <input type="hidden" id="birthDate">
                         </div>
                         <div class="natal-form__field">
                             <label class="natal-form__label" for="birthTime">Время рождения</label>
@@ -260,7 +283,7 @@
         <div class="container">
             <p class="natal-disclaimer__text">
                 Натальная карта и её интерпретация носят исключительно информационный и развлекательный характер.
-                ООО «АЛИТЕХ» не гарантирует конкретных жизненных результатов. Материалы не заменяют
+                Esoterra не гарантирует конкретных жизненных результатов. Материалы не заменяют
                 профессиональную психологическую или медицинскую консультацию.
             </p>
         </div>
@@ -271,6 +294,57 @@
 <script src="js/footer-loader.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/cookie-consent.js"></script>
+
+<!-- Date picker logic -->
+<script>
+(function() {
+    var dayEl = document.getElementById('birthDay');
+    var monthEl = document.getElementById('birthMonth');
+    var yearEl = document.getElementById('birthYear');
+    var hiddenDate = document.getElementById('birthDate');
+    var currentYear = new Date().getFullYear();
+    var minYear = 1920, maxYear = currentYear - 1;
+
+    // Populate years
+    for (var y = maxYear; y >= minYear; y--) {
+        var opt = document.createElement('option');
+        opt.value = y; opt.textContent = y;
+        yearEl.appendChild(opt);
+    }
+
+    // Populate days based on month/year
+    function updateDays() {
+        var prevDay = dayEl.value;
+        var month = parseInt(monthEl.value) || 1;
+        var year = parseInt(yearEl.value) || 2000;
+        var daysInMonth = new Date(year, month, 0).getDate();
+        dayEl.innerHTML = '<option value="">День</option>';
+        for (var d = 1; d <= daysInMonth; d++) {
+            var opt = document.createElement('option');
+            opt.value = d; opt.textContent = d;
+            if (d === parseInt(prevDay)) opt.selected = true;
+            dayEl.appendChild(opt);
+        }
+        syncHidden();
+    }
+
+    function syncHidden() {
+        var d = dayEl.value, m = monthEl.value, y = yearEl.value;
+        if (d && m && y) {
+            hiddenDate.value = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+        } else {
+            hiddenDate.value = '';
+        }
+    }
+
+    monthEl.addEventListener('change', updateDays);
+    yearEl.addEventListener('change', updateDays);
+    dayEl.addEventListener('change', syncHidden);
+
+    // Init days
+    updateDays();
+})();
+</script>
 
 <!-- Astronomy Engine (client-side planet calculations) -->
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2/astronomy.browser.min.js"></script>

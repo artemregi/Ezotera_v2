@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор гороскопа | Esoterra Админ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
+        .admin { display:grid; grid-template-columns:240px 1fr; min-height:100vh; }
+        .admin__sidebar { background:#10101e; border-right:1px solid rgba(130,80,220,0.2); padding:32px 20px; }
+        .admin__logo { font-size:1.3rem; font-weight:700; color:#f9ca24; margin-bottom:32px; }
+        .admin__logo span { color:#a090c0; font-weight:400; }
+        .admin__nav { display:flex; flex-direction:column; gap:4px; }
+        .admin__nav-link { display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px; color:#a090c0; text-decoration:none; font-size:0.95rem; transition:all 0.2s; }
+        .admin__nav-link:hover, .admin__nav-link--active { background:rgba(130,80,220,0.15); color:#e8e0f0; }
+        .admin__nav-link--active { border-left:3px solid #6c5ce7; }
+        .admin__back { margin-top:auto; padding-top:24px; }
+        .admin__back a { color:#a090c0; text-decoration:none; font-size:0.85rem; }
+        .admin__main { padding:32px 40px; overflow-y:auto; }
+        .admin__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:12px; }
+        .admin__title { font-size:1.5rem; font-weight:700; }
+        .btn { padding:10px 24px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:all 0.2s; }
+        .btn--primary { background:#6c5ce7; color:#fff; }
+        .btn--primary:hover { background:#5a4bd6; }
+        .btn--success { background:#00b894; color:#fff; }
+
+        /* Meta fields */
+        .meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+        .meta-field label { display:block; font-size:0.82rem; color:#a090c0; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; }
+        .meta-field input { width:100%; background:#16162a; border:1px solid rgba(130,80,220,0.25); border-radius:10px; color:#f0eaff; font-size:0.95rem; padding:12px 14px; outline:none; font-family:inherit; }
+        .meta-field input:focus { border-color:#6c5ce7; }
+
+        /* Sign tabs */
+        .sign-tabs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px; }
+        .sign-tab { padding:8px 16px; border-radius:8px; background:rgba(130,80,220,0.1); border:1px solid rgba(130,80,220,0.2); color:#a090c0; cursor:pointer; font-size:0.85rem; transition:all 0.2s; }
+        .sign-tab:hover { background:rgba(130,80,220,0.2); }
+        .sign-tab.active { background:rgba(130,80,220,0.3); color:#f0eaff; border-color:#6c5ce7; }
+
+        /* Sign editor */
+        .sign-editor { background:#10101e; border:1px solid rgba(130,80,220,0.2); border-radius:16px; padding:28px; }
+        .sign-editor__title { font-size:1.1rem; font-weight:600; margin-bottom:20px; }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-size:0.82rem; color:#a090c0; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; }
+        .form-group textarea {
+            width:100%; background:#16162a; border:1px solid rgba(130,80,220,0.25); border-radius:10px;
+            color:#f0eaff; font-size:0.9rem; padding:12px 14px; outline:none; font-family:inherit;
+            resize:vertical; min-height:100px;
+        }
+        .form-group input {
+            width:100%; background:#16162a; border:1px solid rgba(130,80,220,0.25); border-radius:10px;
+            color:#f0eaff; font-size:0.9rem; padding:12px 14px; outline:none; font-family:inherit;
+        }
+        .form-group textarea:focus, .form-group input:focus { border-color:#6c5ce7; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+        .toast { position:fixed; bottom:24px; right:24px; background:#00b894; color:#fff; padding:14px 24px; border-radius:10px; font-size:0.9rem; display:none; z-index:200; }
+        .toast.show { display:block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+        #loading { text-align:center; padding:80px; color:#a090c0; }
+        @media(max-width:768px) {
+            .admin { grid-template-columns:1fr; }
+            .admin__sidebar { display:none; }
+            .admin__main { padding:20px; }
+            .meta-grid, .form-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Загрузка...</div>
+    <div class="admin" id="adminPanel" style="display:none;">
+        <aside class="admin__sidebar">
+            <div class="admin__logo">Esoterra <span>Админ</span></div>
+            <nav class="admin__nav">
+                <a href="index.html" class="admin__nav-link"><span>📊</span> Главная</a>
+                <a href="products.html" class="admin__nav-link"><span>📿</span> Браслеты</a>
+                <a href="horoscope.html" class="admin__nav-link admin__nav-link--active"><span>🔮</span> Гороскоп</a>
+            </nav>
+            <div class="admin__back"><a href="../index.html">← Вернуться на сайт</a></div>
+        </aside>
+        <main class="admin__main">
+            <div class="admin__header">
+                <h1 class="admin__title">Редактор гороскопа</h1>
+                <button class="btn btn--success" id="saveBtn" onclick="saveAll()">Сохранить все изменения</button>
+            </div>
+
+            <!-- Meta -->
+            <div class="meta-grid">
+                <div class="meta-field">
+                    <label>Период (неделя)</label>
+                    <input type="text" id="weekRange" placeholder="19 мая — 25 мая 2026">
+                </div>
+                <div class="meta-field">
+                    <label>Фаза луны</label>
+                    <input type="text" id="moonPhase" placeholder="Растущая луна">
+                </div>
+            </div>
+
+            <!-- Sign tabs -->
+            <div class="sign-tabs" id="signTabs"></div>
+
+            <!-- Editor -->
+            <div class="sign-editor" id="signEditor">
+                <h3 class="sign-editor__title" id="editorTitle">Выберите знак</h3>
+                <div class="form-group">
+                    <label>Общий прогноз</label>
+                    <textarea id="fGeneral" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Любовь</label>
+                    <textarea id="fLove" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Карьера</label>
+                    <textarea id="fCareer" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Здоровье</label>
+                    <textarea id="fHealth" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Совет</label>
+                    <textarea id="fAdvice" rows="2"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Счастливое число</label>
+                        <input type="text" id="fNumber">
+                    </div>
+                    <div class="form-group">
+                        <label>Счастливый цвет</label>
+                        <input type="text" id="fColor">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Счастливые дни (через запятую)</label>
+                        <input type="text" id="fDays" placeholder="понедельник, среда">
+                    </div>
+                    <div class="form-group">
+                        <label>Энергия (1-10)</label>
+                        <input type="number" id="fEnergy" min="1" max="10" value="7">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="toast" id="toast">Изменения сохранены!</div>
+
+    <script>
+    var horoscopeData = null;
+    var currentSign = 'aries';
+    var SIGNS = [
+        {id:'aries',name:'Овен',icon:'♈'},{id:'taurus',name:'Телец',icon:'♉'},
+        {id:'gemini',name:'Близнецы',icon:'♊'},{id:'cancer',name:'Рак',icon:'♋'},
+        {id:'leo',name:'Лев',icon:'♌'},{id:'virgo',name:'Дева',icon:'♍'},
+        {id:'libra',name:'Весы',icon:'♎'},{id:'scorpio',name:'Скорпион',icon:'♏'},
+        {id:'sagittarius',name:'Стрелец',icon:'♐'},{id:'capricorn',name:'Козерог',icon:'♑'},
+        {id:'aquarius',name:'Водолей',icon:'♒'},{id:'pisces',name:'Рыбы',icon:'♓'}
+    ];
+
+    // Auth check
+    fetch('/api/auth/verify', { credentials: 'include' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            document.getElementById('loading').style.display = 'none';
+            if (data.authenticated && data.user && data.user.role === 'admin') {
+                document.getElementById('adminPanel').style.display = 'grid';
+                loadHoroscope();
+            } else {
+                document.body.innerHTML = '<div style="text-align:center;padding:80px;color:#a090c0;"><h2>Доступ запрещён</h2><a href="../index.html" style="color:#6c5ce7;">На главную</a></div>';
+            }
+        });
+
+    function loadHoroscope() {
+        fetch('/api/admin/horoscope', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                horoscopeData = data;
+                document.getElementById('weekRange').value = data.weekRange || '';
+                document.getElementById('moonPhase').value = data.moonPhase || '';
+                renderTabs();
+                selectSign('aries');
+            });
+    }
+
+    function renderTabs() {
+        var html = '';
+        SIGNS.forEach(function(s) {
+            html += '<div class="sign-tab" data-sign="' + s.id + '" onclick="selectSign(\'' + s.id + '\')">' + s.icon + ' ' + s.name + '</div>';
+        });
+        document.getElementById('signTabs').innerHTML = html;
+    }
+
+    function selectSign(signId) {
+        // Save current before switching
+        if (currentSign && horoscopeData && horoscopeData.signs[currentSign]) {
+            saveCurrentToData();
+        }
+        currentSign = signId;
+
+        // Update tabs
+        document.querySelectorAll('.sign-tab').forEach(function(t) {
+            t.classList.toggle('active', t.dataset.sign === signId);
+        });
+
+        // Load sign data
+        var sign = SIGNS.find(function(s) { return s.id === signId; });
+        var data = horoscopeData.signs[signId] || {};
+        document.getElementById('editorTitle').textContent = sign ? sign.icon + ' ' + sign.name : signId;
+        document.getElementById('fGeneral').value = data.general || '';
+        document.getElementById('fLove').value = data.love || '';
+        document.getElementById('fCareer').value = data.career || '';
+        document.getElementById('fHealth').value = data.health || '';
+        document.getElementById('fAdvice').value = data.advice || '';
+        document.getElementById('fNumber').value = data.luckyNumber || '';
+        document.getElementById('fColor').value = data.luckyColor || '';
+        document.getElementById('fDays').value = (data.luckyDays || []).join(', ');
+        document.getElementById('fEnergy').value = data.energy || 7;
+    }
+
+    function saveCurrentToData() {
+        if (!horoscopeData || !horoscopeData.signs[currentSign]) return;
+        horoscopeData.signs[currentSign].general = document.getElementById('fGeneral').value;
+        horoscopeData.signs[currentSign].love = document.getElementById('fLove').value;
+        horoscopeData.signs[currentSign].career = document.getElementById('fCareer').value;
+        horoscopeData.signs[currentSign].health = document.getElementById('fHealth').value;
+        horoscopeData.signs[currentSign].advice = document.getElementById('fAdvice').value;
+        horoscopeData.signs[currentSign].luckyNumber = document.getElementById('fNumber').value;
+        horoscopeData.signs[currentSign].luckyColor = document.getElementById('fColor').value;
+        horoscopeData.signs[currentSign].luckyDays = document.getElementById('fDays').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+        horoscopeData.signs[currentSign].energy = parseInt(document.getElementById('fEnergy').value) || 7;
+    }
+
+    function saveAll() {
+        saveCurrentToData();
+        horoscopeData.weekRange = document.getElementById('weekRange').value;
+        horoscopeData.moonPhase = document.getElementById('moonPhase').value;
+
+        var btn = document.getElementById('saveBtn');
+        btn.textContent = 'Сохранение...';
+        btn.disabled = true;
+
+        fetch('/api/admin/horoscope', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(horoscopeData)
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            btn.textContent = 'Сохранить все изменения';
+            btn.disabled = false;
+            if (data.success) {
+                showToast('Гороскоп обновлён!');
+            } else {
+                alert(data.message || 'Ошибка сохранения');
+            }
+        })
+        .catch(function() {
+            btn.textContent = 'Сохранить все изменения';
+            btn.disabled = false;
+            alert('Ошибка сервера');
+        });
+    }
+
+    function showToast(msg) {
+        var toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 3000);
+    }
+    </script>
+</body>
+</html>

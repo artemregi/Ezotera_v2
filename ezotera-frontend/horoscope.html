@@ -198,6 +198,27 @@
             color: rgba(255,255,255,0.72);
             line-height: 1.65;
             margin-bottom: 18px;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            max-height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .zodiac-card__text.expanded {
+            max-height: none;
+        }
+        .zodiac-card__read-more {
+            display: block;
+            text-align: center;
+            color: var(--color-accent);
+            font-size: 0.82rem;
+            cursor: pointer;
+            padding: 6px 0;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+        .zodiac-card__read-more:hover {
+            opacity: 1;
         }
         .zodiac-card__aspects {
             display: flex;
@@ -449,7 +470,7 @@
                         <span class="footer__logo-text">Esoterra</span>
                     </a>
                     <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
-                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                    <address class="footer__address">Esoterra</address>
                 </div>
                 <div class="footer__column">
                     <h4 class="footer__column-title">Поддержка</h4>
@@ -476,7 +497,7 @@
                 </div>
             </div>
             <div class="footer__bottom">
-                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <p class="footer__copyright">&copy; 2026 Esoterra. Все права защищены.</p>
             </div>
         </div>
     </footer>
@@ -514,6 +535,7 @@
                     '<div class="zodiac-card__dates">' + sign.dates + '</div></div>' +
                 '</div>' +
                 '<p class="zodiac-card__text">' + data.general + '</p>' +
+                '<span class="zodiac-card__read-more" onclick="this.previousElementSibling.classList.toggle(\'expanded\');this.textContent=this.previousElementSibling.classList.contains(\'expanded\')?\'Свернуть ↑\':\'Читать далее ↓\'">Читать далее ↓</span>' +
                 '<div class="zodiac-card__aspects">' +
                     '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">❤️ Любовь</span><span class="zodiac-card__aspect-value">' + data.love + '</span></div>' +
                     '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💼 Карьера</span><span class="zodiac-card__aspect-value">' + data.career + '</span></div>' +

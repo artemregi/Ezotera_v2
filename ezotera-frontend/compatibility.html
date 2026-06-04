@@ -609,7 +609,7 @@
                 <div class="footer__brand">
                     <a href="index.html" class="footer__logo"><span class="footer__logo-text">Esoterra</span></a>
                     <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
-                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                    <address class="footer__address">Esoterra</address>
                 </div>
                 <div class="footer__column">
                     <h4 class="footer__column-title">Поддержка</h4>
@@ -627,7 +627,7 @@
                 </div>
             </div>
             <div class="footer__bottom">
-                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <p class="footer__copyright">&copy; 2026 Esoterra. Все права защищены.</p>
             </div>
         </div>
     </footer>
@@ -1160,15 +1160,6 @@
         }
         showResult(s1, s2);
     });
-
-    // Также запускать при изменении любого select (удобство)
-    document.getElementById('sign1').addEventListener('change', tryAutoShow);
-    document.getElementById('sign2').addEventListener('change', tryAutoShow);
-    function tryAutoShow() {
-        const s1 = document.getElementById('sign1').value;
-        const s2 = document.getElementById('sign2').value;
-        if (s1 && s2) showResult(s1, s2);
-    }
 
     // FAQ accordion
     document.querySelectorAll('.faq-item__question').forEach(btn => {

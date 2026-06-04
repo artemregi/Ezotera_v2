@@ -88,7 +88,7 @@
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
                 practicesHref: '../practices.html',
-                braceletHref: '../bracelets.html'
+                braceletHref: '../shop.html'
             };
         } else if (pathname.includes('/auth/')) {
             return {
@@ -110,7 +110,7 @@
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
                 practicesHref: '../practices.html',
-                braceletHref: '../bracelets.html'
+                braceletHref: '../shop.html'
             };
         } else if (pathname.includes('/onboarding/')) {
             return {
@@ -132,7 +132,7 @@
                 blogHref: '../blog.html',
                 plannerHref: '../planner.html',
                 practicesHref: '../practices.html',
-                braceletHref: '../bracelets.html'
+                braceletHref: '../shop.html'
             };
         } else if (pathname.includes('dashboard.html')) {
             return {
@@ -154,7 +154,7 @@
                 blogHref: 'blog.html',
                 plannerHref: 'planner.html',
                 practicesHref: 'practices.html',
-                braceletHref: 'bracelets.html'
+                braceletHref: 'shop.html'
             };
         } else {
             return {
@@ -176,7 +176,7 @@
                 blogHref: 'blog.html',
                 plannerHref: 'planner.html',
                 practicesHref: 'practices.html',
-                braceletHref: 'bracelets.html'
+                braceletHref: 'shop.html'
             };
         }
     };
@@ -347,8 +347,15 @@
         const paths = detectPageLocation();
         const dashboardHref = paths.depth === 2 ? '../dashboard.html' : 'dashboard.html';
 
+        // Admin link if user is admin
+        const adminHref = paths.depth === 2 ? '../admin/index.html' : 'admin/index.html';
+        const adminLink = (user && user.role === 'admin')
+            ? `<a href="${adminHref}" class="header__admin-link" title="Админ-панель" style="color:#f9ca24;font-weight:600;">Админ</a>`
+            : '';
+
         // Create new authenticated header HTML
         const authenticatedHTML = `
+            ${adminLink}
             <a href="${dashboardHref}" class="header__dashboard-link" title="Личный кабинет">
                 Кабинет
             </a>

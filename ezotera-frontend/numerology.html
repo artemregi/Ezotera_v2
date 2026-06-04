@@ -106,7 +106,25 @@
             box-sizing: border-box;
         }
         .num-date-input:focus { border-color: var(--color-accent); }
-        .num-date-input::-webkit-calendar-picker-indicator { filter: invert(1) opacity(0.5); }
+        .num-date-selects {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .num-date-select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23a090c0' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            margin-bottom: 0;
+        }
+        @media (max-width: 480px) {
+            .num-date-selects { grid-template-columns: 1fr; }
+        }
         .num-calc-box__btn { width: 100%; padding: 16px; font-size: 1.05rem; }
 
         /* ===== RESULT ===== */
@@ -378,8 +396,31 @@
                     <h2 class="num-calc-box__title">Число жизненного пути</h2>
                     <p class="num-calc-box__sub">Введите дату рождения — мы рассчитаем Ваше число и раскроем его значение</p>
 
-                    <label class="num-calc-box__label" for="birthDate">Ваша дата рождения</label>
-                    <input type="date" id="birthDate" class="num-date-input" min="1900-01-01" max="2010-12-31">
+                    <label class="num-calc-box__label">Ваша дата рождения</label>
+                    <div class="num-date-selects">
+                        <select class="num-date-input num-date-select" id="numBirthDay">
+                            <option value="">День</option>
+                        </select>
+                        <select class="num-date-input num-date-select" id="numBirthMonth">
+                            <option value="">Месяц</option>
+                            <option value="1">Январь</option>
+                            <option value="2">Февраль</option>
+                            <option value="3">Март</option>
+                            <option value="4">Апрель</option>
+                            <option value="5">Май</option>
+                            <option value="6">Июнь</option>
+                            <option value="7">Июль</option>
+                            <option value="8">Август</option>
+                            <option value="9">Сентябрь</option>
+                            <option value="10">Октябрь</option>
+                            <option value="11">Ноябрь</option>
+                            <option value="12">Декабрь</option>
+                        </select>
+                        <select class="num-date-input num-date-select" id="numBirthYear">
+                            <option value="">Год</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="birthDate">
                     <button class="button button--primary num-calc-box__btn" id="calcNumBtn">Рассчитать моё число</button>
 
                     <!-- Результат -->
@@ -968,7 +1009,7 @@
                 <div class="footer__brand">
                     <a href="index.html" class="footer__logo"><span class="footer__logo-text">Esoterra</span></a>
                     <p class="footer__description">Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.</p>
-                    <address class="footer__address">ООО «АЛИТЕХ» | ИНН 6320076521<br>445043, Самарская обл., г. Тольятти,<br>ул. Борковская, вл. 82, ком. 1</address>
+                    <address class="footer__address">Esoterra</address>
                 </div>
                 <div class="footer__column">
                     <h4 class="footer__column-title">Поддержка</h4>
@@ -986,13 +1027,58 @@
                 </div>
             </div>
             <div class="footer__bottom">
-                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <p class="footer__copyright">&copy; 2026 Esoterra. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/navigation.js"></script>
     <script src="js/cookie-consent.js"></script>
+    <script>
+    // Date picker logic for numerology
+    (function() {
+        var dayEl = document.getElementById('numBirthDay');
+        var monthEl = document.getElementById('numBirthMonth');
+        var yearEl = document.getElementById('numBirthYear');
+        var hiddenDate = document.getElementById('birthDate');
+        var minYear = 1920, maxYear = 2010;
+
+        for (var y = maxYear; y >= minYear; y--) {
+            var opt = document.createElement('option');
+            opt.value = y; opt.textContent = y;
+            yearEl.appendChild(opt);
+        }
+
+        function updateDays() {
+            var prevDay = dayEl.value;
+            var month = parseInt(monthEl.value) || 1;
+            var year = parseInt(yearEl.value) || 2000;
+            var daysInMonth = new Date(year, month, 0).getDate();
+            dayEl.innerHTML = '<option value="">День</option>';
+            for (var d = 1; d <= daysInMonth; d++) {
+                var opt = document.createElement('option');
+                opt.value = d; opt.textContent = d;
+                if (d === parseInt(prevDay)) opt.selected = true;
+                dayEl.appendChild(opt);
+            }
+            syncHidden();
+        }
+
+        function syncHidden() {
+            var d = dayEl.value, m = monthEl.value, y = yearEl.value;
+            if (d && m && y) {
+                hiddenDate.value = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+            } else {
+                hiddenDate.value = '';
+            }
+        }
+
+        monthEl.addEventListener('change', updateDays);
+        yearEl.addEventListener('change', updateDays);
+        dayEl.addEventListener('change', syncHidden);
+        updateDays();
+    })();
+    </script>
     <script>
         // Numerology data
         const numData = {

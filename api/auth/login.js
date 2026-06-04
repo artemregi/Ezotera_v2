@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
         // Find user in database
         console.log('📊 Querying database for user...');
         const result = await pool.query(
-            'SELECT id, email, name, password_hash FROM public.users WHERE email = $1',
+            'SELECT id, email, name, password_hash, role FROM public.users WHERE email = $1',
             [emailValidation.normalized]
         );
         console.log('✅ Query successful, rows found:', result.rows.length);
@@ -77,7 +77,7 @@ module.exports = async (req, res) => {
 
         // Generate token (longer expiry if "remember me" checked)
         const expiresIn = remember ? '7d' : '24h';
-        const token = generateToken(user.id, user.email, expiresIn);
+        const token = generateToken(user.id, user.email, expiresIn, user.role || 'user');
 
         // Set cookie (7 days or 24 hours)
         const maxAge = remember ? 7 * 24 * 60 * 60 : 24 * 60 * 60;

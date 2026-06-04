@@ -9,6 +9,18 @@ module.exports = async (req, res) => {
     console.log('   Method:', req.method);
     console.log('   Body:', req.body);
 
+    // CORS headers for Vercel serverless
+    const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://www.esoterra.online').split(',').map(o => o.trim());
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else if (allowedOrigins.length) {
+        res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0]);
+    }
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;

@@ -25,7 +25,10 @@ const paymentResultHandler            = require('./payment/result');
 const paymentCheckHandler             = require('./payment/check');
 const paymentFailHandler              = require('./payment/fail');
 const paymentRefundHandler            = require('./payment/refund');
+const paymentSuccessHandler           = require('./payment/success');
 const natalInterpretHandler           = require('./natal/interpret');
+const adminProductsHandler            = require('./admin/products');
+const adminHoroscopeHandler           = require('./admin/horoscope');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -182,8 +185,14 @@ const server = http.createServer(async (req, res) => {
                 await paymentFailHandler(req, res);
             } else if (pathname === '/api/payment/refund') {
                 await paymentRefundHandler(req, res);
+            } else if (pathname === '/api/payment/success') {
+                await paymentSuccessHandler(req, res);
             } else if (pathname === '/api/natal/interpret' && req.method === 'POST') {
                 await natalInterpretHandler(req, res);
+            } else if (pathname === '/api/admin/products') {
+                await adminProductsHandler(req, res);
+            } else if (pathname === '/api/admin/horoscope') {
+                await adminHoroscopeHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {

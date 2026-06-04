@@ -106,16 +106,33 @@
 
                 <form id="onboardingStep" class="onboarding__form" novalidate>
                     <div class="onboarding__field">
-                        <label for="userBirthDate" class="onboarding__label">
+                        <label class="onboarding__label">
                             Дата рождения <span class="onboarding__required">*</span>
                         </label>
-                        <input
-                            type="date"
-                            id="userBirthDate"
-                            name="user_birth_date"
-                            class="onboarding__input"
-                            required
-                        >
+                        <div class="onboarding__date-selects">
+                            <select class="onboarding__input onboarding__select" id="obBirthDay">
+                                <option value="">День</option>
+                            </select>
+                            <select class="onboarding__input onboarding__select" id="obBirthMonth">
+                                <option value="">Месяц</option>
+                                <option value="1">Январь</option>
+                                <option value="2">Февраль</option>
+                                <option value="3">Март</option>
+                                <option value="4">Апрель</option>
+                                <option value="5">Май</option>
+                                <option value="6">Июнь</option>
+                                <option value="7">Июль</option>
+                                <option value="8">Август</option>
+                                <option value="9">Сентябрь</option>
+                                <option value="10">Октябрь</option>
+                                <option value="11">Ноябрь</option>
+                                <option value="12">Декабрь</option>
+                            </select>
+                            <select class="onboarding__input onboarding__select" id="obBirthYear">
+                                <option value="">Год</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="userBirthDate" name="user_birth_date">
                         <span class="onboarding__error" id="userBirthDateError"></span>
                     </div>
 

@@ -32,7 +32,8 @@ module.exports = async (req, res) => {
             authenticated: true,
             user: {
                 id: decoded.userId,
-                email: decoded.email
+                email: decoded.email,
+                role: decoded.role || 'user'
             }
         });
 

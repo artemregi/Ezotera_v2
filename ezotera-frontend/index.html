@@ -38,13 +38,16 @@
             </div>
             <div class="container hero__content">
                 <div class="hero__text">
-                    <h1 class="hero__title">Познайте себя через персональные астрологические инсайты</h1>
+                    <h1 class="hero__title">Получите бесплатный персональный разбор</h1>
                     <p class="hero__subtitle">
-                        Получите индивидуальные предсказания для любви, отношений, финансов, здоровья и духовного роста — основанные на Вашей натальной карте.
+                        Узнайте свою судьбу, совместимость и жизненный путь. Пробный доступ на 3 дня ко всем сервисам — бесплатно.
                     </p>
-                    <a href="onboarding/step-1-name.html" class="button button--primary button--large hero__cta">
-                        Получить личный прогноз
+                    <a href="#free-reading" class="button button--primary button--large hero__cta">
+                        Получить бесплатный разбор
                     </a>
+                    <p style="margin-top:12px; font-size:0.85rem; color:rgba(255,255,255,0.5);">
+                        3 дня бесплатного доступа ко всему функционалу
+                    </p>
                 </div>
                 <div class="hero__image">
                     <img src="assets/icons/ФОН1.jpg" alt="Астрологические консультации" width="480" height="400">
@@ -53,44 +56,90 @@
         </section>
 
 
-        <!-- ===== FEATURES GRID ===== -->
+        <!-- ===== FREE READING FORM ===== -->
+        <section class="section--dark section" id="free-reading" style="padding:80px 0; background:linear-gradient(180deg, #0c1b24 0%, #152b35 50%, #0c1b24 100%);">
+            <div class="container">
+                <div style="max-width:600px; margin:0 auto; text-align:center;">
+                    <h2 class="section__title" style="margin-bottom:12px;">Бесплатный персональный разбор</h2>
+                    <p style="color:rgba(255,255,255,0.6); margin-bottom:32px; font-size:1rem;">
+                        Заполните форму и получите доступ к полному разбору вашей личности + 3 дня бесплатного доступа ко всем функциям Esoterra.
+                    </p>
+                    <form id="freeReadingForm" style="text-align:left;">
+                        <div style="margin-bottom:18px;">
+                            <label style="display:block; font-size:0.82rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Ваше имя</label>
+                            <input type="text" id="frName" required placeholder="Как Вас зовут?" style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 18px; font-size:1rem; font-family:inherit; outline:none;">
+                        </div>
+                        <div style="margin-bottom:18px;">
+                            <label style="display:block; font-size:0.82rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Дата рождения</label>
+                            <div style="display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:10px;">
+                                <select id="frDay" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                    <option value="">День</option>
+                                </select>
+                                <select id="frMonth" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                    <option value="">Месяц</option>
+                                    <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
+                                    <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
+                                    <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
+                                    <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
+                                </select>
+                                <select id="frYear" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                    <option value="">Год</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:24px;">
+                            <label style="display:block; font-size:0.82rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Email</label>
+                            <input type="email" id="frEmail" required placeholder="your@email.com" style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 18px; font-size:1rem; font-family:inherit; outline:none;">
+                        </div>
+                        <button type="submit" class="button button--primary button--large" style="width:100%; font-size:1.1rem; padding:18px;">
+                            Получить бесплатный разбор
+                        </button>
+                        <p style="text-align:center; margin-top:12px; font-size:0.8rem; color:rgba(255,255,255,0.35);">
+                            Нажимая кнопку, вы соглашаетесь с условиями использования
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FEATURES GRID (3 cards) ===== -->
         <section class="features section" id="features">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Раскройте свой потенциал</h2>
+                    <h2 class="section__title">Что доступно бесплатно</h2>
                     <p class="section__subtitle">
-                        Исследуйте инструменты самопознания, которые помогут Вам лучше понять себя и окружающий мир.
+                        Гороскопы и новости доступны всем. Для полного разбора — получите бесплатный пробный доступ.
                     </p>
                 </div>
 
-                <div class="features__grid">
-                    <!-- Feature 1 -->
-                    <article class="feature-card fade-in">
+                <div class="features__grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <!-- Feature 1: Free Reading -->
+                    <article class="feature-card fade-in" style="border:2px solid rgba(108,92,231,0.4); background:rgba(108,92,231,0.08);">
                         <div class="feature-card__icon">
-                            <img src="assets/icons/zodiac.jpg" alt="" width="64" height="64" aria-hidden="true">
+                            <img src="assets/icons/natal.jpg" alt="" width="64" height="64" aria-hidden="true">
                         </div>
-                        <h3 class="feature-card__title">Знаки зодиака</h3>
+                        <h3 class="feature-card__title">Персональный разбор</h3>
                         <p class="feature-card__text">
-                            Узнайте, что Ваш знак зодиака говорит о Вашей личности, сильных сторонах и скрытых талантах.
+                            Натальная карта, анализ личности, совместимость, нумерология и практики — всё в одном месте. 3 дня бесплатно.
                         </p>
-                        <a href="zodiac/aries.html" class="feature-card__link">
-                            Узнать свой знак
+                        <a href="#free-reading" class="feature-card__link">
+                            Попробовать бесплатно
                             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                                 <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
                             </svg>
                         </a>
                     </article>
 
-                    <!-- Feature 2 -->
+                    <!-- Feature 2: Horoscope -->
                     <article class="feature-card fade-in">
                         <div class="feature-card__icon">
                             <img src="assets/icons/horoscope.jpg" alt="" width="64" height="64" aria-hidden="true">
                         </div>
-                        <h3 class="feature-card__title">Гороскопы</h3>
+                        <h3 class="feature-card__title">Гороскоп на неделю</h3>
                         <p class="feature-card__text">
-                            Загляните в то, что судьба приготовила для Вас — ежедневные, еженедельные и ежемесячные прогнозы, которые помогут притянуть удачу.
+                            Еженедельные прогнозы для каждого знака зодиака. Любовь, карьера, здоровье — всё бесплатно и без регистрации.
                         </p>
-                        <a href="coming-soon.html" class="feature-card__link">
+                        <a href="horoscope.html" class="feature-card__link">
                             Читать гороскоп
                             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                                 <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -98,73 +147,53 @@
                         </a>
                     </article>
 
-                    <!-- Feature 3 -->
-                    <article class="feature-card fade-in">
-                        <div class="feature-card__icon">
-                            <img src="assets/icons/hiromatia.jpg" alt="" width="64" height="64" aria-hidden="true">
-                        </div>
-                        <h3 class="feature-card__title">Анализ личности</h3>
-                        <p class="feature-card__text">
-                            Узнайте о своих сильных сторонах и паттернах поведения через анализ физиогномических черт.
-                        </p>
-                        <a href="palmistry.html" class="feature-card__link">
-                            Пройти анализ
-                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
-                            </svg>
-                        </a>
-                    </article>
-
-                    <!-- Feature 4 -->
-                    <article class="feature-card fade-in">
-                        <div class="feature-card__icon">
-                            <img src="assets/icons/sovmestimost.jpg" alt="" width="64" height="64" aria-hidden="true">
-                        </div>
-                        <h3 class="feature-card__title">Совместимость</h3>
-                        <p class="feature-card__text">
-                            Откройте для себя идеальные пары, вызовы в отношениях и секреты гармонии со своим партнёром.
-                        </p>
-                        <a href="coming-soon.html" class="feature-card__link">
-                            Рассчитать совместимость
-                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
-                            </svg>
-                        </a>
-                    </article>
-
-                    <!-- Feature 5 -->
-                    <article class="feature-card fade-in">
-                        <div class="feature-card__icon">
-                            <img src="assets/icons/natal.jpg" alt="" width="64" height="64" aria-hidden="true">
-                        </div>
-                        <h3 class="feature-card__title">Натальная карта</h3>
-                        <p class="feature-card__text">
-                            Узнайте, как расположение планет, асцендент и натальные дома влияют на Ваше самочувствие, жизненный путь и внутреннее состояние. Используйте эти знания, чтобы улучшить качество жизни, выстроить финансовое благополучие и раскрыть свой истинный потенциал.
-                        </p>
-                        <a href="coming-soon.html" class="feature-card__link">
-                            Составить мою натальную карту
-                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
-                            </svg>
-                        </a>
-                    </article>
-
-                    <!-- Feature 6 -->
+                    <!-- Feature 3: Bracelets -->
                     <article class="feature-card fade-in">
                         <div class="feature-card__icon">
                             <img src="assets/icons/taro.jpg" alt="" width="64" height="64" aria-hidden="true">
                         </div>
-                        <h3 class="feature-card__title">Смысловые практики</h3>
+                        <h3 class="feature-card__title">Браслеты</h3>
                         <p class="feature-card__text">
-                            Структурированный метод прояснения ситуаций и поиска ответов через карточные техники.
+                            Энергетические браслеты, подобранные по вашему знаку зодиака. Усильте свою энергию с помощью природных камней.
                         </p>
-                        <a href="coming-soon.html" class="feature-card__link">
-                            Начать практику
+                        <a href="pay.html" class="feature-card__link">
+                            Выбрать браслет
                             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                                 <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
                             </svg>
                         </a>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHAT'S INCLUDED ===== -->
+        <section class="section--dark section" style="padding:60px 0;">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Что входит в бесплатные 3 дня</h2>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; max-width:900px; margin:0 auto;">
+                    <div style="text-align:center; padding:24px;">
+                        <div style="font-size:2rem; margin-bottom:8px;">🔮</div>
+                        <strong style="display:block; margin-bottom:4px;">Натальная карта</strong>
+                        <span style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Полный расчёт планет</span>
+                    </div>
+                    <div style="text-align:center; padding:24px;">
+                        <div style="font-size:2rem; margin-bottom:8px;">🔢</div>
+                        <strong style="display:block; margin-bottom:4px;">Нумерология</strong>
+                        <span style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Число жизненного пути</span>
+                    </div>
+                    <div style="text-align:center; padding:24px;">
+                        <div style="font-size:2rem; margin-bottom:8px;">💑</div>
+                        <strong style="display:block; margin-bottom:4px;">Совместимость</strong>
+                        <span style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Анализ пар знаков</span>
+                    </div>
+                    <div style="text-align:center; padding:24px;">
+                        <div style="font-size:2rem; margin-bottom:8px;">🧘</div>
+                        <strong style="display:block; margin-bottom:4px;">Практики</strong>
+                        <span style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Медитации и ритуалы</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -434,7 +463,7 @@
                             </li>
                         </ul>
                         <a href="onboarding/step-1-name.html" class="button button--primary button--large">
-                            Получить личный прогноз
+                            Получить бесплатный разбор
                         </a>
                     </div>
                     <div class="app-preview__image fade-in">
@@ -642,7 +671,7 @@
                     Начните свой путь к самопознанию уже сегодня с персональным астрологическим прогнозом.
                 </p>
                 <div class="cta-banner__actions">
-                    <a href="onboarding/step-1-name.html" class="button button--primary button--large">Получить личный прогноз</a>
+                    <a href="onboarding/step-1-name.html" class="button button--primary button--large">Получить бесплатный разбор</a>
                     <a href="contact.html" class="button button--outline-white button--large">Связаться с нами</a>
                 </div>
             </div>
@@ -667,11 +696,7 @@
                     <p class="footer__description">
                         Персональные консультации и аналитические сервисы для осознанной и гармоничной жизни.
                     </p>
-                    <address class="footer__address">
-                        ООО «АЛИТЕХ» | ИНН 6320076521<br>
-                        445043, Самарская обл., г. Тольятти,<br>
-                        ул. Борковская, вл. 82, ком. 1
-                    </address>
+                    <address class="footer__address">Esoterra</address>
                 </div>
 
                 <!-- Support Column -->
@@ -706,7 +731,7 @@
             </div>
 
             <div class="footer__bottom">
-                <p class="footer__copyright">&copy; 2026 ООО «АЛИТЕХ». Все права защищены.</p>
+                <p class="footer__copyright">&copy; 2026 Esoterra. Все права защищены.</p>
                 <div class="footer__legal">
                     <a href="legal/privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
                     <a href="legal/terms.html" class="footer__legal-link">Условия использования</a>
@@ -721,6 +746,59 @@
     <script src="js/sliders.js"></script>
     <script src="js/forms.js"></script>
     <script src="js/cookie-consent.js"></script>
+
+    <!-- Free reading form logic -->
+    <script>
+    (function() {
+        var dayEl = document.getElementById('frDay');
+        var monthEl = document.getElementById('frMonth');
+        var yearEl = document.getElementById('frYear');
+        if (!dayEl || !monthEl || !yearEl) return;
+
+        var currentYear = new Date().getFullYear();
+        for (var y = currentYear - 1; y >= 1920; y--) {
+            var opt = document.createElement('option');
+            opt.value = y; opt.textContent = y;
+            yearEl.appendChild(opt);
+        }
+
+        function updateDays() {
+            var prev = dayEl.value;
+            var m = parseInt(monthEl.value) || 1;
+            var yr = parseInt(yearEl.value) || 2000;
+            var dim = new Date(yr, m, 0).getDate();
+            dayEl.innerHTML = '<option value="">День</option>';
+            for (var d = 1; d <= dim; d++) {
+                var o = document.createElement('option');
+                o.value = d; o.textContent = d;
+                if (d === parseInt(prev)) o.selected = true;
+                dayEl.appendChild(o);
+            }
+        }
+        monthEl.addEventListener('change', updateDays);
+        yearEl.addEventListener('change', updateDays);
+        updateDays();
+
+        document.getElementById('freeReadingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var name = document.getElementById('frName').value.trim();
+            var email = document.getElementById('frEmail').value.trim();
+            var d = dayEl.value, m = monthEl.value, y = yearEl.value;
+            if (!name || !email || !d || !m || !y) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+            var birthDate = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+            // Save to localStorage for onboarding and redirect
+            localStorage.setItem('ezotera_onboarding', JSON.stringify({
+                user_name: name,
+                user_email: email,
+                user_birth_date: birthDate
+            }));
+            window.location.href = 'onboarding/step-4-birth-time.html';
+        });
+    })();
+    </script>
 </body>
 
 <script type="text/javascript">

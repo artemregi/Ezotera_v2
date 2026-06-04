@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление товарами | Esoterra Админ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
+        .admin { display:grid; grid-template-columns:240px 1fr; min-height:100vh; }
+        .admin__sidebar { background:#10101e; border-right:1px solid rgba(130,80,220,0.2); padding:32px 20px; }
+        .admin__logo { font-size:1.3rem; font-weight:700; color:#f9ca24; margin-bottom:32px; }
+        .admin__logo span { color:#a090c0; font-weight:400; }
+        .admin__nav { display:flex; flex-direction:column; gap:4px; }
+        .admin__nav-link { display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px; color:#a090c0; text-decoration:none; font-size:0.95rem; transition:all 0.2s; }
+        .admin__nav-link:hover, .admin__nav-link--active { background:rgba(130,80,220,0.15); color:#e8e0f0; }
+        .admin__nav-link--active { border-left:3px solid #6c5ce7; }
+        .admin__nav-divider { height:1px; background:rgba(130,80,220,0.15); margin:16px 0; }
+        .admin__back { margin-top:auto; padding-top:24px; }
+        .admin__back a { color:#a090c0; text-decoration:none; font-size:0.85rem; }
+        .admin__back a:hover { color:#e8e0f0; }
+        .admin__main { padding:32px 40px; overflow-y:auto; }
+        .admin__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:12px; }
+        .admin__title { font-size:1.5rem; font-weight:700; }
+        .btn { padding:10px 24px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:all 0.2s; }
+        .btn--primary { background:#6c5ce7; color:#fff; }
+        .btn--primary:hover { background:#5a4bd6; }
+        .btn--danger { background:rgba(220,53,69,0.2); color:#e05050; border:1px solid rgba(220,53,69,0.3); }
+        .btn--danger:hover { background:rgba(220,53,69,0.35); }
+        .btn--sm { padding:6px 14px; font-size:0.82rem; }
+
+        /* Table */
+        .products-table { width:100%; border-collapse:collapse; margin-top:16px; }
+        .products-table th { text-align:left; padding:12px 16px; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:#a090c0; border-bottom:1px solid rgba(130,80,220,0.2); }
+        .products-table td { padding:12px 16px; border-bottom:1px solid rgba(130,80,220,0.1); font-size:0.9rem; }
+        .products-table tr:hover td { background:rgba(130,80,220,0.05); }
+        .stock-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:600; }
+        .stock-badge--yes { background:rgba(85,239,196,0.15); color:#55efc4; }
+        .stock-badge--no { background:rgba(255,118,117,0.15); color:#ff7675; }
+        .product-img { width:48px; height:48px; border-radius:8px; object-fit:cover; background:#16162a; }
+        .actions { display:flex; gap:6px; }
+
+        /* Modal */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:100; justify-content:center; align-items:center; }
+        .modal-overlay.active { display:flex; }
+        .modal { background:#10101e; border:1px solid rgba(130,80,220,0.3); border-radius:20px; padding:36px; width:100%; max-width:520px; max-height:90vh; overflow-y:auto; }
+        .modal__title { font-size:1.2rem; font-weight:700; margin-bottom:24px; }
+        .form-group { margin-bottom:18px; }
+        .form-group label { display:block; font-size:0.82rem; color:#a090c0; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width:100%; background:#16162a; border:1px solid rgba(130,80,220,0.25); border-radius:10px;
+            color:#f0eaff; font-size:0.95rem; padding:12px 14px; outline:none; font-family:inherit;
+            transition:border-color 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:#6c5ce7; }
+        .form-group textarea { resize:vertical; min-height:80px; }
+        .form-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:24px; }
+        .empty-state { text-align:center; padding:60px 20px; color:#a090c0; }
+        #loading { text-align:center; padding:80px; color:#a090c0; }
+        @media(max-width:768px) {
+            .admin { grid-template-columns:1fr; }
+            .admin__sidebar { display:none; }
+            .admin__main { padding:20px; }
+            .products-table { font-size:0.82rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Загрузка...</div>
+    <div class="admin" id="adminPanel" style="display:none;">
+        <aside class="admin__sidebar">
+            <div class="admin__logo">Esoterra <span>Админ</span></div>
+            <nav class="admin__nav">
+                <a href="index.html" class="admin__nav-link"><span>📊</span> Главная</a>
+                <a href="products.html" class="admin__nav-link admin__nav-link--active"><span>📿</span> Браслеты</a>
+                <a href="horoscope.html" class="admin__nav-link"><span>🔮</span> Гороскоп</a>
+            </nav>
+            <div class="admin__back"><a href="../index.html">← Вернуться на сайт</a></div>
+        </aside>
+        <main class="admin__main">
+            <div class="admin__header">
+                <h1 class="admin__title">Управление товарами</h1>
+                <button class="btn btn--primary" onclick="openModal()">+ Добавить товар</button>
+            </div>
+            <div id="productsContainer">
+                <div class="empty-state">Загрузка товаров...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2 class="modal__title" id="modalTitle">Добавить товар</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label>Название *</label>
+                    <input type="text" id="pName" required placeholder="Например: Браслет гармонии">
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="pDesc" placeholder="Описание товара..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Цена (руб.)</label>
+                    <input type="number" id="pPrice" min="0" step="0.01" placeholder="2990">
+                </div>
+                <div class="form-group">
+                    <label>URL изображения</label>
+                    <input type="text" id="pImage" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select id="pCategory">
+                        <option value="bracelet">Браслет</option>
+                        <option value="necklace">Ожерелье</option>
+                        <option value="ring">Кольцо</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>В наличии</label>
+                    <select id="pStock">
+                        <option value="true">Да</option>
+                        <option value="false">Нет</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Порядок сортировки</label>
+                    <input type="number" id="pSort" min="0" value="0">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn--danger" onclick="closeModal()">Отмена</button>
+                    <button type="submit" class="btn btn--primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    var products = [];
+
+    // Auth check
+    fetch('/api/auth/verify', { credentials: 'include' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            document.getElementById('loading').style.display = 'none';
+            if (data.authenticated && data.user && data.user.role === 'admin') {
+                document.getElementById('adminPanel').style.display = 'grid';
+                loadProducts();
+            } else {
+                document.body.innerHTML = '<div style="text-align:center;padding:80px;color:#a090c0;"><h2>Доступ запрещён</h2><p style="margin:16px 0;">У вас нет прав администратора.</p><a href="../index.html" style="color:#6c5ce7;">На главную</a></div>';
+            }
+        })
+        .catch(function() {
+            document.getElementById('loading').textContent = 'Ошибка авторизации';
+        });
+
+    function loadProducts() {
+        fetch('/api/admin/products', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                products = data.products || [];
+                renderProducts();
+            })
+            .catch(function(err) {
+                document.getElementById('productsContainer').innerHTML = '<div class="empty-state">Ошибка загрузки товаров</div>';
+            });
+    }
+
+    function renderProducts() {
+        var container = document.getElementById('productsContainer');
+        if (!products.length) {
+            container.innerHTML = '<div class="empty-state">Товаров пока нет. Нажмите "Добавить товар" чтобы начать.</div>';
+            return;
+        }
+        var html = '<table class="products-table"><thead><tr><th>Фото</th><th>Название</th><th>Цена</th><th>Категория</th><th>Статус</th><th>Действия</th></tr></thead><tbody>';
+        products.forEach(function(p) {
+            var stockClass = p.in_stock ? 'stock-badge--yes' : 'stock-badge--no';
+            var stockText = p.in_stock ? 'В наличии' : 'Нет в наличии';
+            var img = p.image_url ? '<img class="product-img" src="' + p.image_url + '" alt="">' : '<div class="product-img"></div>';
+            html += '<tr>' +
+                '<td>' + img + '</td>' +
+                '<td><strong>' + escHtml(p.name) + '</strong><br><small style="color:#a090c0;">' + escHtml((p.description || '').substring(0, 60)) + '</small></td>' +
+                '<td>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</td>' +
+                '<td>' + escHtml(p.category) + '</td>' +
+                '<td><span class="stock-badge ' + stockClass + '">' + stockText + '</span></td>' +
+                '<td class="actions"><button class="btn btn--primary btn--sm" onclick="editProduct(' + p.id + ')">Ред.</button> <button class="btn btn--danger btn--sm" onclick="deleteProduct(' + p.id + ')">Удалить</button></td>' +
+                '</tr>';
+        });
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    }
+
+    function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function openModal(product) {
+        document.getElementById('modal').classList.add('active');
+        if (product) {
+            document.getElementById('modalTitle').textContent = 'Редактировать товар';
+            document.getElementById('productId').value = product.id;
+            document.getElementById('pName').value = product.name;
+            document.getElementById('pDesc').value = product.description || '';
+            document.getElementById('pPrice').value = product.price;
+            document.getElementById('pImage').value = product.image_url || '';
+            document.getElementById('pCategory').value = product.category || 'bracelet';
+            document.getElementById('pStock').value = product.in_stock ? 'true' : 'false';
+            document.getElementById('pSort').value = product.sort_order || 0;
+        } else {
+            document.getElementById('modalTitle').textContent = 'Добавить товар';
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+    }
+
+    function editProduct(id) {
+        var p = products.find(function(x) { return x.id === id; });
+        if (p) openModal(p);
+    }
+
+    function deleteProduct(id) {
+        if (!confirm('Удалить этот товар?')) return;
+        fetch('/api/admin/products', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ id: id })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success) loadProducts();
+            else alert(data.message || 'Ошибка удаления');
+        })
+        .catch(function() { alert('Ошибка сервера'); });
+    }
+
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var id = document.getElementById('productId').value;
+        var payload = {
+            name: document.getElementById('pName').value,
+            description: document.getElementById('pDesc').value,
+            price: document.getElementById('pPrice').value,
+            image_url: document.getElementById('pImage').value,
+            category: document.getElementById('pCategory').value,
+            in_stock: document.getElementById('pStock').value === 'true',
+            sort_order: document.getElementById('pSort').value
+        };
+        var method = id ? 'PUT' : 'POST';
+        if (id) payload.id = parseInt(id);
+
+        fetch('/api/admin/products', {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(payload)
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success) {
+                closeModal();
+                loadProducts();
+            } else {
+                alert(data.message || 'Ошибка сохранения');
+            }
+        })
+        .catch(function() { alert('Ошибка сервера'); });
+    });
+
+    // Close modal on overlay click
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+    </script>
+</body>
+</html>
