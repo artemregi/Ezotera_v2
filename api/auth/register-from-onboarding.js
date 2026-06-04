@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     console.log('   Body:', req.body);
 
     // CORS headers for Vercel serverless
-    const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://www.esoterra.online').split(',').map(o => o.trim());
+    const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://esoterraplus.online').split(',').map(o => o.trim());
     const origin = req.headers.origin;
     if (origin && allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);

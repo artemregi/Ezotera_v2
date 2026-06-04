@@ -6,7 +6,7 @@ const HOROSCOPE_FILE = path.join(__dirname, '../../ezotera-frontend/horoscope-da
 
 module.exports = async (req, res) => {
     // CORS
-    const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://www.esoterra.online').split(',').map(o => o.trim());
+    const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://esoterraplus.online').split(',').map(o => o.trim());
     const origin = req.headers.origin;
     if (origin && allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
