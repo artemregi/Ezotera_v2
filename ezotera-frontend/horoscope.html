@@ -200,25 +200,46 @@
             margin-bottom: 18px;
             overflow-wrap: break-word;
             word-break: break-word;
-            max-height: 200px;
+        }
+        .zodiac-card__body {
+            max-height: 120px;
             overflow: hidden;
             position: relative;
+            transition: max-height 0.4s ease;
         }
-        .zodiac-card__text.expanded {
-            max-height: none;
+        .zodiac-card__body::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50px;
+            background: linear-gradient(transparent, rgba(10,10,20,0.95));
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
-        .zodiac-card__read-more {
+        .zodiac-card__body.expanded {
+            max-height: 3000px;
+        }
+        .zodiac-card__body.expanded::after {
+            opacity: 0;
+        }
+        .zodiac-card__toggle {
             display: block;
+            width: 100%;
             text-align: center;
-            color: var(--color-accent);
-            font-size: 0.82rem;
+            background: rgba(108,92,231,0.12);
+            border: 1px solid rgba(108,92,231,0.25);
+            border-radius: 10px;
+            color: var(--color-accent-light, #a29bfe);
+            font-size: 0.85rem;
+            font-family: inherit;
             cursor: pointer;
-            padding: 6px 0;
-            opacity: 0.85;
-            transition: opacity 0.2s;
+            padding: 10px 0;
+            margin-top: 12px;
+            transition: all 0.2s;
         }
-        .zodiac-card__read-more:hover {
-            opacity: 1;
+        .zodiac-card__toggle:hover {
+            background: rgba(108,92,231,0.22);
+            border-color: rgba(108,92,231,0.5);
         }
         .zodiac-card__aspects {
             display: flex;
@@ -534,19 +555,21 @@
                     '<div><div class="zodiac-card__name">' + sign.name + '</div>' +
                     '<div class="zodiac-card__dates">' + sign.dates + '</div></div>' +
                 '</div>' +
-                '<p class="zodiac-card__text">' + data.general + '</p>' +
-                '<span class="zodiac-card__read-more" onclick="this.previousElementSibling.classList.toggle(\'expanded\');this.textContent=this.previousElementSibling.classList.contains(\'expanded\')?\'Свернуть ↑\':\'Читать далее ↓\'">Читать далее ↓</span>' +
-                '<div class="zodiac-card__aspects">' +
-                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">❤️ Любовь</span><span class="zodiac-card__aspect-value">' + data.love + '</span></div>' +
-                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💼 Карьера</span><span class="zodiac-card__aspect-value">' + data.career + '</span></div>' +
-                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">🌿 Здоровье</span><span class="zodiac-card__aspect-value">' + data.health + '</span></div>' +
-                    '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💡 Совет</span><span class="zodiac-card__aspect-value">' + data.advice + '</span></div>' +
+                '<div class="zodiac-card__body">' +
+                    '<p class="zodiac-card__text">' + data.general + '</p>' +
+                    '<div class="zodiac-card__aspects">' +
+                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">❤️ Любовь</span><span class="zodiac-card__aspect-value">' + data.love + '</span></div>' +
+                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💼 Карьера</span><span class="zodiac-card__aspect-value">' + data.career + '</span></div>' +
+                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">🌿 Здоровье</span><span class="zodiac-card__aspect-value">' + data.health + '</span></div>' +
+                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💡 Совет</span><span class="zodiac-card__aspect-value">' + data.advice + '</span></div>' +
+                    '</div>' +
+                    '<div class="zodiac-card__footer">' +
+                        '<span class="zodiac-card__lucky">🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ') + '</span>' +
+                        '<span class="zodiac-card__color">🎨 ' + data.luckyColor + '</span>' +
+                    '</div>' +
+                    '<div style="margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.5)">Энергия: ' + energyBar(data.energy) + '</div>' +
                 '</div>' +
-                '<div class="zodiac-card__footer">' +
-                    '<span class="zodiac-card__lucky">🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ') + '</span>' +
-                    '<span class="zodiac-card__color">🎨 ' + data.luckyColor + '</span>' +
-                '</div>' +
-                '<div style="margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.5)">Энергия: ' + energyBar(data.energy) + '</div>' +
+                '<button class="zodiac-card__toggle" onclick="var b=this.previousElementSibling;b.classList.toggle(\'expanded\');this.textContent=b.classList.contains(\'expanded\')?\'Свернуть ↑\':\'Развернуть прогноз ↓\'">Развернуть прогноз ↓</button>' +
                 '</div>';
         }
 
