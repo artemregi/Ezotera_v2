@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const { amount, description, isTest, customerName, customerEmail: bodyEmail, productId } = req.body;
+        const { amount, description, isTest, customerName, customerEmail: bodyEmail, productId, referralCode } = req.body;
 
         if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
             return res.status(400).json({ success: false, message: 'Некорректная сумма' });
@@ -72,10 +72,10 @@ module.exports = async (req, res) => {
         try {
             await pool.query(
                 `INSERT INTO public.payments
-                    (user_id, user_email, order_id, amount, currency, status, description, customer_name, product_id)
-                 VALUES ($1, $2, $3, $4, 'RUB', 'pending', $5, $6, $7)
+                    (user_id, user_email, order_id, amount, currency, status, description, customer_name, product_id, referral_code)
+                 VALUES ($1, $2, $3, $4, 'RUB', 'pending', $5, $6, $7, $8)
                  ON CONFLICT DO NOTHING`,
-                [userId, email, String(invId), parseFloat(outSum), description, customerName || null, productId || null]
+                [userId, email, String(invId), parseFloat(outSum), description, customerName || null, productId || null, referralCode || null]
             );
         } catch (dbErr) {
             console.error('Failed to save pending payment:', dbErr.message);

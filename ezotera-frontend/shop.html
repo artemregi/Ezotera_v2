@@ -115,6 +115,9 @@
     <script src="js/cookie-consent.js"></script>
 
     <script>
+    // Save referral code from URL
+    (function(){var p=new URLSearchParams(window.location.search);var r=p.get('ref');if(r){document.cookie='ezo_ref='+encodeURIComponent(r)+';path=/;max-age=2592000';}})();
+
     // Show payment status message
     (function() {
         var params = new URLSearchParams(window.location.search);
@@ -209,6 +212,9 @@
         btn.disabled = true;
         btn.textContent = 'Создание заказа...';
 
+        // Get referral code from cookie
+        var refCode = (document.cookie.match(/ezo_ref=([^;]+)/) || [])[1] || '';
+
         fetch('/api/payment/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -219,6 +225,7 @@
                 customerName: name,
                 customerEmail: email,
                 productId: document.getElementById('ordProductId').value,
+                referralCode: decodeURIComponent(refCode),
                 isTest: true
             })
         })

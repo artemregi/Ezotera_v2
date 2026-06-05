@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реферальные ссылки | Esoterra Админ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
+        .admin { display:grid; grid-template-columns:240px 1fr; min-height:100vh; }
+        .admin__sidebar { background:#10101e; border-right:1px solid rgba(130,80,220,0.2); padding:32px 20px; }
+        .admin__logo { font-size:1.3rem; font-weight:700; color:#f9ca24; margin-bottom:32px; }
+        .admin__logo span { color:#a090c0; font-weight:400; }
+        .admin__nav { display:flex; flex-direction:column; gap:4px; }
+        .admin__nav-link { display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px; color:#a090c0; text-decoration:none; font-size:0.95rem; transition:all 0.2s; }
+        .admin__nav-link:hover, .admin__nav-link--active { background:rgba(130,80,220,0.15); color:#e8e0f0; }
+        .admin__nav-link--active { border-left:3px solid #6c5ce7; }
+        .admin__back { margin-top:auto; padding-top:24px; }
+        .admin__back a { color:#a090c0; text-decoration:none; font-size:0.85rem; }
+        .admin__main { padding:32px 40px; overflow-y:auto; }
+        .admin__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:12px; }
+        .admin__title { font-size:1.5rem; font-weight:700; }
+        .btn { padding:10px 24px; border-radius:10px; border:none; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:all 0.2s; }
+        .btn--primary { background:#6c5ce7; color:#fff; }
+        .btn--primary:hover { background:#5a4bd6; }
+        .btn--danger { background:rgba(220,53,69,0.2); color:#e05050; border:1px solid rgba(220,53,69,0.3); }
+        .btn--danger:hover { background:rgba(220,53,69,0.35); }
+        .btn--sm { padding:6px 14px; font-size:0.82rem; }
+
+        /* Create form */
+        .create-form { display:flex; gap:12px; margin-bottom:32px; align-items:flex-end; }
+        .create-form__field { flex:1; }
+        .create-form__field label { display:block; font-size:0.78rem; color:#a090c0; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; }
+        .create-form__field input { width:100%; background:#16162a; border:1px solid rgba(130,80,220,0.25); border-radius:10px; color:#f0eaff; font-size:0.95rem; padding:12px 14px; outline:none; font-family:inherit; }
+        .create-form__field input:focus { border-color:#6c5ce7; }
+
+        /* Stats cards */
+        .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+        .stat-card { background:#10101e; border:1px solid rgba(130,80,220,0.2); border-radius:14px; padding:20px; text-align:center; }
+        .stat-card__value { font-size:1.8rem; font-weight:700; color:#f0eaff; }
+        .stat-card__label { font-size:0.8rem; color:#a090c0; margin-top:4px; }
+
+        /* Table */
+        .ref-table { width:100%; border-collapse:collapse; }
+        .ref-table th { text-align:left; padding:12px 16px; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:#a090c0; border-bottom:1px solid rgba(130,80,220,0.2); }
+        .ref-table td { padding:14px 16px; border-bottom:1px solid rgba(130,80,220,0.1); font-size:0.9rem; }
+        .ref-table tr:hover td { background:rgba(130,80,220,0.05); }
+        .ref-link { background:#16162a; border:1px solid rgba(130,80,220,0.2); border-radius:8px; padding:6px 10px; font-size:0.8rem; color:#a29bfe; word-break:break-all; display:inline-block; max-width:320px; cursor:pointer; }
+        .ref-link:hover { border-color:#6c5ce7; }
+        .ref-amount { color:#55efc4; font-weight:600; }
+        .ref-count { color:#f9ca24; font-weight:600; }
+        .copied { position:fixed; bottom:24px; right:24px; background:#00b894; color:#fff; padding:12px 24px; border-radius:10px; font-size:0.9rem; display:none; z-index:200; }
+        .copied.show { display:block; }
+        .empty { text-align:center; padding:60px; color:#a090c0; }
+        #loading { text-align:center; padding:80px; color:#a090c0; }
+        @media(max-width:768px) {
+            .admin { grid-template-columns:1fr; }
+            .admin__sidebar { display:none; }
+            .admin__main { padding:20px; }
+            .create-form { flex-direction:column; }
+            .stats { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Загрузка...</div>
+    <div class="admin" id="adminPanel" style="display:none;">
+        <aside class="admin__sidebar">
+            <div class="admin__logo">Esoterra <span>Админ</span></div>
+            <nav class="admin__nav">
+                <a href="index.html" class="admin__nav-link"><span>📊</span> Главная</a>
+                <a href="products.html" class="admin__nav-link"><span>📿</span> Браслеты</a>
+                <a href="horoscope.html" class="admin__nav-link"><span>🔮</span> Гороскоп</a>
+                <a href="referrals.html" class="admin__nav-link admin__nav-link--active"><span>🔗</span> Реф. ссылки</a>
+            </nav>
+            <div class="admin__back"><a href="../index.html">← Вернуться на сайт</a></div>
+        </aside>
+        <main class="admin__main">
+            <div class="admin__header">
+                <h1 class="admin__title">Реферальные ссылки</h1>
+            </div>
+
+            <!-- Create new -->
+            <div class="create-form">
+                <div class="create-form__field">
+                    <label>Название новой ссылки</label>
+                    <input type="text" id="refName" placeholder="Например: Instagram, Telegram-канал, Блогер Маша">
+                </div>
+                <button class="btn btn--primary" onclick="createRef()">+ Новая ссылка</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-card__value" id="totalLinks">0</div>
+                    <div class="stat-card__label">Всего ссылок</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card__value ref-count" id="totalPaid">0</div>
+                    <div class="stat-card__label">Всего оплат</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card__value ref-amount" id="totalRevenue">0 ₽</div>
+                    <div class="stat-card__label">Общая выручка</div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div id="tableContainer"></div>
+        </main>
+    </div>
+    <div class="copied" id="copied">Ссылка скопирована!</div>
+
+    <script>
+    var referrals = [];
+    var BASE_URL = window.location.origin;
+
+    fetch('/api/auth/verify', { credentials: 'include' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            document.getElementById('loading').style.display = 'none';
+            if (data.authenticated && data.user && data.user.role === 'admin') {
+                document.getElementById('adminPanel').style.display = 'grid';
+                loadReferrals();
+            } else {
+                document.body.innerHTML = '<div style="text-align:center;padding:80px;color:#a090c0;"><h2>Доступ запрещён</h2><a href="../index.html" style="color:#6c5ce7;">На главную</a></div>';
+            }
+        });
+
+    function loadReferrals() {
+        fetch('/api/admin/referrals', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                referrals = data.referrals || [];
+                renderAll();
+            });
+    }
+
+    function renderAll() {
+        // Stats
+        var totalPaid = 0, totalRevenue = 0;
+        referrals.forEach(function(r) {
+            totalPaid += parseInt(r.paid_count) || 0;
+            totalRevenue += parseFloat(r.total_amount) || 0;
+        });
+        document.getElementById('totalLinks').textContent = referrals.length;
+        document.getElementById('totalPaid').textContent = totalPaid;
+        document.getElementById('totalRevenue').textContent = Number(totalRevenue).toLocaleString('ru-RU') + ' ₽';
+
+        // Table
+        var container = document.getElementById('tableContainer');
+        if (!referrals.length) {
+            container.innerHTML = '<div class="empty">Реферальных ссылок пока нет. Создайте первую!</div>';
+            return;
+        }
+
+        var html = '<table class="ref-table"><thead><tr><th>Название</th><th>Ссылка</th><th>Оплат</th><th>Выручка</th><th>Создана</th><th></th></tr></thead><tbody>';
+        referrals.forEach(function(r) {
+            var url = BASE_URL + '/?ref=' + r.code;
+            var date = new Date(r.created_at).toLocaleDateString('ru-RU');
+            html += '<tr>' +
+                '<td><strong>' + escHtml(r.name) + '</strong></td>' +
+                '<td><span class="ref-link" onclick="copyLink(this)" title="Нажмите чтобы скопировать">' + escHtml(url) + '</span></td>' +
+                '<td><span class="ref-count">' + (r.paid_count || 0) + '</span></td>' +
+                '<td><span class="ref-amount">' + Number(r.total_amount || 0).toLocaleString('ru-RU') + ' ₽</span></td>' +
+                '<td style="color:#a090c0;font-size:0.82rem;">' + date + '</td>' +
+                '<td><button class="btn btn--danger btn--sm" onclick="deleteRef(' + r.id + ')">Удалить</button></td>' +
+                '</tr>';
+        });
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    }
+
+    function escHtml(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    function copyLink(el) {
+        navigator.clipboard.writeText(el.textContent).then(function() {
+            var toast = document.getElementById('copied');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2000);
+        });
+    }
+
+    function createRef() {
+        var name = document.getElementById('refName').value.trim();
+        if (!name) { alert('Введите название'); return; }
+
+        fetch('/api/admin/referrals', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ name: name })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success) {
+                document.getElementById('refName').value = '';
+                loadReferrals();
+            } else {
+                alert(data.message || 'Ошибка');
+            }
+        });
+    }
+
+    function deleteRef(id) {
+        if (!confirm('Удалить эту ссылку?')) return;
+        fetch('/api/admin/referrals', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ id: id })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success) loadReferrals();
+            else alert(data.message || 'Ошибка');
+        });
+    }
+
+    // Enter to create
+    document.getElementById('refName').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') createRef();
+    });
+    </script>
+</body>
+</html>

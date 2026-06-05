@@ -29,6 +29,7 @@ const paymentSuccessHandler           = require('./payment/success');
 const natalInterpretHandler           = require('./natal/interpret');
 const adminProductsHandler            = require('./admin/products');
 const adminHoroscopeHandler           = require('./admin/horoscope');
+const adminReferralsHandler           = require('./admin/referrals');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -193,6 +194,8 @@ const server = http.createServer(async (req, res) => {
                 await adminProductsHandler(req, res);
             } else if (pathname === '/api/admin/horoscope') {
                 await adminHoroscopeHandler(req, res);
+            } else if (pathname === '/api/admin/referrals') {
+                await adminReferralsHandler(req, res);
             } else if (pathname === '/api/health' && req.method === 'GET') {
                 // Health check endpoint
                 try {
