@@ -36,11 +36,11 @@ module.exports = async (req, res) => {
 
         // Rate limiting (5 attempts per 15 minutes per IP)
         const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
-        if (!checkRateLimit(clientIp, 5, 15)) {
+        if (!checkRateLimit(clientIp, 5, 3)) {
             console.log('⚠️ Rate limit exceeded for IP:', clientIp);
             return res.status(429).json({
                 success: false,
-                message: 'Слишком много попыток. Попробуйте через 15 минут.'
+                message: 'Слишком много попыток. Попробуйте через 3 минуты.'
             });
         }
 
