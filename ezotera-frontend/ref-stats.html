@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика партнёра | Esoterra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
+
+        .page { max-width:900px; margin:0 auto; padding:40px 20px; }
+        .page__header { text-align:center; margin-bottom:40px; }
+        .page__logo { font-size:1.4rem; font-weight:700; color:#f9ca24; margin-bottom:8px; }
+        .page__logo span { color:#a090c0; font-weight:400; }
+        .page__title { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+        .page__subtitle { color:#a090c0; font-size:0.9rem; }
+        .page__partner { display:inline-block; margin-top:12px; background:rgba(108,92,231,0.15); border:1px solid rgba(108,92,231,0.3); border-radius:20px; padding:6px 18px; font-size:0.85rem; color:#a29bfe; }
+
+        /* Stats */
+        .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:36px; }
+        .stat { background:#10101e; border:1px solid rgba(130,80,220,0.2); border-radius:16px; padding:24px; text-align:center; }
+        .stat__value { font-size:2.2rem; font-weight:700; }
+        .stat__value--count { color:#f9ca24; }
+        .stat__value--amount { color:#55efc4; }
+        .stat__value--avg { color:#a29bfe; }
+        .stat__label { font-size:0.82rem; color:#a090c0; margin-top:4px; }
+
+        /* Table */
+        .orders { background:#10101e; border:1px solid rgba(130,80,220,0.2); border-radius:16px; overflow:hidden; }
+        .orders__title { padding:20px 24px; font-size:1.1rem; font-weight:600; border-bottom:1px solid rgba(130,80,220,0.15); }
+        .orders-table { width:100%; border-collapse:collapse; }
+        .orders-table th { text-align:left; padding:12px 20px; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:#a090c0; border-bottom:1px solid rgba(130,80,220,0.15); }
+        .orders-table td { padding:14px 20px; border-bottom:1px solid rgba(130,80,220,0.08); font-size:0.88rem; }
+        .orders-table tr:last-child td { border-bottom:none; }
+        .orders-table tr:hover td { background:rgba(130,80,220,0.04); }
+        .amount { color:#55efc4; font-weight:600; }
+        .customer { color:#e8e0f0; }
+        .customer-email { color:#a090c0; font-size:0.8rem; }
+        .date { color:#a090c0; font-size:0.82rem; }
+
+        .empty { text-align:center; padding:60px 20px; color:#a090c0; }
+        .error { text-align:center; padding:80px 20px; }
+        .error__title { font-size:1.3rem; margin-bottom:8px; }
+        .error__text { color:#a090c0; }
+        #loading { text-align:center; padding:100px 20px; color:#a090c0; font-size:1rem; }
+
+        .ref-link-box { background:rgba(108,92,231,0.08); border:1px solid rgba(108,92,231,0.2); border-radius:12px; padding:16px 20px; margin-bottom:36px; text-align:center; }
+        .ref-link-box__label { font-size:0.78rem; color:#a090c0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
+        .ref-link-box__url { font-size:0.9rem; color:#a29bfe; word-break:break-all; cursor:pointer; }
+        .ref-link-box__url:hover { text-decoration:underline; }
+        .ref-link-box__copied { font-size:0.78rem; color:#55efc4; display:none; margin-top:4px; }
+
+        @media(max-width:600px) {
+            .stats { grid-template-columns:1fr; }
+            .orders-table { font-size:0.8rem; }
+            .orders-table th, .orders-table td { padding:10px 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Загрузка статистики...</div>
+    <div class="error" id="error" style="display:none;">
+        <div class="error__title">Ссылка недействительна</div>
+        <div class="error__text">Проверьте правильность ссылки или обратитесь к администратору.</div>
+    </div>
+    <div class="page" id="page" style="display:none;">
+        <div class="page__header">
+            <div class="page__logo">Esoterra <span>Партнёр</span></div>
+            <h1 class="page__title">Ваша статистика</h1>
+            <p class="page__subtitle">Данные обновляются в реальном времени</p>
+            <div class="page__partner" id="partnerName"></div>
+        </div>
+
+        <div class="ref-link-box">
+            <div class="ref-link-box__label">Ваша реферальная ссылка</div>
+            <div class="ref-link-box__url" id="refUrl" onclick="copyRefUrl()"></div>
+            <div class="ref-link-box__copied" id="copiedMsg">Скопировано!</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat__value stat__value--count" id="paidCount">0</div>
+                <div class="stat__label">Оплаченных заказов</div>
+            </div>
+            <div class="stat">
+                <div class="stat__value stat__value--amount" id="totalAmount">0 ₽</div>
+                <div class="stat__label">Общая выручка</div>
+            </div>
+            <div class="stat">
+                <div class="stat__value stat__value--avg" id="avgAmount">0 ₽</div>
+                <div class="stat__label">Средний чек</div>
+            </div>
+        </div>
+
+        <div class="orders">
+            <div class="orders__title">Заказы</div>
+            <div id="ordersContainer"></div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var token = params.get('token');
+
+        if (!token) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            return;
+        }
+
+        fetch('/api/referral/stats?token=' + encodeURIComponent(token))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                document.getElementById('loading').style.display = 'none';
+
+                if (!data.success) {
+                    document.getElementById('error').style.display = 'block';
+                    return;
+                }
+
+                document.getElementById('page').style.display = 'block';
+                document.getElementById('partnerName').textContent = data.referral.name;
+
+                // Referral URL
+                var refUrl = window.location.origin + '/?ref=' + data.referral.code;
+                document.getElementById('refUrl').textContent = refUrl;
+
+                // Stats
+                var count = data.stats.paid_count;
+                var total = data.stats.total_amount;
+                var avg = count > 0 ? Math.round(total / count) : 0;
+
+                document.getElementById('paidCount').textContent = count;
+                document.getElementById('totalAmount').textContent = Number(total).toLocaleString('ru-RU') + ' ₽';
+                document.getElementById('avgAmount').textContent = Number(avg).toLocaleString('ru-RU') + ' ₽';
+
+                // Orders table
+                var container = document.getElementById('ordersContainer');
+                if (!data.orders || !data.orders.length) {
+                    container.innerHTML = '<div class="empty">Оплаченных заказов пока нет</div>';
+                    return;
+                }
+
+                var html = '<table class="orders-table"><thead><tr><th>Товар</th><th>Клиент</th><th>Сумма</th><th>Дата</th></tr></thead><tbody>';
+                data.orders.forEach(function(o) {
+                    var date = new Date(o.created_at).toLocaleDateString('ru-RU', {day:'numeric',month:'short',year:'numeric'});
+                    html += '<tr>' +
+                        '<td>' + escHtml(o.description || 'Товар') + '</td>' +
+                        '<td><span class="customer">' + escHtml(o.customer_name || '—') + '</span><br><span class="customer-email">' + escHtml(o.user_email || '') + '</span></td>' +
+                        '<td><span class="amount">' + Number(o.amount).toLocaleString('ru-RU') + ' ₽</span></td>' +
+                        '<td><span class="date">' + date + '</span></td>' +
+                        '</tr>';
+                });
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            })
+            .catch(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            });
+    })();
+
+    function escHtml(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    function copyRefUrl() {
+        var url = document.getElementById('refUrl').textContent;
+        navigator.clipboard.writeText(url).then(function() {
+            var msg = document.getElementById('copiedMsg');
+            msg.style.display = 'block';
+            setTimeout(function() { msg.style.display = 'none'; }, 2000);
+        });
+    }
+    </script>
+</body>
+</html>

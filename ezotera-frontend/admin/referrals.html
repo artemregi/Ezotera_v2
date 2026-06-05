@@ -155,13 +155,15 @@
             return;
         }
 
-        var html = '<table class="ref-table"><thead><tr><th>Название</th><th>Ссылка</th><th>Оплат</th><th>Выручка</th><th>Создана</th><th></th></tr></thead><tbody>';
+        var html = '<table class="ref-table"><thead><tr><th>Название</th><th>Реф. ссылка</th><th>Статистика партнёра</th><th>Оплат</th><th>Выручка</th><th>Создана</th><th></th></tr></thead><tbody>';
         referrals.forEach(function(r) {
             var url = BASE_URL + '/?ref=' + r.code;
+            var statsUrl = r.secret_token ? (BASE_URL + '/ref-stats.html?token=' + r.secret_token) : '';
             var date = new Date(r.created_at).toLocaleDateString('ru-RU');
             html += '<tr>' +
                 '<td><strong>' + escHtml(r.name) + '</strong></td>' +
-                '<td><span class="ref-link" onclick="copyLink(this)" title="Нажмите чтобы скопировать">' + escHtml(url) + '</span></td>' +
+                '<td><span class="ref-link" onclick="copyLink(this)" title="Скопировать реф. ссылку">' + escHtml(url) + '</span></td>' +
+                '<td>' + (statsUrl ? '<span class="ref-link" onclick="copyLink(this)" title="Скопировать ссылку на статистику" style="color:#55efc4;border-color:rgba(85,239,196,0.3);">' + escHtml(statsUrl) + '</span>' : '<span style="color:#a090c0;font-size:0.8rem;">—</span>') + '</td>' +
                 '<td><span class="ref-count">' + (r.paid_count || 0) + '</span></td>' +
                 '<td><span class="ref-amount">' + Number(r.total_amount || 0).toLocaleString('ru-RU') + ' ₽</span></td>' +
                 '<td style="color:#a090c0;font-size:0.82rem;">' + date + '</td>' +

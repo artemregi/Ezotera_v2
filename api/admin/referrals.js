@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         try {
             const result = await pool.query(`
                 SELECT
-                    r.id, r.name, r.code, r.created_at,
+                    r.id, r.name, r.code, r.secret_token, r.created_at,
                     COUNT(p.id) FILTER (WHERE p.status = 'success') AS paid_count,
                     COALESCE(SUM(p.amount) FILTER (WHERE p.status = 'success'), 0) AS total_amount
                 FROM public.referral_links r
@@ -71,10 +71,13 @@ module.exports = async (req, res) => {
             .replace(/^-|-$/g, '')
             + '-' + crypto.randomBytes(3).toString('hex');
 
+        // Generate secret token for partner stats page
+        const secretToken = crypto.randomBytes(16).toString('hex');
+
         try {
             const result = await pool.query(
-                'INSERT INTO public.referral_links (name, code) VALUES ($1, $2) RETURNING *',
-                [name.trim(), code]
+                'INSERT INTO public.referral_links (name, code, secret_token) VALUES ($1, $2, $3) RETURNING *',
+                [name.trim(), code, secretToken]
             );
             res.statusCode = 201;
             res.setHeader('Content-Type', 'application/json');
