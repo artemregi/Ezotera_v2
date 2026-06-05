@@ -556,8 +556,12 @@
         <section class="lunar-calendar section">
             <div class="container">
                 <div class="lunar-calendar__header">
-                    <h2 class="lunar-calendar__title">Лунный календарь мая 2026</h2>
+                    <h2 class="lunar-calendar__title" id="lunarTitle">Лунный календарь</h2>
                     <p class="lunar-calendar__subtitle">Каждый день расписан по лунному дню, знаку Луны и степени благоприятности</p>
+                    <div style="display:flex;justify-content:center;gap:12px;margin-top:16px;">
+                        <button id="prevMonth" style="background:none;border:1px solid #ccc;border-radius:8px;padding:6px 16px;cursor:pointer;font-family:inherit;color:inherit;">← Пред.</button>
+                        <button id="nextMonth" style="background:none;border:1px solid #ccc;border-radius:8px;padding:6px 16px;cursor:pointer;font-family:inherit;color:inherit;">След. →</button>
+                    </div>
                 </div>
 
                 <!-- Легенда -->
@@ -576,8 +580,8 @@
                     </div>
                 </div>
 
-                <!-- Сетка календаря -->
-                <div class="calendar-grid">
+                <!-- Сетка календаря (генерируется JS) -->
+                <div class="calendar-grid" id="calendarGrid">
                     <!-- Дни недели -->
                     <div class="calendar-grid__weekday">Пн</div>
                     <div class="calendar-grid__weekday">Вт</div>
@@ -587,202 +591,7 @@
                     <div class="calendar-grid__weekday">Сб</div>
                     <div class="calendar-grid__weekday">Вс</div>
 
-                    <!-- 1 мая 2026 — Пятница (3 пустых ячейки: пн, вт, ср) -->
-                    <div class="calendar-day calendar-day--empty"></div>
-                    <div class="calendar-day calendar-day--empty"></div>
-                    <div class="calendar-day calendar-day--empty"></div>
-                    <div class="calendar-day calendar-day--empty"></div>
-
-                    <!-- 1 мая — Пятница — Стрелец — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">1</span>
-                        <span class="calendar-day__lunar">5 л.д.</span>
-                        <span class="calendar-day__sign">♐ Стрелец</span>
-                    </div>
-                    <!-- 2 мая — Суббота — Стрелец -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">2</span>
-                        <span class="calendar-day__lunar">6 л.д.</span>
-                        <span class="calendar-day__sign">♐ Стрелец</span>
-                    </div>
-                    <!-- 3 мая — Воскресенье — Козерог -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">3</span>
-                        <span class="calendar-day__lunar">7 л.д.</span>
-                        <span class="calendar-day__sign">♑ Козерог</span>
-                    </div>
-
-                    <!-- 4 мая — Понедельник — Козерог -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">4</span>
-                        <span class="calendar-day__lunar">8 л.д.</span>
-                        <span class="calendar-day__sign">♑ Козерог</span>
-                    </div>
-                    <!-- 5 мая — Вторник — Водолей -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">5</span>
-                        <span class="calendar-day__lunar">9 л.д.</span>
-                        <span class="calendar-day__sign">♒ Водолей</span>
-                    </div>
-                    <!-- 6 мая — Среда — Водолей — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">6</span>
-                        <span class="calendar-day__lunar">10 л.д.</span>
-                        <span class="calendar-day__sign">♒ Водолей</span>
-                    </div>
-                    <!-- 7 мая — Четверг — Рыбы — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">7</span>
-                        <span class="calendar-day__lunar">11 л.д.</span>
-                        <span class="calendar-day__sign">♓ Рыбы</span>
-                    </div>
-                    <!-- 8 мая — Пятница — Рыбы — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">8</span>
-                        <span class="calendar-day__lunar">12 л.д.</span>
-                        <span class="calendar-day__sign">♓ Рыбы</span>
-                    </div>
-                    <!-- 9 мая — Суббота — Овен — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">9</span>
-                        <span class="calendar-day__lunar">13 л.д.</span>
-                        <span class="calendar-day__sign">♈ Овен</span>
-                    </div>
-                    <!-- 10 мая — Воскресенье — Овен -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">10</span>
-                        <span class="calendar-day__lunar">14 л.д.</span>
-                        <span class="calendar-day__sign">♈ Овен</span>
-                    </div>
-
-                    <!-- 11 мая — Понедельник — Телец — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">11</span>
-                        <span class="calendar-day__lunar">15 л.д.</span>
-                        <span class="calendar-day__sign">♉ Телец</span>
-                    </div>
-                    <!-- 12 мая — Вторник — Телец — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">12</span>
-                        <span class="calendar-day__lunar">16 л.д.</span>
-                        <span class="calendar-day__sign">♉ Телец</span>
-                    </div>
-                    <!-- 13 мая — Среда — Близнецы -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">13</span>
-                        <span class="calendar-day__lunar">17 л.д.</span>
-                        <span class="calendar-day__sign">♊ Близнецы</span>
-                    </div>
-                    <!-- 14 мая — Четверг — Близнецы — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">14</span>
-                        <span class="calendar-day__lunar">18 л.д.</span>
-                        <span class="calendar-day__sign">♊ Близнецы</span>
-                    </div>
-                    <!-- 15 мая — Пятница — Рак — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">15</span>
-                        <span class="calendar-day__lunar">19 л.д.</span>
-                        <span class="calendar-day__sign">♋ Рак</span>
-                    </div>
-                    <!-- 16 мая — Суббота — Рак — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">16</span>
-                        <span class="calendar-day__lunar">20 л.д.</span>
-                        <span class="calendar-day__sign">♋ Рак</span>
-                    </div>
-                    <!-- 17 мая — Воскресенье — Рак -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">17</span>
-                        <span class="calendar-day__lunar">21 л.д.</span>
-                        <span class="calendar-day__sign">♋ Рак</span>
-                    </div>
-
-                    <!-- 18 мая — Понедельник — Лев -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">18</span>
-                        <span class="calendar-day__lunar">22 л.д.</span>
-                        <span class="calendar-day__sign">♌ Лев</span>
-                    </div>
-                    <!-- 19 мая — Вторник — Лев — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">19</span>
-                        <span class="calendar-day__lunar">23 л.д.</span>
-                        <span class="calendar-day__sign">♌ Лев</span>
-                    </div>
-                    <!-- 20 мая — Среда — Дева -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">20</span>
-                        <span class="calendar-day__lunar">24 л.д.</span>
-                        <span class="calendar-day__sign">♍ Дева</span>
-                    </div>
-                    <!-- 21 мая — Четверг — Дева — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">21</span>
-                        <span class="calendar-day__lunar">25 л.д.</span>
-                        <span class="calendar-day__sign">♍ Дева</span>
-                    </div>
-                    <!-- 22 мая — Пятница — Весы — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">22</span>
-                        <span class="calendar-day__lunar">26 л.д.</span>
-                        <span class="calendar-day__sign">♎ Весы</span>
-                    </div>
-                    <!-- 23 мая — Суббота — Весы -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">23</span>
-                        <span class="calendar-day__lunar">27 л.д.</span>
-                        <span class="calendar-day__sign">♎ Весы</span>
-                    </div>
-                    <!-- 24 мая — Воскресенье — Весы -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">24</span>
-                        <span class="calendar-day__lunar">28 л.д.</span>
-                        <span class="calendar-day__sign">♎ Весы</span>
-                    </div>
-
-                    <!-- 25 мая — Понедельник — Скорпион -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">25</span>
-                        <span class="calendar-day__lunar">29 л.д.</span>
-                        <span class="calendar-day__sign">♏ Скорпион</span>
-                    </div>
-                    <!-- 26 мая — Вторник — Скорпион — Отлично -->
-                    <div class="calendar-day calendar-day--good">
-                        <span class="calendar-day__number">26</span>
-                        <span class="calendar-day__lunar">1 л.д.</span>
-                        <span class="calendar-day__sign">♏ Скорпион</span>
-                    </div>
-                    <!-- 27 мая — Среда — Стрелец — Новолуние -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">27</span>
-                        <span class="calendar-day__lunar">2 л.д. 🌑</span>
-                        <span class="calendar-day__sign">♐ Стрелец</span>
-                    </div>
-                    <!-- 28 мая — Четверг — Стрелец — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">28</span>
-                        <span class="calendar-day__lunar">3 л.д.</span>
-                        <span class="calendar-day__sign">♐ Стрелец</span>
-                    </div>
-                    <!-- 29 мая — Пятница — Козерог — Осторожно -->
-                    <div class="calendar-day calendar-day--caution">
-                        <span class="calendar-day__number">29</span>
-                        <span class="calendar-day__lunar">4 л.д.</span>
-                        <span class="calendar-day__sign">♑ Козерог</span>
-                    </div>
-                    <!-- 30 мая — Суббота — Козерог -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">30</span>
-                        <span class="calendar-day__lunar">5 л.д.</span>
-                        <span class="calendar-day__sign">♑ Козерог</span>
-                    </div>
-                    <!-- 31 мая — Воскресенье — Водолей -->
-                    <div class="calendar-day calendar-day--neutral">
-                        <span class="calendar-day__number">31</span>
-                        <span class="calendar-day__lunar">6 л.д.</span>
-                        <span class="calendar-day__sign">♒ Водолей</span>
-                    </div>
+                    <!-- Дни генерируются JavaScript -->
                 </div>
             </div>
         </section>
@@ -1137,6 +946,154 @@
                 }
             });
         })();
+    </script>
+
+    <!-- Lunar Calendar Auto-Generation -->
+    <script>
+    (function() {
+        var MONTH_NAMES = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+        var MONTH_TITLES = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+        var ZODIAC_SIGNS = [
+            {name:'Овен',symbol:'♈'},{name:'Телец',symbol:'♉'},{name:'Близнецы',symbol:'♊'},
+            {name:'Рак',symbol:'♋'},{name:'Лев',symbol:'♌'},{name:'Дева',symbol:'♍'},
+            {name:'Весы',symbol:'♎'},{name:'Скорпион',symbol:'♏'},{name:'Стрелец',symbol:'♐'},
+            {name:'Козерог',symbol:'♑'},{name:'Водолей',symbol:'♒'},{name:'Рыбы',symbol:'♓'}
+        ];
+
+        // Moon phase calculation (simplified Meeus algorithm)
+        function getMoonAge(date) {
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            var d = date.getDate();
+            if (m <= 2) { y--; m += 12; }
+            var a = Math.floor(y / 100);
+            var b = 2 - a + Math.floor(a / 4);
+            var jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + b - 1524.5;
+            // Known new moon: Jan 6, 2000, 18:14 UTC = JD 2451550.26
+            var daysSinceNew = jd - 2451550.1;
+            var lunarCycle = 29.53058867;
+            var age = daysSinceNew % lunarCycle;
+            if (age < 0) age += lunarCycle;
+            return age;
+        }
+
+        function getLunarDay(date) {
+            return Math.floor(getMoonAge(date)) + 1;
+        }
+
+        function getMoonPhaseEmoji(age) {
+            if (age < 1.85) return '🌑';
+            if (age < 7.38) return '🌒';
+            if (age < 9.23) return '🌓';
+            if (age < 14.77) return '🌔';
+            if (age < 16.61) return '🌕';
+            if (age < 22.15) return '🌖';
+            if (age < 23.99) return '🌗';
+            if (age < 29.53) return '🌘';
+            return '🌑';
+        }
+
+        // Moon zodiac sign (simplified — ~2.5 days per sign, based on lunar cycle position)
+        function getMoonSign(date) {
+            var age = getMoonAge(date);
+            // Moon travels ~13.2 deg/day, full circle in ~27.3 days (sidereal)
+            // Approximate: offset from a known position
+            var jd = getJD(date);
+            // Known: Jan 1, 2026, Moon in ~Aries
+            var baseDays = jd - 2460676.5; // Jan 1, 2026
+            var siderealPeriod = 27.321661;
+            var pos = (baseDays % siderealPeriod);
+            if (pos < 0) pos += siderealPeriod;
+            var signIndex = Math.floor((pos / siderealPeriod) * 12) % 12;
+            return ZODIAC_SIGNS[signIndex];
+        }
+
+        function getJD(date) {
+            var y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
+            if (m <= 2) { y--; m += 12; }
+            var a = Math.floor(y / 100);
+            var b = 2 - a + Math.floor(a / 4);
+            return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + b - 1524.5;
+        }
+
+        // Day quality based on lunar day
+        function getDayQuality(lunarDay) {
+            var good = [2,6,7,10,11,12,14,16,21,22,24,25,26,28];
+            var caution = [4,8,9,13,15,18,19,23,26,29];
+            if (good.indexOf(lunarDay) !== -1) return 'good';
+            if (caution.indexOf(lunarDay) !== -1) return 'caution';
+            return 'neutral';
+        }
+
+        var currentDate = new Date();
+        var displayYear = currentDate.getFullYear();
+        var displayMonth = currentDate.getMonth();
+
+        function renderCalendar() {
+            var title = document.getElementById('lunarTitle');
+            title.textContent = 'Лунный календарь ' + MONTH_TITLES[displayMonth] + ' ' + displayYear;
+
+            var grid = document.getElementById('calendarGrid');
+            // Remove old day cells, keep weekday headers
+            var cells = grid.querySelectorAll('.calendar-day');
+            cells.forEach(function(c) { c.remove(); });
+
+            // First day of month (0=Sun, convert to Mon=0)
+            var firstDay = new Date(displayYear, displayMonth, 1).getDay();
+            var startOffset = (firstDay === 0) ? 6 : firstDay - 1; // Mon-based
+
+            // Days in month
+            var daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
+
+            // Empty cells
+            for (var i = 0; i < startOffset; i++) {
+                var empty = document.createElement('div');
+                empty.className = 'calendar-day calendar-day--empty';
+                grid.appendChild(empty);
+            }
+
+            var today = new Date();
+
+            // Day cells
+            for (var d = 1; d <= daysInMonth; d++) {
+                var date = new Date(displayYear, displayMonth, d);
+                var lunarDay = getLunarDay(date);
+                var moonAge = getMoonAge(date);
+                var moonEmoji = getMoonPhaseEmoji(moonAge);
+                var moonSign = getMoonSign(date);
+                var quality = getDayQuality(lunarDay);
+
+                var isToday = (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear());
+
+                var cell = document.createElement('div');
+                cell.className = 'calendar-day calendar-day--' + quality;
+                if (isToday) cell.style.outline = '2px solid #6c5ce7';
+
+                var showEmoji = (lunarDay <= 2 || (lunarDay >= 14 && lunarDay <= 16)) ? ' ' + moonEmoji : '';
+
+                cell.innerHTML =
+                    '<span class="calendar-day__number">' + d + '</span>' +
+                    '<span class="calendar-day__lunar">' + lunarDay + ' л.д.' + showEmoji + '</span>' +
+                    '<span class="calendar-day__sign">' + moonSign.symbol + ' ' + moonSign.name + '</span>';
+
+                grid.appendChild(cell);
+            }
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            displayMonth--;
+            if (displayMonth < 0) { displayMonth = 11; displayYear--; }
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            displayMonth++;
+            if (displayMonth > 11) { displayMonth = 0; displayYear++; }
+            renderCalendar();
+        });
+
+        renderCalendar();
+    })();
     </script>
 </body>
 </html>
