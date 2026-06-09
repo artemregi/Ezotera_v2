@@ -555,10 +555,68 @@
         userData.style.display  = 'block';
     }
 
+    // ── Orders ───────────────────────────────────────────────────────────────
+    function loadOrders() {
+        fetch('/api/user/orders', { method: 'GET', credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.success) return;
+                var section = document.getElementById('ordersSection');
+                var list = document.getElementById('ordersList');
+                var empty = document.getElementById('ordersEmpty');
+                if (!section) return;
+
+                section.style.display = '';
+
+                if (!data.orders || data.orders.length === 0) {
+                    empty.style.display = '';
+                    return;
+                }
+
+                var statusLabels = {
+                    success: 'Выполнен',
+                    pending: 'В обработке',
+                    failed: 'Не оплачен',
+                    refunded: 'Возврат'
+                };
+                var statusClasses = {
+                    success: 'success',
+                    pending: 'pending',
+                    failed: 'failed',
+                    refunded: 'failed'
+                };
+
+                list.innerHTML = data.orders.map(function(o) {
+                    var date = new Date(o.createdAt);
+                    var dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+                    var statusLabel = statusLabels[o.status] || o.status;
+                    var statusClass = statusClasses[o.status] || 'pending';
+
+                    return '<div class="profile-order-card">' +
+                        '<div class="profile-order-card__info">' +
+                            '<div class="profile-order-card__name">' + (o.productName || o.description || 'Заказ') + '</div>' +
+                            '<div class="profile-order-card__date">' + dateStr + '</div>' +
+                        '</div>' +
+                        '<div class="profile-order-card__right">' +
+                            '<span class="profile-order-card__amount">' + Number(o.amount).toLocaleString('ru-RU') + ' ₽</span>' +
+                            '<span class="profile-order-card__status profile-order-card__status--' + statusClass + '">' + statusLabel + '</span>' +
+                        '</div>' +
+                    '</div>';
+                }).join('');
+            })
+            .catch(function(err) {
+                console.warn('[Dashboard] Orders load error:', err);
+            });
+    }
+
     // ── Bootstrap ─────────────────────────────────────────────────────────────
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initDashboard);
-    } else {
+    function boot() {
         initDashboard();
+        loadOrders();
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+    } else {
+        boot();
     }
 })();

@@ -619,3 +619,116 @@ body.zodiac-page {
         font-size: 1.5rem;
     }
 }
+
+/* ===== TOPIC CARDS GRID ===== */
+.zodiac-topic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+@media (max-width: 768px) { .zodiac-topic-grid { grid-template-columns: 1fr; } }
+
+.zodiac-topic-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.zodiac-topic-card:hover {
+    border-color: rgba(108,92,231,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(108,92,231,0.15);
+}
+.zodiac-topic-card__icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+.zodiac-topic-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+.zodiac-topic-card__btn {
+    background: rgba(108,92,231,0.15);
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 10px;
+    color: #a29bfe;
+    font-size: 0.88rem;
+    font-family: inherit;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.zodiac-topic-card__btn:hover {
+    background: rgba(108,92,231,0.3);
+}
+
+/* ===== SECTION DETAIL MODAL ===== */
+.zodiac-section-modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.zodiac-section-modal-bg.active { display: flex; }
+.zodiac-section-modal {
+    background: #10101e;
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 20px;
+    padding: 36px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+}
+.zodiac-section-modal__close {
+    position: absolute;
+    top: 16px; right: 18px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.zodiac-section-modal__close:hover { color: #fff; }
+.zodiac-section-modal__title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-right: 30px;
+}
+.zodiac-section-modal__text {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.75;
+    white-space: pre-line;
+}
+.zodiac-section-modal__back {
+    display: block;
+    margin-top: 24px;
+    background: rgba(108,92,231,0.15);
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 10px;
+    color: #a29bfe;
+    font-size: 0.9rem;
+    font-family: inherit;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.zodiac-section-modal__back:hover {
+    background: rgba(108,92,231,0.3);
+}

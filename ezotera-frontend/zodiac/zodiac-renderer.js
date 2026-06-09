@@ -66,7 +66,7 @@ class ZodiacRenderer {
                 ${this.renderBirthDatesTable()}
                 ${this.renderContentSections()}
                 ${this.renderCompatibility()}
-                ${this.renderConsultation()}
+                ${/* renderConsultation() temporarily hidden */ ''}
                 ${this.renderAllSigns()}
             </div>
         `;
@@ -203,43 +203,58 @@ class ZodiacRenderer {
     }
 
     /**
-     * Render content sections (element description, strengths, compatibility, philosophy)
+     * Render content sections as compact cards with "Узнать подробнее" buttons
      */
     renderContentSections() {
         const textSections = this.zodiacData.textSections || {};
-
         const elementName = this.zodiacData.element;
+
+        const sections = [
+            { icon: '🔥', title: `${this.zodiacData.name}: Знак Стихии ${elementName}`, text: textSections.element || '' },
+            { icon: '💪', title: 'Сильные Стороны, Слабости и Динамика Отношений', text: textSections.strengths || '' },
+            { icon: '💑', title: 'Совместимость с Другими Знаками Зодиака', text: textSections.compatibility || '' },
+            { icon: '🌟', title: `Путь ${this.zodiacData.name}`, text: textSections.philosophy || '' }
+        ];
+
+        const cards = sections.map((s, i) => `
+            <div class="zodiac-topic-card" onclick="window.__zodiacOpenModal(${i})">
+                <span class="zodiac-topic-card__icon">${s.icon}</span>
+                <h3 class="zodiac-topic-card__title">${s.title}</h3>
+                <button class="zodiac-topic-card__btn">Узнать подробнее</button>
+            </div>
+        `).join('');
+
+        // Store section data for modal
+        window.__zodiacSections = sections;
+        window.__zodiacOpenModal = function(idx) {
+            const s = window.__zodiacSections[idx];
+            if (!s) return;
+            const modal = document.getElementById('zodiacSectionModal');
+            const bg = document.getElementById('zodiacSectionModalBg');
+            modal.querySelector('.zodiac-section-modal__title').textContent = s.icon + ' ' + s.title;
+            modal.querySelector('.zodiac-section-modal__text').textContent = s.text;
+            bg.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+        window.__zodiacCloseModal = function() {
+            document.getElementById('zodiacSectionModalBg').classList.remove('active');
+            document.body.style.overflow = '';
+        };
 
         return `
             <section class="zodiac-sections">
-                <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">🔥 ${this.zodiacData.name}: Знак Стихии ${elementName}</h2>
-                    <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.element || 'Описание знака зодиака...')}
-                    </div>
-                </article>
-
-                <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">💪 Сильные Стороны, Слабости и Динамика Отношений</h2>
-                    <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.strengths || 'Информация о сильных сторонах и слабостях...')}
-                    </div>
-                </article>
-
-                <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">💑 Совместимость с Другими Знаками Зодиака</h2>
-                    <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.compatibility || 'Информация о совместимости...')}
-                    </div>
-                </article>
-
-                <article class="zodiac-section">
-                    <h2 class="zodiac-section__title">🌟 Путь ${this.zodiacData.name}</h2>
-                    <div class="zodiac-section__content">
-                        ${this.escapeHtml(textSections.philosophy || 'Информация о философии и личностном развитии...')}
-                    </div>
-                </article>
+                <div class="zodiac-topic-grid">${cards}</div>
             </section>
+
+            <!-- Section detail modal -->
+            <div class="zodiac-section-modal-bg" id="zodiacSectionModalBg" onclick="if(event.target===this)window.__zodiacCloseModal()">
+                <div class="zodiac-section-modal" id="zodiacSectionModal">
+                    <button class="zodiac-section-modal__close" onclick="window.__zodiacCloseModal()">&times;</button>
+                    <h2 class="zodiac-section-modal__title"></h2>
+                    <div class="zodiac-section-modal__text"></div>
+                    <button class="zodiac-section-modal__back" onclick="window.__zodiacCloseModal()">← Вернуться назад</button>
+                </div>
+            </div>
         `;
     }
 

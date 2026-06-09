@@ -395,6 +395,69 @@
             font-size: 0.78rem;
             color: rgba(255,255,255,0.35);
         }
+        /* ===== DYNAMIC CARDS ===== */
+        .dynamic-section { padding: 60px 0 20px; }
+        .dynamic-section__title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .dynamic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .dynamic-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            animation: dynamicPulse 3s ease-in-out infinite alternate;
+        }
+        .dynamic-card:nth-child(2) { animation-delay: 0.5s; }
+        .dynamic-card:nth-child(3) { animation-delay: 1s; }
+        .dynamic-card:nth-child(4) { animation-delay: 1.5s; }
+        .dynamic-card:nth-child(5) { animation-delay: 2s; }
+        @keyframes dynamicPulse {
+            0% { border-color: rgba(255,255,255,0.08); }
+            100% { border-color: rgba(108,92,231,0.25); }
+        }
+        .dynamic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(108,92,231,0.15);
+            border-color: rgba(108,92,231,0.4);
+        }
+        .dynamic-card__icon { font-size: 2rem; margin-bottom: 10px; }
+        .dynamic-card__cat {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(108,92,231,0.8);
+            margin-bottom: 6px;
+        }
+        .dynamic-card__title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .dynamic-card__desc {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .dynamic-card__link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #a29bfe;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .dynamic-card__link:hover { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -416,6 +479,13 @@
             </div>
         </section>
 
+        <!-- ===== DYNAMIC CONTENT CARDS ===== -->
+        <section class="dynamic-section section--dark" id="dynamicSection" style="display:none;">
+            <div class="container">
+                <h2 class="dynamic-section__title">Сегодня в мире звёзд</h2>
+                <div class="dynamic-grid" id="dynamicGrid"></div>
+            </div>
+        </section>
 
         <!-- ===== BLOG ===== -->
         <section class="blog-main">
@@ -807,6 +877,32 @@
             btn.style.background = '#55efc4';
             btn.style.color = '#0c1b24';
         }
+
+        // Load dynamic content cards
+        (function() {
+            fetch('/api/admin/content-cards')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.cards || data.cards.length === 0) return;
+                    var section = document.getElementById('dynamicSection');
+                    var grid = document.getElementById('dynamicGrid');
+                    section.style.display = '';
+
+                    grid.innerHTML = data.cards.map(function(c) {
+                        var linkHtml = c.link_url
+                            ? '<a class="dynamic-card__link" href="' + c.link_url + '">' + (c.link_text || 'Подробнее') + ' →</a>'
+                            : '';
+                        return '<div class="dynamic-card">' +
+                            '<div class="dynamic-card__icon">' + (c.icon || '✨') + '</div>' +
+                            (c.category ? '<div class="dynamic-card__cat">' + c.category + '</div>' : '') +
+                            '<div class="dynamic-card__title">' + c.title + '</div>' +
+                            (c.description ? '<div class="dynamic-card__desc">' + c.description + '</div>' : '') +
+                            linkHtml +
+                        '</div>';
+                    }).join('');
+                })
+                .catch(function() { /* silent */ });
+        })();
     </script>
 </body>
 </html>

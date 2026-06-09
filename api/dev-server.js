@@ -19,6 +19,7 @@ const palmUnlockHandler               = require('./palmistry/unlock');
 const verifyHandler                   = require('./auth/verify');
 const logoutHandler                   = require('./auth/logout');
 const userProfileHandler              = require('./user/profile');
+const userOrdersHandler               = require('./user/orders');
 const onboardingCompleteHandler       = require('./onboarding/complete');
 const paymentCreateHandler            = require('./payment/create');
 const paymentResultHandler            = require('./payment/result');
@@ -28,6 +29,7 @@ const paymentRefundHandler            = require('./payment/refund');
 const paymentSuccessHandler           = require('./payment/success');
 const natalInterpretHandler           = require('./natal/interpret');
 const adminProductsHandler            = require('./admin/products');
+const adminContentCardsHandler        = require('./admin/content-cards');
 const adminHoroscopeHandler           = require('./admin/horoscope');
 const adminReferralsHandler           = require('./admin/referrals');
 const referralStatsHandler            = require('./referral/stats');
@@ -175,6 +177,8 @@ const server = http.createServer(async (req, res) => {
                 await logoutHandler(req, res);
             } else if (pathname === '/api/user/profile' && req.method === 'GET') {
                 await userProfileHandler(req, res);
+            } else if (pathname === '/api/user/orders' && req.method === 'GET') {
+                await userOrdersHandler(req, res);
             } else if (pathname === '/api/onboarding/complete' && req.method === 'POST') {
                 await onboardingCompleteHandler(req, res);
             } else if (pathname === '/api/payment/create' && req.method === 'POST') {
@@ -193,6 +197,8 @@ const server = http.createServer(async (req, res) => {
                 await natalInterpretHandler(req, res);
             } else if (pathname === '/api/admin/products') {
                 await adminProductsHandler(req, res);
+            } else if (pathname === '/api/admin/content-cards') {
+                await adminContentCardsHandler(req, res);
             } else if (pathname === '/api/admin/horoscope') {
                 await adminHoroscopeHandler(req, res);
             } else if (pathname === '/api/admin/referrals') {

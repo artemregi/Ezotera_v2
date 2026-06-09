@@ -555,3 +555,98 @@
         flex-direction: column;
     }
 }
+
+/* ── Orders Section ── */
+.profile-orders {
+    margin-top: 2rem;
+}
+.profile-orders__title {
+    font-family: var(--font-heading, 'Cormorant Garamond', serif);
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 1.2rem;
+}
+.profile-orders__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.profile-order-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.profile-order-card__info {
+    flex: 1;
+    min-width: 200px;
+}
+.profile-order-card__name {
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.profile-order-card__date {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+}
+.profile-order-card__right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+.profile-order-card__amount {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+.profile-order-card__status {
+    font-size: 0.78rem;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-weight: 500;
+}
+.profile-order-card__status--success {
+    background: rgba(0,184,148,0.15);
+    color: #55efc4;
+}
+.profile-order-card__status--pending {
+    background: rgba(253,203,110,0.15);
+    color: #fdcb6e;
+}
+.profile-order-card__status--failed {
+    background: rgba(255,118,117,0.15);
+    color: #ff7675;
+}
+.profile-orders__empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255,255,255,0.5);
+}
+.profile-orders__shop-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #a29bfe;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.profile-orders__shop-link:hover { text-decoration: underline; }
+.profile-orders__contact {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+}
+.profile-orders__contact a {
+    color: #a29bfe;
+    text-decoration: none;
+}
+.profile-orders__contact a:hover { text-decoration: underline; }

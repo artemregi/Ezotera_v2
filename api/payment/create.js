@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { pool } = require('../../lib/db');
 const { extractTokenFromCookies, verifyToken } = require('../../lib/auth');
+const { notifyNewLead } = require('../../lib/telegram');
 
 module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') return res.status(200).end();
@@ -82,6 +83,19 @@ module.exports = async (req, res) => {
             );
         } catch (dbErr) {
             console.error('Failed to save pending payment:', dbErr.message);
+        }
+
+        // Send Telegram notification about new lead
+        try {
+            await notifyNewLead({
+                productName: description,
+                amount: outSum,
+                customerName: customerName || null,
+                customerEmail: email,
+                orderId: String(invId)
+            });
+        } catch (tgErr) {
+            console.error('[Telegram] Lead notification error:', tgErr.message);
         }
 
         return res.status(200).json({ success: true, paymentUrl });

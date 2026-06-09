@@ -102,8 +102,23 @@
         </div>
     </section>
 
-    <!-- Form -->
-    <section class="natal-form-section" id="natalForm">
+    <!-- Auth Gate: shown to non-authenticated users -->
+    <section class="natal-auth-gate" id="natalAuthGate" style="display:none;">
+        <div class="container" style="max-width:600px; text-align:center; padding:60px 20px;">
+            <div style="font-size:3rem; margin-bottom:16px;">🔒</div>
+            <h2 style="font-family:var(--font-heading); font-size:1.6rem; color:#fff; margin-bottom:12px;">Получите бесплатный разбор</h2>
+            <p style="color:rgba(255,255,255,0.6); margin-bottom:28px; line-height:1.6;">
+                Зарегистрируйтесь, чтобы рассчитать натальную карту, получить персональную интерпретацию и 3 дня бесплатного доступа ко всем функциям Esoterra.
+            </p>
+            <a href="auth/login.html" class="button button--primary button--large" style="padding:16px 48px; font-size:1.05rem;">
+                Зарегистрироваться бесплатно
+            </a>
+            <p style="margin-top:12px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:var(--color-accent-light);">Войти</a></p>
+        </div>
+    </section>
+
+    <!-- Form (hidden until auth check) -->
+    <section class="natal-form-section" id="natalForm" style="display:none;">
         <div class="container">
             <div class="natal-form-card">
                 <h2 class="natal-form-card__title">Введите данные рождения</h2>
@@ -256,8 +271,8 @@
                 </div>
             </div>
 
-            <!-- Expert CTA -->
-            <div class="natal-expert-cta">
+            <!-- Expert CTA (temporarily hidden) -->
+            <div class="natal-expert-cta" style="display:none">
                 <div class="natal-expert-cta__inner">
                     <div class="natal-expert-cta__badge">🔮 Бесплатно для новых пользователей</div>
                     <h3 class="natal-expert-cta__title">Получите расшифровку от астролога</h3>
@@ -294,6 +309,28 @@
 <script src="js/footer-loader.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/cookie-consent.js"></script>
+
+<!-- Auth gate check -->
+<script>
+(function() {
+    fetch('/api/auth/verify', { credentials: 'include' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.authenticated && data.user) {
+                // Show all content
+                document.getElementById('natalForm').style.display = '';
+                document.getElementById('natalAuthGate').style.display = 'none';
+            } else {
+                document.getElementById('natalAuthGate').style.display = '';
+                document.getElementById('natalForm').style.display = 'none';
+            }
+        })
+        .catch(function() {
+            document.getElementById('natalAuthGate').style.display = '';
+            document.getElementById('natalForm').style.display = 'none';
+        });
+})();
+</script>
 
 <!-- Date picker logic -->
 <script>

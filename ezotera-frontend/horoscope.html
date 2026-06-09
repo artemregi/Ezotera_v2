@@ -422,8 +422,23 @@
         </section>
 
 
+        <!-- Auth Gate for horoscope content -->
+        <section class="section section--dark" id="horoscopeAuthGate" style="display:none;">
+            <div class="container" style="max-width:600px; text-align:center; padding:60px 20px;">
+                <div style="font-size:3rem; margin-bottom:16px;">🔒</div>
+                <h2 style="font-family:var(--font-heading); font-size:1.6rem; color:#fff; margin-bottom:12px;">Персональный гороскоп</h2>
+                <p style="color:rgba(255,255,255,0.6); margin-bottom:28px; line-height:1.6;">
+                    Зарегистрируйтесь, чтобы получить доступ к еженедельным гороскопам, лунному календарю и персональным прогнозам.
+                </p>
+                <a href="auth/login.html" class="button button--primary button--large" style="padding:16px 48px; font-size:1.05rem;">
+                    Зарегистрироваться бесплатно
+                </a>
+                <p style="margin-top:12px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe;">Войти</a></p>
+            </div>
+        </section>
+
         <!-- ===== СОВЕТ ДНЯ + ТАБЫ + КАРТОЧКИ ===== -->
-        <section class="section section--dark">
+        <section class="section section--dark" id="horoscopeContent" style="display:none;">
             <div class="container">
 
                 <!-- Совет недели -->
@@ -444,7 +459,7 @@
 
 
         <!-- ===== ЛУННЫЙ КАЛЕНДАРЬ ===== -->
-        <section class="section section--dark">
+        <section class="section section--dark horoscope-auth-content" style="display:none;">
             <div class="container">
                 <div class="lunar-section">
                     <h2 class="lunar-section__title">🌒 Лунный календарь — 18 мая 2026</h2>
@@ -568,6 +583,27 @@
 
     <script src="js/navigation.js"></script>
     <script src="js/cookie-consent.js"></script>
+    <!-- Auth gate check -->
+    <script>
+    (function() {
+        fetch('/api/auth/verify', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.authenticated && data.user) {
+                    document.getElementById('horoscopeContent').style.display = '';
+                    document.getElementById('horoscopeAuthGate').style.display = 'none';
+                    var authContent = document.querySelectorAll('.horoscope-auth-content');
+                    authContent.forEach(function(el) { el.style.display = ''; });
+                } else {
+                    document.getElementById('horoscopeAuthGate').style.display = '';
+                }
+            })
+            .catch(function() {
+                document.getElementById('horoscopeAuthGate').style.display = '';
+            });
+    })();
+    </script>
+
     <script>
     (function () {
         var SIGNS = [
