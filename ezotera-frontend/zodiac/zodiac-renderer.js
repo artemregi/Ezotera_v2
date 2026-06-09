@@ -209,53 +209,72 @@ class ZodiacRenderer {
         const textSections = this.zodiacData.textSections || {};
         const elementName = this.zodiacData.element;
 
-        const sections = [
-            { icon: '🔥', title: `${this.zodiacData.name}: Знак Стихии ${elementName}`, text: textSections.element || '' },
+        // Store sections data on the instance for modal use
+        this._topicSections = [
+            { icon: '🔥', title: this.zodiacData.name + ': Знак Стихии ' + elementName, text: textSections.element || '' },
             { icon: '💪', title: 'Сильные Стороны, Слабости и Динамика Отношений', text: textSections.strengths || '' },
             { icon: '💑', title: 'Совместимость с Другими Знаками Зодиака', text: textSections.compatibility || '' },
-            { icon: '🌟', title: `Путь ${this.zodiacData.name}`, text: textSections.philosophy || '' }
+            { icon: '🌟', title: 'Путь ' + this.zodiacData.name, text: textSections.philosophy || '' }
         ];
 
-        const cards = sections.map((s, i) => `
-            <div class="zodiac-topic-card" onclick="window.__zodiacOpenModal(${i})">
-                <span class="zodiac-topic-card__icon">${s.icon}</span>
-                <h3 class="zodiac-topic-card__title">${s.title}</h3>
-                <button class="zodiac-topic-card__btn">Узнать подробнее</button>
-            </div>
-        `).join('');
+        const cards = this._topicSections.map(function(s, i) {
+            return '<div class="zodiac-topic-card" data-topic-idx="' + i + '">' +
+                '<span class="zodiac-topic-card__icon">' + s.icon + '</span>' +
+                '<h3 class="zodiac-topic-card__title">' + s.title + '</h3>' +
+                '<button class="zodiac-topic-card__btn">Узнать подробнее</button>' +
+            '</div>';
+        }).join('');
 
-        // Store section data for modal
-        window.__zodiacSections = sections;
-        window.__zodiacOpenModal = function(idx) {
-            const s = window.__zodiacSections[idx];
+        return '<section class="zodiac-sections"><div class="zodiac-topic-grid">' + cards + '</div></section>';
+    }
+
+    /**
+     * Create and append the topic section modal to document.body,
+     * then attach click events to topic cards.
+     */
+    initTopicModals() {
+        var self = this;
+        if (!this._topicSections || !this._topicSections.length) return;
+
+        // Create modal and append to body (outside any container)
+        var modalBg = document.createElement('div');
+        modalBg.className = 'zodiac-section-modal-bg';
+        modalBg.id = 'zodiacSectionModalBg';
+        modalBg.innerHTML =
+            '<div class="zodiac-section-modal" id="zodiacSectionModal">' +
+                '<button class="zodiac-section-modal__close" id="zodiacModalClose">&times;</button>' +
+                '<h2 class="zodiac-section-modal__title" id="zodiacModalTitle"></h2>' +
+                '<div class="zodiac-section-modal__text" id="zodiacModalText"></div>' +
+                '<button class="zodiac-section-modal__back" id="zodiacModalBack">← Вернуться назад</button>' +
+            '</div>';
+        document.body.appendChild(modalBg);
+
+        function openModal(idx) {
+            var s = self._topicSections[idx];
             if (!s) return;
-            const modal = document.getElementById('zodiacSectionModal');
-            const bg = document.getElementById('zodiacSectionModalBg');
-            modal.querySelector('.zodiac-section-modal__title').textContent = s.icon + ' ' + s.title;
-            modal.querySelector('.zodiac-section-modal__text').textContent = s.text;
-            bg.classList.add('active');
+            document.getElementById('zodiacModalTitle').textContent = s.icon + ' ' + s.title;
+            document.getElementById('zodiacModalText').textContent = s.text;
+            modalBg.classList.add('active');
             document.body.style.overflow = 'hidden';
-        };
-        window.__zodiacCloseModal = function() {
-            document.getElementById('zodiacSectionModalBg').classList.remove('active');
+        }
+
+        function closeModal() {
+            modalBg.classList.remove('active');
             document.body.style.overflow = '';
-        };
+        }
 
-        return `
-            <section class="zodiac-sections">
-                <div class="zodiac-topic-grid">${cards}</div>
-            </section>
+        // Attach click to cards
+        var cards = document.querySelectorAll('.zodiac-topic-card[data-topic-idx]');
+        cards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                openModal(parseInt(card.getAttribute('data-topic-idx'), 10));
+            });
+        });
 
-            <!-- Section detail modal -->
-            <div class="zodiac-section-modal-bg" id="zodiacSectionModalBg" onclick="if(event.target===this)window.__zodiacCloseModal()">
-                <div class="zodiac-section-modal" id="zodiacSectionModal">
-                    <button class="zodiac-section-modal__close" onclick="window.__zodiacCloseModal()">&times;</button>
-                    <h2 class="zodiac-section-modal__title"></h2>
-                    <div class="zodiac-section-modal__text"></div>
-                    <button class="zodiac-section-modal__back" onclick="window.__zodiacCloseModal()">← Вернуться назад</button>
-                </div>
-            </div>
-        `;
+        // Close handlers
+        modalBg.addEventListener('click', function(e) { if (e.target === modalBg) closeModal(); });
+        document.getElementById('zodiacModalClose').addEventListener('click', closeModal);
+        document.getElementById('zodiacModalBack').addEventListener('click', closeModal);
     }
 
     /**
@@ -417,6 +436,9 @@ class ZodiacRenderer {
                 item.classList.toggle('active');
             });
         });
+
+        // Topic section modals
+        this.initTopicModals();
 
         // Load all signs grid
         this.loadAllSignsGrid();

@@ -6,6 +6,21 @@
 (function() {
     'use strict';
 
+    // Inject favicon if not already present
+    if (!document.querySelector('link[rel="icon"]')) {
+        const paths = detectPageLocation ? null : null; // will be available later
+        const depth = window.location.pathname.includes('/zodiac/') ||
+                      window.location.pathname.includes('/auth/') ||
+                      window.location.pathname.includes('/onboarding/') ||
+                      window.location.pathname.includes('/admin/') ||
+                      window.location.pathname.includes('/legal/') ? '../' : '';
+        const favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/jpeg';
+        favicon.href = depth + 'assets/icons/logo.jpg';
+        document.head.appendChild(favicon);
+    }
+
     // Add a style to prevent flash of unstyled header area
     const style = document.createElement('style');
     style.textContent = `

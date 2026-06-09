@@ -72,7 +72,22 @@
     <!-- ============================================
          MAIN CONTENT
          ============================================ -->
-    <main class="palmistry-main">
+    <!-- Auth Gate -->
+    <div id="palmistryAuthGate" style="display:none; text-align:center; padding:120px 20px 80px;">
+        <div style="max-width:600px; margin:0 auto;">
+            <div style="font-size:3rem; margin-bottom:16px;">🔒</div>
+            <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#fff; margin-bottom:12px;">Анализ личности по ладони</h2>
+            <p style="color:rgba(255,255,255,0.6); margin-bottom:28px; line-height:1.6;">
+                Зарегистрируйтесь, чтобы получить персональный AI-анализ черт характера и скрытых талантов по фотографии ладони.
+            </p>
+            <a href="auth/login.html" class="button button--primary button--large" style="padding:16px 48px; font-size:1.05rem;">
+                Зарегистрироваться бесплатно
+            </a>
+            <p style="margin-top:12px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe;">Войти</a></p>
+        </div>
+    </div>
+
+    <main class="palmistry-main" id="palmistryMain" style="display:none;">
 
         <!-- HERO SECTION -->
         <section class="palmistry-hero section--dark">
@@ -571,5 +586,22 @@
     </div><!-- /#palmModal -->
 
     <script src="js/cookie-consent.js"></script>
+    <script>
+    (function() {
+        fetch('/api/auth/verify', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.authenticated && data.user) {
+                    document.getElementById('palmistryMain').style.display = '';
+                    document.getElementById('palmistryAuthGate').style.display = 'none';
+                } else {
+                    document.getElementById('palmistryAuthGate').style.display = '';
+                }
+            })
+            .catch(function() {
+                document.getElementById('palmistryAuthGate').style.display = '';
+            });
+    })();
+    </script>
 </body>
 </html>
