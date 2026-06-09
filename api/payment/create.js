@@ -47,9 +47,12 @@ module.exports = async (req, res) => {
             InvId: invId,
             Description: description,
             SignatureValue: signature,
-            IsTest: useTest ? '1' : '0',
             Encoding: 'utf-8',
         });
+        // Only add IsTest param when in test mode; omitting it entirely for production
+        if (useTest) {
+            params.set('IsTest', '1');
+        }
 
         const paymentUrl = `${baseUrl}?${params.toString()}`;
 
