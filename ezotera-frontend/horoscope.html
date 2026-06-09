@@ -153,10 +153,12 @@
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
-            padding: 28px 22px;
+            padding: 24px 22px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            text-align: center;
         }
         .zodiac-card::before {
             content: '';
@@ -174,15 +176,11 @@
         }
         .zodiac-card:hover::before { opacity: 1; }
 
-        .zodiac-card__header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
         .zodiac-card__icon {
-            font-size: 2rem;
+            font-size: 2.4rem;
             line-height: 1;
+            display: block;
+            margin-bottom: 10px;
         }
         .zodiac-card__name {
             font-family: var(--font-heading);
@@ -192,87 +190,107 @@
         .zodiac-card__dates {
             font-size: 0.75rem;
             color: rgba(255,255,255,0.45);
+            margin-top: 4px;
         }
-        .zodiac-card__text {
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.72);
-            line-height: 1.65;
-            margin-bottom: 18px;
-            overflow-wrap: break-word;
-            word-break: break-word;
-        }
-        .zodiac-card__body {
-            max-height: 120px;
-            overflow: hidden;
-            position: relative;
-            transition: max-height 0.4s ease;
-        }
-        .zodiac-card__body::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 50px;
-            background: linear-gradient(transparent, rgba(10,10,20,0.95));
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .zodiac-card__body.expanded {
-            max-height: 3000px;
-        }
-        .zodiac-card__body.expanded::after {
-            opacity: 0;
-        }
-        .zodiac-card__toggle {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: rgba(108,92,231,0.12);
-            border: 1px solid rgba(108,92,231,0.25);
-            border-radius: 10px;
+        .zodiac-card__hint {
+            font-size: 0.78rem;
             color: var(--color-accent-light, #a29bfe);
-            font-size: 0.85rem;
-            font-family: inherit;
-            cursor: pointer;
-            padding: 10px 0;
             margin-top: 12px;
-            transition: all 0.2s;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
-        .zodiac-card__toggle:hover {
-            background: rgba(108,92,231,0.22);
-            border-color: rgba(108,92,231,0.5);
+        .zodiac-card:hover .zodiac-card__hint { opacity: 1; }
+
+        /* ===== ZODIAC MODAL ===== */
+        .zodiac-modal-bg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .zodiac-card__aspects {
+        .zodiac-modal-bg.active { display: flex; }
+        .zodiac-modal {
+            background: #10101e;
+            border: 1px solid rgba(108,92,231,0.3);
+            border-radius: 20px;
+            padding: 36px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .zodiac-modal__close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+        }
+        .zodiac-modal__close:hover { color: #fff; }
+        .zodiac-modal__header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .zodiac-modal__icon { font-size: 2.5rem; }
+        .zodiac-modal__name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-white);
+        }
+        .zodiac-modal__dates {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.45);
+        }
+        .zodiac-modal__text {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .zodiac-modal__aspects {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
-        .zodiac-card__aspect {
+        .zodiac-modal__aspect {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
+            gap: 10px;
+            align-items: flex-start;
         }
-        .zodiac-card__aspect-label {
+        .zodiac-modal__aspect-label {
             color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            min-width: 100px;
         }
-        .zodiac-card__aspect-value {
+        .zodiac-modal__aspect-value {
             color: rgba(255,255,255,0.85);
-            font-size: 0.78rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
-        .zodiac-card__footer {
+        .zodiac-modal__footer {
             display: flex;
             justify-content: space-between;
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 12px;
+            padding-top: 14px;
+            margin-top: 8px;
         }
-        .zodiac-card__lucky {
-            color: var(--color-gold);
-        }
-        .zodiac-card__color {
-            color: var(--color-accent-light);
-        }
+        .zodiac-modal__lucky { color: var(--color-gold); }
+        .zodiac-modal__color { color: var(--color-accent-light); }
 
         /* ===== LUNAR CALENDAR ===== */
         .lunar-section {
@@ -479,6 +497,31 @@
 
     </main>
 
+    <!-- Zodiac Modal -->
+    <div class="zodiac-modal-bg" id="zodiacModalBg" onclick="if(event.target===this)closeZodiacModal()">
+        <div class="zodiac-modal" id="zodiacModal">
+            <button class="zodiac-modal__close" onclick="closeZodiacModal()">&times;</button>
+            <div class="zodiac-modal__header">
+                <span class="zodiac-modal__icon"></span>
+                <div>
+                    <div class="zodiac-modal__name"></div>
+                    <div class="zodiac-modal__dates"></div>
+                </div>
+            </div>
+            <p class="zodiac-modal__text"></p>
+            <div class="zodiac-modal__aspects">
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">❤️ Любовь</span><span class="zodiac-modal__aspect-value" data-aspect="love"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">💼 Карьера</span><span class="zodiac-modal__aspect-value" data-aspect="career"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">🌿 Здоровье</span><span class="zodiac-modal__aspect-value" data-aspect="health"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">💡 Совет</span><span class="zodiac-modal__aspect-value" data-aspect="advice"></span></div>
+            </div>
+            <div class="zodiac-modal__footer">
+                <span class="zodiac-modal__lucky"></span>
+                <span class="zodiac-modal__color"></span>
+            </div>
+            <div class="zodiac-modal__energy" style="margin-top:12px;font-size:.85rem;color:rgba(255,255,255,.5)"></div>
+        </div>
+    </div>
 
     <!-- ============================================
          FOOTER
@@ -548,29 +591,42 @@
                 '★'.repeat(filled) + '☆'.repeat(10 - filled) + '</span>';
         }
 
+        // Store data for modal
+        var signDataMap = {};
+
         function renderCard(sign, data) {
-            return '<div class="zodiac-card">' +
-                '<div class="zodiac-card__header">' +
-                    '<span class="zodiac-card__icon">' + sign.icon + '</span>' +
-                    '<div><div class="zodiac-card__name">' + sign.name + '</div>' +
-                    '<div class="zodiac-card__dates">' + sign.dates + '</div></div>' +
-                '</div>' +
-                '<div class="zodiac-card__body">' +
-                    '<p class="zodiac-card__text">' + data.general + '</p>' +
-                    '<div class="zodiac-card__aspects">' +
-                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">❤️ Любовь</span><span class="zodiac-card__aspect-value">' + data.love + '</span></div>' +
-                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💼 Карьера</span><span class="zodiac-card__aspect-value">' + data.career + '</span></div>' +
-                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">🌿 Здоровье</span><span class="zodiac-card__aspect-value">' + data.health + '</span></div>' +
-                        '<div class="zodiac-card__aspect"><span class="zodiac-card__aspect-label">💡 Совет</span><span class="zodiac-card__aspect-value">' + data.advice + '</span></div>' +
-                    '</div>' +
-                    '<div class="zodiac-card__footer">' +
-                        '<span class="zodiac-card__lucky">🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ') + '</span>' +
-                        '<span class="zodiac-card__color">🎨 ' + data.luckyColor + '</span>' +
-                    '</div>' +
-                    '<div style="margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.5)">Энергия: ' + energyBar(data.energy) + '</div>' +
-                '</div>' +
-                '<button class="zodiac-card__toggle" onclick="var b=this.previousElementSibling;b.classList.toggle(\'expanded\');this.textContent=b.classList.contains(\'expanded\')?\'Свернуть ↑\':\'Развернуть прогноз ↓\'">Развернуть прогноз ↓</button>' +
+            signDataMap[sign.id] = { sign: sign, data: data };
+            return '<div class="zodiac-card" onclick="openZodiacModal(\'' + sign.id + '\')">' +
+                '<span class="zodiac-card__icon">' + sign.icon + '</span>' +
+                '<div class="zodiac-card__name">' + sign.name + '</div>' +
+                '<div class="zodiac-card__dates">' + sign.dates + '</div>' +
+                '<div class="zodiac-card__hint">Читать прогноз →</div>' +
                 '</div>';
+        }
+
+        function openZodiacModal(signId) {
+            var entry = signDataMap[signId];
+            if (!entry) return;
+            var sign = entry.sign, data = entry.data;
+            var modal = document.getElementById('zodiacModal');
+            modal.querySelector('.zodiac-modal__icon').textContent = sign.icon;
+            modal.querySelector('.zodiac-modal__name').textContent = sign.name;
+            modal.querySelector('.zodiac-modal__dates').textContent = sign.dates;
+            modal.querySelector('.zodiac-modal__text').textContent = data.general;
+            modal.querySelector('[data-aspect="love"]').textContent = data.love;
+            modal.querySelector('[data-aspect="career"]').textContent = data.career;
+            modal.querySelector('[data-aspect="health"]').textContent = data.health;
+            modal.querySelector('[data-aspect="advice"]').textContent = data.advice;
+            modal.querySelector('.zodiac-modal__lucky').innerHTML = '🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ');
+            modal.querySelector('.zodiac-modal__color').innerHTML = '🎨 ' + data.luckyColor;
+            modal.querySelector('.zodiac-modal__energy').innerHTML = 'Энергия: ' + energyBar(data.energy);
+            document.getElementById('zodiacModalBg').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZodiacModal() {
+            document.getElementById('zodiacModalBg').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         fetch('horoscope-data.json')

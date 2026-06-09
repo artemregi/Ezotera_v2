@@ -11,7 +11,11 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const redirectUrl = (process.env.PRODUCTION_URL || '') + '/shop.html?payment=success';
+    // Use the request's own origin to avoid cookie domain mismatch
+    const proto = req.headers['x-forwarded-proto'] || 'https';
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const origin = host ? `${proto}://${host}` : (process.env.PRODUCTION_URL || '');
+    const redirectUrl = origin + '/shop.html?payment=success';
     res.writeHead(302, { 'Location': redirectUrl });
     res.end();
 };

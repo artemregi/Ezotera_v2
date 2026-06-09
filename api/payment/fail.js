@@ -25,8 +25,11 @@ module.exports = async (req, res) => {
 
         console.log(`[Robokassa] Payment failed/cancelled: InvId=${InvId}`);
 
-        // Redirect user back to shop with error message
-        const redirectUrl = (process.env.PRODUCTION_URL || '') + '/shop.html?payment=failed';
+        // Redirect user back to shop with error message (use request origin to preserve cookies)
+        const proto = req.headers['x-forwarded-proto'] || 'https';
+        const host = req.headers['x-forwarded-host'] || req.headers.host;
+        const origin = host ? `${proto}://${host}` : (process.env.PRODUCTION_URL || '');
+        const redirectUrl = origin + '/shop.html?payment=failed';
         res.writeHead(302, { 'Location': redirectUrl });
         res.end();
     } catch (error) {

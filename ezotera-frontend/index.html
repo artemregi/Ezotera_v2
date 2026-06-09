@@ -17,6 +17,34 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/home.css">
+    <style>
+        .fr-select {
+            width: 100%;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            padding: 14px 36px 14px 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23a090c0' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+        }
+        .fr-select:focus {
+            border-color: rgba(108,92,231,0.5);
+        }
+        .fr-select option {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 8px;
+        }
+    </style>
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
@@ -72,17 +100,17 @@
                         <div style="margin-bottom:18px;">
                             <label style="display:block; font-size:0.82rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Дата рождения</label>
                             <div style="display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:10px;">
-                                <select id="frDay" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                <select id="frDay" required class="fr-select">
                                     <option value="">День</option>
                                 </select>
-                                <select id="frMonth" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                <select id="frMonth" required class="fr-select">
                                     <option value="">Месяц</option>
                                     <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
                                     <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
                                     <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
                                     <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
                                 </select>
-                                <select id="frYear" required style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; padding:14px 12px; font-size:1rem; font-family:inherit; outline:none; appearance:none; cursor:pointer;">
+                                <select id="frYear" required class="fr-select">
                                     <option value="">Год</option>
                                 </select>
                             </div>

@@ -118,14 +118,27 @@
     // Save referral code from URL
     (function(){var p=new URLSearchParams(window.location.search);var r=p.get('ref');if(r){document.cookie='ezo_ref='+encodeURIComponent(r)+';path=/;max-age=2592000';}})();
 
-    // Show payment status message
+    // Show payment status message with purchase details
     (function() {
         var params = new URLSearchParams(window.location.search);
         var status = params.get('payment');
         if (status === 'success') {
+            // Restore purchase info saved before redirect
+            var purchaseInfo = null;
+            try { purchaseInfo = JSON.parse(localStorage.getItem('ezo_last_purchase')); } catch(e) {}
+            var details = '';
+            if (purchaseInfo) {
+                details = '<div style="margin-top:12px;padding:14px;background:rgba(255,255,255,0.05);border-radius:10px;text-align:left;">' +
+                    '<div style="font-size:0.95rem;color:#fff;margin-bottom:6px;font-weight:600;">' + (purchaseInfo.name || 'Товар') + '</div>' +
+                    '<div style="font-size:0.88rem;color:rgba(255,255,255,0.6);">Сумма: ' + (purchaseInfo.amount || '') + ' ₽</div>' +
+                    '<div style="font-size:0.88rem;color:rgba(255,255,255,0.6);">Имя: ' + (purchaseInfo.customerName || '') + '</div>' +
+                    '<div style="font-size:0.88rem;color:rgba(255,255,255,0.6);">Email: ' + (purchaseInfo.email || '') + '</div>' +
+                    '</div>';
+                localStorage.removeItem('ezo_last_purchase');
+            }
             var msg = document.createElement('div');
             msg.style.cssText = 'background:rgba(0,184,148,0.15);border:1px solid rgba(0,184,148,0.3);border-radius:12px;padding:20px;text-align:center;color:#55efc4;margin:20px auto;max-width:600px;';
-            msg.innerHTML = '<strong>Оплата прошла успешно!</strong><br><span style="color:rgba(255,255,255,0.6);font-size:0.9rem;">Спасибо за заказ. Мы свяжемся с Вами в ближайшее время.</span>';
+            msg.innerHTML = '<strong>Оплата прошла успешно!</strong><br><span style="color:rgba(255,255,255,0.6);font-size:0.9rem;">Спасибо за заказ. Мы свяжемся с Вами в ближайшее время.</span>' + details;
             document.querySelector('.container').prepend(msg);
             window.history.replaceState({}, '', 'shop.html');
         } else if (status === 'failed' || status === 'error') {
@@ -226,7 +239,7 @@
                 customerEmail: email,
                 productId: document.getElementById('ordProductId').value,
                 referralCode: decodeURIComponent(refCode),
-                isTest: true
+                isTest: false
             })
         })
         .then(function(r) { return r.json(); })
@@ -234,6 +247,15 @@
             btn.disabled = false;
             btn.textContent = 'Оплатить';
             if (data.success && data.paymentUrl) {
+                // Save purchase info for display after return from payment
+                try {
+                    localStorage.setItem('ezo_last_purchase', JSON.stringify({
+                        name: selectedProduct ? selectedProduct.name : '',
+                        amount: document.getElementById('ordAmount').value,
+                        customerName: name,
+                        email: email
+                    }));
+                } catch(e) {}
                 window.location.href = data.paymentUrl;
             } else {
                 alert(data.message || 'Ошибка создания заказа');
