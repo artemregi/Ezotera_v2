@@ -368,23 +368,25 @@
         // ---- Aspect lines (inside core circle) ----
         const aspects = calcAspects(planets);
         const ASPECT_SVG_COLORS = {
-            conjunction: 'rgba(200,160,255,0.4)',
-            opposition:  'rgba(220,70,70,0.35)',
-            trine:       'rgba(60,180,100,0.35)',
-            square:      'rgba(220,120,40,0.35)',
-            sextile:     'rgba(60,140,200,0.35)',
+            conjunction: 'rgba(200,160,255,0.6)',
+            opposition:  'rgba(220,70,70,0.55)',
+            trine:       'rgba(60,200,100,0.55)',
+            square:      'rgba(220,120,40,0.55)',
+            sextile:     'rgba(60,140,220,0.45)',
         };
 
         for (const asp of aspects) {
             const a1 = lonToAngle(asp.p1.lon, asc);
             const a2 = lonToAngle(asp.p2.lon, asc);
-            const [x1, y1] = polar(a1, R_ASPECT, CX, CY);
-            const [x2, y2] = polar(a2, R_ASPECT, CX, CY);
+            const [x1, y1] = polar(a1, R_PLANET, CX, CY);
+            const [x2, y2] = polar(a2, R_PLANET, CX, CY);
+            const isMajor = asp.aspect.type === 'conjunction' || asp.aspect.type === 'opposition' || asp.aspect.type === 'trine' || asp.aspect.type === 'square';
             svg.appendChild(makeSVGEl('line', {
                 x1, y1, x2, y2,
                 stroke: ASPECT_SVG_COLORS[asp.aspect.type] || 'rgba(200,200,200,0.2)',
-                'stroke-width': '1',
-                'stroke-dasharray': asp.aspect.type === 'sextile' ? '3 2' : 'none'
+                'stroke-width': isMajor ? '1.5' : '0.8',
+                'stroke-dasharray': asp.aspect.type === 'sextile' ? '4 3' : 'none',
+                opacity: isMajor ? '1' : '0.7'
             }));
         }
 
