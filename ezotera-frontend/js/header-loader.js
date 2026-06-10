@@ -8,16 +8,13 @@
 
     // Inject favicon if not already present
     if (!document.querySelector('link[rel="icon"]')) {
-        const paths = detectPageLocation ? null : null; // will be available later
-        const depth = window.location.pathname.includes('/zodiac/') ||
-                      window.location.pathname.includes('/auth/') ||
-                      window.location.pathname.includes('/onboarding/') ||
-                      window.location.pathname.includes('/admin/') ||
-                      window.location.pathname.includes('/legal/') ? '../' : '';
+        const p = window.location.pathname;
+        const isSubdir = p.includes('/zodiac/') || p.includes('/auth/') ||
+                         p.includes('/onboarding/') || p.includes('/admin/') || p.includes('/legal/');
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/jpeg';
-        favicon.href = depth + 'assets/icons/logo.jpg';
+        favicon.href = (isSubdir ? '../' : '') + 'assets/icons/logo.jpg';
         document.head.appendChild(favicon);
     }
 
