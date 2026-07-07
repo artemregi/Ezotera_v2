@@ -34,13 +34,29 @@ module.exports = async (req, res) => {
         const invId = Date.now() % 2147483647; // Robokassa InvId — целое число
         const outSum = parseFloat(amount).toFixed(2);
 
-        // Подпись: login:outSum:invId:password1
-        const signatureStr = `${login}:${outSum}:${invId}:${password1}`;
+        // 54-ФЗ: формируем Receipt для фискализации
+        const { paymentObject } = req.body;
+        const receipt = {
+            sno: 'usn_income',
+            items: [
+                {
+                    name: description.substring(0, 128),
+                    quantity: 1,
+                    sum: parseFloat(outSum),
+                    payment_method: 'full_payment',
+                    payment_object: paymentObject || 'service',
+                    tax: 'none',
+                },
+            ],
+        };
+        const receiptJson = JSON.stringify(receipt);
+        const receiptUrlEncoded = encodeURIComponent(receiptJson);
+
+        // Подпись: login:outSum:invId:receipt:password1
+        const signatureStr = `${login}:${outSum}:${invId}:${receiptUrlEncoded}:${password1}`;
         const signature = crypto.createHash(hashAlgo).update(signatureStr).digest('hex');
 
-        const baseUrl = useTest
-            ? 'https://auth.robokassa.ru/Merchant/Index.aspx'
-            : 'https://auth.robokassa.ru/Merchant/Index.aspx';
+        const baseUrl = 'https://auth.robokassa.ru/Merchant/Index.aspx';
 
         const params = new URLSearchParams({
             MerchantLogin: login,
@@ -55,7 +71,9 @@ module.exports = async (req, res) => {
             params.set('IsTest', '1');
         }
 
-        const paymentUrl = `${baseUrl}?${params.toString()}`;
+        // Receipt добавляем вручную — URLSearchParams кодирует иначе, чем encodeURIComponent,
+        // а подпись считается именно через encodeURIComponent
+        const paymentUrl = `${baseUrl}?${params.toString()}&Receipt=${receiptUrlEncoded}`;
 
         // Resolve user from JWT if present
         let userId = null;
