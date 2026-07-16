@@ -12,7 +12,7 @@
             const pathname = window.location.pathname;
             let componentPath = 'components/footer.html';
 
-            if (pathname.includes('/zodiac/') || pathname.includes('/auth/') || pathname.includes('/onboarding/')) {
+            if (pathname.includes('/zodiac/') || pathname.includes('/auth/') || pathname.includes('/onboarding/') || pathname.includes('/legal/')) {
                 componentPath = '../components/footer.html';
             }
 

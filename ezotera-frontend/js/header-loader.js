@@ -146,6 +146,28 @@
                 practicesHref: '../practices.html',
                 braceletHref: '../shop.html'
             };
+        } else if (pathname.includes('/legal/')) {
+            return {
+                depth: 2,
+                section: 'legal',
+                indexHref: '../index.html',
+                logoSrc: '../assets/icons/logo.jpg',
+                zodiacBase: '../zodiac',
+                palmistryHref: '../palmistry.html',
+                aboutHref: '../about.html',
+                loginHref: '../auth/login.html',
+                onboardingHref: '../onboarding/step-1-name.html',
+                payHref: '../pay.html',
+                natalHref: '../natal.html',
+                comingSoonHref: '../coming-soon.html',
+                horoscopeHref: '../horoscope.html',
+                compatHref: '../compatibility.html',
+                numerologyHref: '../numerology.html',
+                blogHref: '../blog.html',
+                plannerHref: '../planner.html',
+                practicesHref: '../practices.html',
+                braceletHref: '../shop.html'
+            };
         } else if (pathname.includes('dashboard.html')) {
             return {
                 depth: 1,

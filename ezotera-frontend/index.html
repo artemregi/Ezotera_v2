@@ -100,17 +100,17 @@
                         <div style="margin-bottom:18px;">
                             <label style="display:block; font-size:0.82rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">Дата рождения</label>
                             <div style="display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:10px;">
-                                <select id="frDay" required class="fr-select">
+                                <select id="frDay" required class="fr-select" aria-label="День рождения">
                                     <option value="">День</option>
                                 </select>
-                                <select id="frMonth" required class="fr-select">
+                                <select id="frMonth" required class="fr-select" aria-label="Месяц рождения">
                                     <option value="">Месяц</option>
                                     <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
                                     <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
                                     <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
                                     <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
                                 </select>
-                                <select id="frYear" required class="fr-select">
+                                <select id="frYear" required class="fr-select" aria-label="Год рождения">
                                     <option value="">Год</option>
                                 </select>
                             </div>
@@ -377,7 +377,7 @@
                         <!-- Testimonial 4 -->
                         <div class="testimonial-card">
                             <div class="testimonial-card__header">
-                                <img src="assets/images/клара.jpg" alt="Клара" class="testimonial-card__avatar" width="56" height="56">
+                                <img src="assets/images/klara.jpg" alt="Клара" class="testimonial-card__avatar" width="56" height="56">
                                 <div>
                                     <h4 class="testimonial-card__name">Клара</h4>
                                     <div class="testimonial-card__stars" aria-label="Оценка: 5 из 5">
@@ -718,7 +718,7 @@
                 <!-- Brand Column -->
                 <div class="footer__brand">
                     <a href="index.html" class="footer__logo">
-                        <img src="assets/images/placeholder.jpg" alt="Esoterra" class="footer__logo-icon" width="32" height="32">
+                        <img src="assets/icons/logo.jpg" alt="Esoterra" class="footer__logo-icon" width="32" height="32">
                         <span class="footer__logo-text">Esoterra</span>
                     </a>
                     <p class="footer__description">
@@ -781,7 +781,6 @@
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/sliders.js"></script>
-    <script src="js/forms.js"></script>
     <script src="js/cookie-consent.js"></script>
 
     <!-- Free reading form logic -->
@@ -836,9 +835,7 @@
         });
     })();
     </script>
-</body>
-
-<script type="text/javascript">
+    <script type="text/javascript">
     (function (l) {
       if (l.search[1] === "/") {
         var decoded = l.search
@@ -855,5 +852,6 @@
         );
       }
     })(window.location);
-  </script>
+    </script>
+</body>
 </html>
