@@ -423,7 +423,7 @@
 
 
         <!-- Auth Gate popup (shown on card click for unauth users) -->
-        <div id="horoscopeAuthPopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+        <div id="horoscopeAuthPopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); align-items:center; justify-content:center;">
             <div style="max-width:420px; margin:20px; background:#1a1a2e; border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px 32px; text-align:center; position:relative;">
                 <button onclick="document.getElementById('horoscopeAuthPopup').style.display='none';document.body.style.overflow=''" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.5rem;cursor:pointer;">&times;</button>
                 <div style="font-size:2.5rem;margin-bottom:16px;">🔒</div>
@@ -591,6 +591,41 @@
     <!-- Auth gate check -->
     <script>
     var __horoscopeUserAuth = false;
+    var signDataMap = {};
+    function openZodiacModal(signId) {
+        if (!__horoscopeUserAuth) {
+            var popup = document.getElementById('horoscopeAuthPopup');
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            return;
+        }
+        var entry = signDataMap[signId];
+        if (!entry) return;
+        var sign = entry.sign, data = entry.data;
+        var modal = document.getElementById('zodiacModal');
+        modal.querySelector('.zodiac-modal__icon').textContent = sign.icon;
+        modal.querySelector('.zodiac-modal__name').textContent = sign.name;
+        modal.querySelector('.zodiac-modal__dates').textContent = sign.dates;
+        modal.querySelector('.zodiac-modal__text').textContent = data.general;
+        modal.querySelector('[data-aspect="love"]').textContent = data.love;
+        modal.querySelector('[data-aspect="career"]').textContent = data.career;
+        modal.querySelector('[data-aspect="health"]').textContent = data.health;
+        modal.querySelector('[data-aspect="advice"]').textContent = data.advice;
+        modal.querySelector('.zodiac-modal__lucky').innerHTML = '🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ');
+        modal.querySelector('.zodiac-modal__color').innerHTML = '🎨 ' + data.luckyColor;
+        modal.querySelector('.zodiac-modal__energy').innerHTML = 'Энергия: ' + energyBar(data.energy);
+        document.getElementById('zodiacModalBg').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeZodiacModal() {
+        document.getElementById('zodiacModalBg').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function energyBar(level) {
+        var filled = Math.round(level);
+        return '<span style="color:var(--color-accent-light);letter-spacing:1px;font-size:.8rem">' +
+            '★'.repeat(filled) + '☆'.repeat(10 - filled) + '</span>';
+    }
     (function() {
         // Always show zodiac cards
         document.getElementById('horoscopeContent').style.display = '';
@@ -625,14 +660,7 @@
             { id: 'pisces',      name: 'Рыбы',      icon: '♓', dates: '19 февраля — 20 марта' }
         ];
 
-        function energyBar(level) {
-            var filled = Math.round(level);
-            return '<span style="color:var(--color-accent-light);letter-spacing:1px;font-size:.8rem">' +
-                '★'.repeat(filled) + '☆'.repeat(10 - filled) + '</span>';
-        }
-
-        // Store data for modal
-        var signDataMap = {};
+        // Store data for modal (uses global signDataMap)
 
         function renderCard(sign, data) {
             signDataMap[sign.id] = { sign: sign, data: data };
@@ -642,38 +670,6 @@
                 '<div class="zodiac-card__dates">' + sign.dates + '</div>' +
                 '<div class="zodiac-card__hint">Читать прогноз →</div>' +
                 '</div>';
-        }
-
-        function openZodiacModal(signId) {
-            // Show auth popup for unauthenticated users
-            if (!__horoscopeUserAuth) {
-                var popup = document.getElementById('horoscopeAuthPopup');
-                popup.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-                return;
-            }
-            var entry = signDataMap[signId];
-            if (!entry) return;
-            var sign = entry.sign, data = entry.data;
-            var modal = document.getElementById('zodiacModal');
-            modal.querySelector('.zodiac-modal__icon').textContent = sign.icon;
-            modal.querySelector('.zodiac-modal__name').textContent = sign.name;
-            modal.querySelector('.zodiac-modal__dates').textContent = sign.dates;
-            modal.querySelector('.zodiac-modal__text').textContent = data.general;
-            modal.querySelector('[data-aspect="love"]').textContent = data.love;
-            modal.querySelector('[data-aspect="career"]').textContent = data.career;
-            modal.querySelector('[data-aspect="health"]').textContent = data.health;
-            modal.querySelector('[data-aspect="advice"]').textContent = data.advice;
-            modal.querySelector('.zodiac-modal__lucky').innerHTML = '🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ');
-            modal.querySelector('.zodiac-modal__color').innerHTML = '🎨 ' + data.luckyColor;
-            modal.querySelector('.zodiac-modal__energy').innerHTML = 'Энергия: ' + energyBar(data.energy);
-            document.getElementById('zodiacModalBg').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeZodiacModal() {
-            document.getElementById('zodiacModalBg').classList.remove('active');
-            document.body.style.overflow = '';
         }
 
         fetch('horoscope-data.json')

@@ -34,7 +34,7 @@
             <div class="container text-center">
                 <h1 class="contact-hero__title">Свяжитесь с нами</h1>
                 <p class="contact-hero__subtitle">
-                    У Вас есть вопросы? Мы всегда рады помочь. Заполните форму или используйте наши контактные данные.
+                    У Вас есть вопросы? Мы всегда рады помочь. Напишите нам в Telegram или на email.
                 </p>
             </div>
         </section>
@@ -45,86 +45,24 @@
             <div class="container">
                 <div class="contact-content__inner">
 
-                    <!-- Contact Form -->
+                    <!-- Contact Actions -->
                     <div class="contact-form fade-in">
-                        <h2 class="contact-form__title">Отправить сообщение</h2>
-                        <form id="contactForm" action="/api/contact" method="POST" novalidate>
+                        <h2 class="contact-form__title">Напишите нам</h2>
+                        <p style="color:#666;line-height:1.7;margin-bottom:32px;">
+                            Выберите удобный способ связи — мы ответим в ближайшее время.
+                        </p>
 
-                            <div class="contact-form__row">
-                                <div class="contact-form__field">
-                                    <label for="contactName" class="contact-form__label">Ваше имя <span class="contact-form__required">*</span></label>
-                                    <input
-                                        type="text"
-                                        id="contactName"
-                                        name="contact_name"
-                                        class="contact-form__input"
-                                        placeholder="Введите Ваше имя"
-                                        required
-                                        autocomplete="name"
-                                    >
-                                    <span class="contact-form__error" id="contactNameError"></span>
-                                </div>
-                                <div class="contact-form__field">
-                                    <label for="contactEmail" class="contact-form__label">Электронная почта <span class="contact-form__required">*</span></label>
-                                    <input
-                                        type="email"
-                                        id="contactEmail"
-                                        name="contact_email"
-                                        class="contact-form__input"
-                                        placeholder="example@mail.com"
-                                        required
-                                        autocomplete="email"
-                                    >
-                                    <span class="contact-form__error" id="contactEmailError"></span>
-                                </div>
-                            </div>
+                        <a href="https://t.me/m/2qczrMqBMGEy" class="button button--primary button--full-width" target="_blank" rel="noopener noreferrer" style="margin-bottom:16px;font-size:1.05rem;padding:18px 32px;">
+                            Написать в Telegram
+                        </a>
 
-                            <div class="contact-form__field">
-                                <label for="contactSubject" class="contact-form__label">Тема</label>
-                                <select id="contactSubject" name="contact_subject" class="contact-form__input contact-form__select">
-                                    <option value="" disabled selected>Выберите тему</option>
-                                    <option value="general">Общий вопрос</option>
-                                    <option value="subscription">Вопрос по подписке</option>
-                                    <option value="technical">Техническая поддержка</option>
-                                    <option value="billing">Вопрос по оплате</option>
-                                    <option value="refund">Запрос на возврат</option>
-                                    <option value="other">Другое</option>
-                                </select>
-                            </div>
+                        <a href="mailto:main@esoterraplus.ru" class="button button--secondary button--full-width" style="font-size:1.05rem;padding:18px 32px;">
+                            Написать на email
+                        </a>
 
-                            <div class="contact-form__field">
-                                <label for="contactMessage" class="contact-form__label">Сообщение <span class="contact-form__required">*</span></label>
-                                <textarea
-                                    id="contactMessage"
-                                    name="contact_message"
-                                    class="contact-form__input contact-form__textarea"
-                                    placeholder="Опишите Ваш вопрос подробнее..."
-                                    rows="6"
-                                    required
-                                ></textarea>
-                                <span class="contact-form__error" id="contactMessageError"></span>
-                            </div>
-
-                            <div class="contact-form__field" style="display:flex;align-items:flex-start;gap:10px;">
-                                <input type="checkbox" id="contactConsent" name="contact_consent" required style="margin-top:3px;flex-shrink:0;cursor:pointer;">
-                                <label for="contactConsent" style="font-size:0.85rem;color:#666;line-height:1.6;cursor:pointer;">
-                                    Согласен на обработку персональных данных в соответствии с
-                                    <a href="legal/privacy.html">Политикой конфиденциальности</a> (152-ФЗ)
-                                </label>
-                            </div>
-
-                            <button type="submit" class="button button--primary button--full-width contact-form__submit" id="contactSubmit">
-                                Отправить сообщение
-                            </button>
-
-                            <!-- Success / Error Messages -->
-                            <div class="contact-form__status contact-form__status--success" id="contactSuccess" hidden>
-                                Спасибо! Ваше сообщение отправлено. Мы свяжемся с Вами в ближайшее время.
-                            </div>
-                            <div class="contact-form__status contact-form__status--error" id="contactError" hidden>
-                                Произошла ошибка. Пожалуйста, попробуйте ещё раз.
-                            </div>
-                        </form>
+                        <p style="color:#999;font-size:0.85rem;margin-top:24px;text-align:center;">
+                            main@esoterraplus.ru
+                        </p>
                     </div>
 
                     <!-- Contact Info Sidebar -->
@@ -140,7 +78,7 @@
                             </div>
                             <div>
                                 <h4 class="contact-info__label">Электронная почта</h4>
-                                <p class="contact-info__value">support@esoterra.com</p>
+                                <a href="mailto:main@esoterraplus.ru" class="contact-info__value" style="color:inherit;text-decoration:none;">main@esoterraplus.ru</a>
                             </div>
                         </div>
 
@@ -243,7 +181,6 @@
 
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/forms.js"></script>
     <script src="js/cookie-consent.js"></script>
 </body>
 </html>
