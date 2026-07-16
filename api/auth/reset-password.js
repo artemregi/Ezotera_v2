@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
         const normalizedEmail = emailValidation.normalized;
 
         // Rate limiting (5 attempts per 15 minutes per email)
-        if (!checkRateLimit(normalizedEmail, 5, 3)) {
+        if (!await checkRateLimit(normalizedEmail, 5, 3)) {
             console.log('⚠️ Rate limit exceeded for email:', normalizedEmail);
             return res.status(429).json({
                 success: false,

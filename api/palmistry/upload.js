@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
                   || req.connection?.remoteAddress
                   || 'unknown';
 
-    if (!checkRateLimit(`palm:${clientIp}`, 5, 60)) {
+    if (!await checkRateLimit(`palm:${clientIp}`, 5, 60)) {
         return res.status(429).json({
             success: false,
             message: 'Слишком много запросов. Попробуйте через час.'

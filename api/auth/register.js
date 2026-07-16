@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 
     // Rate limit: max 3 registrations per IP per 60 minutes
     const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
-    if (!checkRateLimit('register:' + clientIp, 3, 7200)) {
+    if (!await checkRateLimit('register:' + clientIp, 3, 7200)) {
         return res.status(429).json({
             success: false,
             message: 'Слишком много регистраций с этого адреса. Попробуйте позже.'

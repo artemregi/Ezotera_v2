@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
                   || req.connection?.remoteAddress
                   || 'unknown';
 
-    if (!checkRateLimit(`palm-unlock:${clientIp}`, 10, 60)) {
+    if (!await checkRateLimit(`palm-unlock:${clientIp}`, 10, 60)) {
         return res.status(429).json({ success: false, message: 'Слишком много запросов.' });
     }
 

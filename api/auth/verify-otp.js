@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
         }
 
         // Rate limiting (10 attempts per 15 minutes per email)
-        if (!checkRateLimit(normalizedEmail, 10, 3)) {
+        if (!await checkRateLimit(normalizedEmail, 10, 3)) {
             console.log('⚠️ Rate limit exceeded for email:', normalizedEmail);
             return res.status(429).json({
                 success: false,
