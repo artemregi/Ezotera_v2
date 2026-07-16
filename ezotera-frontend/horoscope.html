@@ -422,23 +422,24 @@
         </section>
 
 
-        <!-- Auth Gate for horoscope content -->
-        <section class="section section--dark" id="horoscopeAuthGate" style="display:none; padding:60px 20px;">
-            <div style="max-width:520px; margin:0 auto; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:48px 36px; text-align:center;">
-                <div style="width:72px; height:72px; margin:0 auto 20px; background:linear-gradient(135deg,rgba(108,92,231,0.2),rgba(162,155,254,0.1)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem;">🔒</div>
-                <h2 style="font-family:var(--font-heading); font-size:1.8rem; color:#fff; margin-bottom:12px;">Персональный гороскоп</h2>
-                <p style="color:rgba(255,255,255,0.55); margin-bottom:32px; line-height:1.7; font-size:0.95rem;">
-                    Зарегистрируйтесь, чтобы получить доступ к еженедельным гороскопам, лунному календарю и персональным прогнозам.
+        <!-- Auth Gate popup (shown on card click for unauth users) -->
+        <div id="horoscopeAuthPopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+            <div style="max-width:420px; margin:20px; background:#1a1a2e; border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px 32px; text-align:center; position:relative;">
+                <button onclick="document.getElementById('horoscopeAuthPopup').style.display='none';document.body.style.overflow=''" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.5rem;cursor:pointer;">&times;</button>
+                <div style="font-size:2.5rem;margin-bottom:16px;">🔒</div>
+                <h2 style="font-family:var(--font-heading); font-size:1.5rem; color:#fff; margin-bottom:10px;">Прогноз доступен после регистрации</h2>
+                <p style="color:rgba(255,255,255,0.55); margin-bottom:24px; line-height:1.6; font-size:0.9rem;">
+                    Зарегистрируйтесь бесплатно, чтобы читать еженедельные гороскопы и персональные прогнозы для каждого знака.
                 </p>
-                <a href="auth/login.html" style="display:inline-block; padding:16px 48px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1.05rem; font-family:inherit; font-weight:600; text-decoration:none; transition:opacity 0.2s;">
-                    Зарегистрироваться бесплатно
+                <a href="auth/login.html" style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1rem; font-weight:600; text-decoration:none;">
+                    Зарегистрироваться
                 </a>
-                <p style="margin-top:16px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
+                <p style="margin-top:14px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
             </div>
-        </section>
+        </div>
 
         <!-- ===== СОВЕТ ДНЯ + ТАБЫ + КАРТОЧКИ ===== -->
-        <section class="section section--dark" id="horoscopeContent" style="display:none;">
+        <section class="section section--dark" id="horoscopeContent">
             <div class="container">
 
                 <!-- Совет недели -->
@@ -589,22 +590,21 @@
     <script src="js/cookie-consent.js"></script>
     <!-- Auth gate check -->
     <script>
+    var __horoscopeUserAuth = false;
     (function() {
+        // Always show zodiac cards
+        document.getElementById('horoscopeContent').style.display = '';
+        // Check auth for premium content (lunar calendar, weekly tip details)
         fetch('/api/auth/verify', { credentials: 'include' })
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.authenticated && data.user) {
-                    document.getElementById('horoscopeContent').style.display = '';
-                    document.getElementById('horoscopeAuthGate').style.display = 'none';
+                    __horoscopeUserAuth = true;
                     var authContent = document.querySelectorAll('.horoscope-auth-content');
                     authContent.forEach(function(el) { el.style.display = ''; });
-                } else {
-                    document.getElementById('horoscopeAuthGate').style.display = '';
                 }
             })
-            .catch(function() {
-                document.getElementById('horoscopeAuthGate').style.display = '';
-            });
+            .catch(function() {});
     })();
     </script>
 
@@ -645,6 +645,13 @@
         }
 
         function openZodiacModal(signId) {
+            // Show auth popup for unauthenticated users
+            if (!__horoscopeUserAuth) {
+                var popup = document.getElementById('horoscopeAuthPopup');
+                popup.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                return;
+            }
             var entry = signDataMap[signId];
             if (!entry) return;
             var sign = entry.sign, data = entry.data;

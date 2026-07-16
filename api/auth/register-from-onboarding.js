@@ -3,6 +3,7 @@ const { hashPassword } = require('../../lib/password');
 const { generateToken, setCookie } = require('../../lib/auth');
 const { validateEmail, validatePassword, validateName } = require('../../lib/validation');
 const { handleDatabaseError } = require('../../lib/errors');
+const { checkRateLimit } = require('../../lib/rateLimit');
 
 module.exports = async (req, res) => {
     console.log('📝 Register-from-onboarding handler called');
@@ -29,6 +30,15 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') {
         console.log('❌ Method not allowed:', req.method);
         return res.status(405).json({ success: false, message: 'Метод не разрешен' });
+    }
+
+    // Rate limit: max 3 registrations per IP per 60 minutes
+    const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+    if (!checkRateLimit('register:' + clientIp, 3, 60)) {
+        return res.status(429).json({
+            success: false,
+            message: 'Слишком много регистраций с этого адреса. Попробуйте позже.'
+        });
     }
 
     try {
