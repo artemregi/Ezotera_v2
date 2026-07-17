@@ -151,52 +151,109 @@
         @media (max-width: 480px) { .zodiac-grid { grid-template-columns: 1fr; } }
 
         .zodiac-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
-            padding: 24px 22px;
-            transition: all 0.3s ease;
+            padding: 28px 22px 24px;
+            transition: all 0.35s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .zodiac-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 3px;
-            background: var(--gradient-accent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+        .zodiac-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
         .zodiac-card:hover {
-            border-color: rgba(108,92,231,0.4);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-glow);
+            transform: translateY(-6px);
         }
         .zodiac-card:hover::before { opacity: 1; }
+        .zodiac-card:hover::after { opacity: 1; }
+
+        /* --- Element: Fire (Aries, Leo, Sagittarius) --- */
+        .zodiac-card--fire {
+            background: linear-gradient(160deg, rgba(225,112,85,0.08) 0%, rgba(255,118,117,0.04) 100%);
+            border-color: rgba(225,112,85,0.15);
+        }
+        .zodiac-card--fire::before { background: linear-gradient(90deg, #e17055, #ff7675); }
+        .zodiac-card--fire::after { box-shadow: 0 8px 40px rgba(225,112,85,0.2), inset 0 0 30px rgba(225,112,85,0.03); }
+        .zodiac-card--fire:hover { border-color: rgba(225,112,85,0.35); }
+        .zodiac-card--fire .zodiac-card__hint { color: #ff7675; }
+        .zodiac-card--fire .zodiac-card__element { color: #e17055; }
+        .zodiac-card--fire .icon--zodiac { filter: hue-rotate(0deg) brightness(1.2); }
+
+        /* --- Element: Earth (Taurus, Virgo, Capricorn) --- */
+        .zodiac-card--earth {
+            background: linear-gradient(160deg, rgba(0,184,148,0.08) 0%, rgba(85,239,196,0.03) 100%);
+            border-color: rgba(0,184,148,0.15);
+        }
+        .zodiac-card--earth::before { background: linear-gradient(90deg, #00b894, #55efc4); }
+        .zodiac-card--earth::after { box-shadow: 0 8px 40px rgba(0,184,148,0.18), inset 0 0 30px rgba(0,184,148,0.03); }
+        .zodiac-card--earth:hover { border-color: rgba(0,184,148,0.35); }
+        .zodiac-card--earth .zodiac-card__hint { color: #55efc4; }
+        .zodiac-card--earth .zodiac-card__element { color: #00b894; }
+
+        /* --- Element: Air (Gemini, Libra, Aquarius) --- */
+        .zodiac-card--air {
+            background: linear-gradient(160deg, rgba(116,185,255,0.08) 0%, rgba(9,132,227,0.04) 100%);
+            border-color: rgba(116,185,255,0.15);
+        }
+        .zodiac-card--air::before { background: linear-gradient(90deg, #74b9ff, #0984e3); }
+        .zodiac-card--air::after { box-shadow: 0 8px 40px rgba(116,185,255,0.18), inset 0 0 30px rgba(116,185,255,0.03); }
+        .zodiac-card--air:hover { border-color: rgba(116,185,255,0.35); }
+        .zodiac-card--air .zodiac-card__hint { color: #74b9ff; }
+        .zodiac-card--air .zodiac-card__element { color: #0984e3; }
+
+        /* --- Element: Water (Cancer, Scorpio, Pisces) --- */
+        .zodiac-card--water {
+            background: linear-gradient(160deg, rgba(108,92,231,0.1) 0%, rgba(162,155,254,0.04) 100%);
+            border-color: rgba(108,92,231,0.18);
+        }
+        .zodiac-card--water::before { background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
+        .zodiac-card--water::after { box-shadow: 0 8px 40px rgba(108,92,231,0.2), inset 0 0 30px rgba(108,92,231,0.03); }
+        .zodiac-card--water:hover { border-color: rgba(108,92,231,0.4); }
+        .zodiac-card--water .zodiac-card__hint { color: #a29bfe; }
+        .zodiac-card--water .zodiac-card__element { color: #6c5ce7; }
 
         .zodiac-card__icon {
             font-size: 2.4rem;
             line-height: 1;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .zodiac-card__name {
             font-family: var(--font-heading);
             font-size: 1.15rem;
             color: var(--color-white);
         }
+        .zodiac-card__element {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            font-weight: 600;
+        }
         .zodiac-card__dates {
             font-size: 0.75rem;
             color: rgba(255,255,255,0.45);
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .zodiac-card__hint {
             font-size: 0.78rem;
-            color: var(--color-accent-light, #a29bfe);
-            margin-top: 12px;
+            margin-top: 14px;
             opacity: 0;
             transition: opacity 0.2s;
         }
@@ -647,27 +704,28 @@
     <script>
     (function () {
         var SIGNS = [
-            { id: 'aries',       name: 'Овен',      icon: '', dates: '21 марта — 19 апреля' },
-            { id: 'taurus',      name: 'Телец',     icon: '', dates: '20 апреля — 20 мая' },
-            { id: 'gemini',      name: 'Близнецы',  icon: '', dates: '21 мая — 20 июня' },
-            { id: 'cancer',      name: 'Рак',       icon: '', dates: '21 июня — 22 июля' },
-            { id: 'leo',         name: 'Лев',       icon: '', dates: '23 июля — 22 августа' },
-            { id: 'virgo',       name: 'Дева',      icon: '', dates: '23 августа — 22 сентября' },
-            { id: 'libra',       name: 'Весы',      icon: '', dates: '23 сентября — 22 октября' },
-            { id: 'scorpio',     name: 'Скорпион',  icon: '', dates: '23 октября — 21 ноября' },
-            { id: 'sagittarius', name: 'Стрелец',   icon: '', dates: '22 ноября — 21 декабря' },
-            { id: 'capricorn',   name: 'Козерог',   icon: '', dates: '22 декабря — 19 января' },
-            { id: 'aquarius',    name: 'Водолей',   icon: '', dates: '20 января — 18 февраля' },
-            { id: 'pisces',      name: 'Рыбы',      icon: '', dates: '19 февраля — 20 марта' }
+            { id: 'aries',       name: 'Овен',      element: 'fire',  elementName: 'Огонь',  dates: '21 марта — 19 апреля' },
+            { id: 'taurus',      name: 'Телец',     element: 'earth', elementName: 'Земля',  dates: '20 апреля — 20 мая' },
+            { id: 'gemini',      name: 'Близнецы',  element: 'air',   elementName: 'Воздух', dates: '21 мая — 20 июня' },
+            { id: 'cancer',      name: 'Рак',       element: 'water', elementName: 'Вода',   dates: '21 июня — 22 июля' },
+            { id: 'leo',         name: 'Лев',       element: 'fire',  elementName: 'Огонь',  dates: '23 июля — 22 августа' },
+            { id: 'virgo',       name: 'Дева',      element: 'earth', elementName: 'Земля',  dates: '23 августа — 22 сентября' },
+            { id: 'libra',       name: 'Весы',      element: 'air',   elementName: 'Воздух', dates: '23 сентября — 22 октября' },
+            { id: 'scorpio',     name: 'Скорпион',  element: 'water', elementName: 'Вода',   dates: '23 октября — 21 ноября' },
+            { id: 'sagittarius', name: 'Стрелец',   element: 'fire',  elementName: 'Огонь',  dates: '22 ноября — 21 декабря' },
+            { id: 'capricorn',   name: 'Козерог',   element: 'earth', elementName: 'Земля',  dates: '22 декабря — 19 января' },
+            { id: 'aquarius',    name: 'Водолей',   element: 'air',   elementName: 'Воздух', dates: '20 января — 18 февраля' },
+            { id: 'pisces',      name: 'Рыбы',      element: 'water', elementName: 'Вода',   dates: '19 февраля — 20 марта' }
         ];
 
         // Store data for modal (uses global signDataMap)
 
         function renderCard(sign, data) {
             signDataMap[sign.id] = { sign: sign, data: data };
-            return '<div class="zodiac-card" onclick="openZodiacModal(\'' + sign.id + '\')">' +
+            return '<div class="zodiac-card zodiac-card--' + sign.element + '" onclick="openZodiacModal(\'' + sign.id + '\')">' +
                 '<span class="zodiac-card__icon"><span class="icon icon--zodiac icon--' + sign.id + ' icon--3xl" aria-hidden="true"></span></span>' +
                 '<div class="zodiac-card__name">' + sign.name + '</div>' +
+                '<div class="zodiac-card__element">' + sign.elementName + '</div>' +
                 '<div class="zodiac-card__dates">' + sign.dates + '</div>' +
                 '<div class="zodiac-card__hint">Читать прогноз →</div>' +
                 '</div>';
