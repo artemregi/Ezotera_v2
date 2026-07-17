@@ -625,7 +625,7 @@
     function energyBar(level) {
         var filled = Math.round(level);
         return '<span style="color:var(--color-accent-light);letter-spacing:1px;font-size:.8rem">' +
-            '★'.repeat(filled) + '☆'.repeat(10 - filled) + '</span>';
+            '<span class="icon icon--star-filled"></span>'.repeat(filled) + '<span class="icon icon--star" style="opacity:.3"></span>'.repeat(10 - filled) + '</span>';
     }
     (function() {
         // Always show zodiac cards
