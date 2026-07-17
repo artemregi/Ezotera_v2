@@ -673,7 +673,7 @@
                 '</div>';
         }
 
-        fetch('horoscope-data.json')
+        fetch('/api/horoscope')
             .then(function(r) { return r.json(); })
             .then(function(d) {
                 // Hero
