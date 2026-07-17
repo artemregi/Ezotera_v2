@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/icons.css">
     <script src="js/header-loader.js"></script>
 
     <style>
@@ -174,7 +175,7 @@
         products.forEach(function(p) {
             var img = p.image_url
                 ? '<img class="shop-card__img" src="' + escHtml(p.image_url) + '" alt="' + escHtml(p.name) + '">'
-                : '<div class="shop-card__img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📿</div>';
+                : '<div class="shop-card__img" style="display:flex;align-items:center;justify-content:center;"><span class="icon icon--bracelet icon--3xl" aria-hidden="true"></span></div>';
             html += '<div class="shop-card">' +
                 img +
                 '<div class="shop-card__body">' +

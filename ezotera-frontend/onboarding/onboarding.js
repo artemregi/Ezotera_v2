@@ -697,7 +697,7 @@
 
     /* Submit complete onboarding data with automatic registration */
     function submitOnboardingDataWithRegistration(data) {
-        console.log('🚀 Submitting registration data:', data);
+        console.log('[SUBMIT] Submitting registration data:', data);
         console.log('   URL: /api/auth/register-from-onboarding');
         console.log('   Method: POST');
 
@@ -708,36 +708,36 @@
             body: JSON.stringify(data)
         })
         .then(function(response) {
-            console.log('📨 Got response:', response.status, response.statusText);
+            console.log('[RESPONSE] Got response:', response.status, response.statusText);
             console.log('   Content-Type:', response.headers.get('content-type'));
 
             // Check if response is JSON
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
-                console.error('❌ Response is not JSON!');
+                console.error('[ERR] Response is not JSON!');
                 throw new Error('Сервер вернул некорректный ответ. Проверьте консоль для деталей.');
             }
 
             if (!response.ok) {
-                console.log('⚠️ Response not OK, status:', response.status);
+                console.log('[WARN] Response not OK, status:', response.status);
                 return response.json().then(function(err) {
-                    console.error('❌ Error from server:', err);
+                    console.error('[ERR] Error from server:', err);
                     throw new Error(err.message || 'Ошибка регистрации');
                 }, function(parseError) {
-                    console.error('❌ Failed to parse error response:', parseError);
+                    console.error('[ERR] Failed to parse error response:', parseError);
                     throw new Error('Ошибка сервера: не удалось получить ответ');
                 });
             }
             return response.json();
         })
         .then(function(result) {
-            console.log('✅ Registration successful!', result);
+            console.log('[OK] Registration successful!', result);
             clearOnboardingData();
             alert('Регистрация завершена! Добро пожаловать в Ezoterra!');
             window.location.href = result.redirectUrl || '../dashboard.html';
         })
         .catch(function(error) {
-            console.error('❌ Registration error:', error);
+            console.error('[ERR] Registration error:', error);
             console.error('   Error message:', error.message);
             console.error('   Error stack:', error.stack);
             alert(error.message || 'Произошла ошибка при создании аккаунта. Попробуйте снова.');

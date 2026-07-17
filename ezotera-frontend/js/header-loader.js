@@ -434,7 +434,7 @@
      */
     const handleLogout = (e) => {
         e.preventDefault();
-        console.log('🔓 User clicked logout');
+        console.log('[LOGOUT] User clicked logout');
 
         // Call logout endpoint
         fetch('/api/auth/logout', {
@@ -444,7 +444,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log('✅ Logout successful');
+                console.log('[OK] Logout successful');
                 // Redirect to home page
                 window.location.href = '/';
             }

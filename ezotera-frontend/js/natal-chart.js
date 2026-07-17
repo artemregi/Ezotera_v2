@@ -11,18 +11,18 @@
        ============================================= */
 
     const ZODIAC_SIGNS = [
-        { name: 'Овен',         short: 'Ari', symbol: '♈', color: '#e05050', element: 'fire' },
-        { name: 'Телец',        short: 'Tau', symbol: '♉', color: '#80c060', element: 'earth' },
-        { name: 'Близнецы',     short: 'Gem', symbol: '♊', color: '#e0c040', element: 'air' },
-        { name: 'Рак',          short: 'Can', symbol: '♋', color: '#60a0d0', element: 'water' },
-        { name: 'Лев',          short: 'Leo', symbol: '♌', color: '#e07830', element: 'fire' },
-        { name: 'Дева',         short: 'Vir', symbol: '♍', color: '#80b060', element: 'earth' },
-        { name: 'Весы',         short: 'Lib', symbol: '♎', color: '#d0a0e0', element: 'air' },
-        { name: 'Скорпион',     short: 'Sco', symbol: '♏', color: '#9030a0', element: 'water' },
-        { name: 'Стрелец',      short: 'Sag', symbol: '♐', color: '#e05050', element: 'fire' },
-        { name: 'Козерог',      short: 'Cap', symbol: '♑', color: '#708060', element: 'earth' },
-        { name: 'Водолей',      short: 'Aqu', symbol: '♒', color: '#60a8d8', element: 'air' },
-        { name: 'Рыбы',         short: 'Pis', symbol: '♓', color: '#6080c0', element: 'water' },
+        { name: 'Овен',         short: 'Ari', symbol: '', color: '#e05050', element: 'fire' },
+        { name: 'Телец',        short: 'Tau', symbol: '', color: '#80c060', element: 'earth' },
+        { name: 'Близнецы',     short: 'Gem', symbol: '', color: '#e0c040', element: 'air' },
+        { name: 'Рак',          short: 'Can', symbol: '', color: '#60a0d0', element: 'water' },
+        { name: 'Лев',          short: 'Leo', symbol: '', color: '#e07830', element: 'fire' },
+        { name: 'Дева',         short: 'Vir', symbol: '', color: '#80b060', element: 'earth' },
+        { name: 'Весы',         short: 'Lib', symbol: '', color: '#d0a0e0', element: 'air' },
+        { name: 'Скорпион',     short: 'Sco', symbol: '', color: '#9030a0', element: 'water' },
+        { name: 'Стрелец',      short: 'Sag', symbol: '', color: '#e05050', element: 'fire' },
+        { name: 'Козерог',      short: 'Cap', symbol: '', color: '#708060', element: 'earth' },
+        { name: 'Водолей',      short: 'Aqu', symbol: '', color: '#60a8d8', element: 'air' },
+        { name: 'Рыбы',         short: 'Pis', symbol: '', color: '#6080c0', element: 'water' },
     ];
 
     const ELEMENT_COLORS = {
@@ -33,24 +33,24 @@
     };
 
     const PLANETS_CONFIG = [
-        { id: 'Sun',     name: 'Солнце',  glyph: '☉', color: '#ffe060' },
-        { id: 'Moon',    name: 'Луна',    glyph: '☽', color: '#d0d8f0' },
-        { id: 'Mercury', name: 'Меркурий',glyph: '☿', color: '#90c0a0' },
-        { id: 'Venus',   name: 'Венера',  glyph: '♀', color: '#f0a0c0' },
-        { id: 'Mars',    name: 'Марс',    glyph: '♂', color: '#e05040' },
-        { id: 'Jupiter', name: 'Юпитер', glyph: '♃', color: '#e0b060' },
-        { id: 'Saturn',  name: 'Сатурн',  glyph: '♄', color: '#c0a060' },
-        { id: 'Uranus',  name: 'Уран',    glyph: '♅', color: '#80d0e0' },
-        { id: 'Neptune', name: 'Нептун',  glyph: '♆', color: '#8090e0' },
-        { id: 'Pluto',   name: 'Плутон',  glyph: '♇', color: '#b080c0' },
+        { id: 'Sun',     name: 'Солнце',  glyph: 'Su', color: '#ffe060' },
+        { id: 'Moon',    name: 'Луна',    glyph: 'Mo', color: '#d0d8f0' },
+        { id: 'Mercury', name: 'Меркурий',glyph: 'Me', color: '#90c0a0' },
+        { id: 'Venus',   name: 'Венера',  glyph: 'Ve', color: '#f0a0c0' },
+        { id: 'Mars',    name: 'Марс',    glyph: 'Ma', color: '#e05040' },
+        { id: 'Jupiter', name: 'Юпитер', glyph: 'Ju', color: '#e0b060' },
+        { id: 'Saturn',  name: 'Сатурн',  glyph: 'Sa', color: '#c0a060' },
+        { id: 'Uranus',  name: 'Уран',    glyph: 'Ur', color: '#80d0e0' },
+        { id: 'Neptune', name: 'Нептун',  glyph: 'Ne', color: '#8090e0' },
+        { id: 'Pluto',   name: 'Плутон',  glyph: 'Pl', color: '#b080c0' },
     ];
 
     const ASPECTS = [
-        { name: 'Соединение',    symbol: '☌', orb: 8,  angle: 0,   type: 'conjunction' },
-        { name: 'Оппозиция',     symbol: '☍', orb: 8,  angle: 180, type: 'opposition'  },
-        { name: 'Трин',          symbol: '△', orb: 8,  angle: 120, type: 'trine'       },
-        { name: 'Квадрат',       symbol: '□', orb: 7,  angle: 90,  type: 'square'      },
-        { name: 'Секстиль',      symbol: '⚹', orb: 5,  angle: 60,  type: 'sextile'     },
+        { name: 'Соединение',    symbol: 'Con', orb: 8,  angle: 0,   type: 'conjunction' },
+        { name: 'Оппозиция',     symbol: 'Opp', orb: 8,  angle: 180, type: 'opposition'  },
+        { name: 'Трин',          symbol: 'Tri', orb: 8,  angle: 120, type: 'trine'       },
+        { name: 'Квадрат',       symbol: 'Sq',  orb: 7,  angle: 90,  type: 'square'      },
+        { name: 'Секстиль',      symbol: 'Sxt', orb: 5,  angle: 60,  type: 'sextile'     },
     ];
 
     // SVG layout dimensions (600x600 viewBox)
@@ -758,7 +758,7 @@
                     if (!results.length) {
                         alert('Город не найден. Попробуйте уточнить название.');
                         btn.disabled = false;
-                        btn.innerHTML = '<span class="natal-form__submit-icon">✦</span> Рассчитать карту';
+                        btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
                         return;
                     }
                     lat = parseFloat(results[0].lat);
@@ -768,11 +768,11 @@
                 } catch (err) {
                     alert('Ошибка геокодирования. Проверьте интернет-соединение.');
                     btn.disabled = false;
-                    btn.innerHTML = '<span class="natal-form__submit-icon">✦</span> Рассчитать карту';
+                    btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
                     return;
                 }
                 btn.disabled = false;
-                btn.innerHTML = '<span class="natal-form__submit-icon">✦</span> Рассчитать карту';
+                btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
             }
 
             showSection('natalLoading');

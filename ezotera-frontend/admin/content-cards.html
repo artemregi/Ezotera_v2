@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/icons.css">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
@@ -90,11 +91,11 @@
         <aside class="admin__sidebar">
             <div class="admin__logo">Esoterra <span>Админ</span></div>
             <nav class="admin__nav">
-                <a href="index.html" class="admin__nav-link"><span>📊</span> Главная</a>
-                <a href="products.html" class="admin__nav-link"><span>📿</span> Браслеты</a>
-                <a href="horoscope.html" class="admin__nav-link"><span>🔮</span> Гороскоп</a>
-                <a href="referrals.html" class="admin__nav-link"><span>🔗</span> Реф. ссылки</a>
-                <a href="content-cards.html" class="admin__nav-link admin__nav-link--active"><span>📰</span> Контент</a>
+                <a href="index.html" class="admin__nav-link"><span class="icon icon--chart" aria-hidden="true"></span> Главная</a>
+                <a href="products.html" class="admin__nav-link"><span class="icon icon--bracelet" aria-hidden="true"></span> Браслеты</a>
+                <a href="horoscope.html" class="admin__nav-link"><span class="icon icon--crystal-ball" aria-hidden="true"></span> Гороскоп</a>
+                <a href="referrals.html" class="admin__nav-link"><span class="icon icon--link" aria-hidden="true"></span> Реф. ссылки</a>
+                <a href="content-cards.html" class="admin__nav-link admin__nav-link--active"><span class="icon icon--news" aria-hidden="true"></span> Контент</a>
             </nav>
             <div class="admin__back"><a href="../index.html">← Вернуться на сайт</a></div>
         </aside>
@@ -126,7 +127,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Иконка (эмодзи)</label>
-                        <input type="text" id="cIcon" placeholder="✨" maxlength="10">
+                        <input type="text" id="cIcon" placeholder="icon" maxlength="10">
                     </div>
                     <div class="form-group">
                         <label>Категория</label>
@@ -224,7 +225,7 @@
             var statusClass = c.is_active ? 'status-badge--active' : 'status-badge--inactive';
             var statusText = c.is_active ? 'Активна' : 'Скрыта';
             html += '<tr>' +
-                '<td class="card-icon">' + escHtml(c.icon || '✨') + '</td>' +
+                '<td class="card-icon">' + escHtml(c.icon || '') + '</td>' +
                 '<td><strong>' + escHtml(c.title) + '</strong><br><small style="color:#a090c0;">' + escHtml((c.description || '').substring(0, 80)) + '</small></td>' +
                 '<td>' + escHtml(c.category || '-') + '</td>' +
                 '<td><span class="status-badge ' + statusClass + '">' + statusText + '</span></td>' +
@@ -245,7 +246,7 @@
             document.getElementById('cardId').value = card.id;
             document.getElementById('cTitle').value = card.title;
             document.getElementById('cDesc').value = card.description || '';
-            document.getElementById('cIcon').value = card.icon || '✨';
+            document.getElementById('cIcon').value = card.icon || '';
             document.getElementById('cCategory').value = card.category || '';
             document.getElementById('cLinkUrl').value = card.link_url || '';
             document.getElementById('cLinkText').value = card.link_text || 'Подробнее';
@@ -302,7 +303,7 @@
         var payload = {
             title: document.getElementById('cTitle').value,
             description: document.getElementById('cDesc').value,
-            icon: document.getElementById('cIcon').value || '✨',
+            icon: document.getElementById('cIcon').value || '',
             category: document.getElementById('cCategory').value,
             link_url: document.getElementById('cLinkUrl').value,
             link_text: document.getElementById('cLinkText').value || 'Подробнее',

@@ -357,13 +357,13 @@
             text.textContent = 'Введите пароль';
             fill.style.backgroundColor = '#cbd5e1';
         } else if (score === 1 || score === 2) {
-            text.textContent = '❌ Слабый пароль';
+            text.innerHTML = '<span class="icon icon--cross-red" aria-hidden="true"></span> Слабый пароль';
             fill.style.backgroundColor = '#f87171';
         } else if (score === 3) {
-            text.textContent = '⚠️ Средний пароль';
+            text.innerHTML = '<span class="icon icon--warning" aria-hidden="true"></span> Средний пароль';
             fill.style.backgroundColor = '#fbbf24';
         } else {
-            text.textContent = '✅ Надежный пароль';
+            text.innerHTML = '<span class="icon icon--check-green" aria-hidden="true"></span> Надежный пароль';
             fill.style.backgroundColor = '#34d399';
         }
     }

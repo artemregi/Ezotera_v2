@@ -7,11 +7,19 @@
 (function () {
     'use strict';
 
-    // Set to true to use Robokassa test mode (no real money)
-    var IS_TEST = true; // ТЕСТ: поменять на false для боевых платежей
+    // false = боевые платежи, true = тестовый режим Robokassa
+    var IS_TEST = false;
 
-    function getApiBase() {
-        return ''; // Всегда относительный путь — API и фронт на одном сервере
+    // Capture ?ref= parameter into cookie on any page that loads this script
+    (function() {
+        var p = new URLSearchParams(window.location.search);
+        var r = p.get('ref');
+        if (r) document.cookie = 'ezo_ref=' + encodeURIComponent(r) + ';path=/;max-age=2592000';
+    })();
+
+    function getReferralCode() {
+        var match = document.cookie.match(/ezo_ref=([^;]+)/);
+        return match ? decodeURIComponent(match[1]) : '';
     }
 
     /**
@@ -30,15 +38,19 @@
         }
 
         try {
-            var response = await fetch(getApiBase() + '/api/payment/create', {
+            var payload = {
+                amount: amount,
+                description: desc,
+                isTest: IS_TEST
+            };
+            var refCode = getReferralCode();
+            if (refCode) payload.referralCode = refCode;
+
+            var response = await fetch('/api/payment/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({
-                    amount: amount,
-                    description: desc,
-                    isTest: IS_TEST
-                })
+                body: JSON.stringify(payload)
             });
 
             var data = await response.json();

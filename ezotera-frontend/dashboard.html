@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет - Ezoterra</title>
+    <title>Личный кабинет - Esoterra</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/icons.css">
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
@@ -21,7 +22,7 @@
         <div class="dashboard__container">
             <header class="dashboard__header">
                 <div class="dashboard__header-left">
-                    <span class="dashboard__header-badge">✨ Персональный профиль</span>
+                    <span class="dashboard__header-badge"><span class="icon icon--sparkles" aria-hidden="true"></span> Персональный профиль</span>
                 </div>
                 <div class="dashboard__actions">
                     <a href="index.html" class="dashboard__home">На главную</a>
@@ -57,7 +58,7 @@
 
                         <!-- Profile Info -->
                         <div class="profile-info-block">
-                            <div class="profile-info-block__avatar" id="profileAvatar">✨</div>
+                            <div class="profile-info-block__avatar" id="profileAvatar"><span class="icon icon--sparkles icon--2xl" aria-hidden="true"></span></div>
                             <div class="profile-info-block__details">
                                 <h1 class="profile-info-block__name" id="profileName">Твой профиль</h1>
                                 <div class="profile-info-block__chips">
@@ -70,7 +71,7 @@
 
                         <!-- Quick Horoscope -->
                         <div class="cabinet-section">
-                            <h2 class="cabinet-section__title">🔮 Твой знак зодиака</h2>
+                            <h2 class="cabinet-section__title"><span class="icon icon--crystal-ball" aria-hidden="true"></span> Твой знак зодиака</h2>
                             <div class="cabinet-zodiac" id="cabinetZodiac">
                                 <span class="cabinet-zodiac__icon" id="cabinetZodiacIcon"></span>
                                 <div class="cabinet-zodiac__info">
@@ -83,22 +84,22 @@
 
                         <!-- Quick Links -->
                         <div class="cabinet-section">
-                            <h2 class="cabinet-section__title">📋 Быстрые действия</h2>
+                            <h2 class="cabinet-section__title">Быстрые действия</h2>
                             <div class="cabinet-links">
                                 <a href="natal.html" class="cabinet-link-card">
-                                    <span class="cabinet-link-card__icon">🪐</span>
+                                    <span class="cabinet-link-card__icon"><span class="icon icon--moon icon--xl" aria-hidden="true"></span></span>
                                     <span class="cabinet-link-card__text">Натальная карта</span>
                                 </a>
                                 <a href="numerology.html" class="cabinet-link-card">
-                                    <span class="cabinet-link-card__icon">🔢</span>
+                                    <span class="cabinet-link-card__icon"><span class="icon icon--sparkles icon--xl" aria-hidden="true"></span></span>
                                     <span class="cabinet-link-card__text">Нумерология</span>
                                 </a>
                                 <a href="compatibility.html" class="cabinet-link-card">
-                                    <span class="cabinet-link-card__icon">💞</span>
+                                    <span class="cabinet-link-card__icon"><span class="icon icon--couple icon--xl" aria-hidden="true"></span></span>
                                     <span class="cabinet-link-card__text">Совместимость</span>
                                 </a>
                                 <a href="horoscope.html" class="cabinet-link-card">
-                                    <span class="cabinet-link-card__icon">⭐</span>
+                                    <span class="cabinet-link-card__icon"><span class="icon icon--star icon--xl" aria-hidden="true"></span></span>
                                     <span class="cabinet-link-card__text">Гороскоп</span>
                                 </a>
                             </div>
@@ -135,7 +136,7 @@
 
                             <!-- Card 1: Personality Archetype -->
                             <div class="profile-card profile-card--archetype">
-                                <div class="profile-card__icon">🔮</div>
+                                <div class="profile-card__icon"><span class="icon icon--crystal-ball icon--2xl" aria-hidden="true"></span></div>
                                 <h2 class="profile-card__title">Личностный архетип</h2>
                                 <div class="profile-card__badge" id="archetypeBadge">Стратег-Интуит</div>
                                 <ul class="profile-card__insights">
@@ -144,18 +145,18 @@
                                     <li id="archetypeInsight3"></li>
                                 </ul>
                                 <p class="profile-card__meta profile-card__meta--strength">
-                                    <span class="profile-card__meta-label">⚡ Скрытая сила:</span>
+                                    <span class="profile-card__meta-label"><span class="icon icon--fire" aria-hidden="true"></span> Скрытая сила:</span>
                                     <span id="archetypeStrength"></span>
                                 </p>
                                 <p class="profile-card__meta profile-card__meta--paradox">
-                                    <span class="profile-card__meta-label">🔄 Внутренняя дилемма:</span>
+                                    <span class="profile-card__meta-label">Внутренняя дилемма:</span>
                                     <span id="archetypeParadox"></span>
                                 </p>
                             </div>
 
                             <!-- Card 2: Current Life Phase -->
                             <div class="profile-card profile-card--phase">
-                                <div class="profile-card__icon">🌙</div>
+                                <div class="profile-card__icon"><span class="icon icon--moon icon--2xl" aria-hidden="true"></span></div>
                                 <h2 class="profile-card__title">Текущая фаза жизни</h2>
                                 <p class="profile-card__text" id="phaseText"></p>
                                 <div class="profile-card__forecast">
@@ -163,14 +164,14 @@
                                     <p id="phaseForecast"></p>
                                 </div>
                                 <p class="profile-card__meta profile-card__meta--warning">
-                                    <span class="profile-card__meta-label">⚠ Важно:</span>
+                                    <span class="profile-card__meta-label"><span class="icon icon--warning" aria-hidden="true"></span> Важно:</span>
                                     <span id="phaseWarning"></span>
                                 </p>
                             </div>
 
                             <!-- Card 3: Relationships -->
                             <div class="profile-card profile-card--relationships">
-                                <div class="profile-card__icon">❤️</div>
+                                <div class="profile-card__icon"><span class="icon icon--heart icon--2xl" aria-hidden="true"></span></div>
                                 <h2 class="profile-card__title">Отношения</h2>
                                 <ul class="profile-card__insights">
                                     <li id="relInsight1"></li>
@@ -178,28 +179,28 @@
                                     <li id="relInsight3"></li>
                                 </ul>
                                 <p class="profile-card__meta profile-card__meta--pattern">
-                                    <span class="profile-card__meta-label">🔁 Твой паттерн:</span>
+                                    <span class="profile-card__meta-label">Твой паттерн:</span>
                                     <span id="relPattern"></span>
                                 </p>
                             </div>
 
                             <!-- Card 4: Career & Money -->
                             <div class="profile-card profile-card--money">
-                                <div class="profile-card__icon">💰</div>
+                                <div class="profile-card__icon"><span class="icon icon--star-glow icon--2xl" aria-hidden="true"></span></div>
                                 <h2 class="profile-card__title">Карьера и деньги</h2>
                                 <ul class="profile-card__insights">
                                     <li id="moneyFlow"></li>
                                     <li id="moneyBlocker"></li>
                                 </ul>
                                 <p class="profile-card__meta profile-card__meta--opportunity">
-                                    <span class="profile-card__meta-label">🚀 Возможность:</span>
+                                    <span class="profile-card__meta-label"><span class="icon icon--shooting-star" aria-hidden="true"></span> Возможность:</span>
                                     <span id="moneyOpportunity"></span>
                                 </p>
                             </div>
 
                             <!-- Card 5: Inner Conflict — full width -->
                             <div class="profile-card profile-card--conflict profile-card--wide">
-                                <div class="profile-card__icon">🧠</div>
+                                <div class="profile-card__icon"><span class="icon icon--sparkles icon--2xl" aria-hidden="true"></span></div>
                                 <h2 class="profile-card__title">Внутренний конфликт</h2>
                                 <p class="profile-card__paradox-text" id="conflictParadox"></p>
                                 <p class="profile-card__conflict-note" id="conflictNote"></p>
@@ -211,7 +212,7 @@
                     <!-- ====== TAB 3: МОИ ЗАКАЗЫ ====== -->
                     <div class="dashboard__panel" id="panelOrders" style="display:none;">
                         <div class="profile-orders" id="ordersSection">
-                            <h2 class="profile-orders__title">📦 Мои заказы</h2>
+                            <h2 class="profile-orders__title">Мои заказы</h2>
                             <div class="profile-orders__list" id="ordersList"></div>
                             <div class="profile-orders__empty" id="ordersEmpty" style="display:none;">
                                 <p>У вас пока нет заказов</p>
@@ -277,18 +278,18 @@
 
     // Zodiac sign lookup for cabinet
     var ZODIAC_MAP = [
-        { sign: 'Козерог', icon: '♑', dates: '22 дек — 19 янв', start: [12,22], end: [1,19] },
-        { sign: 'Водолей', icon: '♒', dates: '20 янв — 18 фев', start: [1,20], end: [2,18] },
-        { sign: 'Рыбы', icon: '♓', dates: '19 фев — 20 мар', start: [2,19], end: [3,20] },
-        { sign: 'Овен', icon: '♈', dates: '21 мар — 19 апр', start: [3,21], end: [4,19] },
-        { sign: 'Телец', icon: '♉', dates: '20 апр — 20 мая', start: [4,20], end: [5,20] },
-        { sign: 'Близнецы', icon: '♊', dates: '21 мая — 20 июн', start: [5,21], end: [6,20] },
-        { sign: 'Рак', icon: '♋', dates: '21 июн — 22 июл', start: [6,21], end: [7,22] },
-        { sign: 'Лев', icon: '♌', dates: '23 июл — 22 авг', start: [7,23], end: [8,22] },
-        { sign: 'Дева', icon: '♍', dates: '23 авг — 22 сен', start: [8,23], end: [9,22] },
-        { sign: 'Весы', icon: '♎', dates: '23 сен — 22 окт', start: [9,23], end: [10,22] },
-        { sign: 'Скорпион', icon: '♏', dates: '23 окт — 21 ноя', start: [10,23], end: [11,21] },
-        { sign: 'Стрелец', icon: '♐', dates: '22 ноя — 21 дек', start: [11,22], end: [12,21] }
+        { sign: 'Козерог', icon: '', dates: '22 дек — 19 янв', start: [12,22], end: [1,19] },
+        { sign: 'Водолей', icon: '', dates: '20 янв — 18 фев', start: [1,20], end: [2,18] },
+        { sign: 'Рыбы', icon: '', dates: '19 фев — 20 мар', start: [2,19], end: [3,20] },
+        { sign: 'Овен', icon: '', dates: '21 мар — 19 апр', start: [3,21], end: [4,19] },
+        { sign: 'Телец', icon: '', dates: '20 апр — 20 мая', start: [4,20], end: [5,20] },
+        { sign: 'Близнецы', icon: '', dates: '21 мая — 20 июн', start: [5,21], end: [6,20] },
+        { sign: 'Рак', icon: '', dates: '21 июн — 22 июл', start: [6,21], end: [7,22] },
+        { sign: 'Лев', icon: '', dates: '23 июл — 22 авг', start: [7,23], end: [8,22] },
+        { sign: 'Дева', icon: '', dates: '23 авг — 22 сен', start: [8,23], end: [9,22] },
+        { sign: 'Весы', icon: '', dates: '23 сен — 22 окт', start: [9,23], end: [10,22] },
+        { sign: 'Скорпион', icon: '', dates: '23 окт — 21 ноя', start: [10,23], end: [11,21] },
+        { sign: 'Стрелец', icon: '', dates: '22 ноя — 21 дек', start: [11,22], end: [12,21] }
     ];
 
     function getZodiacFromDate(dateStr) {
@@ -315,7 +316,7 @@
             var text = chipBirth.textContent;
             var match = text.match(/(\d{4}-\d{2}-\d{2})/);
             if (!match) {
-                // Try to extract from chip text like "🎂 15.03.1990"
+                // Try to extract from chip text like "15.03.1990"
                 var match2 = text.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 if (match2) match = [null, match2[3] + '-' + match2[2] + '-' + match2[1]];
             }

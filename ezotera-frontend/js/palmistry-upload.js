@@ -472,7 +472,7 @@
                         img.naturalWidth,
                         img.naturalHeight
                     );
-                    if (statusEl) statusEl.textContent = 'Рука обнаружена ✓';
+                    if (statusEl) statusEl.textContent = 'Рука обнаружена';
                 } else {
                     palmLines = buildFallbackLines(scanCanvas.width);
                 }
@@ -516,7 +516,7 @@
                 if (progress < 1) {
                     scanAnimFrame = requestAnimationFrame(animate);
                 } else {
-                    if (statusEl) statusEl.textContent = 'Анализ завершён ✓';
+                    if (statusEl) statusEl.textContent = 'Анализ завершён';
                     setTimeout(() => onComplete(handScore), 400);
                 }
             }

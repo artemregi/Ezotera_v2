@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/icons.css">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Nunito',sans-serif; background:#0a0a14; color:#e8e0f0; min-height:100vh; }
@@ -75,11 +76,11 @@
         <aside class="admin__sidebar">
             <div class="admin__logo">Esoterra <span>Админ</span></div>
             <nav class="admin__nav">
-                <a href="index.html" class="admin__nav-link"><span>📊</span> Главная</a>
-                <a href="products.html" class="admin__nav-link"><span>📿</span> Браслеты</a>
-                <a href="horoscope.html" class="admin__nav-link admin__nav-link--active"><span>🔮</span> Гороскоп</a>
-                <a href="referrals.html" class="admin__nav-link"><span>🔗</span> Реф. ссылки</a>
-                <a href="content-cards.html" class="admin__nav-link"><span>📰</span> Контент</a>
+                <a href="index.html" class="admin__nav-link"><span class="icon icon--chart" aria-hidden="true"></span> Главная</a>
+                <a href="products.html" class="admin__nav-link"><span class="icon icon--bracelet" aria-hidden="true"></span> Браслеты</a>
+                <a href="horoscope.html" class="admin__nav-link admin__nav-link--active"><span class="icon icon--crystal-ball" aria-hidden="true"></span> Гороскоп</a>
+                <a href="referrals.html" class="admin__nav-link"><span class="icon icon--link" aria-hidden="true"></span> Реф. ссылки</a>
+                <a href="content-cards.html" class="admin__nav-link"><span class="icon icon--news" aria-hidden="true"></span> Контент</a>
             </nav>
             <div class="admin__back"><a href="../index.html">← Вернуться на сайт</a></div>
         </aside>
@@ -156,12 +157,12 @@
     var horoscopeData = null;
     var currentSign = 'aries';
     var SIGNS = [
-        {id:'aries',name:'Овен',icon:'♈'},{id:'taurus',name:'Телец',icon:'♉'},
-        {id:'gemini',name:'Близнецы',icon:'♊'},{id:'cancer',name:'Рак',icon:'♋'},
-        {id:'leo',name:'Лев',icon:'♌'},{id:'virgo',name:'Дева',icon:'♍'},
-        {id:'libra',name:'Весы',icon:'♎'},{id:'scorpio',name:'Скорпион',icon:'♏'},
-        {id:'sagittarius',name:'Стрелец',icon:'♐'},{id:'capricorn',name:'Козерог',icon:'♑'},
-        {id:'aquarius',name:'Водолей',icon:'♒'},{id:'pisces',name:'Рыбы',icon:'♓'}
+        {id:'aries',name:'Овен',icon:''},{id:'taurus',name:'Телец',icon:''},
+        {id:'gemini',name:'Близнецы',icon:''},{id:'cancer',name:'Рак',icon:''},
+        {id:'leo',name:'Лев',icon:''},{id:'virgo',name:'Дева',icon:''},
+        {id:'libra',name:'Весы',icon:''},{id:'scorpio',name:'Скорпион',icon:''},
+        {id:'sagittarius',name:'Стрелец',icon:''},{id:'capricorn',name:'Козерог',icon:''},
+        {id:'aquarius',name:'Водолей',icon:''},{id:'pisces',name:'Рыбы',icon:''}
     ];
 
     // Auth check

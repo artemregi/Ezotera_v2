@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/natal.css">
+    <link rel="stylesheet" href="css/icons.css">
     <style>
         .natal-expert-cta {
             margin-top: 48px;
@@ -105,7 +106,7 @@
     <!-- Auth Gate: shown to non-authenticated users -->
     <section id="natalAuthGate" style="display:none; padding:60px 20px;">
         <div style="max-width:520px; margin:0 auto; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:48px 36px; text-align:center;">
-            <div style="width:72px; height:72px; margin:0 auto 20px; background:linear-gradient(135deg,rgba(108,92,231,0.2),rgba(162,155,254,0.1)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem;">🔒</div>
+            <div style="width:72px; height:72px; margin:0 auto 20px; background:linear-gradient(135deg,rgba(108,92,231,0.2),rgba(162,155,254,0.1)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem;"><span class="icon icon--crystal-ball icon--2xl" aria-hidden="true"></span></div>
             <h2 style="font-family:var(--font-heading); font-size:1.8rem; color:#fff; margin-bottom:12px;">Получите бесплатный разбор</h2>
             <p style="color:rgba(255,255,255,0.55); margin-bottom:32px; line-height:1.7; font-size:0.95rem;">
                 Зарегистрируйтесь, чтобы рассчитать натальную карту, получить персональную интерпретацию и 3 дня бесплатного доступа ко всем функциям Esoterra.
@@ -172,7 +173,7 @@
                         </div>
                     </div>
                     <div class="natal-form__coords" id="coordsDisplay" style="display:none">
-                        <span class="natal-form__coords-label">📍</span>
+                        <span class="natal-form__coords-label"><span class="icon icon--compass" aria-hidden="true"></span></span>
                         <span id="coordsText"></span>
                     </div>
                     <input type="hidden" id="birthLat">
@@ -274,7 +275,7 @@
             <!-- Expert CTA (temporarily hidden) -->
             <div class="natal-expert-cta" style="display:none">
                 <div class="natal-expert-cta__inner">
-                    <div class="natal-expert-cta__badge">🔮 Бесплатно для новых пользователей</div>
+                    <div class="natal-expert-cta__badge"><span class="icon icon--crystal-ball" aria-hidden="true"></span> Бесплатно для новых пользователей</div>
                     <h3 class="natal-expert-cta__title">Получите расшифровку от астролога</h3>
                     <p class="natal-expert-cta__text">Натальная карта содержит сотни аспектов и нюансов. Наш астролог разберёт именно Вашу карту — ключевые планеты, дома, аспекты — и расскажет, что они означают лично для Вас.</p>
                     <ul class="natal-expert-cta__list">

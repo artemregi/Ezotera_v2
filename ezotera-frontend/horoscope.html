@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/icons.css">
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
@@ -405,7 +406,7 @@
         <section class="horoscope-hero">
             <div class="container">
                 <div class="horoscope-hero__date-badge">
-                    <span>🌙</span>
+                    <span class="icon icon--moon" aria-hidden="true"></span>
                     <span id="hero-week-range">Загружаем…</span>
                 </div>
                 <h1 class="horoscope-hero__title">Гороскоп на неделю</h1>
@@ -414,7 +415,7 @@
                 </p>
                 <div class="horoscope-hero__meta" id="hero-meta">
                     <div class="horoscope-hero__meta-item">
-                        <span>🌙</span>
+                        <span class="icon icon--moon" aria-hidden="true"></span>
                         <span id="hero-moon">…</span>
                     </div>
                 </div>
@@ -426,7 +427,7 @@
         <div id="horoscopeAuthPopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); align-items:center; justify-content:center;">
             <div style="max-width:420px; margin:20px; background:#1a1a2e; border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px 32px; text-align:center; position:relative;">
                 <button onclick="document.getElementById('horoscopeAuthPopup').style.display='none';document.body.style.overflow=''" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.5rem;cursor:pointer;">&times;</button>
-                <div style="font-size:2.5rem;margin-bottom:16px;">🔒</div>
+                <div style="font-size:2.5rem;margin-bottom:16px;"><span class="icon icon--crystal-ball icon--3xl" aria-hidden="true"></span></div>
                 <h2 style="font-family:var(--font-heading); font-size:1.5rem; color:#fff; margin-bottom:10px;">Прогноз доступен после регистрации</h2>
                 <p style="color:rgba(255,255,255,0.55); margin-bottom:24px; line-height:1.6; font-size:0.9rem;">
                     Зарегистрируйтесь бесплатно, чтобы читать еженедельные гороскопы и персональные прогнозы для каждого знака.
@@ -444,7 +445,7 @@
 
                 <!-- Совет недели -->
                 <div class="day-advice">
-                    <div class="day-advice__icon">✨</div>
+                    <div class="day-advice__icon"><span class="icon icon--sparkles icon--3xl" aria-hidden="true"></span></div>
                     <h2 class="day-advice__title">Астрологический совет недели</h2>
                     <p class="day-advice__text" id="weekly-tip">Загружаем прогноз…</p>
                     <div id="planetary-events" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;"></div>
@@ -452,7 +453,7 @@
 
                 <!-- Сетка знаков — заполняется из horoscope-data.json -->
                 <div class="zodiac-grid" id="zodiac-grid">
-                    <div id="zodiac-loading" style="grid-column:1/-1;text-align:center;padding:60px 0;color:rgba(255,255,255,.5)">🔮 Загружаем гороскоп…</div>
+                    <div id="zodiac-loading" style="grid-column:1/-1;text-align:center;padding:60px 0;color:rgba(255,255,255,.5)"><span class="icon icon--crystal-ball" aria-hidden="true"></span> Загружаем гороскоп…</div>
 
                 </div><!-- /zodiac-grid -->
             </div>
@@ -463,11 +464,11 @@
         <section class="section section--dark horoscope-auth-content" style="display:none;">
             <div class="container">
                 <div class="lunar-section">
-                    <h2 class="lunar-section__title">🌒 Лунный календарь — 18 мая 2026</h2>
+                    <h2 class="lunar-section__title"><span class="icon icon--moon" aria-hidden="true"></span> Лунный календарь — 18 мая 2026</h2>
                     <p class="lunar-section__subtitle">Растущая луна, 11-й лунный день · Луна в Деве</p>
                     <div class="lunar-grid">
                         <div class="lunar-block lunar-block--do">
-                            <h3 class="lunar-block__heading">✅ Что делать сегодня</h3>
+                            <h3 class="lunar-block__heading"><span class="icon icon--check-circle" aria-hidden="true"></span> Что делать сегодня</h3>
                             <ul>
                                 <li>Начинайте новые проекты, требующие тщательного планирования и анализа</li>
                                 <li>Занимайтесь упорядочиванием дел, разбором бумаг и оптимизацией процессов</li>
@@ -478,7 +479,7 @@
                             </ul>
                         </div>
                         <div class="lunar-block lunar-block--avoid">
-                            <h3 class="lunar-block__heading">🚫 Чего избегать сегодня</h3>
+                            <h3 class="lunar-block__heading"><span class="icon icon--cross" aria-hidden="true"></span> Чего избегать сегодня</h3>
                             <ul>
                                 <li>Избегайте хаотичных решений — Дева требует порядка и системности</li>
                                 <li>Не поддавайтесь излишней самокритике и перфекционизму</li>
@@ -526,10 +527,10 @@
             </div>
             <p class="zodiac-modal__text"></p>
             <div class="zodiac-modal__aspects">
-                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">❤️ Любовь</span><span class="zodiac-modal__aspect-value" data-aspect="love"></span></div>
-                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">💼 Карьера</span><span class="zodiac-modal__aspect-value" data-aspect="career"></span></div>
-                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">🌿 Здоровье</span><span class="zodiac-modal__aspect-value" data-aspect="health"></span></div>
-                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label">💡 Совет</span><span class="zodiac-modal__aspect-value" data-aspect="advice"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label"><span class="icon icon--heart" aria-hidden="true"></span> Любовь</span><span class="zodiac-modal__aspect-value" data-aspect="love"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label"><span class="icon icon--star" aria-hidden="true"></span> Карьера</span><span class="zodiac-modal__aspect-value" data-aspect="career"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label"><span class="icon icon--sparkles" aria-hidden="true"></span> Здоровье</span><span class="zodiac-modal__aspect-value" data-aspect="health"></span></div>
+                <div class="zodiac-modal__aspect"><span class="zodiac-modal__aspect-label"><span class="icon icon--star-glow" aria-hidden="true"></span> Совет</span><span class="zodiac-modal__aspect-value" data-aspect="advice"></span></div>
             </div>
             <div class="zodiac-modal__footer">
                 <span class="zodiac-modal__lucky"></span>
@@ -603,7 +604,7 @@
         if (!entry) return;
         var sign = entry.sign, data = entry.data;
         var modal = document.getElementById('zodiacModal');
-        modal.querySelector('.zodiac-modal__icon').textContent = sign.icon;
+        modal.querySelector('.zodiac-modal__icon').innerHTML = '<span class="icon icon--zodiac icon--' + entry.sign.id + ' icon--3xl" aria-hidden="true"></span>';
         modal.querySelector('.zodiac-modal__name').textContent = sign.name;
         modal.querySelector('.zodiac-modal__dates').textContent = sign.dates;
         modal.querySelector('.zodiac-modal__text').textContent = data.general;
@@ -611,8 +612,8 @@
         modal.querySelector('[data-aspect="career"]').textContent = data.career;
         modal.querySelector('[data-aspect="health"]').textContent = data.health;
         modal.querySelector('[data-aspect="advice"]').textContent = data.advice;
-        modal.querySelector('.zodiac-modal__lucky').innerHTML = '🔢 ' + data.luckyNumber + ' · ' + data.luckyDays.join(', ');
-        modal.querySelector('.zodiac-modal__color').innerHTML = '🎨 ' + data.luckyColor;
+        modal.querySelector('.zodiac-modal__lucky').innerHTML = data.luckyNumber + ' · ' + data.luckyDays.join(', ');
+        modal.querySelector('.zodiac-modal__color').innerHTML = data.luckyColor;
         modal.querySelector('.zodiac-modal__energy').innerHTML = 'Энергия: ' + energyBar(data.energy);
         document.getElementById('zodiacModalBg').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -646,18 +647,18 @@
     <script>
     (function () {
         var SIGNS = [
-            { id: 'aries',       name: 'Овен',      icon: '♈', dates: '21 марта — 19 апреля' },
-            { id: 'taurus',      name: 'Телец',     icon: '♉', dates: '20 апреля — 20 мая' },
-            { id: 'gemini',      name: 'Близнецы',  icon: '♊', dates: '21 мая — 20 июня' },
-            { id: 'cancer',      name: 'Рак',       icon: '♋', dates: '21 июня — 22 июля' },
-            { id: 'leo',         name: 'Лев',       icon: '♌', dates: '23 июля — 22 августа' },
-            { id: 'virgo',       name: 'Дева',      icon: '♍', dates: '23 августа — 22 сентября' },
-            { id: 'libra',       name: 'Весы',      icon: '♎', dates: '23 сентября — 22 октября' },
-            { id: 'scorpio',     name: 'Скорпион',  icon: '♏', dates: '23 октября — 21 ноября' },
-            { id: 'sagittarius', name: 'Стрелец',   icon: '♐', dates: '22 ноября — 21 декабря' },
-            { id: 'capricorn',   name: 'Козерог',   icon: '♑', dates: '22 декабря — 19 января' },
-            { id: 'aquarius',    name: 'Водолей',   icon: '♒', dates: '20 января — 18 февраля' },
-            { id: 'pisces',      name: 'Рыбы',      icon: '♓', dates: '19 февраля — 20 марта' }
+            { id: 'aries',       name: 'Овен',      icon: '', dates: '21 марта — 19 апреля' },
+            { id: 'taurus',      name: 'Телец',     icon: '', dates: '20 апреля — 20 мая' },
+            { id: 'gemini',      name: 'Близнецы',  icon: '', dates: '21 мая — 20 июня' },
+            { id: 'cancer',      name: 'Рак',       icon: '', dates: '21 июня — 22 июля' },
+            { id: 'leo',         name: 'Лев',       icon: '', dates: '23 июля — 22 августа' },
+            { id: 'virgo',       name: 'Дева',      icon: '', dates: '23 августа — 22 сентября' },
+            { id: 'libra',       name: 'Весы',      icon: '', dates: '23 сентября — 22 октября' },
+            { id: 'scorpio',     name: 'Скорпион',  icon: '', dates: '23 октября — 21 ноября' },
+            { id: 'sagittarius', name: 'Стрелец',   icon: '', dates: '22 ноября — 21 декабря' },
+            { id: 'capricorn',   name: 'Козерог',   icon: '', dates: '22 декабря — 19 января' },
+            { id: 'aquarius',    name: 'Водолей',   icon: '', dates: '20 января — 18 февраля' },
+            { id: 'pisces',      name: 'Рыбы',      icon: '', dates: '19 февраля — 20 марта' }
         ];
 
         // Store data for modal (uses global signDataMap)
@@ -665,7 +666,7 @@
         function renderCard(sign, data) {
             signDataMap[sign.id] = { sign: sign, data: data };
             return '<div class="zodiac-card" onclick="openZodiacModal(\'' + sign.id + '\')">' +
-                '<span class="zodiac-card__icon">' + sign.icon + '</span>' +
+                '<span class="zodiac-card__icon"><span class="icon icon--zodiac icon--' + sign.id + ' icon--3xl" aria-hidden="true"></span></span>' +
                 '<div class="zodiac-card__name">' + sign.name + '</div>' +
                 '<div class="zodiac-card__dates">' + sign.dates + '</div>' +
                 '<div class="zodiac-card__hint">Читать прогноз →</div>' +
@@ -685,7 +686,7 @@
                 var evEl = document.getElementById('planetary-events');
                 if (evEl && d.planetaryEvents) {
                     evEl.innerHTML = d.planetaryEvents.map(function(e) {
-                        return '<span style="background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:100px;padding:4px 14px;font-size:.8rem;color:var(--color-accent-light)">⚡ ' + e + '</span>';
+                        return '<span style="background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:100px;padding:4px 14px;font-size:.8rem;color:var(--color-accent-light)"><span class="icon icon--fire" aria-hidden="true"></span> ' + e + '</span>';
                     }).join('');
                 }
 
