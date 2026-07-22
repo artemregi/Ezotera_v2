@@ -1,6 +1,9 @@
 const https = require('https');
 const { pool } = require('../../lib/db');
 
+// Allow up to 60s for OpenAI generation (Hobby plan max)
+module.exports.maxDuration = 60;
+
 /**
  * Vercel Cron Job — Weekly Horoscope Generator
  * Runs every Monday at 03:00 UTC
