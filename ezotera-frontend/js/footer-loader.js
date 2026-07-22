@@ -31,6 +31,7 @@
             // Find the footer element
             const footer = document.querySelector('footer');
             if (footer) {
+                footer.classList.add('footer');
                 footer.innerHTML = footerHTML;
             }
 
