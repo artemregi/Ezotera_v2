@@ -22,6 +22,15 @@ module.exports = async (req, res) => {
 
         console.log('[CRON] Generating horoscopes for:', weekRange);
 
+        // Ensure table exists before any queries
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS horoscopes (
+                id SERIAL PRIMARY KEY,
+                data JSONB NOT NULL,
+                created_at TIMESTAMPTZ DEFAULT NOW()
+            )
+        `);
+
         // Check if we already have data for this week
         const existing = await pool.query(
             `SELECT id FROM horoscopes WHERE data->>'weekRange' = $1`,
@@ -48,15 +57,6 @@ module.exports = async (req, res) => {
         for (const s of signs) {
             if (!data.signs[s]) throw new Error('Missing sign: ' + s);
         }
-
-        // Ensure table exists
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS horoscopes (
-                id SERIAL PRIMARY KEY,
-                data JSONB NOT NULL,
-                created_at TIMESTAMPTZ DEFAULT NOW()
-            )
-        `);
 
         // Save to DB
         await pool.query(
