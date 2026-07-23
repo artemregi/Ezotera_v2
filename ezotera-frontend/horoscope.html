@@ -489,7 +489,7 @@
                 <p style="color:rgba(255,255,255,0.55); margin-bottom:24px; line-height:1.6; font-size:0.9rem;">
                     Зарегистрируйтесь бесплатно, чтобы читать еженедельные гороскопы и персональные прогнозы для каждого знака.
                 </p>
-                <a href="auth/login.html" style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1rem; font-weight:600; text-decoration:none;">
+                <a href="auth/register.html" style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1rem; font-weight:600; text-decoration:none;">
                     Зарегистрироваться
                 </a>
                 <p style="margin-top:14px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
@@ -694,6 +694,10 @@
                     __horoscopeUserAuth = true;
                     var authContent = document.querySelectorAll('.horoscope-auth-content');
                     authContent.forEach(function(el) { el.style.display = ''; });
+                    if (window.__pendingAutoSign && signDataMap[window.__pendingAutoSign]) {
+                        openZodiacModal(window.__pendingAutoSign);
+                        window.__pendingAutoSign = null;
+                    }
                 }
             })
             .catch(function() {});
@@ -759,6 +763,19 @@
                     var signData = d.signs[sign.id];
                     if (signData && grid) grid.insertAdjacentHTML('beforeend', renderCard(sign, signData));
                 });
+
+                // Auto-open user's sign if passed via ?sign= (link from dashboard)
+                var requestedSign = new URLSearchParams(window.location.search).get('sign');
+                if (requestedSign && signDataMap[requestedSign]) {
+                    var gridEl = document.getElementById('zodiac-grid');
+                    if (gridEl) gridEl.scrollIntoView({ behavior: 'smooth' });
+                    if (__horoscopeUserAuth) {
+                        openZodiacModal(requestedSign);
+                    } else {
+                        // auth check may still be in flight — open once it resolves
+                        window.__pendingAutoSign = requestedSign;
+                    }
+                }
             })
             .catch(function(err) {
                 console.error('Horoscope load error:', err);

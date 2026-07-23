@@ -436,6 +436,9 @@
         e.preventDefault();
         console.log('[LOGOUT] User clicked logout');
 
+        // Clear cached onboarding data so it doesn't leak into next registration
+        try { localStorage.removeItem('ezotera_onboarding'); } catch (err) {}
+
         // Call logout endpoint
         fetch('/api/auth/logout', {
             method: 'POST',

@@ -519,6 +519,7 @@
 
     // ── Logout ────────────────────────────────────────────────────────────────
     function handleLogout() {
+        try { localStorage.removeItem('ezotera_onboarding'); } catch (e) {}
         fetch('/api/auth/logout', {
             method: 'POST',
             credentials: 'include'

@@ -111,7 +111,7 @@
             <p style="color:rgba(255,255,255,0.55); margin-bottom:32px; line-height:1.7; font-size:0.95rem;">
                 Зарегистрируйтесь, чтобы рассчитать натальную карту, получить персональную интерпретацию и 3 дня бесплатного доступа ко всем функциям Esoterra.
             </p>
-            <a href="auth/login.html" style="display:inline-block; padding:16px 48px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1.05rem; font-family:inherit; font-weight:600; text-decoration:none; transition:opacity 0.2s;">
+            <a href="auth/register.html" style="display:inline-block; padding:16px 48px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1.05rem; font-family:inherit; font-weight:600; text-decoration:none; transition:opacity 0.2s;">
                 Зарегистрироваться бесплатно
             </a>
             <p style="margin-top:16px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
@@ -321,6 +321,7 @@
                 // Show all content
                 document.getElementById('natalForm').style.display = '';
                 document.getElementById('natalAuthGate').style.display = 'none';
+                prefillFromProfile();
             } else {
                 document.getElementById('natalAuthGate').style.display = '';
                 document.getElementById('natalForm').style.display = 'none';
@@ -330,6 +331,46 @@
             document.getElementById('natalAuthGate').style.display = '';
             document.getElementById('natalForm').style.display = 'none';
         });
+
+    // Prefill form with data the user already gave during onboarding
+    function prefillFromProfile() {
+        fetch('/api/user/profile', { credentials: 'include' })
+            .then(function(r) { return r.ok ? r.json() : null; })
+            .then(function(result) {
+                if (!result || !result.user) return;
+                var u = result.user;
+
+                var nameEl = document.getElementById('birthName');
+                if (nameEl && !nameEl.value && u.name) nameEl.value = u.name;
+
+                if (u.birthDate) {
+                    var m = String(u.birthDate).match(/(\d{4})-(\d{2})-(\d{2})/);
+                    if (m) {
+                        var yearEl = document.getElementById('birthYear');
+                        var monthEl = document.getElementById('birthMonth');
+                        var dayEl = document.getElementById('birthDay');
+                        yearEl.value = parseInt(m[1]);
+                        monthEl.value = parseInt(m[2]);
+                        // trigger updateDays to populate day options for that month/year
+                        monthEl.dispatchEvent(new Event('change'));
+                        dayEl.value = parseInt(m[3]);
+                        dayEl.dispatchEvent(new Event('change'));
+                    }
+                }
+
+                if (u.birthTime) {
+                    var timeEl = document.getElementById('birthTime');
+                    var t = String(u.birthTime).match(/(\d{2}:\d{2})/);
+                    if (timeEl && t) timeEl.value = t[1];
+                }
+
+                if (u.birthPlace) {
+                    var cityEl = document.getElementById('birthCity');
+                    if (cityEl && !cityEl.value) cityEl.value = u.birthPlace;
+                }
+            })
+            .catch(function() {});
+    }
 })();
 </script>
 

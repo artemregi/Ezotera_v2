@@ -156,6 +156,22 @@
 
         console.log('Step 1: Initialized successfully');
 
+        /* Authorized users with a filled profile don't need onboarding — send to dashboard */
+        checkAuth(function(user) {
+            if (!user) { return; }
+            fetch('/api/user/profile', { method: 'GET', credentials: 'include' })
+            .then(function(response) {
+                if (!response.ok) { return null; }
+                return response.json();
+            })
+            .then(function(result) {
+                if (result && result.user && result.user.birthDate) {
+                    window.location.href = '../dashboard.html';
+                }
+            })
+            .catch(function() {});
+        });
+
         /* Pre-fill from localStorage */
         var savedData = getOnboardingData();
         if (savedData.user_name) {
