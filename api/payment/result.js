@@ -87,7 +87,8 @@ module.exports = async (req, res) => {
                 amount: OutSum,
                 productName: orderInfo ? orderInfo.description : 'Товар',
                 customerName: orderInfo ? orderInfo.customer_name : null,
-                customerEmail: orderInfo ? orderInfo.user_email : null
+                customerEmail: orderInfo ? orderInfo.user_email : null,
+                referralCode: orderInfo ? orderInfo.referral_code : null
             });
         } catch (tgErr) {
             console.error('[Telegram] Notification error:', tgErr.message);
