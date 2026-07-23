@@ -89,6 +89,31 @@
         });
     }
 
+    /* Check if user is already logged in.
+       Calls callback with user object or null. */
+    function checkAuth(callback) {
+        fetch('/api/auth/verify', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                return null;
+            }
+            return response.json();
+        })
+        .then(function(result) {
+            if (result && result.authenticated && result.user) {
+                callback(result.user);
+            } else {
+                callback(null);
+            }
+        })
+        .catch(function() {
+            callback(null);
+        });
+    }
+
     /* Validate email format */
     function validateEmailFormat(email) {
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -525,6 +550,14 @@
             return;
         }
 
+        /* Logged-in users already have email — skip this step */
+        checkAuth(function(user) {
+            if (user && user.email) {
+                saveOnboardingData({ user_email: user.email });
+                window.location.href = 'step-9-results-preview.html';
+            }
+        });
+
         /* Pre-fill from localStorage */
         var savedData = getOnboardingData();
         if (savedData.user_email) {
@@ -582,6 +615,38 @@
             /* Navigate to password creation step */
             window.location.href = 'step-10-password.html';
         });
+
+        /* Logged-in users: no password step needed —
+           finish onboarding right here via /api/onboarding/complete */
+        checkAuth(function(user) {
+            if (!user) {
+                return;
+            }
+
+            var backLink = form.querySelector('a[href="step-8-email.html"]');
+            if (backLink) {
+                backLink.setAttribute('href', 'step-7-focus-area.html');
+            }
+
+            var nextLink = form.querySelector('a[href="step-10-password.html"]');
+            if (nextLink) {
+                nextLink.textContent = 'Завершить';
+                nextLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    var termsCheckbox = document.getElementById('termsAgreed');
+                    if (termsCheckbox && !termsCheckbox.checked) {
+                        var termsError = document.getElementById('termsAgreedError');
+                        if (termsError) {
+                            termsError.textContent = 'Необходимо принять условия использования.';
+                        }
+                        return;
+                    }
+
+                    submitOnboardingData(getOnboardingData());
+                });
+            }
+        });
     }
 
     /* Populate summary data in Step 9 */
@@ -631,6 +696,13 @@
             window.location.href = 'step-1-name.html';
             return;
         }
+
+        /* Logged-in users must not register again — send them back to step 9 */
+        checkAuth(function(user) {
+            if (user) {
+                window.location.href = 'step-9-results-preview.html';
+            }
+        });
 
         /* Handle previous button */
         var prevBtn = document.getElementById('prevBtn');
@@ -760,8 +832,8 @@
         })
         .then(function(result) {
             clearOnboardingData();
-            alert('Регистрация завершена! Спасибо за уделенное время.');
-            window.location.href = result.redirectUrl || '../index.html';
+            alert('Готово! Ваши данные сохранены.');
+            window.location.href = result.redirectUrl || '../dashboard.html';
         })
         .catch(function(error) {
             console.error('Onboarding error:', error);

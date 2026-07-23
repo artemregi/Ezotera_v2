@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
         res.status(200).json({
             success: true,
             message: 'Данные сохранены успешно',
-            redirectUrl: '../index.html'
+            redirectUrl: '../dashboard.html'
         });
 
     } catch (error) {
