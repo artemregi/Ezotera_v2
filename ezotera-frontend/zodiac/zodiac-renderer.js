@@ -252,7 +252,7 @@ class ZodiacRenderer {
         function openModal(idx) {
             var s = self._topicSections[idx];
             if (!s) return;
-            document.getElementById('zodiacModalTitle').textContent = s.icon + ' ' + s.title;
+            document.getElementById('zodiacModalTitle').innerHTML = s.icon + ' ' + self.escapeHtml(s.title);
             document.getElementById('zodiacModalText').textContent = s.text;
             modalBg.classList.add('active');
             document.body.style.overflow = 'hidden';
