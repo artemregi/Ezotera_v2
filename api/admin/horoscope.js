@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { requireAdmin } = require('../../lib/admin-auth');
+const { pool } = require('../../lib/db');
 
 const HOROSCOPE_FILE = path.join(__dirname, '../../ezotera-frontend/horoscope-data.json');
 
@@ -24,7 +25,18 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'GET') {
-        // Public read - no admin required
+        // Public read - no admin required. DB first, static file as fallback.
+        try {
+            const result = await pool.query('SELECT data FROM public.horoscopes ORDER BY created_at DESC LIMIT 1');
+            if (result.rows.length > 0) {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(result.rows[0].data));
+                return;
+            }
+        } catch (dbError) {
+            console.error('Horoscope DB read error:', dbError.message);
+        }
         try {
             const data = fs.readFileSync(HOROSCOPE_FILE, 'utf8');
             res.statusCode = 200;
@@ -52,7 +64,14 @@ module.exports = async (req, res) => {
                 res.end(JSON.stringify({ success: false, message: 'Некорректные данные гороскопа' }));
                 return;
             }
-            fs.writeFileSync(HOROSCOPE_FILE, JSON.stringify(newData, null, 2), 'utf8');
+            // Primary storage: DB (Vercel serverless FS is ephemeral/read-only)
+            await pool.query('INSERT INTO public.horoscopes (data) VALUES ($1)', [JSON.stringify(newData)]);
+            // Best-effort: also refresh the static fallback file (works locally)
+            try {
+                fs.writeFileSync(HOROSCOPE_FILE, JSON.stringify(newData, null, 2), 'utf8');
+            } catch (fsErr) {
+                console.warn('Horoscope file write skipped (read-only FS):', fsErr.message);
+            }
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ success: true, message: 'Гороскоп обновлён' }));

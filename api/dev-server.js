@@ -33,6 +33,7 @@ const adminContentCardsHandler        = require('./admin/content-cards');
 const adminHoroscopeHandler           = require('./admin/horoscope');
 const adminReferralsHandler           = require('./admin/referrals');
 const referralStatsHandler            = require('./referral/stats');
+const horoscopeHandler                = require('./horoscope');
 const { pool } = require('../lib/db');
 
 const PORT = process.env.PORT || 3001;
@@ -61,6 +62,8 @@ function wrapResponse(res) {
 
 // Helper function to serve static files
 function serveStaticFile(pathname, res) {
+    // Decode URL-encoded characters (e.g. Cyrillic filenames) before hitting the FS
+    try { pathname = decodeURIComponent(pathname); } catch (e) { /* keep as-is */ }
     let filePath = path.join(FRONTEND_DIR, pathname);
 
     // If it's a directory, try index.html
@@ -203,6 +206,8 @@ const server = http.createServer(async (req, res) => {
                 await adminHoroscopeHandler(req, res);
             } else if (pathname === '/api/admin/referrals') {
                 await adminReferralsHandler(req, res);
+            } else if (pathname === '/api/horoscope') {
+                await horoscopeHandler(req, res);
             } else if (pathname.startsWith('/api/referral/stats')) {
                 req.url = req.url; // preserve query string
                 await referralStatsHandler(req, res);

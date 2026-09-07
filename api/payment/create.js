@@ -116,7 +116,7 @@ module.exports = async (req, res) => {
             console.error('[Telegram] Lead notification error:', tgErr.message);
         }
 
-        return res.status(200).json({ success: true, paymentUrl });
+        return res.status(200).json({ success: true, paymentUrl, orderId: String(invId) });
     } catch (error) {
         console.error('Payment create error:', error);
         return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });

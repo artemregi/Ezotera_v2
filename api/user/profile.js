@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
         // Fetch user data from database
         const result = await pool.query(
-            `SELECT id, name, email, birth_date, gender, birth_time, birth_place,
+            `SELECT id, name, email, to_char(birth_date, 'YYYY-MM-DD') AS birth_date, gender, birth_time, birth_place,
                     relationship_status, focus_area, created_at, last_login_at
              FROM public.users
              WHERE id = $1`,

@@ -31,6 +31,7 @@ module.exports = async (req, res) => {
 
         // Extract onboarding data from request (frontend sends with user_ prefix)
         const {
+            user_name: name,
             user_gender: gender,
             user_birth_date: birth_date,
             user_birth_time: birth_time,
@@ -40,26 +41,31 @@ module.exports = async (req, res) => {
             zodiac_sign
         } = req.body;
 
-        // Update user record with onboarding data
+        // Update user record with onboarding data.
+        // Пустые строки → NULL (иначе '' в TIME/DATE-колонку роняет запрос).
+        // name обновляется только если передан (COALESCE).
         await pool.query(
             `UPDATE public.users
-             SET gender = $1,
-                 birth_date = $2,
-                 birth_time = $3,
-                 birth_place = $4,
-                 relationship_status = $5,
-                 focus_area = $6,
-                 zodiac_sign = $7,
+             SET name = COALESCE($1, name),
+                 gender = $2,
+                 birth_date = $3,
+                 birth_time = $4,
+                 birth_place = $5,
+                 relationship_status = $6,
+                 focus_area = $7,
+                 zodiac_sign = $8,
                  updated_at = CURRENT_TIMESTAMP
-             WHERE id = $8`,
+             WHERE id = $9`,
             [
-                gender,
-                birth_date,
-                birth_time,
-                birth_place,
-                relationship_status,
-                focus_area,
-                zodiac_sign,
+                (typeof name === 'string' && name.trim()) ? name.trim() : null,
+                gender || null,
+                birth_date || null,
+                birth_time || null,
+                birth_place || null,
+                relationship_status || null,
+                // Единый формат с register-from-onboarding: CSV-строка, не PG-массив
+                Array.isArray(focus_area) ? focus_area.join(',') : (focus_area || null),
+                zodiac_sign || null,
                 decoded.userId
             ]
         );

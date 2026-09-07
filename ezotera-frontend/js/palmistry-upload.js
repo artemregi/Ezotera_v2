@@ -569,14 +569,14 @@
         return res.json();
     }
 
-    async function unlockAnalysis() {
+    async function unlockAnalysis(paymentToken) {
         if (!currentSessionId) throw new Error('Сессия не найдена');
 
         const res = await fetch(`${API_BASE}/unlock`, {
             method:      'POST',
             headers:     { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ sessionId: currentSessionId }),
+            body: JSON.stringify({ sessionId: currentSessionId, paymentToken: paymentToken || '' }),
         });
 
         if (!res.ok) {
@@ -660,7 +660,9 @@
     }
 
     // -----------------------------------------------------------------------
-    // Unlock handler — CloudPayments widget
+    // Unlock handler — создаёт платёж (Robokassa) и редиректит на оплату.
+    // Данные сессии сохраняются в localStorage, чтобы после возврата
+    // с оплаты автоматически разблокировать полный разбор.
     // -----------------------------------------------------------------------
     async function handleUnlock() {
         const btn = document.getElementById('palmUnlockBtn');
@@ -680,43 +682,21 @@
             });
 
             const data = await response.json();
-            if (!response.ok || !data.success) {
+            if (!response.ok || !data.success || !data.paymentUrl) {
                 throw new Error(data.message || 'Ошибка создания платежа');
             }
 
-            if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
+            // Save pending state to restore after returning from payment page
+            try {
+                const previewEl = document.getElementById('palmResultsPreview');
+                localStorage.setItem('ezo_palm_pending', JSON.stringify({
+                    sessionId: currentSessionId,
+                    orderId:   data.orderId || '',
+                    preview:   previewEl ? previewEl.textContent : '',
+                }));
+            } catch (e) { /* localStorage unavailable — unlock can be retried manually */ }
 
-            var widget = new cp.CloudPayments();
-            widget.charge({
-                publicId: data.publicId,
-                description: data.description,
-                amount: parseFloat(data.amount),
-                currency: 'RUB',
-                invoiceId: data.orderId,
-                accountId: data.email || '',
-                data: {
-                    CloudPayments: {
-                        CustomerReceipt: {
-                            Items: [{
-                                label: data.description,
-                                price: parseFloat(data.amount),
-                                quantity: 1.0,
-                                amount: parseFloat(data.amount),
-                                vat: null,
-                                method: 0,
-                                object: 4
-                            }],
-                            taxationSystem: 1,
-                            email: data.email || ''
-                        }
-                    }
-                }
-            }, function onSuccess() {
-                // Unlock content immediately after payment
-                handleUnlockAfterPayment();
-            }, function onFail(reason) {
-                alert('Платёж не прошёл: ' + (reason || 'неизвестная ошибка'));
-            });
+            window.location.href = data.paymentUrl;
         } catch (err) {
             alert('Не удалось создать платёж: ' + err.message + '\n\nПожалуйста, попробуйте ещё раз или свяжитесь с нами.');
             if (btn) { btn.disabled = false; btn.textContent = 'Разблокировать полный анализ'; }
@@ -726,12 +706,12 @@
     // -----------------------------------------------------------------------
     // Unlock после возврата с оплаты (без повторного редиректа)
     // -----------------------------------------------------------------------
-    async function handleUnlockAfterPayment() {
+    async function handleUnlockAfterPayment(paymentToken) {
         const btn = document.getElementById('palmUnlockBtn');
         if (btn) { btn.disabled = true; btn.textContent = 'Загружаем разбор…'; }
 
         try {
-            const data = await unlockAnalysis();
+            const data = await unlockAnalysis(paymentToken);
             if (data.success && data.fullText) {
                 const blurGate = document.getElementById('palmResultsBlurGate');
                 const fullEl   = document.getElementById('palmResultsFull');
@@ -788,7 +768,32 @@
 
         setupDropzone();
 
-        // CloudPayments widget handles payment inline — no redirect-based return needed
+        restorePendingUnlock();
+    }
+
+    // -----------------------------------------------------------------------
+    // После возврата с платёжной страницы: восстановить сессию и
+    // разблокировать полный разбор (сервер проверит оплату по orderId).
+    // -----------------------------------------------------------------------
+    function restorePendingUnlock() {
+        let pending = null;
+        try { pending = JSON.parse(localStorage.getItem('ezo_palm_pending') || 'null'); } catch (e) { /* ignore */ }
+        if (!pending || !pending.sessionId) return;
+
+        currentSessionId = pending.sessionId;
+
+        openModal();
+        showResults(pending.preview || '', false, null);
+
+        unlockAnalysis(pending.orderId).then(data => {
+            if (data.success && data.fullText) {
+                localStorage.removeItem('ezo_palm_pending');
+                showResults(pending.preview || '', true, data.fullText);
+            }
+        }).catch(() => {
+            // Оплата ещё не подтверждена (402) или сессия не найдена —
+            // оставляем блюр-гейт, пользователь может нажать кнопку ещё раз.
+        });
     }
 
     // -----------------------------------------------------------------------

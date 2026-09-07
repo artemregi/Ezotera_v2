@@ -1,5 +1,5 @@
 const { pool } = require('../../lib/db');
-const { requireAdmin } = require('../../lib/admin-auth');
+const { requireAdmin, getAdminUser } = require('../../lib/admin-auth');
 
 module.exports = async (req, res) => {
     // CORS
@@ -23,12 +23,8 @@ module.exports = async (req, res) => {
     // Public GET - returns active cards ordered by sort_order; admin GET returns all
     if (req.method === 'GET') {
         try {
-            // Check if request is from admin (non-blocking)
-            let isAdmin = false;
-            try {
-                const admin = await requireAdmin(req, res, true);
-                if (admin) isAdmin = true;
-            } catch (e) { /* not admin */ }
+            // Check if request is from admin (non-blocking, never writes to res)
+            const isAdmin = !!(await getAdminUser(req));
 
             let result;
             if (isAdmin) {

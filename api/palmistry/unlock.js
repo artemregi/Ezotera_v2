@@ -17,20 +17,22 @@ const { pool }           = require('../../lib/db');
 const { checkRateLimit } = require('../../lib/rateLimit');
 
 // ---------------------------------------------------------------------------
-// PAYMENT STUB — Replace this function when integrating real payment
+// Payment verification: paymentToken is the Robokassa order_id created via
+// /api/payment/create. The payment is confirmed server-side by the Robokassa
+// ResultURL callback (api/payment/result.js) which sets status = 'success'.
 // ---------------------------------------------------------------------------
 async function verifyPayment(sessionId, paymentToken) {
-    // TODO: Replace with real payment provider verification
-    // Example for Stripe:
-    //   const session = await stripe.checkout.sessions.retrieve(paymentToken);
-    //   return session.payment_status === 'paid' && session.metadata.sessionId === sessionId;
-    //
-    // Example for YooKassa:
-    //   const payment = await yookassa.getPayment(paymentToken);
-    //   return payment.status === 'succeeded';
-    //
-    // For now: stub — mark as paid immediately (demo mode)
-    return true;
+    if (!paymentToken || !/^\d+$/.test(String(paymentToken))) return false;
+    try {
+        const result = await pool.query(
+            `SELECT status FROM public.payments WHERE order_id = $1`,
+            [String(paymentToken)]
+        );
+        return result.rows.length > 0 && result.rows[0].status === 'success';
+    } catch (err) {
+        console.error('[palmistry/unlock] payment check error:', err.message);
+        return false;
+    }
 }
 // ---------------------------------------------------------------------------
 

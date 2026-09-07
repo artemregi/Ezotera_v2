@@ -278,8 +278,16 @@
             return response.json();
         })
         .then(function(result) {
-            // Success - redirect to onboarding
-            window.location.href = '../onboarding/step-1-name.html';
+            // Success — имя и email уже собраны при регистрации, не спрашивать их
+            // повторно в онбординге: сохранить и перейти сразу к шагу 2.
+            try {
+                var stored = {};
+                try { stored = JSON.parse(localStorage.getItem('ezotera_onboarding')) || {}; } catch (e) {}
+                stored.user_name = data.name;
+                stored.user_email = data.email;
+                localStorage.setItem('ezotera_onboarding', JSON.stringify(stored));
+            } catch (e) {}
+            window.location.href = '../onboarding/step-2-gender.html';
         })
         .catch(function(error) {
             console.error('Registration error:', error);

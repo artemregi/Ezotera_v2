@@ -167,6 +167,12 @@
             .then(function(result) {
                 if (result && result.user && result.user.birthDate) {
                     window.location.href = '../dashboard.html';
+                    return;
+                }
+                /* Профиль не заполнен — подставить имя из аккаунта, чтобы не вводить заново */
+                if (result && result.user && result.user.name && !nameField.value) {
+                    nameField.value = result.user.name;
+                    saveOnboardingData({ user_name: result.user.name });
                 }
             })
             .catch(function() {});
@@ -632,35 +638,37 @@
             window.location.href = 'step-10-password.html';
         });
 
-        /* Logged-in users: no password step needed —
-           finish onboarding right here via /api/onboarding/complete */
+        /* Единый обработчик кнопки «Далее».
+           Оферта принимается один раз: на регистрации или на шаге 10 —
+           здесь чекбокса нет. Для залогиненных завершает онбординг здесь
+           (без шага пароля), для остальных — ведёт на шаг 10.
+           Обработчик вешается сразу, чтобы не было гонки с асинхронным
+           checkAuth (пинг-понг 9↔10). */
+        var authUser = null;
+        var nextLink = form.querySelector('a[href="step-10-password.html"]');
+        if (nextLink) {
+            nextLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (authUser) {
+                    submitOnboardingData(getOnboardingData());
+                } else {
+                    window.location.href = 'step-10-password.html';
+                }
+            });
+        }
+
         checkAuth(function(user) {
             if (!user) {
                 return;
             }
+            authUser = user;
 
             var backLink = form.querySelector('a[href="step-8-email.html"]');
             if (backLink) {
                 backLink.setAttribute('href', 'step-7-focus-area.html');
             }
-
-            var nextLink = form.querySelector('a[href="step-10-password.html"]');
             if (nextLink) {
                 nextLink.textContent = 'Завершить';
-                nextLink.addEventListener('click', function (event) {
-                    event.preventDefault();
-
-                    var termsCheckbox = document.getElementById('termsAgreed');
-                    if (termsCheckbox && !termsCheckbox.checked) {
-                        var termsError = document.getElementById('termsAgreedError');
-                        if (termsError) {
-                            termsError.textContent = 'Необходимо принять условия использования.';
-                        }
-                        return;
-                    }
-
-                    submitOnboardingData(getOnboardingData());
-                });
             }
         });
     }
