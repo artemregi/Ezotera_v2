@@ -8,7 +8,6 @@ const { checkRateLimit } = require('../../lib/rateLimit');
 module.exports = async (req, res) => {
     console.log('📝 Register-from-onboarding handler called');
     console.log('   Method:', req.method);
-    console.log('   Body:', req.body);
 
     // CORS headers for Vercel serverless
     const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://esoterraplus.online').split(',').map(o => o.trim());
@@ -34,7 +33,7 @@ module.exports = async (req, res) => {
 
     // Rate limit: max 3 registrations per IP per 60 minutes
     const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
-    if (!await checkRateLimit('register:' + clientIp, 3, 7200)) {
+    if (!await checkRateLimit('register:' + clientIp, 3, 60)) {
         return res.status(429).json({
             success: false,
             message: 'Слишком много регистраций с этого адреса. Попробуйте позже.'
@@ -132,7 +131,7 @@ module.exports = async (req, res) => {
                 email: user.email,
                 name: user.name
             },
-            redirectUrl: '../dashboard.html'
+            redirectUrl: '../dashboard.html#analysis'
         });
 
     } catch (error) {

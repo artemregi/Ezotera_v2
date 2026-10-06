@@ -7,6 +7,18 @@
     <meta name="description" content="Создайте аккаунт Esoterra для доступа к персональным гороскопам и астрологическим прогнозам.">
     <title>Регистрация | Esoterra</title>
 
+    <!-- Регистрация одна — через анкету. Эта страница оставлена для старых ссылок
+         и сразу отправляет в анкету, сохраняя страницу возврата (?next=). -->
+    <script>
+    (function() {
+        try {
+            var next = new URLSearchParams(window.location.search).get('next');
+            if (next && /^[a-z0-9-]+\.html$/.test(next)) sessionStorage.setItem('ezo_next', next);
+        } catch (e) {}
+        window.location.replace('../onboarding/step-1-name.html');
+    })();
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

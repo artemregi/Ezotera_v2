@@ -120,8 +120,53 @@
         return emailPattern.test(email);
     }
 
+    /* Check whether email already has an account. Calls callback(true|false).
+       При ошибке сети считаем, что свободен — регистрация проверит ещё раз. */
+    function checkEmailExists(email, callback) {
+        fetch('/api/auth/check-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        })
+        .then(function(response) { return response.ok ? response.json() : null; })
+        .then(function(result) { callback(!!(result && result.exists)); })
+        .catch(function() { callback(false); });
+    }
+
+    /* Show "email taken" error with links to login / password reset */
+    function showEmailTakenError(fieldElement, errorElementId) {
+        showFieldError(fieldElement, errorElementId, '');
+        var errorElement = document.getElementById(errorElementId);
+        if (errorElement) {
+            errorElement.innerHTML = 'Этот email уже зарегистрирован. ' +
+                '<a href="../auth/login.html">Войти</a> или ' +
+                '<a href="../auth/forgot-password.html">восстановить пароль</a>';
+        }
+    }
+
+    /* True when the step was opened from the summary via «Изменить» */
+    function isEditMode() {
+        return /[?&]edit=1/.test(window.location.search);
+    }
+
+    /* Страница, с которой человека отправили регистрироваться (см. auth.js) */
+    function takeNextPage() {
+        try {
+            var next = sessionStorage.getItem('ezo_next');
+            sessionStorage.removeItem('ezo_next');
+            return next && /^[a-z0-9-]+\.html$/.test(next) ? '../' + next : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
     /* Navigate to next step */
     function navigateToStep(stepNumber) {
+        /* Пришли со сводки по ссылке «Изменить» — возвращаемся на сводку */
+        if (isEditMode()) {
+            window.location.href = 'step-9-results-preview.html';
+            return;
+        }
         if (STEP_CONFIG[stepNumber] && STEP_CONFIG[stepNumber].next) {
             console.log('Navigating to step ' + (stepNumber + 1) + ': ' + STEP_CONFIG[stepNumber].next);
             window.location.href = STEP_CONFIG[stepNumber].next;
@@ -243,6 +288,12 @@
             }
 
             saveOnboardingData({ user_gender: genderInput.value });
+            /* Дата рождения уже введена в форме на главной — не спрашивать повторно */
+            var current = getOnboardingData();
+            if (!isEditMode() && current.from_home && current.user_birth_date) {
+                window.location.href = 'step-4-birth-time.html';
+                return;
+            }
             navigateToStep(2);
         });
 
@@ -397,12 +448,9 @@
                 formData.skip_birth_time = true;
             } else if (birthTimeField) {
                 var birthTime = birthTimeField.value;
-                if (!birthTime) {
-                    showFieldError(birthTimeField, 'userBirthTimeError', 'Пожалуйста, укажите время рождения или пропустите шаг.');
-                    return;
-                }
-                formData.user_birth_time = birthTime;
-                formData.skip_birth_time = false;
+                /* Поле необязательное: пустое время = «не знаю» */
+                formData.user_birth_time = birthTime || '';
+                formData.skip_birth_time = !birthTime;
             }
 
             saveOnboardingData(formData);
@@ -446,8 +494,22 @@
                 return;
             }
 
-            saveOnboardingData({ user_birth_place: birthPlace });
-            navigateToStep(5);
+            /* Проверяем, что такое место существует — иначе натальная карта его не найдёт.
+               Если сервис поиска недоступен, пропускаем дальше без проверки. */
+            var submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) { submitBtn.disabled = true; }
+            fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=ru&q=' + encodeURIComponent(birthPlace))
+            .then(function (response) { return response.ok ? response.json() : null; })
+            .catch(function () { return null; })
+            .then(function (results) {
+                if (submitBtn) { submitBtn.disabled = false; }
+                if (results && results.length === 0) {
+                    showFieldError(birthPlaceField, 'userBirthPlaceError', 'Не нашли такое место. Укажите город и страну, например: Казань, Россия.');
+                    return;
+                }
+                saveOnboardingData({ user_birth_place: birthPlace });
+                navigateToStep(5);
+            });
         });
     }
 
@@ -542,6 +604,13 @@
 
             saveOnboardingData({ focus_areas: selectedAreas });
             console.log('Step 7: Saved ' + selectedAreas.length + ' focus areas, navigating to step 8');
+            /* Email уже введён в форме на главной — не спрашивать повторно
+               (изменить можно через «Назад» со сводки) */
+            var current = getOnboardingData();
+            if (!isEditMode() && current.from_home && current.user_email) {
+                window.location.href = 'step-9-results-preview.html';
+                return;
+            }
             navigateToStep(7);
         });
 
@@ -605,8 +674,17 @@
                 return;
             }
 
-            saveOnboardingData({ user_email: email });
-            navigateToStep(8);
+            var submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) { submitBtn.disabled = true; }
+            checkEmailExists(email, function(exists) {
+                if (submitBtn) { submitBtn.disabled = false; }
+                if (exists) {
+                    showEmailTakenError(emailField, 'userEmailError');
+                    return;
+                }
+                saveOnboardingData({ user_email: email });
+                navigateToStep(8);
+            });
         });
     }
 
@@ -670,6 +748,10 @@
             if (nextLink) {
                 nextLink.textContent = 'Завершить';
             }
+            var emailEdit = document.getElementById('summaryEmailEdit');
+            if (emailEdit) {
+                emailEdit.style.display = 'none';
+            }
         });
     }
 
@@ -688,7 +770,7 @@
             var genderMap = {
                 'male': 'Мужской',
                 'female': 'Женский',
-                'other': 'Другое'
+                'other': 'Другой'
             };
             summaryGender.textContent = genderMap[data.user_gender] || '—';
         }
@@ -702,6 +784,34 @@
         }
         if (summaryEmail) {
             summaryEmail.textContent = data.user_email || '—';
+        }
+
+        var summaryBirthTime = document.getElementById('summaryBirthTime');
+        if (summaryBirthTime) {
+            summaryBirthTime.textContent = data.user_birth_time || 'Не знаю';
+        }
+        var summaryStatus = document.getElementById('summaryStatus');
+        if (summaryStatus) {
+            var statusMap = {
+                'single': 'Не в отношениях',
+                'relationship': 'В отношениях',
+                'married': 'В браке',
+                'complicated': 'Всё сложно'
+            };
+            summaryStatus.textContent = statusMap[data.relationship_status] || '—';
+        }
+        var summaryFocus = document.getElementById('summaryFocus');
+        if (summaryFocus) {
+            var focusMap = {
+                'love': 'Любовь и отношения',
+                'career': 'Карьера и финансы',
+                'health': 'Здоровье и энергия',
+                'self-development': 'Саморазвитие',
+                'family': 'Семья и дети',
+                'spirituality': 'Духовный рост'
+            };
+            var areas = Array.isArray(data.focus_areas) ? data.focus_areas : [];
+            summaryFocus.textContent = areas.map(function (a) { return focusMap[a] || a; }).join(', ') || '—';
         }
     }
 
@@ -782,18 +892,22 @@
                 return;
             }
 
-            /* Save password to data */
-            saveOnboardingData({ user_password: password });
-
-            /* Submit complete data with registration */
-            var completeData = getOnboardingData();
-            submitOnboardingDataWithRegistration(completeData);
+            /* Пароль не сохраняем в localStorage — только отправляем на сервер */
+            var completeData = Object.assign({}, getOnboardingData(), { user_password: password });
+            var submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+            }
+            submitOnboardingDataWithRegistration(completeData, function () {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                }
+            });
         });
     }
 
     /* Submit complete onboarding data with automatic registration */
-    function submitOnboardingDataWithRegistration(data) {
-        console.log('[SUBMIT] Submitting registration data:', data);
+    function submitOnboardingDataWithRegistration(data, onError) {
         console.log('   URL: /api/auth/register-from-onboarding');
         console.log('   Method: POST');
 
@@ -829,14 +943,20 @@
         .then(function(result) {
             console.log('[OK] Registration successful!', result);
             clearOnboardingData();
-            alert('Регистрация завершена! Добро пожаловать в Ezoterra!');
-            window.location.href = result.redirectUrl || '../dashboard.html';
+            window.location.href = takeNextPage() || result.redirectUrl || '../dashboard.html';
         })
         .catch(function(error) {
             console.error('[ERR] Registration error:', error);
             console.error('   Error message:', error.message);
             console.error('   Error stack:', error.stack);
-            alert(error.message || 'Произошла ошибка при создании аккаунта. Попробуйте снова.');
+            if (onError) {
+                onError();
+            }
+            if (error.message && error.message.indexOf('уже зарегистрирован') !== -1) {
+                showEmailTakenError(null, 'userPasswordError');
+                return;
+            }
+            showFieldError(null, 'userPasswordError', error.message || 'Не удалось создать аккаунт. Попробуйте ещё раз.');
         });
     }
 
@@ -856,8 +976,7 @@
         })
         .then(function(result) {
             clearOnboardingData();
-            alert('Готово! Ваши данные сохранены.');
-            window.location.href = result.redirectUrl || '../dashboard.html';
+            window.location.href = takeNextPage() || result.redirectUrl || '../dashboard.html';
         })
         .catch(function(error) {
             console.error('Onboarding error:', error);

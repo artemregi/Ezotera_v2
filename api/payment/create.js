@@ -3,6 +3,21 @@ const { pool } = require('../../lib/db');
 const { extractTokenFromCookies, verifyToken } = require('../../lib/auth');
 const { notifyNewLead } = require('../../lib/telegram');
 
+// Цены услуг (должны совпадать с pay.html, pricing.html и palmistry-upload.js)
+const FIXED_PRICES = {
+    'Источник сил — Esoterra': 2250,
+    'Тепло близости — Esoterra': 3600,
+    'Притяжение изобилия — Esoterra': 3150,
+    'Системный перезапуск — Esoterra': 6500,
+    'Анализ личности — полный разбор': 490,
+    'Тариф Базовый — Esoterra (ежемесячно)': 490,
+    'Тариф Базовый — Esoterra (ежегодно)': 343,
+    'Тариф Премиум — Esoterra (ежемесячно)': 1290,
+    'Тариф Премиум — Esoterra (ежегодно)': 903,
+    'Тариф VIP — Esoterra (ежемесячно)': 2990,
+    'Тариф VIP — Esoterra (ежегодно)': 2093,
+};
+
 module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') return res.status(200).end();
     if (req.method !== 'POST') {
@@ -11,12 +26,38 @@ module.exports = async (req, res) => {
 
     try {
         const { amount, description, isTest, customerName, customerEmail: bodyEmail, productId, referralCode } = req.body;
+        const customerPhone = String(req.body.customerPhone || '').trim().slice(0, 32) || null;
+        const deliveryAddress = String(req.body.deliveryAddress || '').trim().slice(0, 500) || null;
 
         if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
             return res.status(400).json({ success: false, message: 'Некорректная сумма' });
         }
         if (!description || typeof description !== 'string') {
             return res.status(400).json({ success: false, message: 'Описание обязательно' });
+        }
+
+        // Цену определяет сервер: сумма из браузера может быть подменена.
+        // Товары — из таблицы products, услуги — из списка FIXED_PRICES.
+        let serverAmount;
+        if (productId) {
+            const productResult = await pool.query(
+                'SELECT price FROM public.products WHERE id = $1 AND in_stock = true',
+                [parseInt(productId, 10) || 0]
+            );
+            if (!productResult.rows.length) {
+                return res.status(400).json({ success: false, message: 'Товар не найден или закончился' });
+            }
+            serverAmount = parseFloat(productResult.rows[0].price);
+            // Физический товар нельзя отправить без телефона и адреса
+            if (!customerPhone || !deliveryAddress) {
+                return res.status(400).json({ success: false, message: 'Укажите телефон и адрес доставки' });
+            }
+        } else if (Object.prototype.hasOwnProperty.call(FIXED_PRICES, description)) {
+            serverAmount = FIXED_PRICES[description];
+        }
+        if (!serverAmount || serverAmount <= 0) {
+            console.warn('[Payment] Rejected unknown service/amount:', description, amount);
+            return res.status(400).json({ success: false, message: 'Услуга не найдена. Обновите страницу и попробуйте снова.' });
         }
 
         const login = process.env.ROBOKASSA_LOGIN;
@@ -32,7 +73,7 @@ module.exports = async (req, res) => {
         }
 
         const invId = Date.now() % 2147483647; // Robokassa InvId — целое число
-        const outSum = parseFloat(amount).toFixed(2);
+        const outSum = serverAmount.toFixed(2);
 
         // 54-ФЗ: формируем Receipt для фискализации
         const { paymentObject } = req.body;
@@ -91,16 +132,30 @@ module.exports = async (req, res) => {
 
         // Save pending order to DB
         const email = bodyEmail || userEmail;
+        const baseValues = [userId, email, String(invId), parseFloat(outSum), description, customerName || null, productId || null, referralCode || null];
         try {
             await pool.query(
                 `INSERT INTO public.payments
-                    (user_id, user_email, order_id, amount, currency, status, description, customer_name, product_id, referral_code)
-                 VALUES ($1, $2, $3, $4, 'RUB', 'pending', $5, $6, $7, $8)
+                    (user_id, user_email, order_id, amount, currency, status, description, customer_name, product_id, referral_code, customer_phone, delivery_address)
+                 VALUES ($1, $2, $3, $4, 'RUB', 'pending', $5, $6, $7, $8, $9, $10)
                  ON CONFLICT DO NOTHING`,
-                [userId, email, String(invId), parseFloat(outSum), description, customerName || null, productId || null, referralCode || null]
+                baseValues.concat([customerPhone, deliveryAddress])
             );
         } catch (dbErr) {
             console.error('Failed to save pending payment:', dbErr.message);
+            // Миграция 012 ещё не применена — сохраняем заказ без телефона и адреса
+            // (они в любом случае уходят менеджерам в Telegram)
+            try {
+                await pool.query(
+                    `INSERT INTO public.payments
+                        (user_id, user_email, order_id, amount, currency, status, description, customer_name, product_id, referral_code)
+                     VALUES ($1, $2, $3, $4, 'RUB', 'pending', $5, $6, $7, $8)
+                     ON CONFLICT DO NOTHING`,
+                    baseValues
+                );
+            } catch (dbErr2) {
+                console.error('Failed to save pending payment (fallback):', dbErr2.message);
+            }
         }
 
         // Send Telegram notification about new lead
@@ -110,6 +165,8 @@ module.exports = async (req, res) => {
                 amount: outSum,
                 customerName: customerName || null,
                 customerEmail: email,
+                customerPhone: customerPhone,
+                deliveryAddress: deliveryAddress,
                 orderId: String(invId)
             });
         } catch (tgErr) {

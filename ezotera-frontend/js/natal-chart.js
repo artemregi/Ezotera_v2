@@ -732,6 +732,8 @@
             if (!cityInput.contains(e.target)) autocomplete.innerHTML = '';
         });
 
+        const calcBtnOriginalHtml = document.getElementById('calcBtn').innerHTML;
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -742,8 +744,17 @@
             const lonVal  = document.getElementById('birthLon').value;
             const nameVal = document.getElementById('birthName').value.trim() || 'Натальная карта';
 
-            if (!dateVal) { alert('Введите дату рождения'); return; }
-            if (!cityVal) { alert('Введите место рождения'); return; }
+            const errEl = document.getElementById('natalFormError');
+            const showFormError = (message) => {
+                if (!errEl) { if (message) alert(message); return; }
+                errEl.textContent = message;
+                errEl.style.display = message ? 'block' : 'none';
+            };
+            const calcBtnHtml = calcBtnOriginalHtml;
+            showFormError('');
+
+            if (!dateVal) { showFormError('Укажите дату рождения.'); return; }
+            if (!cityVal) { showFormError('Укажите место рождения.'); return; }
 
             let lat = parseFloat(latVal);
             let lon = parseFloat(lonVal);
@@ -756,9 +767,9 @@
                 try {
                     const results = await geocodeCity(cityVal);
                     if (!results.length) {
-                        alert('Город не найден. Попробуйте уточнить название.');
+                        showFormError('Не нашли такой город. Начните вводить название и выберите вариант из списка.');
                         btn.disabled = false;
-                        btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
+                        btn.innerHTML = calcBtnHtml;
                         return;
                     }
                     lat = parseFloat(results[0].lat);
@@ -766,13 +777,13 @@
                     document.getElementById('birthLat').value = lat;
                     document.getElementById('birthLon').value = lon;
                 } catch (err) {
-                    alert('Ошибка геокодирования. Проверьте интернет-соединение.');
+                    showFormError('Не удалось найти город — проверьте интернет и попробуйте ещё раз.');
                     btn.disabled = false;
-                    btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
+                    btn.innerHTML = calcBtnHtml;
                     return;
                 }
                 btn.disabled = false;
-                btn.innerHTML = '<span class="natal-form__submit-icon">*</span> Рассчитать карту';
+                btn.innerHTML = calcBtnHtml;
             }
 
             showSection('natalLoading');
@@ -803,8 +814,11 @@
                     const dateStr = new Date(year, month - 1, day).toLocaleDateString('ru-RU', {
                         day: 'numeric', month: 'long', year: 'numeric'
                     });
+                    const timeUnknown = window.__natalTimeUnknown === true;
                     document.getElementById('resultMeta').textContent =
-                        `${dateStr}, ${timeVal} · ${cityVal}`;
+                        `${dateStr}, ${timeUnknown ? 'время неизвестно' : timeVal} · ${cityVal}`;
+                    const timeNote = document.getElementById('resultTimeNote');
+                    if (timeNote) timeNote.style.display = timeUnknown ? '' : 'none';
 
                     // Render SVG
                     const svg = document.getElementById('natalSvg');

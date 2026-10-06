@@ -1,6 +1,6 @@
 const { pool } = require('../../lib/db');
 const { hashPassword } = require('../../lib/password');
-const { validateEmail, validatePasswordStrength } = require('../../lib/validation');
+const { validateEmail, validatePassword } = require('../../lib/validation');
 const { checkRateLimit } = require('../../lib/rateLimit');
 const { compareOTP, isOTPExpired } = require('../../lib/otp');
 
@@ -61,7 +61,7 @@ module.exports = async (req, res) => {
         }
 
         // Validate new password strength
-        const passwordValidation = validatePasswordStrength(new_password);
+        const passwordValidation = validatePassword(new_password);
         if (!passwordValidation.valid) {
             return res.status(400).json({
                 success: false,

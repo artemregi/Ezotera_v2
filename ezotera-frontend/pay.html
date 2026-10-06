@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#152b35">
-    <meta name="description" content="Персональные информационно-консультационные сессии Esoterra — анализ личности, ментальный коучинг, психологическая поддержка. Безопасная оплата через CloudPayments.">
+    <meta name="description" content="Персональные информационно-консультационные сессии Esoterra — анализ личности, ментальный коучинг, психологическая поддержка. Безопасная оплата через Robokassa.">
     <title>Консультации — Esoterra</title>
 
     <!-- Fonts -->
@@ -21,8 +21,6 @@
 
     <!-- Header Loader -->
     <script src="js/header-loader.js"></script>
-    <!-- CloudPayments Widget -->
-    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 </head>
 <body>
 
@@ -45,7 +43,7 @@
                             <path d="M8 1L2 4v4c0 3.3 2.5 6.4 6 7 3.5-.6 6-3.7 6-7V4L8 1z" stroke="currentColor" stroke-width="1.5"/>
                             <path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        Безопасная оплата через CloudPayments · SSL-шифрование
+                        Безопасная оплата через Robokassa · SSL-шифрование
                     </p>
                 </div>
 
@@ -71,22 +69,6 @@
         </section>
 
 
-        <!-- ===== CONSENT ===== -->
-        <section class="section" style="padding-top:0;padding-bottom:0;">
-            <div class="container">
-                <div style="background:#f7f8fa;border:1px solid #e0e4ea;border-radius:8px;padding:16px 20px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;">
-                    <input type="checkbox" id="payConsent" name="pay_consent" required style="margin-top:3px;flex-shrink:0;cursor:pointer;">
-                    <label for="payConsent" style="font-size:0.9rem;color:#555;line-height:1.6;cursor:pointer;">
-                        Нажимая «Оплатить», я принимаю условия
-                        <a href="legal/oferta.html">Публичной оферты</a>,
-                        соглашаюсь с <a href="legal/privacy.html">Политикой конфиденциальности</a>
-                        и даю согласие на обработку персональных данных.
-                        Я понимаю, что все услуги носят <a href="legal/disclaimer.html">информационный характер</a>.
-                    </label>
-                </div>
-            </div>
-        </section>
-
         <!-- ===== SERVICES ===== -->
         <section class="pay-services section" id="services">
             <div class="container">
@@ -109,9 +91,12 @@
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">2 250 ₽</span>
-                            <button class="button button--primary"
-                                    data-pay-amount="2250"
-                                    data-pay-desc="Источник сил — Esoterra">Оплатить</button>
+                            <span class="pay-service-card__actions">
+                                <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--primary" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
+                                <button class="button button--secondary"
+                                        data-pay-amount="2250"
+                                        data-pay-desc="Источник сил — Esoterra">Оплатить онлайн</button>
+                            </span>
                         </div>
                     </article>
 
@@ -127,9 +112,12 @@
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">3 600 ₽</span>
-                            <button class="button button--primary"
-                                    data-pay-amount="3600"
-                                    data-pay-desc="Тепло близости — Esoterra">Оплатить</button>
+                            <span class="pay-service-card__actions">
+                                <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--primary" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
+                                <button class="button button--secondary"
+                                        data-pay-amount="3600"
+                                        data-pay-desc="Тепло близости — Esoterra">Оплатить онлайн</button>
+                            </span>
                         </div>
                     </article>
 
@@ -145,9 +133,12 @@
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">3 150 ₽</span>
-                            <button class="button button--primary"
-                                    data-pay-amount="3150"
-                                    data-pay-desc="Притяжение изобилия — Esoterra">Оплатить</button>
+                            <span class="pay-service-card__actions">
+                                <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--primary" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
+                                <button class="button button--secondary"
+                                        data-pay-amount="3150"
+                                        data-pay-desc="Притяжение изобилия — Esoterra">Оплатить онлайн</button>
+                            </span>
                         </div>
                     </article>
 
@@ -180,9 +171,12 @@
                         </div>
                         <div class="pay-service-card__footer">
                             <span class="pay-service-card__price">6 500 ₽</span>
-                            <button class="button button--primary"
-                                    data-pay-amount="6500"
-                                    data-pay-desc="Системный перезапуск — Esoterra">Оплатить</button>
+                            <span class="pay-service-card__actions">
+                                <a href="https://t.me/m/ZW1MW_RSYTQy" class="button button--primary" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
+                                <button class="button button--secondary"
+                                        data-pay-amount="6500"
+                                        data-pay-desc="Системный перезапуск — Esoterra">Оплатить онлайн</button>
+                            </span>
                         </div>
                     </article>
 
@@ -307,7 +301,7 @@
                             <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
                         </button>
                         <div class="faq__answer">
-                            <p>Напишите нам на <a href="mailto:main@esoterraplus.ru">main@esoterraplus.ru</a> или в Telegram. Оплата принимается через CloudPayments (Visa, Mastercard, МИР, SBP).</p>
+                            <p>Напишите нам на <a href="mailto:main@esoterraplus.ru">main@esoterraplus.ru</a> или в Telegram. Оплата принимается через Robokassa (Visa, Mastercard, МИР, SBP).</p>
                         </div>
                     </div>
 
@@ -362,11 +356,64 @@
 
     </main>
 
+    <!-- ===== ORDER MODAL ===== -->
+    <style>
+        .pay-modal-bg { display:none; position:fixed; inset:0; background:rgba(13,27,34,0.7); z-index:1000; justify-content:center; align-items:center; padding:16px; }
+        .pay-modal-bg--active { display:flex; }
+        .pay-modal { background:#fff; border-radius:16px; padding:32px; width:100%; max-width:440px; max-height:100%; overflow-y:auto; }
+        .pay-modal__title { font-family:var(--font-heading); font-size:1.5rem; color:#152b35; margin-bottom:6px; }
+        .pay-modal__product { font-size:0.95rem; color:#555; margin-bottom:24px; }
+        .pay-modal__field { margin-bottom:16px; }
+        .pay-modal__field label { display:block; font-size:0.85rem; color:#555; margin-bottom:6px; }
+        .pay-modal__field input { width:100%; border:1px solid #cfd6de; border-radius:10px; padding:12px 14px; font-size:1rem; font-family:inherit; color:#152b35; background:#fff; }
+        .pay-modal__field input:focus { outline:2px solid #152b35; outline-offset:1px; }
+        .pay-modal__consent { display:flex; align-items:flex-start; gap:10px; font-size:0.85rem; color:#555; line-height:1.55; }
+        .pay-modal__consent input { margin-top:3px; flex-shrink:0; cursor:pointer; }
+        .pay-modal__consent label { cursor:pointer; }
+        .pay-modal__consent a { color:#152b35; text-decoration:underline; }
+        .pay-modal__error { display:none; margin-top:14px; font-size:0.9rem; color:#c0392b; }
+        .pay-modal__actions { display:flex; gap:12px; margin-top:24px; }
+        .pay-modal__cancel { flex:1; padding:12px; background:#fff; border:1px solid #cfd6de; border-radius:10px; color:#555; font-family:inherit; font-size:1rem; cursor:pointer; }
+        .pay-modal__actions .button { flex:2; }
+        @media (max-width: 480px) { .pay-modal { padding:24px 20px; } .pay-modal__actions { flex-direction:column-reverse; } }
+    </style>
+    <div class="pay-modal-bg" id="payOrderModal" role="dialog" aria-modal="true" aria-labelledby="payOrdTitle">
+        <div class="pay-modal">
+            <h2 class="pay-modal__title" id="payOrdTitle">Оформление заказа</h2>
+            <p class="pay-modal__product" id="payOrdProduct"></p>
+            <form id="payOrderForm" novalidate>
+                <div class="pay-modal__field">
+                    <label for="payOrdName">Ваше имя</label>
+                    <input type="text" id="payOrdName" autocomplete="name" placeholder="Как к Вам обращаться?">
+                </div>
+                <div class="pay-modal__field">
+                    <label for="payOrdEmail">Email — на него придёт чек, по нему с Вами свяжется консультант</label>
+                    <input type="email" id="payOrdEmail" autocomplete="email" placeholder="your@email.com">
+                </div>
+                <div class="pay-modal__consent">
+                    <input type="checkbox" id="payOrdConsent">
+                    <label for="payOrdConsent">
+                        Я принимаю условия
+                        <a href="legal/oferta.html" target="_blank">Публичной оферты</a>,
+                        соглашаюсь с <a href="legal/privacy.html" target="_blank">Политикой конфиденциальности</a>
+                        и даю согласие на обработку персональных данных.
+                        Я понимаю, что все услуги носят <a href="legal/disclaimer.html" target="_blank">информационный характер</a>.
+                    </label>
+                </div>
+                <p class="pay-modal__error" id="payOrdError" role="alert"></p>
+                <div class="pay-modal__actions">
+                    <button type="button" class="pay-modal__cancel" id="payOrdCancel">Отмена</button>
+                    <button type="submit" class="button button--primary" id="payOrdSubmit">Перейти к оплате</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>(function(){var p=new URLSearchParams(window.location.search);var r=p.get('ref');if(r){document.cookie='ezo_ref='+encodeURIComponent(r)+';path=/;max-age=2592000';}})();</script>
     <script src="js/navigation.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/cloudpayments.js"></script>
+    <script src="js/pay-order.js"></script>
 
     <script src="js/cookie-consent.js"></script>
 </body>

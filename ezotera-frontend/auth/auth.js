@@ -46,6 +46,27 @@
     }
 
 
+    /* Страница, с которой человека отправили входить/регистрироваться (?next=natal.html).
+       Запоминаем, чтобы вернуть его туда же. Разрешены только свои страницы. */
+    function rememberNextPage() {
+        try {
+            var next = new URLSearchParams(window.location.search).get('next');
+            if (next && /^[a-z0-9-]+\.html$/.test(next)) {
+                sessionStorage.setItem('ezo_next', next);
+            }
+        } catch (e) {}
+    }
+
+    function takeNextPage() {
+        try {
+            var next = sessionStorage.getItem('ezo_next');
+            sessionStorage.removeItem('ezo_next');
+            return next && /^[a-z0-9-]+\.html$/.test(next) ? next : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
     /* =============================================
        LOGIN PAGE
        ============================================= */
@@ -129,8 +150,9 @@
             return response.json();
         })
         .then(function(result) {
-            // Success - redirect to next page
-            window.location.href = result.redirectUrl || '../index.html';
+            // Success - вернуть туда, откуда пришёл, иначе в кабинет
+            var next = takeNextPage();
+            window.location.href = next ? '../' + next : (result.redirectUrl || '../index.html');
         })
         .catch(function(error) {
             console.error('Login error:', error);
@@ -323,6 +345,21 @@
        INITIALIZATION
        ============================================= */
     function initializeAuth() {
+        rememberNextPage();
+
+        /* Уже вошедшему пользователю форма входа не нужна */
+        if (document.getElementById('loginForm')) {
+            fetch('/api/auth/verify', { method: 'GET', credentials: 'include' })
+            .then(function(response) { return response.ok ? response.json() : null; })
+            .then(function(result) {
+                if (result && result.authenticated) {
+                    var next = takeNextPage();
+                    window.location.href = next ? '../' + next : '../dashboard.html';
+                }
+            })
+            .catch(function() {});
+        }
+
         initializeLogin();
         initializeRegister();
     }

@@ -575,3 +575,17 @@
         text-align: center;
     }
 }
+
+/* Две кнопки в карточке услуги: запись в Telegram (основная) и оплата онлайн */
+.pay-service-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.pay-service-card__actions .button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}

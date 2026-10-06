@@ -53,7 +53,8 @@
             uppercase: /[A-Z]/.test(password),
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
-            isValid: password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password)
+            /* Обязательное требование одно — как при регистрации; остальное влияет только на шкалу */
+            isValid: password.length >= 8
         };
     }
 
@@ -313,17 +314,7 @@
             } else {
                 var strength = validatePasswordStrength(passwordField.value);
                 if (!strength.isValid) {
-                    var errors = [];
-                    if (!strength.length) errors.push('минимум 8 символов');
-                    if (!strength.uppercase) errors.push('заглавная буква');
-                    if (!strength.lowercase) errors.push('строчная буква');
-                    if (!strength.number) errors.push('цифра');
-
-                    showFieldError(
-                        passwordField,
-                        'newPasswordError',
-                        'Пароль должен содержать: ' + errors.join(', ')
-                    );
+                    showFieldError(passwordField, 'newPasswordError', 'Пароль должен содержать минимум 8 символов.');
                     isValid = false;
                 }
             }

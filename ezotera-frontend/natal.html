@@ -111,10 +111,10 @@
             <p style="color:rgba(255,255,255,0.55); margin-bottom:32px; line-height:1.7; font-size:0.95rem;">
                 Зарегистрируйтесь, чтобы рассчитать натальную карту, получить персональную интерпретацию и 3 дня бесплатного доступа ко всем функциям Esoterra.
             </p>
-            <a href="auth/register.html" style="display:inline-block; padding:16px 48px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1.05rem; font-family:inherit; font-weight:600; text-decoration:none; transition:opacity 0.2s;">
+            <a href="auth/register.html?next=natal.html" style="display:inline-block; padding:16px 48px; background:linear-gradient(135deg,#6c5ce7,#a29bfe); color:#fff; border-radius:12px; font-size:1.05rem; font-family:inherit; font-weight:600; text-decoration:none; transition:opacity 0.2s;">
                 Зарегистрироваться бесплатно
             </a>
-            <p style="margin-top:16px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
+            <p style="margin-top:16px; font-size:0.82rem; color:rgba(255,255,255,0.35);">Уже есть аккаунт? <a href="auth/login.html?next=natal.html" style="color:#a29bfe; text-decoration:none;">Войти</a></p>
         </div>
     </section>
 
@@ -179,6 +179,8 @@
                     <input type="hidden" id="birthLat">
                     <input type="hidden" id="birthLon">
 
+                    <p id="natalFormError" role="alert" style="display:none; margin:12px 0 0; font-size:0.9rem; color:#e17055;"></p>
+
                     <div class="natal-form__footer">
                         <button type="submit" class="natal-form__submit" id="calcBtn">
                             <span class="natal-form__submit-icon"><span class="icon icon--sparkles" aria-hidden="true"></span></span>
@@ -214,6 +216,7 @@
                 <div>
                     <h2 class="natal-result__name" id="resultName">Натальная карта</h2>
                     <p class="natal-result__meta" id="resultMeta"></p>
+                    <p class="natal-result__meta" id="resultTimeNote" style="display:none; margin-top:6px;">Время рождения не указано — расчёт сделан на 12:00. Асцендент, дома и углы карты зависят от точного времени и могут отличаться.</p>
                 </div>
                 <button class="natal-result__new-btn" id="newChartBtn">← Новая карта</button>
             </div>
@@ -332,6 +335,12 @@
             document.getElementById('natalForm').style.display = 'none';
         });
 
+    // Пока человек сам не указал время (в профиле или в поле) — считаем его неизвестным
+    window.__natalTimeUnknown = true;
+    document.getElementById('birthTime').addEventListener('input', function() {
+        window.__natalTimeUnknown = false;
+    });
+
     // Prefill form with data the user already gave during onboarding
     function prefillFromProfile() {
         fetch('/api/user/profile', { credentials: 'include' })
@@ -361,7 +370,7 @@
                 if (u.birthTime) {
                     var timeEl = document.getElementById('birthTime');
                     var t = String(u.birthTime).match(/(\d{2}:\d{2})/);
-                    if (timeEl && t) timeEl.value = t[1];
+                    if (timeEl && t) { timeEl.value = t[1]; window.__natalTimeUnknown = false; }
                 }
 
                 if (u.birthPlace) {

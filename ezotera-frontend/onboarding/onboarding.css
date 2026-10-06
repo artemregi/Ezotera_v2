@@ -613,3 +613,28 @@
         visibility: visible !important;
     }
 }
+
+.onboarding__summary-edit {
+    display: block;
+    width: fit-content;
+    margin-top: 2px;
+    font-size: 0.85rem;
+    color: inherit;
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+.onboarding__summary-edit:hover {
+    opacity: 1;
+}
+
+/* Контент не должен заезжать под фиксированную шапку сайта */
+.onboarding__main {
+    padding-top: calc(var(--header-height) + var(--spacing-xl));
+}
+
+@media (max-width: 768px) {
+    .onboarding__main {
+        padding-top: calc(var(--header-height) + var(--spacing-lg));
+    }
+}

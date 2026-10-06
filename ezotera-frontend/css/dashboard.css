@@ -834,3 +834,123 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* На узких экранах карточка кабинета не должна заезжать под фиксированную шапку */
+@media (max-width: 768px) {
+    .dashboard {
+        padding-top: calc(var(--header-height) + var(--spacing-md));
+    }
+}
+
+/* ============================================================
+   SETTINGS TAB
+   ============================================================ */
+.settings-form {
+    max-width: 520px;
+}
+
+.settings-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.settings-form__field {
+    margin-bottom: 16px;
+}
+
+.settings-form__field label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-bottom: 6px;
+}
+
+.settings-form__field input,
+.settings-form__field select {
+    width: 100%;
+    border: 1px solid #cfd6de;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--color-primary);
+    background: #fff;
+}
+
+.settings-form__field input:focus,
+.settings-form__field select:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.settings-form__field input:disabled {
+    background: #f1f3f6;
+    color: var(--color-text-light);
+}
+
+.settings-form__hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.settings-form__hint a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.settings-form__check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.settings-form__message {
+    display: none;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+}
+
+.settings-form__message--error {
+    display: block;
+    color: #c0392b;
+}
+
+.settings-form__message--ok {
+    display: block;
+    color: #1e8449;
+}
+
+.settings-form__submit {
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.settings-form__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .settings-form__row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .settings-form__submit {
+        width: 100%;
+    }
+}

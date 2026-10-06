@@ -38,9 +38,9 @@
         .shop-card__out { color:rgba(255,255,255,0.4); font-size:0.85rem; }
 
         /* Order modal */
-        .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:100; justify-content:center; align-items:center; }
+        .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; padding:16px; justify-content:center; align-items:center; }
         .modal-bg.active { display:flex; }
-        .modal { background:#10101e; border:1px solid rgba(108,92,231,0.3); border-radius:20px; padding:36px; width:100%; max-width:440px; }
+        .modal { background:#10101e; border:1px solid rgba(108,92,231,0.3); border-radius:20px; padding:28px; width:100%; max-width:440px; max-height:calc(100vh - 32px); overflow-y:auto; }
         .modal__title { font-family:var(--font-heading); font-size:1.3rem; color:var(--color-white); margin-bottom:8px; }
         .modal__product { font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:24px; }
         .modal__field { margin-bottom:16px; }
@@ -66,7 +66,7 @@
         <section class="shop-hero">
             <div class="container">
                 <h1 class="shop-hero__title">Энергетические браслеты</h1>
-                <p class="shop-hero__sub">Натуральные камни, подобранные по вашему знаку зодиака. Усильте свою энергию и гармонию.</p>
+                <p class="shop-hero__sub">Натуральные камни, подобранные по Вашему знаку зодиака. Усильте свою энергию и гармонию.</p>
             </div>
         </section>
 
@@ -94,6 +94,15 @@
                     <label>Email *</label>
                     <input type="email" id="ordEmail" required placeholder="your@email.com">
                 </div>
+                <div class="modal__field">
+                    <label for="ordPhone">Телефон *</label>
+                    <input type="tel" id="ordPhone" required autocomplete="tel" placeholder="+7 900 000-00-00">
+                </div>
+                <div class="modal__field">
+                    <label for="ordAddress">Адрес доставки *</label>
+                    <input type="text" id="ordAddress" required autocomplete="street-address" placeholder="Индекс, город, улица, дом, квартира">
+                </div>
+                <p id="ordError" role="alert" style="display:none; font-size:0.88rem; color:#ff7675; margin-bottom:4px;"></p>
                 <div class="consent-box">
                     <input type="checkbox" id="ordConsent" required>
                     <label for="ordConsent">
@@ -123,6 +132,25 @@
     (function() {
         var params = new URLSearchParams(window.location.search);
         var status = params.get('payment');
+        // Оплата консультации (pay.html) — у неё своя страница результата
+        if (status) {
+            try {
+                var lastPurchase = JSON.parse(localStorage.getItem('ezo_last_purchase'));
+                if (lastPurchase && lastPurchase.type === 'consultation') {
+                    localStorage.removeItem('ezo_last_purchase');
+                    if (status === 'success') {
+                        window.location.replace('payment-success.html?' + new URLSearchParams({
+                            invoiceId: lastPurchase.orderId || '', Amount: lastPurchase.amount || ''
+                        }).toString());
+                    } else {
+                        window.location.replace('payment-fail.html?' + new URLSearchParams({
+                            invoiceId: lastPurchase.orderId || ''
+                        }).toString());
+                    }
+                    return;
+                }
+            } catch (e) {}
+        }
         if (status === 'success') {
             // Restore purchase info saved before redirect
             var purchaseInfo = null;
@@ -153,6 +181,17 @@
 
     var products = [];
     var selectedProduct = null;
+
+    // Вошедшему пользователю подставляем имя и email из аккаунта
+    fetch('/api/user/profile', { credentials: 'include' })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(result) {
+            if (!result || !result.user) return;
+            var n = document.getElementById('ordName'), e = document.getElementById('ordEmail');
+            if (result.user.name && !n.value) n.value = result.user.name;
+            if (result.user.email && !e.value) e.value = result.user.email;
+        })
+        .catch(function() {});
 
     // Load products from API
     fetch('/api/admin/products', { credentials: 'include' })
@@ -219,8 +258,18 @@
         var email = document.getElementById('ordEmail').value.trim();
         var consent = document.getElementById('ordConsent').checked;
 
-        if (!name || !email) { alert('Заполните все поля'); return; }
-        if (!consent) { alert('Необходимо принять условия'); return; }
+        var phone = document.getElementById('ordPhone').value.trim();
+        var address = document.getElementById('ordAddress').value.trim();
+        var errEl = document.getElementById('ordError');
+        function showOrderError(message) {
+            errEl.textContent = message;
+            errEl.style.display = message ? 'block' : 'none';
+        }
+        showOrderError('');
+        if (!name || !email) { showOrderError('Укажите имя и email.'); return; }
+        if (phone.replace(/\D/g, '').length < 10) { showOrderError('Укажите телефон — по нему с Вами свяжутся насчёт доставки.'); return; }
+        if (address.length < 10) { showOrderError('Укажите полный адрес доставки: индекс, город, улица, дом, квартира.'); return; }
+        if (!consent) { showOrderError('Чтобы перейти к оплате, отметьте согласие с условиями.'); return; }
 
         var btn = document.getElementById('payBtn');
         btn.disabled = true;
@@ -238,6 +287,8 @@
                 description: document.getElementById('ordDesc').value,
                 customerName: name,
                 customerEmail: email,
+                customerPhone: phone,
+                deliveryAddress: address,
                 productId: document.getElementById('ordProductId').value,
                 referralCode: decodeURIComponent(refCode),
                 isTest: false
@@ -259,13 +310,13 @@
                 } catch(e) {}
                 window.location.href = data.paymentUrl;
             } else {
-                alert(data.message || 'Ошибка создания заказа');
+                showOrderError(data.message || 'Не удалось создать заказ. Попробуйте ещё раз.');
             }
         })
         .catch(function() {
             btn.disabled = false;
             btn.textContent = 'Оплатить';
-            alert('Ошибка сервера. Попробуйте снова.');
+            showOrderError('Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.');
         });
     });
     </script>

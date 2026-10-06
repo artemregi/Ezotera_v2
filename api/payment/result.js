@@ -88,6 +88,8 @@ module.exports = async (req, res) => {
                 productName: orderInfo ? orderInfo.description : 'Товар',
                 customerName: orderInfo ? orderInfo.customer_name : null,
                 customerEmail: orderInfo ? orderInfo.user_email : null,
+                customerPhone: orderInfo ? orderInfo.customer_phone : null,
+                deliveryAddress: orderInfo ? orderInfo.delivery_address : null,
                 referralCode: orderInfo ? orderInfo.referral_code : null
             });
         } catch (tgErr) {
